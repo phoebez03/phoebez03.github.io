@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Phoebe Zhang</title>
+  <meta name="description" content="Learn about Baoyue (Phoebe) Zhang's path from psychology to product design, her education at CMU HCII and the University of Melbourne, and her skills." />
+  <meta property="og:title" content="About — Baoyue (Phoebe) Zhang" />
+  <meta property="og:description" content="Psychologist by training. Product designer by obsession." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />  <link rel="stylesheet" href="./styles.css?v=5" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="./index.html" class="nav-logo">PZ</a>
+      <div class="nav-links">
+        <a href="./index.html" class="nav-link">Home</a>
+        <a href="./projects.html" class="nav-link">Projects</a>
+        <a href="./about.html" class="nav-link active">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="section about-hero" style="padding-top: 160px; padding-bottom: 64px;">
+      <div class="container about-intro">
+        <div class="about-intro-text reveal">
+          <span class="label">ABOUT</span>
+          <h1 class="page-header-heading">Hi, I'm <em>Baoyue (Phoebe)</em>.</h1>
+          <p class="page-header-text">Product designer and researcher — currently at CMU's Human-Computer Interaction Institute.</p>
+          <p>I care about the <em>why</em> behind every design decision. My background in <strong>psychology</strong>, <strong>education</strong>, and <strong>HCI</strong> means I don't just design interfaces — I think about the human behavior underneath them.</p>
+        </div>
+        <div class="photo-booth" aria-hidden="true">
+          <div class="photo-frame photo-frame-back">
+            <img src="./images/About/Phoebe%20photo/maple%202.JPG" alt="" class="photo-frame-img" />
+          </div>
+          <div class="photo-frame photo-frame-front">
+            <img src="./images/About/Phoebe%20photo/cmu%20photo.JPG" alt="" class="photo-frame-img" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section journey-section">
+      <div class="container">
+        <div class="reveal">
+          <span class="label">MY DESIGN JOURNEY</span>
+          <h2 class="section-heading">From paint to product</h2>
+        </div>
+      </div>
+
+      <!-- Text card + stage tabs live in .container; the filmstrip below
+           runs full-bleed edge-to-edge as one continuous, never-ending
+           carousel spanning every stage of the journey at once — the
+           narrative is one uninterrupted flow, not three separate slides. -->
+      <div class="journey-carousel reveal" data-journey>
+        <div class="container">
+          <div class="journey-text-card">
+            <div class="journey-stages" role="tablist" aria-label="Design journey stages">
+              <button class="journey-stage-dot is-active" type="button" role="tab" aria-selected="true" data-stage-btn="0">01 · Painter</button>
+              <button class="journey-stage-dot" type="button" role="tab" aria-selected="false" data-stage-btn="1">02 · Psychologist</button>
+              <button class="journey-stage-dot" type="button" role="tab" aria-selected="false" data-stage-btn="2">03 · Product Designer</button>
+            </div>
+
+            <div class="journey-stage-content">
+              <p class="journey-text is-active" data-stage-panel="0">I started as a <em>painter</em>. Long before I knew what UX was, I was drawing constantly — trying to capture how things <em>felt</em>, not just how they looked. That instinct never left me.</p>
+              <p class="journey-text" data-stage-panel="1">It led me to study <strong>Psychology</strong> at the University of Melbourne, where I spent years understanding how people think, feel, and decide. Teaching English to high schoolers on the side taught me something design school never could: that <em>clarity is an act of empathy</em>. If your audience doesn't get it, the problem is yours to fix.</p>
+              <p class="journey-text" data-stage-panel="2">Coming to <strong>CMU</strong> in the middle of an AI explosion made everything click. I'm not just here to make interfaces — I'm here to figure out how intelligent systems and human behavior can meet somewhere that actually makes sense.</p>
+            </div>
+
+            <div class="journey-nav">
+              <button class="journey-nav-btn" type="button" data-journey-prev aria-label="Previous stage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <span class="journey-nav-count"><span data-stage-current>01</span> / 03</span>
+              <button class="journey-nav-btn" type="button" data-journey-next aria-label="Next stage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="journey-marquee">
+          <div class="journey-marquee-track" data-marquee-track>
+            <div class="journey-marquee-item" data-stage="0"><img src="./images/About/Paintings/brushes.jpg" alt="Brushes" /></div>
+            <div class="journey-marquee-item" data-stage="0"><img src="./images/About/Paintings/sunset%201.jpg" alt="Sunset study" /></div>
+            <div class="journey-marquee-item" data-stage="0"><img src="./images/About/Paintings/sunset%202.jpg" alt="Sunset study" /></div>
+            <div class="journey-marquee-item" data-stage="0"><img src="./images/About/Paintings/waterlilies.jpg" alt="Waterlilies study" /></div>
+            <div class="journey-marquee-item" data-stage="1"><img src="./images/About/unimelb/unimelb-graduate.jpg" alt="Graduating from the University of Melbourne" /></div>
+            <div class="journey-marquee-item" data-stage="1"><img src="./images/About/unimelb/teddybear.jpg" alt="Volunteering at a mental health simulation event in Melbourne" /></div>
+            <div class="journey-marquee-item" data-stage="2"><img src="./images/About/cmu/cmu1.JPG" alt="Researching AI-augmented design tools at my desk" /></div>
+            <div class="journey-marquee-item" data-stage="2"><img src="./images/About/cmu/cmu2.jpg" alt="Sketching interface concepts alongside code and wireframes" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="journey-closing reveal">I'm most drawn to products where design genuinely changes what someone is <em>capable</em> of: learning a language, understanding a concept, building a habit. I believe the best learning experiences don't feel like learning at all — they feel like <strong>play</strong>, or <strong>progress</strong>, or suddenly seeing something you couldn't see before. That's what I want to make.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="reveal">
+          <span class="label">EDUCATION</span>
+          <h2 class="section-heading">Where I've studied</h2>
+        </div>
+
+        <div class="edu-card-row">
+          <div class="edu-card">
+            <h3 class="edu-card-school">Carnegie Mellon University</h3>
+            <p class="edu-card-degree">M.S. Educational Technology &amp; Applied Learning Sciences</p>
+            <p class="edu-card-dept">Human-Computer Interaction Institute</p>
+            <p class="edu-card-meta">2025 – 2026, Pittsburgh PA</p>
+          </div>
+
+          <div class="edu-card">
+            <h3 class="edu-card-school">University of Melbourne</h3>
+            <p class="edu-card-degree">Bachelor of Arts in Psychology</p>
+            <p class="edu-card-meta">2022 – 2024, Melbourne Australia</p>
+          </div>
+
+          <div class="edu-card">
+            <h3 class="edu-card-school">University of California, Los Angeles (UCLA)</h3>
+            <p class="edu-card-degree">Exchange Student</p>
+            <p class="edu-card-meta">Summer 2024, Los Angeles CA</p>
+          </div>
+        </div>
+
+        <div class="reveal" style="margin-top: 64px;">
+          <span class="label">SKILLS</span>
+          <h2 class="section-heading">What I bring</h2>
+        </div>
+
+        <div class="skills">
+          <div class="skill-row">
+            <span class="skill-label">UX Design</span>
+            <span class="skill-value">Figma · Prototyping · Design Systems · Wireframing · AI-Augmented Design</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">UX Research</span>
+            <span class="skill-value">Usability Testing · User Interviews · CTA · Personas</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Instructional Design</span>
+            <span class="skill-value">Backwards Design · Bloom's Taxonomy · ADDIE</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Languages</span>
+            <span class="skill-value">Mandarin (Native) · English (Professional) · Korean (Basic)</span>
+          </div>
+          <div class="skill-row">
+            <span class="skill-label">Tools</span>
+            <span class="skill-value">HTML/CSS · Python · R · CapCut (Editing) · Vibe Coding</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-cta">
+      <div class="container reveal">
+        <h2 class="contact-cta-heading">Let's build something together.</h2>
+        <div class="contact-cta-buttons">
+          <a href="mailto:phoebezhang90@gmail.com" class="btn btn-primary">Send me an email →</a>
+          <a href="https://www.linkedin.com/in/phoebe-zhang-4a6866246" target="_blank" class="btn btn-secondary">View LinkedIn ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-copy">© 2026 Baoyue Zhang</span>
+      <div class="footer-links">
+        <a href="./index.html" class="footer-link">Home</a>
+        <a href="./projects.html" class="footer-link">Projects</a>
+        <a href="./about.html" class="footer-link">About</a>
+      </div>
+      <a href="mailto:phoebezhang90@gmail.com" class="footer-email">phoebezhang90@gmail.com <span class="arrow">↗</span></a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="./main.js?v=4"></script>
+</body>
+</html>

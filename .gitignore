@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+
+# Raw video masters — large (50–150MB) and unused by the live site,
+# which links to the compressed .mp4 versions committed alongside them.
+*.mov

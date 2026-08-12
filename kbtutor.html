@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KB Tutor — Phoebe Zhang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --off-white: #f6f8f4;
+      --gray-mid: #888884;
+      --gray-light: #e4e8e0;
+      --gray-dark: #3a3a38;
+      --accent: #3a8c4e;
+      --accent-light: #edf5f0;
+      --accent-dark: #2a6b3b;
+      --accent-muted: #c8e3ce;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Mulish', system-ui, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 1000; transition: width 0.1s linear; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 900; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    nav.scrolled { border-color: var(--gray-light); }
+    .nav-logo { font-family: 'Spectral', Georgia, serif; font-size: 20px; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a { font-size: 14px; color: var(--gray-dark); text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s ease; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 120px 48px 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .hero-media { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4/5; background: linear-gradient(145deg, #e8f5ec 0%, #c8e3ce 45%, #3a8c4e 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .hero-media-video { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-media::after { content: ''; position: absolute; inset: 0; border-radius: 24px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+
+    .hero-content { display: flex; flex-direction: column; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-mid); text-decoration: none; margin-bottom: 32px; letter-spacing: 0.01em; transition: color 0.2s, gap 0.2s; }
+    .back-link:hover { color: var(--black); gap: 10px; }
+    .back-link svg { width: 14px; height: 14px; }
+    .project-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 16px; font-weight: 500; }
+    .project-title { font-family: 'Spectral', Georgia, serif; font-size: clamp(44px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.02em; color: var(--black); margin-bottom: 20px; }
+    .project-description { font-size: 17px; line-height: 1.75; color: var(--gray-dark); max-width: 420px; margin-bottom: 36px; font-weight: 300; }
+    .hero-divider { width: 40px; height: 1.5px; background: var(--accent); margin-bottom: 28px; opacity: 0.6; }
+    .meta-grid { display: grid; grid-template-columns: auto 1fr; gap: 10px 24px; align-items: baseline; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); font-weight: 500; }
+    .meta-value { font-size: 14px; color: var(--gray-dark); font-weight: 400; }
+    .meta-link { color: var(--accent-dark); text-decoration: none; border-bottom: 1px solid var(--accent-muted); transition: border-color 0.2s; }
+    .meta-link:hover { border-color: var(--accent-dark); }
+
+    /* ── BODY LAYOUT ── */
+    .case-body { display: grid; grid-template-columns: 200px 1fr; gap: 0; max-width: 1100px; margin: 0 auto; padding: 0 48px 120px; }
+    .breadcrumb-nav { position: sticky; top: 120px; height: fit-content; padding-right: 48px; }
+    .breadcrumb-list { list-style: none; display: flex; flex-direction: column; gap: 0; position: relative; }
+    .breadcrumb-list::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1.5px; background: var(--gray-light); }
+    .breadcrumb-item { position: relative; padding: 10px 0 10px 20px; }
+    .breadcrumb-item::before { content: ''; position: absolute; left: -3px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--gray-light); border: 1.5px solid var(--white); transition: background 0.25s, transform 0.25s; }
+    .breadcrumb-item.active::before { background: var(--accent); transform: translateY(-50%) scale(1.2); }
+    .breadcrumb-item a { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-mid); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb-item:hover a, .breadcrumb-item.active a { color: var(--black); }
+    .breadcrumb-item.active a { font-weight: 500; color: var(--accent-dark); }
+
+    /* ── SECTIONS ── */
+    .case-content { padding-top: 80px; }
+    .case-section { margin-bottom: 96px; }
+    .section-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 14px; font-weight: 500; }
+    .section-heading { font-family: 'Spectral', Georgia, serif; font-size: clamp(32px, 3.5vw, 46px); line-height: 1.1; letter-spacing: -0.02em; color: var(--black); margin-bottom: 24px; }
+    .section-body { font-size: 16px; line-height: 1.85; color: var(--gray-dark); max-width: 600px; font-weight: 300; margin-bottom: 20px; }
+
+    /* ── MVP ARC STRIP ── */
+    .mvp-arc { display: flex; gap: 0; margin: 40px 0; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--gray-light); }
+    .mvp-arc-item { flex: 1; padding: 20px 18px; border-right: 1px solid var(--gray-light); position: relative; }
+    .mvp-arc-item:last-child { border-right: none; }
+    .mvp-arc-item.dim { opacity: 0.45; }
+    .mvp-num { font-family: 'Spectral', Georgia, serif; font-size: 11px; color: var(--accent-dark); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .mvp-title { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 5px; line-height: 1.3; }
+    .mvp-blurb { font-size: 12px; color: var(--gray-mid); line-height: 1.5; }
+    .mvp-arc-item.featured { background: var(--accent-light); }
+    .mvp-arc-item.featured .mvp-num { color: var(--accent-dark); }
+    .mvp-arc-badge { position: absolute; top: 12px; right: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-muted); }
+    .mvp-arc-item.featured .mvp-arc-badge { background: var(--accent); }
+
+    /* ── DECISION DEEP DIVE ── */
+    .decision { margin: 52px 0 0; }
+    .decision-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .decision-num { font-family: 'Spectral', Georgia, serif; font-size: 48px; color: var(--accent-muted); line-height: 1; }
+    .decision-label-wrap { display: flex; flex-direction: column; gap: 3px; }
+    .decision-kicker { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; }
+    .decision-heading { font-family: 'Spectral', Georgia, serif; font-size: clamp(26px, 2.8vw, 36px); color: var(--black); line-height: 1.1; letter-spacing: -0.02em; }
+    .decision-divider { width: 100%; height: 1px; background: var(--gray-light); margin-bottom: 28px; }
+
+    /* ── STAT CALLOUT ── */
+    .stat-callout { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 16px 16px 0; padding: 36px 44px; margin: 36px 0; display: flex; align-items: center; gap: 32px; }
+    .stat-number { font-family: 'Spectral', Georgia, serif; font-size: clamp(52px, 6vw, 76px); color: var(--accent-dark); line-height: 1; white-space: nowrap; }
+    .stat-text { flex: 1; }
+    .stat-label { font-size: 16px; color: var(--gray-dark); line-height: 1.55; margin-bottom: 6px; }
+    .stat-source { font-size: 11px; color: var(--gray-mid); letter-spacing: 0.04em; }
+
+    /* ── STAT ROW ── */
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray-light); border-radius: 16px; overflow: hidden; margin: 36px 0; }
+    .stat-cell { background: var(--off-white); padding: 28px 24px; display: flex; flex-direction: column; gap: 6px; }
+    .stat-cell-num { font-family: 'Spectral', Georgia, serif; font-size: 36px; color: var(--accent-dark); line-height: 1; }
+    .stat-cell-label { font-size: 13px; color: var(--gray-mid); line-height: 1.4; }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote { border-left: 3px solid var(--accent); padding: 8px 0 8px 28px; margin: 36px 0; }
+    .pull-quote p { font-family: 'Spectral', Georgia, serif; font-size: 21px; line-height: 1.55; color: var(--gray-dark); font-style: italic; }
+    .pull-quote-attr { font-size: 13px; color: var(--gray-mid); letter-spacing: 0.02em; margin-top: 10px; padding-left: 28px; }
+
+    /* ── INSIGHT GRID ── */
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .insight-card { background: var(--off-white); border-radius: 16px; padding: 26px 22px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+    .insight-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+    .insight-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-muted); }
+    .insight-card.hi::before { background: var(--accent); }
+    .insight-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; margin-bottom: 10px; }
+    .insight-text { font-size: 15px; line-height: 1.65; color: var(--gray-dark); }
+
+    /* ── MODE TABLE ── */
+    .mode-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 14px; }
+    .mode-table th { text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); font-weight: 500; padding: 10px 16px; border-bottom: 1.5px solid var(--gray-light); }
+    .mode-table td { padding: 14px 16px; border-bottom: 1px solid var(--gray-light); color: var(--gray-dark); line-height: 1.55; vertical-align: top; }
+    .mode-table tr:last-child td { border-bottom: none; }
+    .mode-chip { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 500; }
+    .chip-practice { background: var(--accent-light); color: var(--accent-dark); }
+    .chip-exam { background: #fef3e2; color: #92540a; }
+    .chip-review { background: #ede9f8; color: #5b3fa6; }
+
+    /* ── FEATURE CARDS ── */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0; }
+    .feature-card { border: 1.5px solid var(--gray-light); border-radius: 16px; padding: 24px 22px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .feature-card:hover { border-color: var(--accent-muted); box-shadow: 0 8px 24px rgba(58,140,78,0.08); }
+    .feature-name { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 7px; }
+    .feature-desc { font-size: 13px; line-height: 1.65; color: var(--gray-mid); }
+    .feature-card-wide { grid-column: 1 / -1; }
+
+    /* ── VIDEO PLACEHOLDERS ── */
+    .video-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 28px 0; }
+    .video-card { background: var(--off-white); border-radius: 16px; overflow: hidden; border: 1.5px dashed var(--gray-light); }
+    .video-card-header { background: var(--accent-light); padding: 12px 18px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--accent-muted); }
+    .video-card-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .video-card-title { font-size: 12px; font-weight: 500; color: var(--accent-dark); letter-spacing: 0.04em; }
+    .video-card-body { padding: 40px 24px; text-align: center; color: var(--gray-mid); font-size: 13px; aspect-ratio: 16/10; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
+    .video-card-body svg { width: 32px; height: 32px; stroke: var(--gray-light); fill: none; stroke-width: 1.5; }
+
+    /* ── OUTCOME QUOTE ── */
+    .outcome-quote { background: var(--black); border-radius: 24px; padding: 64px 72px; position: relative; overflow: hidden; }
+    .outcome-quote::before { content: '\201C'; font-family: 'Spectral', Georgia, serif; font-size: 160px; color: var(--accent); opacity: 0.2; position: absolute; top: -20px; left: 48px; line-height: 1; }
+    .outcome-quote-text { font-family: 'Spectral', Georgia, serif; font-size: clamp(22px, 2.5vw, 30px); line-height: 1.5; color: var(--white); font-style: italic; position: relative; z-index: 1; margin-bottom: 28px; }
+    .outcome-quote-attr { font-size: 13px; color: rgba(255,255,255,0.45); letter-spacing: 0.04em; position: relative; z-index: 1; }
+
+    /* ── PROCESS TIMELINE (Reflections) ── */
+    .timeline { position: relative; padding-left: 36px; margin-top: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--accent), rgba(58,140,78,0.1)); }
+    .timeline-item { position: relative; margin-bottom: 40px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot { position: absolute; left: -36px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 3px solid var(--white); box-shadow: 0 0 0 1.5px var(--accent); }
+    .timeline-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; margin-bottom: 8px; }
+    .timeline-heading { font-family: 'Spectral', Georgia, serif; font-size: 20px; color: var(--black); margin-bottom: 8px; }
+    .timeline-body { font-size: 15px; line-height: 1.75; color: var(--gray-dark); max-width: 560px; font-weight: 300; }
+
+    /* ── NEXT PROJECT ── */
+    .next-project { background: var(--off-white); border-radius: 24px; padding: 64px; display: flex; justify-content: space-between; align-items: center; max-width: calc(1100px - 96px); margin: 0 auto 80px; }
+    .next-side { display: flex; flex-direction: column; gap: 8px; text-decoration: none; }
+    .next-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); }
+    .next-title { font-family: 'Spectral', Georgia, serif; font-size: 28px; color: var(--black); transition: transform 0.3s ease, color 0.2s; display: inline-block; }
+    .next-left:hover .next-title, .next-right:hover .next-title { color: var(--accent-dark); }
+    .next-right:hover .next-title { transform: translateX(6px); }
+    .next-left:hover .next-title { transform: translateX(-6px); }
+    .next-divider { width: 1px; height: 60px; background: var(--gray-light); }
+    .next-left { text-align: left; }
+    .next-right { text-align: right; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
+      .hero-media { aspect-ratio: 16/9; }
+      .case-body { grid-template-columns: 1fr; padding: 0 24px 80px; }
+      .breadcrumb-nav { position: static; padding: 20px 0; border-top: 1px solid var(--gray-light); border-bottom: 1px solid var(--gray-light); margin-bottom: 40px; }
+      .breadcrumb-list { flex-direction: row; overflow-x: auto; }
+      .breadcrumb-list::before { display: none; }
+      .breadcrumb-item { padding: 6px 16px 6px 0; white-space: nowrap; }
+      .breadcrumb-item::before { display: none; }
+      .mvp-arc { flex-direction: column; }
+      .mvp-arc-item { border-right: none; border-bottom: 1px solid var(--gray-light); }
+      .mvp-arc-item:last-child { border-bottom: none; }
+      .insight-grid, .feature-grid, .video-row { grid-template-columns: 1fr; }
+      .feature-card-wide { grid-column: auto; }
+      .stat-callout { flex-direction: column; gap: 8px; }
+      .stat-number { font-size: 56px; }
+      .stat-row { grid-template-columns: 1fr; }
+      .outcome-quote { padding: 40px 36px; }
+      .next-project { flex-direction: column; gap: 32px; padding: 40px; margin: 0 24px 60px; }
+      .next-divider { width: 60px; height: 1px; }
+      nav { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <nav id="main-nav">
+    <a href="./index.html" class="nav-logo">PZ</a>
+    <div class="nav-links">
+      <a href="./index.html">Home</a>
+      <a href="./projects.html">Projects</a>
+      <a href="./about.html">About</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <video class="hero-media-video" src="./images/KB%20tutor/kbtutor-intro.mp4" autoplay muted loop playsinline></video>
+    </div>
+
+    <div class="hero-content">
+      <a href="./projects.html" class="back-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 12L6 8l4-4"/></svg>
+        Back to Projects
+      </a>
+      <p class="project-label">Product Design &nbsp;·&nbsp; EdTech</p>
+      <h1 class="project-title">KB Tutor</h1>
+      <p class="project-description">An adaptive biology tutoring platform for Title I high school students preparing for Pennsylvania's Keystone exam — built across five MVPs with real classroom data and a real teacher shaping every decision.</p>
+      <div class="hero-divider"></div>
+      <div class="meta-grid">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">Design Lead · Product Manager</span>
+        <span class="meta-label">Team</span>
+        <span class="meta-value">BioBridge (4 people)</span>
+        <span class="meta-label">Timeline</span>
+        <span class="meta-value">7 Weeks · 5 MVPs</span>
+        <span class="meta-label">Focus</span>
+        <span class="meta-value">Product Thinking · Adaptive Learning · UX</span>
+        <span class="meta-label">Live Site</span>
+        <span class="meta-value"><a href="https://ctag-website.vercel.app/index.html" target="_blank" rel="noopener" class="meta-link">KB Tutor Website ↗</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE BODY -->
+  <div class="case-body">
+
+    <nav class="breadcrumb-nav" aria-label="Section navigation">
+      <ul class="breadcrumb-list">
+        <li class="breadcrumb-item active" data-section="problem"><a href="#problem">Problem</a></li>
+        <li class="breadcrumb-item" data-section="process"><a href="#process">Process</a></li>
+        <li class="breadcrumb-item" data-section="solution"><a href="#solution">Solution</a></li>
+        <li class="breadcrumb-item" data-section="reflections"><a href="#reflections">Reflections</a></li>
+      </ul>
+    </nav>
+
+    <div class="case-content">
+
+      <!-- PROBLEM -->
+      <section class="case-section" id="problem">
+        <p class="section-label reveal">The Problem</p>
+        <h2 class="section-heading reveal reveal-delay-1">Students were clicking through.<br>Not learning.</h2>
+        <p class="section-body reveal reveal-delay-2">Pennsylvania's Keystone Biology exam has a persistently low passing rate, and in Title I schools that gap is even wider. Our teacher Abbe put it plainly: the district's existing diagnostic tool — the CDT — was useless. Students had learned they could click through without reading, because the feedback wasn't meaningful and it didn't count toward their grade. The data it produced told her nothing about what to re-teach.</p>
+        <p class="section-body reveal">The real problem wasn't content coverage. It was that students had never been taught to reason through biology — only to memorize it. And no tool on the market asked them to do anything different.</p>
+
+        <div class="insight-grid reveal">
+          <div class="insight-card hi">
+            <p class="insight-tag">Root Cause</p>
+            <p class="insight-text">Students pattern-matched answers from memory rather than applying biological reasoning. Memorization was a rational response to a system that never rewarded anything else.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">Teacher Gap</p>
+            <p class="insight-text">No tool surfaced which specific misconceptions were most common, or flagged which students needed intervention before the exam — only scores that didn't say what to do next.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">Feedback Gap</p>
+            <p class="insight-text">Existing tools told students they were wrong. Not why, not what misconception drove it, not what to think instead.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">Format Gap</p>
+            <p class="insight-text">The Keystone exam includes constructed-response questions requiring written causal explanations. No practice tool addressed this format at all.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section class="case-section" id="process">
+        <p class="section-label reveal">Process</p>
+        <h2 class="section-heading reveal reveal-delay-1">Five MVPs.<br>One through-line.</h2>
+        <p class="section-body reveal reveal-delay-2">Every sprint started from the same question: which mechanism in our product is supposed to fix the learning problem, and how do we know if it's working? This kept us from building features that felt good but didn't trace back to anything a student actually needed.</p>
+
+        <!-- MVP Arc Strip -->
+        <div class="mvp-arc reveal">
+          <div class="mvp-arc-item">
+            <div class="mvp-arc-badge"></div>
+            <p class="mvp-num">MVP 1</p>
+            <p class="mvp-title">Learning scaffold</p>
+            <p class="mvp-blurb">Three modes, per-distractor feedback, usability testing</p>
+          </div>
+          <div class="mvp-arc-item">
+            <div class="mvp-arc-badge"></div>
+            <p class="mvp-num">MVP 2</p>
+            <p class="mvp-title">Content pipeline</p>
+            <p class="mvp-blurb">AI question validation, teacher dashboard v1</p>
+          </div>
+          <div class="mvp-arc-item featured">
+            <div class="mvp-arc-badge"></div>
+            <p class="mvp-num">MVP 3</p>
+            <p class="mvp-title">Classroom deployment</p>
+            <p class="mvp-blurb">103 students, real data, what broke in Review mode</p>
+          </div>
+          <div class="mvp-arc-item featured">
+            <div class="mvp-arc-badge"></div>
+            <p class="mvp-num">MVP 4</p>
+            <p class="mvp-title">Short-answer questions</p>
+            <p class="mvp-blurb">Constructed-response format, AI feedback escalation</p>
+          </div>
+          <div class="mvp-arc-item">
+            <div class="mvp-arc-badge"></div>
+            <p class="mvp-num">MVP 5</p>
+            <p class="mvp-title">Adaptivity & deployment</p>
+            <p class="mvp-blurb">Adaptive routing, LTI integration, mobile</p>
+          </div>
+        </div>
+
+        <!-- Decision 1 -->
+        <div class="decision reveal">
+          <div class="decision-eyebrow">
+            <span class="decision-num">01</span>
+            <div class="decision-label-wrap">
+              <span class="decision-kicker">Key Decision</span>
+              <h3 class="decision-heading">Designing the<br>three-mode system</h3>
+            </div>
+          </div>
+          <div class="decision-divider"></div>
+
+          <p class="section-body">The core design question in MVP 1 was: how do you build a practice tool that forces conceptual reasoning instead of enabling memorization? The answer was modes students can move between freely based on what they need — not a fixed sequence. A student cramming before a test can jump straight to Exam; a teacher who sees a class struggling with a standard can assign that group into Practice for it directly.</p>
+
+          <table class="mode-table">
+            <thead>
+              <tr>
+                <th>Mode</th>
+                <th>Job</th>
+                <th>Scaffolding logic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="mode-chip chip-practice">Practice</span></td>
+                <td>Surface the misconception. Students attempt first — hints and glossary only appear after a wrong answer, so they can't keyword-match their way through.</td>
+                <td>Conditional on failure</td>
+              </tr>
+              <tr>
+                <td><span class="mode-chip chip-exam">Exam</span></td>
+                <td>Test for genuine transfer. No scaffolding, no second chances. The gap between Practice and Exam accuracy is the most honest signal we have about whether learning actually happened.</td>
+                <td>None</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="section-body"><span class="mode-chip chip-review">Review</span> started as a third mode alongside these two, but as of MVP 5 it's no longer one of the practice modes at all — it lives as its own tab in the student dashboard, auto-populated with each student's missed questions and anything they've bookmarked.</p>
+
+          <p class="section-body">The theory of change grounding this was simple: a wrong answer exposes a misconception → feedback targets that specific distractor → the corrected understanding gets tested in Exam mode → teacher uses the pattern data to decide what to re-teach. Every feature had to trace back to one of those four stages, regardless of which mode a student started in or how a teacher sequenced an assignment. If it didn't, it didn't ship.</p>
+
+          <p class="section-body">MVP 3 validated the core loop — 76.3% of wrong-first items were eventually corrected in Practice, and students showed a statistically significant +9.1 percentage point accuracy gain moving from Practice to Exam. But it also surfaced a real problem: Review mode showed a median 5-second time-on-task per item across all attempts. Students weren't reading the feedback. They were clicking through — the exact habit we'd set out to break.</p>
+
+          <div class="stat-row">
+            <div class="stat-cell">
+              <span class="stat-cell-num">76.3%</span>
+              <span class="stat-cell-label">Wrong-first items eventually corrected in Practice</span>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-cell-num">+9.1pp</span>
+              <span class="stat-cell-label">Average accuracy gain, Practice → Exam (p = 0.009)</span>
+            </div>
+            <div class="stat-cell">
+              <span class="stat-cell-num">5s</span>
+              <span class="stat-cell-label">Median time-on-task in Review — the signal something was wrong</span>
+            </div>
+          </div>
+
+          <div class="pull-quote">
+            <p>Showing a student the same explanation they already ignored doesn't create a new path to understanding.</p>
+          </div>
+          <p class="pull-quote-attr">— Insight from MVP 3 that shaped later prioritization</p>
+
+          <p class="section-body">The 5-second finding reshaped how we thought about Review — but MVP 5 didn't end up fixing it by changing Review's feedback. Instead, two other things shipped: adaptivity was added to Practice mode, and Review was pulled into its own dashboard tab so it stopped competing with Practice and Exam for the same UI slot. Review's feedback content is still identical to Practice's — the differentiation this insight called for remains unbuilt.</p>
+        </div>
+
+        <!-- Decision 2 -->
+        <div class="decision reveal" style="margin-top: 72px;">
+          <div class="decision-eyebrow">
+            <span class="decision-num">02</span>
+            <div class="decision-label-wrap">
+              <span class="decision-kicker">Key Decision</span>
+              <h3 class="decision-heading">Building the teacher<br>dashboard from Abbe's questions</h3>
+            </div>
+          </div>
+          <div class="decision-divider"></div>
+
+          <p class="section-body">The teacher dashboard started with one question Abbe asked us directly: <em>"Can I see which standards I need to re-teach tomorrow?"</em> Everything followed from that. My job was to translate what she actually needed into a feature list, then into a prioritized build sequence — separating what was essential on day one from what was good-to-have later.</p>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <p class="feature-name">Standards overview with status flags</p>
+              <p class="feature-desc">Accuracy by standard across all three modes, with "Needs Review" and "On Track" labels so Abbe can scan the whole class in seconds rather than reading every number.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">CDT flag: low accuracy + fast time</p>
+              <p class="feature-desc">Surfaces students who are clicking through without reading. Time-on-task was the specific signal Abbe named — it's what the old diagnostic tool never surfaced and what made its data worthless.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Student-level progress view</p>
+              <p class="feature-desc">Accuracy over time per student, filterable by assignment and standard. Abbe's exact words: a student with 11/12 correct looks identical to one with 99/100 in a snapshot view. She needed the trajectory, not the score.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Metric tooltips</p>
+              <p class="feature-desc">On-hover definitions for every number. Abbe asked what "correct" meant — whether it was first-attempt or final-attempt accuracy. Now the answer is one hover away.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Priority misconception alerts</p>
+              <p class="feature-desc">High confidence + wrong answer is the most dangerous pattern: the student actively believes something incorrect. More practice alone won't fix it. The dashboard flags these for individual teacher intervention.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Assignment scheduling</p>
+              <p class="feature-desc">Teachers can sequence and release assignments on a schedule. Added after Abbe flagged that students working ahead of the class was disrupting her pacing — a constraint we hadn't anticipated.</p>
+            </div>
+          </div>
+
+          <p class="section-body" style="margin-top: 8px;">One design distinction that shaped the whole dashboard: the difference between data that describes and data that directs. A percentage score describes. A "Needs Review" flag with a drill-down to the specific questions students missed — that directs. Every metric we included was evaluated against the question: can a teacher act on this, or does it just tell them something they already knew?</p>
+
+          <div class="pull-quote">
+            <p>"I could identify the flags right away — this is exactly what I needed to know which concepts to re-teach."</p>
+          </div>
+          <p class="pull-quote-attr">— Abbe, classroom teacher · post-pilot feedback · May 2026</p>
+        </div>
+
+      </section>
+
+      <!-- SOLUTION -->
+      <section class="case-section" id="solution">
+        <p class="section-label reveal">Solution</p>
+        <h2 class="section-heading reveal reveal-delay-1">The platform in practice.</h2>
+        <p class="section-body reveal reveal-delay-2">KB Tutor runs in the browser across three dashboards — Student, Teacher, and Admin. Admin is CTAG's layer for managing every partner school; the two that matter day-to-day are Student and Teacher. Students work through assigned learning pathways from their dashboard; teachers monitor and adjust from theirs. Walkthrough videos below — student, teacher, and the short-answer question experience.</p>
+
+        <div class="video-row reveal">
+          <div class="video-card">
+            <div class="video-card-header">
+              <div class="video-card-dot"></div>
+              <span class="video-card-title">Student Dashboard</span>
+            </div>
+            <div class="video-card-body" style="padding:0; border:none; overflow:hidden;">
+              <video style="width:100%; height:100%; object-fit:cover;" src="./images/KB%20tutor/kbtutor-intro.mp4" controls playsinline></video>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-card-header">
+              <div class="video-card-dot"></div>
+              <span class="video-card-title">Teacher Dashboard</span>
+            </div>
+            <div class="video-card-body" style="padding:0; border:none; overflow:hidden;">
+              <video style="width:100%; height:100%; object-fit:cover;" src="./images/KB%20tutor/kbtutor-teacher-dashboard.mp4" controls playsinline></video>
+            </div>
+          </div>
+          <div class="video-card">
+            <div class="video-card-header">
+              <div class="video-card-dot"></div>
+              <span class="video-card-title">Short-Answer Questions</span>
+            </div>
+            <div class="video-card-body" style="padding:0; border:none; overflow:hidden;">
+              <video style="width:100%; height:100%; object-fit:cover;" src="./images/KB%20tutor/kbtutor-saq.mp4" controls playsinline></video>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-callout reveal">
+          <div class="stat-number">103</div>
+          <div class="stat-text">
+            <p class="stat-label">active students in the MVP 3 classroom deployment, generating 3,634 attempts across Practice, Exam, and Review — the dataset that validated the core loop and revealed where it broke</p>
+            <p class="stat-source">KB Tutor MVP 3 Evaluation · May 2026</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- REFLECTIONS -->
+      <section class="case-section" id="reflections">
+        <p class="section-label reveal">Reflections</p>
+        <h2 class="section-heading reveal reveal-delay-1">What the five MVPs don't show.</h2>
+
+        <div class="outcome-quote reveal">
+          <p class="outcome-quote-text">The scaffolding worked. What it couldn't fix is a student who's spent years learning to click through things — unless the design earns their attention at every step, not just the first one.</p>
+          <p class="outcome-quote-attr">— KB Tutor MVP 3 Evaluation &nbsp;·&nbsp; BioBridge Team &nbsp;·&nbsp; 2026</p>
+        </div>
+
+        <p class="section-body reveal" style="margin-top: 36px;">This project ran far more condensed and technically involved than a five-MVP list can show. Underneath the interface decisions above sits an AI-generated question and feedback pipeline built to scale across both MCQ and SAQ formats, plus the adaptive routing logic that decides what a student sees next — each requiring real research, not just design polish. Anchoring every feature to the theory of change gave the team a shared language for saying no when scope crept; designing with Abbe from day one, not as a final check, meant the dashboard was usable before the pilot even started. My role ran the full stack of that process:</p>
+
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="timeline-label">Low Fidelity</p>
+            <h3 class="timeline-heading">Figma</h3>
+            <p class="timeline-body">Started in Figma, exploring low-fi concepts for the diagnostic flow before committing to any single direction.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="timeline-label">Interface Exploration</p>
+            <h3 class="timeline-heading">Vibe coding</h3>
+            <p class="timeline-body">As AI tooling matured, shifted from static mockups to vibe-coding — building working interface directly to explore ideas faster and finalize decisions Figma alone couldn't validate.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="timeline-label">Consistency at Speed</p>
+            <h3 class="timeline-heading">A design system as claude.md</h3>
+            <p class="timeline-body">Wrote a claude.md design system so every vibe-coded screen stayed on-brand, and any further AI-assisted iteration extended the same visual language instead of drifting from it.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="timeline-label">Data & Backend</p>
+            <h3 class="timeline-heading">Partnering with the developer</h3>
+            <p class="timeline-body">Worked with the developer on the data and backend — the BKT adaptivity model, the AI content pipeline — while owning the interface and product decisions end to end.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="timeline-label">Validation</p>
+            <h3 class="timeline-heading">User testing loops</h3>
+            <p class="timeline-body">Ran repeated rounds of user testing with students and Abbe, and fed the feedback straight into design decisions — the CDT flag, the metric tooltips, and assignment scheduling all trace back to a specific testing round, not a hunch.</p>
+          </div>
+        </div>
+
+        <p class="section-label reveal" style="margin-top: 48px;">Self Reflection</p>
+        <p class="section-body reveal">Throughout this project I picked up a handful of things that go beyond any single MVP. Being the PM meant I got to see the product from a level up — not just designing a screen, but deciding which features were worth building at all, which was some of the most genuinely interesting work in the whole project. A big part of that was learning how to turn feedback, from Abbe and from round after round of user testing, into an actual design decision rather than just a note to revisit later.</p>
+        <p class="section-body reveal">None of it happened alone. Working with the developer on data and backend, staying in sync with the project manager, and pulling in what the researchers were seeing — collaborating across all of that was some of the most helpful and most challenging work of the project, and it shaped decisions I wouldn't have reached by myself.</p>
+        <p class="section-body reveal">As AI tooling matured over the course of the project, I also learned to use vibe coding deliberately rather than as a shortcut: a way to explore ideas quickly, polish the interface myself, and take some of the implementation pressure off the developer instead of just handing over a static mockup and hoping it translated.</p>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="next-project">
+    <a href="./bumble.html" class="next-side next-left">
+      <span class="next-label">← Previous</span>
+      <span class="next-title">Bumble × Skill Snack</span>
+    </a>
+    <div class="next-divider"></div>
+    <a href="./impresschat.html" class="next-side next-right">
+      <span class="next-label">Next Project</span>
+      <span class="next-title">ImpressChat →</span>
+    </a>
+  </div>
+
+  <script>
+    const bar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = pct + '%';
+    });
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObs.observe(el));
+    const sections = document.querySelectorAll('.case-section[id]');
+    const navItems = document.querySelectorAll('.breadcrumb-item[data-section]');
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navItems.forEach(i => i.classList.remove('active'));
+          const a = document.querySelector(`.breadcrumb-item[data-section="${e.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sections.forEach(s => sectionObs.observe(s));
+  </script>
+</body>
+</html>

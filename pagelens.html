@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PageLens — Phoebe Zhang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --off-white: #f7f4ec;
+      --gray-mid: #8c8478;
+      --gray-light: #e8e2d5;
+      --gray-dark: #3a352d;
+      --accent: #b8863c;
+      --accent-light: #f4e9d3;
+      --accent-dark: #7a5722;
+      --accent-muted: #d9be8c;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Mulish', system-ui, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 1000; transition: width 0.1s linear; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 900; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    nav.scrolled { border-color: var(--gray-light); }
+    .nav-logo { font-family: 'Spectral', Georgia, serif; font-size: 20px; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a { font-size: 14px; color: var(--gray-dark); text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s ease; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ──
+       Stacked, full-width layout: title first, then the demo video as a
+       full-width 16:9 banner (its native aspect ratio, so it fills edge-
+       to-edge with no letterboxing), then description and meta below. */
+    .hero { display: flex; flex-direction: column; padding: 140px 48px 80px; max-width: 1200px; margin: 0 auto; }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-mid); text-decoration: none; margin-bottom: 32px; letter-spacing: 0.01em; transition: color 0.2s, gap 0.2s; width: fit-content; }
+    .back-link:hover { color: var(--black); gap: 10px; }
+    .back-link svg { width: 14px; height: 14px; }
+    .project-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 16px; font-weight: 500; }
+    .concept-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-dark); background: var(--accent-light); border: 1px solid var(--accent-muted); border-radius: 20px; padding: 4px 12px; margin-bottom: 20px; font-weight: 500; width: fit-content; }
+    .concept-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .project-title { font-family: 'Spectral', Georgia, serif; font-size: clamp(44px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.01em; color: var(--black); margin-bottom: 40px; }
+    .project-title em { font-style: italic; color: var(--accent); }
+
+    .hero-media { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 24px; overflow: hidden; background: var(--off-white); margin-bottom: 40px; }
+    .hero-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-media::after { content: ''; position: absolute; inset: 0; border-radius: 24px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), 0 24px 48px rgba(0,0,0,0.1); pointer-events: none; }
+
+    .project-description { font-size: 17px; line-height: 1.75; color: var(--gray-dark); max-width: 720px; margin-bottom: 36px; font-weight: 300; }
+    .hero-divider { width: 40px; height: 1.5px; background: var(--accent); margin-bottom: 28px; opacity: 0.7; }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 40px; }
+    .meta-row-item { display: flex; flex-direction: column; gap: 6px; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); font-weight: 500; }
+    .meta-value { font-size: 14px; color: var(--gray-dark); font-weight: 400; }
+    .meta-badge { display: inline-block; font-size: 11px; background: var(--accent-light); color: var(--accent-dark); padding: 2px 10px; border-radius: 20px; font-weight: 500; }
+
+    /* ── BODY LAYOUT ── */
+    .case-body { display: grid; grid-template-columns: 200px 1fr; gap: 0; max-width: 1100px; margin: 0 auto; padding: 0 48px 120px; }
+    .breadcrumb-nav { position: sticky; top: 120px; height: fit-content; padding-right: 48px; }
+    .breadcrumb-list { list-style: none; display: flex; flex-direction: column; gap: 0; position: relative; }
+    .breadcrumb-list::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1.5px; background: var(--gray-light); }
+    .breadcrumb-item { position: relative; padding: 10px 0 10px 20px; }
+    .breadcrumb-item::before { content: ''; position: absolute; left: -3px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--gray-light); border: 1.5px solid var(--white); transition: background 0.25s, transform 0.25s; }
+    .breadcrumb-item.active::before { background: var(--accent); transform: translateY(-50%) scale(1.2); }
+    .breadcrumb-item a { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-mid); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb-item:hover a, .breadcrumb-item.active a { color: var(--black); }
+    .breadcrumb-item.active a { font-weight: 500; color: var(--accent-dark); }
+
+    /* ── SECTIONS ── */
+    .case-content { padding-top: 80px; }
+    .case-section { margin-bottom: 96px; }
+    .section-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 14px; font-weight: 500; }
+    .section-heading { font-family: 'Spectral', Georgia, serif; font-size: clamp(32px, 3.5vw, 46px); line-height: 1.1; letter-spacing: -0.01em; color: var(--black); margin-bottom: 24px; }
+    .section-body { font-size: 16px; line-height: 1.85; color: var(--gray-dark); max-width: 640px; font-weight: 300; margin-bottom: 20px; }
+
+    /* ── ITERATION STRIP ── */
+    .iteration-strip { display: flex; gap: 0; margin: 40px 0; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--gray-light); }
+    .iteration-item { flex: 1; padding: 20px 18px; border-right: 1px solid var(--gray-light); position: relative; }
+    .iteration-item:last-child { border-right: none; }
+    .iter-num { font-family: 'Spectral', Georgia, serif; font-size: 11px; color: var(--accent-dark); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .iter-title { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 5px; line-height: 1.3; }
+    .iter-blurb { font-size: 12px; color: var(--gray-mid); line-height: 1.5; }
+    .iteration-item.featured { background: var(--accent-light); }
+    .iter-badge { position: absolute; top: 12px; right: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-muted); }
+    .iteration-item.featured .iter-badge { background: var(--accent); }
+
+    /* ── DECISION DEEP DIVE ── */
+    .decision { margin: 52px 0 0; }
+    .decision-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .decision-num { font-family: 'Spectral', Georgia, serif; font-size: 48px; color: var(--accent-muted); line-height: 1; }
+    .decision-label-wrap { display: flex; flex-direction: column; gap: 3px; }
+    .decision-kicker { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; }
+    .decision-heading { font-family: 'Spectral', Georgia, serif; font-size: clamp(26px, 2.8vw, 36px); color: var(--black); line-height: 1.1; letter-spacing: -0.01em; }
+    .decision-divider { width: 100%; height: 1px; background: var(--gray-light); margin-bottom: 28px; }
+
+    /* ── STAT CALLOUT ── */
+    .stat-callout { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 16px 16px 0; padding: 36px 44px; margin: 36px 0; display: flex; align-items: center; gap: 32px; }
+    .stat-number { font-family: 'Spectral', Georgia, serif; font-size: clamp(48px, 5.5vw, 68px); color: var(--accent-dark); line-height: 1; white-space: nowrap; }
+    .stat-text { flex: 1; }
+    .stat-label { font-size: 16px; color: var(--gray-dark); line-height: 1.55; margin-bottom: 6px; }
+    .stat-source { font-size: 11px; color: var(--gray-mid); letter-spacing: 0.04em; }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote { border-left: 3px solid var(--accent); padding: 8px 0 8px 28px; margin: 36px 0; }
+    .pull-quote p { font-family: 'Spectral', Georgia, serif; font-size: 21px; line-height: 1.55; color: var(--gray-dark); font-style: italic; }
+    .pull-quote-attr { font-size: 13px; color: var(--gray-mid); letter-spacing: 0.02em; margin-top: 10px; padding-left: 28px; }
+
+    /* ── INSIGHT GRID ── */
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .insight-card { background: var(--off-white); border-radius: 16px; padding: 26px 22px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+    .insight-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(184,134,60,0.12); }
+    .insight-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-muted); }
+    .insight-card.hi::before { background: var(--accent); }
+    .insight-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; margin-bottom: 10px; }
+    .insight-text { font-size: 15px; line-height: 1.65; color: var(--gray-dark); }
+
+    /* ── PRINCIPLE CARDS ── */
+    .principle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 32px 0; }
+    .principle-card { border: 1.5px solid var(--gray-light); border-radius: 16px; padding: 24px 20px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .principle-card:hover { border-color: var(--accent-muted); box-shadow: 0 8px 24px rgba(184,134,60,0.12); }
+    .principle-icon { width: 36px; height: 36px; background: var(--accent-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .principle-icon svg { width: 18px; height: 18px; stroke: var(--accent-dark); fill: none; stroke-width: 1.5; }
+    .principle-name { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 8px; line-height: 1.3; }
+    .principle-desc { font-size: 13px; line-height: 1.65; color: var(--gray-mid); }
+
+    /* ── MODULE TABLE ── */
+    .module-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 14px; }
+    .module-table th { text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); font-weight: 500; padding: 10px 16px; border-bottom: 1.5px solid var(--gray-light); }
+    .module-table td { padding: 14px 16px; border-bottom: 1px solid var(--gray-light); color: var(--gray-dark); line-height: 1.55; vertical-align: top; }
+    .module-table tr:last-child td { border-bottom: none; }
+    .module-chip { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 500; background: var(--accent-light); color: var(--accent-dark); }
+
+    /* ── COST BAR ── */
+    .cost-bar { margin: 28px 0; border: 1.5px solid var(--gray-light); border-radius: 16px; padding: 22px 26px; }
+    .cost-row { display: flex; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--gray-light); font-size: 14px; color: var(--gray-dark); }
+    .cost-row:last-of-type { border-bottom: none; }
+    .cost-row span:first-child { display: flex; align-items: center; gap: 8px; }
+    .cost-row span:last-child { font-weight: 500; color: var(--black); font-variant-numeric: tabular-nums; }
+    .cost-tag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-dark); background: var(--accent-light); border-radius: 10px; padding: 1px 8px; }
+    .cost-total { display: flex; align-items: baseline; justify-content: space-between; padding-top: 16px; margin-top: 8px; }
+    .cost-total-label { font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-mid); }
+    .cost-total-num { font-family: 'Spectral', Georgia, serif; font-size: 34px; color: var(--accent-dark); }
+
+    /* ── MEDIA PLACEHOLDER ── */
+    .media-placeholder { background: var(--off-white); border-radius: 16px; overflow: hidden; border: 1.5px dashed var(--gray-light); margin: 28px 0; }
+    .media-placeholder-header { background: var(--accent-light); padding: 12px 18px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--accent-muted); }
+    .media-placeholder-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .media-placeholder-title { font-size: 12px; font-weight: 500; color: var(--accent-dark); letter-spacing: 0.04em; }
+    .media-placeholder-body { padding: 48px 24px; text-align: center; color: var(--gray-mid); font-size: 13px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
+    .media-placeholder-body svg { width: 32px; height: 32px; stroke: var(--gray-light); fill: none; stroke-width: 1.5; }
+
+    /* ── FEATURE CARDS ── */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0; }
+    .feature-card { border: 1.5px solid var(--gray-light); border-radius: 16px; padding: 24px 22px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .feature-card:hover { border-color: var(--accent-muted); box-shadow: 0 8px 24px rgba(184,134,60,0.12); }
+    .feature-name { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 7px; }
+    .feature-desc { font-size: 13px; line-height: 1.65; color: var(--gray-mid); }
+
+    /* ── FLOW STEPS ── */
+    .flow-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gray-light); border-radius: 16px; overflow: hidden; margin: 32px 0; }
+    .flow-step { background: var(--off-white); padding: 22px 18px; display: flex; flex-direction: column; gap: 6px; }
+    .flow-step-stage { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; }
+    .flow-step-title { font-size: 13.5px; font-weight: 500; color: var(--black); line-height: 1.35; }
+    .flow-step-desc { font-size: 12.5px; color: var(--gray-mid); line-height: 1.55; }
+
+    /* ── OUTCOME QUOTE ── */
+    .outcome-quote { background: var(--black); border-radius: 24px; padding: 64px 72px; position: relative; overflow: hidden; }
+    .outcome-quote::before { content: '\201C'; font-family: 'Spectral', Georgia, serif; font-size: 160px; color: var(--accent); opacity: 0.22; position: absolute; top: -20px; left: 48px; line-height: 1; }
+    .outcome-quote-text { font-family: 'Spectral', Georgia, serif; font-size: clamp(22px, 2.5vw, 30px); line-height: 1.5; color: var(--white); font-style: italic; position: relative; z-index: 1; margin-bottom: 28px; }
+    .outcome-quote-attr { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; position: relative; z-index: 1; }
+
+    /* ── CITATIONS ── */
+    .citations { margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--gray-light); }
+    .citations-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); font-weight: 500; margin-bottom: 12px; }
+    .citations-list { font-size: 12.5px; line-height: 2; color: var(--gray-mid); columns: 2; column-gap: 32px; max-width: 800px; }
+
+    /* ── NEXT PROJECT ── */
+    .next-project { background: var(--off-white); border-radius: 24px; padding: 64px; display: flex; justify-content: space-between; align-items: center; max-width: calc(1100px - 96px); margin: 0 auto 80px; }
+    .next-side { display: flex; flex-direction: column; gap: 8px; text-decoration: none; }
+    .next-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); }
+    .next-title { font-family: 'Spectral', Georgia, serif; font-size: 28px; color: var(--black); transition: transform 0.3s ease, color 0.2s; display: inline-block; }
+    .next-left:hover .next-title, .next-right:hover .next-title { color: var(--accent-dark); }
+    .next-right:hover .next-title { transform: translateX(6px); }
+    .next-left:hover .next-title { transform: translateX(-6px); }
+    .next-divider { width: 1px; height: 60px; background: var(--gray-light); }
+    .next-left { text-align: left; }
+    .next-right { text-align: right; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { padding: 100px 24px 60px; }
+      .case-body { grid-template-columns: 1fr; padding: 0 24px 80px; }
+      .breadcrumb-nav { position: static; padding: 20px 0; border-top: 1px solid var(--gray-light); border-bottom: 1px solid var(--gray-light); margin-bottom: 40px; }
+      .breadcrumb-list { flex-direction: row; overflow-x: auto; }
+      .breadcrumb-list::before { display: none; }
+      .breadcrumb-item { padding: 6px 16px 6px 0; white-space: nowrap; }
+      .breadcrumb-item::before { display: none; }
+      .iteration-strip { flex-direction: column; }
+      .iteration-item { border-right: none; border-bottom: 1px solid var(--gray-light); }
+      .iteration-item:last-child { border-bottom: none; }
+      .insight-grid, .feature-grid, .principle-grid { grid-template-columns: 1fr; }
+      .flow-strip { grid-template-columns: 1fr; }
+      .stat-callout { flex-direction: column; gap: 8px; }
+      .stat-number { font-size: 48px; }
+      .outcome-quote { padding: 40px 36px; }
+      .next-project { flex-direction: column; gap: 32px; padding: 40px; margin: 0 24px 60px; }
+      .next-divider { width: 60px; height: 1px; }
+      nav { padding: 0 24px; }
+      .citations-list { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <nav id="main-nav">
+    <a href="./index.html" class="nav-logo">PZ</a>
+    <div class="nav-links">
+      <a href="./index.html">Home</a>
+      <a href="./projects.html">Projects</a>
+      <a href="./about.html">About</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <a href="./projects.html" class="back-link">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 12L6 8l4-4"/></svg>
+      Back to Projects
+    </a>
+    <p class="project-label">UX Design · AR/AI · Accessibility</p>
+    <span class="concept-badge">Concept prototype, not a shipped product</span>
+    <h1 class="project-title"><em>Page</em>Lens</h1>
+
+    <div class="hero-media">
+      <video src="./images/PageLens/commercial%20demo%20(h264).mp4" autoplay muted loop playsinline controls></video>
+    </div>
+
+    <p class="project-description">A concept prototype for an AI-powered AR reading companion that turns any physical library book into a dyslexia-friendly experience — proposed for the Carnegie Library of Pittsburgh's reading stations, and developed through user research, technology feasibility studies, and full hardware specification.</p>
+    <div class="hero-divider"></div>
+    <div class="meta-row">
+      <div class="meta-row-item">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">UX Designer · Researcher</span>
+      </div>
+      <div class="meta-row-item">
+        <span class="meta-label">Team</span>
+        <span class="meta-value">Team SPAWK</span>
+      </div>
+      <div class="meta-row-item">
+        <span class="meta-label">Course</span>
+        <span class="meta-value">Advanced Interaction Design</span>
+      </div>
+      <div class="meta-row-item">
+        <span class="meta-label">Deliverables</span>
+        <span class="meta-value"><span class="meta-badge">Process Book · Feasibility Study · Concept Demo</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE BODY -->
+  <div class="case-body">
+
+    <nav class="breadcrumb-nav" aria-label="Section navigation">
+      <ul class="breadcrumb-list">
+        <li class="breadcrumb-item active" data-section="overview"><a href="#overview">Overview</a></li>
+        <li class="breadcrumb-item" data-section="process"><a href="#process">Design Process</a></li>
+        <li class="breadcrumb-item" data-section="feasibility"><a href="#feasibility">Technology &amp; Feasibility</a></li>
+        <li class="breadcrumb-item" data-section="reflections"><a href="#reflections">Ethics &amp; Reflections</a></li>
+      </ul>
+    </nav>
+
+    <div class="case-content">
+
+      <!-- OVERVIEW -->
+      <section class="case-section" id="overview">
+        <p class="section-label reveal">Overview</p>
+        <h2 class="section-heading reveal reveal-delay-1">15–20% of readers have dyslexia.<br>Public libraries weren't built for them.</h2>
+        <p class="section-body reveal reveal-delay-2">The Carnegie Library of Pittsburgh holds an extraordinarily rich print collection — novels, textbooks, newspapers, historical archives. But print is fixed: it can't adjust size, spacing, or layout to a reader's needs, and it offers nothing in the moment reading actually breaks down. For dyslexic readers, that gap is compounded by stigma — many hide their disability rather than risk appearing different.</p>
+        <p class="section-body reveal">Dyslexia isn't a matter of intelligence — it's a difference in how the brain processes written language. Readers commonly describe letters that seem to move, flip, or blur, and words that crowd together mid-line. Underneath that visual experience is a phonological processing difference: even a word that's clearly seen takes significantly more cognitive effort to decode into meaning.</p>
+
+        <div class="stat-callout reveal">
+          <div class="stat-number">15–20%</div>
+          <div class="stat-text">
+            <p class="stat-label">of the world's population has dyslexia, making it the most common learning disability — the starting statistic behind every decision that followed</p>
+            <p class="stat-source">International Dyslexia Association</p>
+          </div>
+        </div>
+
+        <div class="insight-grid reveal">
+          <div class="insight-card hi">
+            <p class="insight-tag">The Problem</p>
+            <p class="insight-text">Print books can't adapt to their reader, and existing digital accessibility tools solve this only by asking readers to abandon the physical book entirely.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">The Concept Space</p>
+            <p class="insight-text">We chose the Carnegie Library of Pittsburgh's Oakland branch — a historic public library whose mission of open access mirrors PageLens's own inclusive-design goals.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">The Research Base</p>
+            <p class="insight-text">Every feature traces back to a specific citation — from eye-tracking studies on letter spacing to feasibility papers on generative-AI text simplification.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">The Format</p>
+            <p class="insight-text">This is a concept prototype, not a shipped product. The deliverable is a process book, a technical feasibility study, and a device concept — not a working app.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESIGN PROCESS -->
+      <section class="case-section" id="process">
+        <p class="section-label reveal">Design Process</p>
+        <h2 class="section-heading reveal reveal-delay-1">From a fixed idea<br>to a flexible one.</h2>
+        <p class="section-body reveal reveal-delay-2">Current reading systems assume a one-size-fits-all format: text is fixed, no support is offered mid-read, and readers must adapt themselves to the material. The opportunity was to introduce adaptive support into a real-world reading context without abandoning the physical book — a system that supports spacing, simplification, audio, and visualization at the same time, shifting reading from fixed to personalized.</p>
+
+        <div class="iteration-strip reveal">
+          <div class="iteration-item">
+            <div class="iter-badge"></div>
+            <p class="iter-num">01</p>
+            <p class="iter-title">Opportunity &amp; research</p>
+            <p class="iter-blurb">Library site visit, dyslexia research, and pain-point mapping</p>
+          </div>
+          <div class="iteration-item">
+            <div class="iter-badge"></div>
+            <p class="iter-num">02</p>
+            <p class="iter-title">Technology exploration</p>
+            <p class="iter-blurb">Evaluated AR, generative AI, and OCR against their real capabilities and limits</p>
+          </div>
+          <div class="iteration-item featured">
+            <div class="iter-badge"></div>
+            <p class="iter-num">03</p>
+            <p class="iter-title">Concept rationale</p>
+            <p class="iter-blurb">Reframed "fixed print" as an opportunity for adaptive, in-situ reading support</p>
+          </div>
+          <div class="iteration-item featured">
+            <div class="iter-badge"></div>
+            <p class="iter-num">04</p>
+            <p class="iter-title">Feasibility details</p>
+            <p class="iter-blurb">Hardware specification, cost breakdown, and public-space integration plan</p>
+          </div>
+          <div class="iteration-item">
+            <div class="iter-badge"></div>
+            <p class="iter-num">05</p>
+            <p class="iter-title">Accessibility &amp; ethics</p>
+            <p class="iter-blurb">Tone, privacy, stigma, and the ethics of AI-generated illustration</p>
+          </div>
+        </div>
+
+        <!-- Decision 1 -->
+        <div class="decision reveal">
+          <div class="decision-eyebrow">
+            <span class="decision-num">01</span>
+            <div class="decision-label-wrap">
+              <span class="decision-kicker">Design Decision</span>
+              <h3 class="decision-heading">Rejecting the<br>"dyslexia font" myth</h3>
+            </div>
+          </div>
+          <div class="decision-divider"></div>
+
+          <p class="section-body">Our first instinct was to render every page in a specialized dyslexia typeface — it's the most visible, most marketed "solution" out there. The literature said otherwise. Wery &amp; Diliberto (2017), published in <em>Annals of Dyslexia</em>, found that OpenDyslexic actually reduced reading rate and accuracy compared to standard fonts — no student in the study preferred it. What the evidence does support: increased letter spacing to reduce visual crowding, shortened line length (Schneps et al., 2013), and keyword highlighting as a visual anchor for tracking meaning (Rello et al., 2014).</p>
+
+          <p class="section-body">That reversed our typography direction entirely. PageLens renders extracted text in a plain, familiar sans-serif — Arial by default — with adjustable spacing and highlighting, the version the research actually supports rather than the version that looks most like an "accessibility feature." OpenDyslexic isn't gone, though — readers can still switch to it in typography settings if they prefer it; it's just no longer the default the system leads with.</p>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <p class="feature-name">Standard sans-serif, not a specialty font</p>
+              <p class="feature-desc">Arial as the default typeface — matching what readers actually preferred across studies, not what looks most like an assistive tool. OpenDyslexic remains available as a customization option for readers who prefer it, even though the evidence doesn't favor it.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Increased letter spacing</p>
+              <p class="feature-desc">Separates characters that otherwise blur together, directly addressing the visual crowding readers describe most often.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Shortened line length</p>
+              <p class="feature-desc">Reduces the chance of losing one's place mid-paragraph (Schneps et al., 2013).</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Keyword highlighting</p>
+              <p class="feature-desc">Gives readers a visual anchor for tracking meaning across a sentence (Rello et al., 2014).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decision 2 -->
+        <div class="decision reveal" style="margin-top: 72px;">
+          <div class="decision-eyebrow">
+            <span class="decision-num">02</span>
+            <div class="decision-label-wrap">
+              <span class="decision-kicker">Design Decision</span>
+              <h3 class="decision-heading">Naming features<br>without naming a diagnosis</h3>
+            </div>
+          </div>
+          <div class="decision-divider"></div>
+
+          <p class="section-body">Stigma showed up in the research as a real, documented barrier — people may hide a disability specifically to avoid appearing different (Almgren Bäck et al., 2024; Dawson et al., 2019; ATIA, 2024). That shaped both the product's tone and its physical form. Every feature is named for what it does, not what it's for: <strong>Easy to Read</strong>, <strong>Simplify Words</strong>, <strong>Read Aloud</strong>, and <strong>Bring Story to Life</strong> — never "dyslexia mode" or "reading assistance."</p>
+
+          <p class="section-body">The same logic drove the hardware decision to build PageLens as a familiar, mainstream-looking device rather than a visibly clinical tool. Support delivered through something that looks like it belongs on any library desk is less visible, and less stigmatizing, than a device that announces what it's for.</p>
+
+          <div class="insight-grid" style="margin-top: 28px;">
+            <div class="insight-card hi">
+              <p class="insight-tag">Principle</p>
+              <p class="insight-text">PageLens is built around the social model of disability: the barrier isn't the reader, it's the text. Every feature reduces friction without requiring the user to disclose or justify their needs.</p>
+            </div>
+            <div class="insight-card hi">
+              <p class="insight-tag">Principle</p>
+              <p class="insight-text">Onboarding asks for an age band (Child, Teen, Adult), not a diagnosis — a single, low-stakes choice that quietly personalizes narration voice and simplification strength.</p>
+            </div>
+            <div class="insight-card">
+              <p class="insight-tag">Acknowledged limit</p>
+              <p class="insight-text">This framing has a real edge: users with limited digital literacy, or with visual or motor impairments beyond the current feature set, may still find the experience insufficient.</p>
+            </div>
+            <div class="insight-card">
+              <p class="insight-tag">Acknowledged limit</p>
+              <p class="insight-text">Age-based personalization only meaningfully affects two features — simplification and narration voice. Story illustrations follow the book's own visual world instead.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECHNOLOGY & FEASIBILITY -->
+      <section class="case-section" id="feasibility">
+        <p class="section-label reveal">Technology &amp; Feasibility</p>
+        <h2 class="section-heading reveal reveal-delay-1">Three technologies, evaluated<br>on what they're actually good at.</h2>
+        <p class="section-body reveal reveal-delay-2">Augmented reality was selected for its ability to overlay digital aids directly onto physical text, reducing the cognitive load of switching attention between a reference source and the page itself (Marner et al., 2013). Generative AI (GPT‑4/LLM) transforms complex text into simplified language and visuals in real time, and OCR extracts text from the physical page — reaching up to 99.99% accuracy for common printed fonts under good lighting (Kuerban et al., 2025).</p>
+        <p class="section-body reveal">Each technology also has real limits we designed around: handheld tablets cause significant fatigue over time, especially for children (Marner et al., 2013; Ridzwan et al., 2025); OCR accuracy drops in poor lighting; and dyslexic readers typically have shorter attention spans, making sessions past 15–20 minutes less effective (Ridzwan et al., 2025). Those constraints are why PageLens isn't a handheld tablet — it's a stabilized station.</p>
+
+        <div class="principle-grid reveal">
+          <div class="principle-card">
+            <div class="principle-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            </div>
+            <p class="principle-name">Easy to Read</p>
+            <p class="principle-desc">Wider letter spacing and shorter lines, adjustable in real time — the typography changes with real evidence behind them (Wery &amp; Diliberto, 2017). Arial is the default in place of specialty dyslexia fonts, though OpenDyslexic remains available for readers who prefer it.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <p class="principle-name">Simplify Words</p>
+            <p class="principle-desc">A short tap swaps a difficult word for a simpler one in place, powered by GPT‑4/LLM text simplification (Kuerban et al., 2025).</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">
+              <svg viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19 12a5 5 0 0 0-3-4.6"/></svg>
+            </div>
+            <p class="principle-name">Read Aloud</p>
+            <p class="principle-desc">Multisensory teaching research (Birsh, 2011; Berninger et al., 2015) supports pairing visual text with audio; a long press reads a sentence aloud through headphones (Wood et al., 2017).</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <p class="principle-name">Bring Story to Life</p>
+            <p class="principle-desc">AR illustrations appear at key story moments, turning abstract concepts into visuals for readers who think spatially (Alexander et al., 1991).</p>
+          </div>
+        </div>
+
+        <p class="section-label reveal" style="margin-top: 8px;">From Handheld to Stationed</p>
+        <p class="section-body reveal" style="margin-top: 8px;">Three feasibility problems reshaped the physical device over the course of the project:</p>
+
+        <div class="insight-grid reveal">
+          <div class="insight-card">
+            <p class="insight-tag">Page turning</p>
+            <p class="insight-text">Music-stand-style clamps were taxing to turn pages against. The fix: custom spring clamps calibrated to the minimum hold force needed to counter page curl, with flared edges to guide pages underneath.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">Spine protection</p>
+            <p class="insight-text">A flat cradle couldn't serve every binding. The fix: a motorized V-hinge that sets angle by book type on identification — roughly 180° for hardcovers, 150–160° for paperbacks to prevent glue cracking.</p>
+          </div>
+          <div class="insight-card hi">
+            <p class="insight-tag">Portability</p>
+            <p class="insight-text">A fixed kiosk limits access and comfort for extended reading. The fix: a portable lap-desk device, checked out through the library's existing device-lending program rather than tied to one seat.</p>
+          </div>
+          <div class="insight-card hi">
+            <p class="insight-tag">Public space integration</p>
+            <p class="insight-text">5–10 units dock and charge at the circulation desk, comparable to Carnegie Library's existing laptop lending cart — a 3–4 hour loan window, full recharge within 2 hours of return.</p>
+          </div>
+        </div>
+
+        <p class="section-label reveal" style="margin-top: 40px;">Hardware Stack</p>
+        <table class="module-table reveal">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Layer</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Front camera (ARKit)</strong></td>
+              <td><span class="module-chip">Sensing</span></td>
+              <td>Tracks the reader's face position and eye height to auto-position the tablet arm on approach</td>
+            </tr>
+            <tr>
+              <td><strong>Folding tablet arm + book cradle</strong></td>
+              <td><span class="module-chip">Actuation</span></td>
+              <td>Servo motors set arm height/tilt and cradle spine angle automatically per book</td>
+            </tr>
+            <tr>
+              <td><strong>iPad 13" Pro (LiDAR, camera)</strong></td>
+              <td><span class="module-chip">Interaction</span></td>
+              <td>Captures the open page and renders the AR text and illustration overlay</td>
+            </tr>
+            <tr>
+              <td><strong>On-device Core ML + cloud GPT‑4/LLM</strong></td>
+              <td><span class="module-chip">Intelligence</span></td>
+              <td>OCR, font overlay, and text-to-speech run on-device; simplification and AR visuals call the cloud model</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="cost-bar reveal">
+          <div class="cost-row"><span>Lap desk chassis <span class="cost-tag">build</span></span><span>$95</span></div>
+          <div class="cost-row"><span>Folding tablet arm <span class="cost-tag">build</span></span><span>$180</span></div>
+          <div class="cost-row"><span>Integrated book cradle <span class="cost-tag">build</span></span><span>$90</span></div>
+          <div class="cost-row"><span>Raspberry Pi <span class="cost-tag">buy</span></span><span>$15</span></div>
+          <div class="cost-row"><span>iPad 13" Pro <span class="cost-tag">buy</span></span><span>$1,100</span></div>
+          <div class="cost-row"><span>Headphones <span class="cost-tag">buy</span></span><span>$50</span></div>
+          <div class="cost-row"><span>Physical book <span class="cost-tag">free</span></span><span>$0</span></div>
+          <div class="cost-total">
+            <span class="cost-total-label">Estimated cost, per unit</span>
+            <span class="cost-total-num">$1,565</span>
+          </div>
+        </div>
+
+        <p class="section-label reveal" style="margin-top: 40px;">Reading Journey</p>
+        <div class="flow-strip reveal">
+          <div class="flow-step">
+            <span class="flow-step-stage">Stage 1</span>
+            <span class="flow-step-title">Approaching the station</span>
+            <span class="flow-step-desc">Reader borrows PageLens and sits down; it wakes and auto-positions to their seat before they scan their library card and book.</span>
+          </div>
+          <div class="flow-step">
+            <span class="flow-step-stage">Stage 2</span>
+            <span class="flow-step-title">Recognition &amp; onboarding</span>
+            <span class="flow-step-desc">Returning readers jump straight into their saved settings; new readers pick an age band and choose which of the four features to turn on.</span>
+          </div>
+          <div class="flow-step">
+            <span class="flow-step-stage">Stage 3</span>
+            <span class="flow-step-title">Reading session</span>
+            <span class="flow-step-desc">Selected features run live as the reader turns pages — a short tap simplifies a word, a long press reads a sentence aloud.</span>
+          </div>
+          <div class="flow-step">
+            <span class="flow-step-stage">Stage 4</span>
+            <span class="flow-step-title">Leaving the station</span>
+            <span class="flow-step-desc">Removing the book ends the session; a brief reading summary appears, then the station clears all guest data and resets.</span>
+          </div>
+        </div>
+
+        <div class="pull-quote reveal">
+          <p>Across all failure states, PageLens follows one principle: degrade quietly, not loudly.</p>
+        </div>
+        <p class="pull-quote-attr">— Process book, Edge Cases &amp; Error States</p>
+
+        <p class="section-body reveal">If the book isn't recognized, a manual title search keeps the session going with only <em>Bring Story to Life</em> disabled — everything else works as normal. If a page fails to process, a loading indicator holds the screen rather than showing an error. If a scan or age selection is wrong, there's no penalty; settings can be changed at any point. Nothing halts the reading session because the technology stumbled.</p>
+
+        <!-- Demo video -->
+        <div class="media-placeholder reveal">
+          <div class="media-placeholder-header">
+            <div class="media-placeholder-dot"></div>
+            <span class="media-placeholder-title">Concept Demo</span>
+          </div>
+          <div class="media-placeholder-body" style="padding:0; border:none; overflow:hidden;">
+            <iframe style="width:100%; height:100%; border:0;" src="https://www.youtube.com/embed/TvlTDxR1I94" title="PageLens Concept Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="citations reveal">
+          <p class="citations-label">Sources referenced above</p>
+          <div class="citations-list">
+            Wery &amp; Diliberto (2017), <em>Annals of Dyslexia</em><br>
+            Kuerban, Oyelere &amp; Sanusi (2025), <em>IJTES</em><br>
+            Marner, Irlitti &amp; Thomas (2013), Univ. of South Australia<br>
+            Ridzwan, Husni &amp; Mohamad Na'in (2025), Univ. Utara Malaysia<br>
+            Schneps et al. (2013)<br>
+            Rello et al. (2014)<br>
+            Birsh (2011); Berninger et al. (2015)<br>
+            Wood et al. (2017)<br>
+            Alexander et al. (1991)<br>
+            International Dyslexia Association
+          </div>
+        </div>
+      </section>
+
+      <!-- ETHICS & REFLECTIONS -->
+      <section class="case-section" id="reflections">
+        <p class="section-label reveal">Ethics &amp; Reflections</p>
+
+        <div class="outcome-quote reveal">
+          <p class="outcome-quote-text">PageLens is built around the social model of disability: the barrier isn't the reader, it's the text.</p>
+          <p class="outcome-quote-attr">— Process book, Accessibility &amp; Ethical Considerations · April 2026</p>
+        </div>
+
+        <p class="section-body reveal" style="margin-top: 36px;">Two ethical questions shaped the project as much as any interaction decision. First, <strong>AI-generated illustration</strong>: the <em>Bring Story to Life</em> feature could lean entirely on generative images, but that raises a real concern for human illustrators. In the current concept, AI generation is treated as a last resort — the system sources licensed, existing illustrations first, labels any AI output clearly when it's necessary, and the team is committed to partnering with and fairly compensating human illustrators as the product develops.</p>
+
+        <p class="section-body reveal">Second, <strong>where the design still falls short</strong>: age-based personalization works for readers comfortable with a touchscreen, but users with limited digital literacy — older adults in particular — may struggle with the interface, and users with visual or motor impairments beyond the current feature set may find the experience insufficient. Naming that limit directly, rather than implying PageLens solves accessibility broadly, felt like part of the design work rather than a caveat tacked on at the end.</p>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="next-project">
+    <a href="./impresschat.html" class="next-side next-left">
+      <span class="next-label">← Previous</span>
+      <span class="next-title">ImpressChat</span>
+    </a>
+    <div class="next-divider"></div>
+    <a href="./about.html" class="next-side next-right">
+      <span class="next-label">About Me</span>
+      <span class="next-title">Meet Phoebe Zhang →</span>
+    </a>
+  </div>
+
+  <script>
+    const bar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = pct + '%';
+    });
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObs.observe(el));
+    const sections = document.querySelectorAll('.case-section[id]');
+    const navItems = document.querySelectorAll('.breadcrumb-item[data-section]');
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navItems.forEach(i => i.classList.remove('active'));
+          const a = document.querySelector(`.breadcrumb-item[data-section="${e.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sections.forEach(s => sectionObs.observe(s));
+  </script>
+</body>
+</html>

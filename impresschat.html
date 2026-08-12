@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ImpressChat — Phoebe Zhang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #1a1a1a;
+      --white: #ffffff;
+      --off-white: #f7f5fc;
+      --gray-mid: #88848e;
+      --gray-light: #e6e2f0;
+      --gray-dark: #3a3842;
+      --accent: #6c3fc5;
+      --accent-light: #f0ebfb;
+      --accent-dark: #4e2a9a;
+      --accent-muted: #c5b3e8;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Mulish', system-ui, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+    #progress-bar { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 1000; transition: width 0.1s linear; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 900; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    nav.scrolled { border-color: var(--gray-light); }
+    .nav-logo { font-family: 'Spectral', Georgia, serif; font-size: 20px; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a { font-size: 14px; color: var(--gray-dark); text-decoration: none; letter-spacing: 0.01em; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1.5px; background: var(--accent); transition: width 0.3s ease; }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding: 120px 48px 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+
+    .hero-media { position: relative; border-radius: 24px; overflow: hidden; aspect-ratio: 4/5; background: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
+
+    /* Phone mockup */
+    .phone-mockup { width: 160px; height: 290px; background: #1a1a2e; border-radius: 28px; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 24px 60px rgba(0,0,0,0.35); position: relative; display: flex; flex-direction: column; overflow: hidden; z-index: 1; }
+    .phone-notch { width: 60px; height: 8px; background: rgba(255,255,255,0.15); border-radius: 0 0 8px 8px; margin: 8px auto 0; }
+    .phone-screen { flex: 1; margin: 8px 10px 10px; background: linear-gradient(160deg, #2d1b69 0%, #1a0f3d 100%); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 12px 10px; }
+    .phone-chat-bubble { background: rgba(108,63,197,0.5); border-radius: 10px 10px 10px 2px; padding: 6px 10px; font-size: 7px; color: rgba(255,255,255,0.85); line-height: 1.4; width: 100%; }
+    .phone-chat-bubble.right { background: rgba(255,255,255,0.15); border-radius: 10px 10px 2px 10px; text-align: right; }
+    .phone-options { display: flex; flex-direction: column; gap: 4px; width: 100%; margin-top: 6px; }
+    .phone-option { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 4px 8px; font-size: 6.5px; color: rgba(255,255,255,0.7); text-align: center; }
+    .phone-option.selected { background: rgba(108,63,197,0.6); border-color: rgba(197,179,232,0.6); color: rgba(255,255,255,0.95); }
+
+    .phone-label { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 0.05em; z-index: 1; }
+
+    .hero-media::after { content: ''; position: absolute; inset: 0; border-radius: 24px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+
+    .hero-content { display: flex; flex-direction: column; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-mid); text-decoration: none; margin-bottom: 32px; letter-spacing: 0.01em; transition: color 0.2s, gap 0.2s; }
+    .back-link:hover { color: var(--black); gap: 10px; }
+    .back-link svg { width: 14px; height: 14px; }
+    .project-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 16px; font-weight: 500; }
+    .project-title { font-family: 'Spectral', Georgia, serif; font-size: clamp(44px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.02em; color: var(--black); margin-bottom: 20px; }
+    .project-title em { font-style: italic; color: var(--accent); }
+    .project-description { font-size: 17px; line-height: 1.75; color: var(--gray-dark); max-width: 420px; margin-bottom: 36px; font-weight: 300; }
+    .hero-divider { width: 40px; height: 1.5px; background: var(--accent); margin-bottom: 28px; opacity: 0.6; }
+    .meta-grid { display: grid; grid-template-columns: auto 1fr; gap: 10px 24px; align-items: baseline; }
+    .meta-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); font-weight: 500; }
+    .meta-value { font-size: 14px; color: var(--gray-dark); font-weight: 400; }
+    .meta-badge { display: inline-block; font-size: 11px; background: var(--accent-light); color: var(--accent-dark); padding: 2px 10px; border-radius: 20px; font-weight: 500; }
+
+    /* ── BODY LAYOUT ── */
+    .case-body { display: grid; grid-template-columns: 200px 1fr; gap: 0; max-width: 1100px; margin: 0 auto; padding: 0 48px 120px; }
+    .breadcrumb-nav { position: sticky; top: 120px; height: fit-content; padding-right: 48px; z-index: 10; }
+    .breadcrumb-list { list-style: none; display: flex; flex-direction: column; gap: 0; position: relative; }
+    .breadcrumb-list::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1.5px; background: var(--gray-light); }
+    .breadcrumb-item { position: relative; padding: 10px 0 10px 20px; }
+    .breadcrumb-item::before { content: ''; position: absolute; left: -3px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--gray-light); border: 1.5px solid var(--white); transition: background 0.25s, transform 0.25s; }
+    .breadcrumb-item.active::before { background: var(--accent); transform: translateY(-50%) scale(1.2); }
+    .breadcrumb-item a { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-mid); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb-item:hover a, .breadcrumb-item.active a { color: var(--black); }
+    .breadcrumb-item.active a { font-weight: 500; color: var(--accent-dark); }
+
+    /* ── SECTIONS ── */
+    .case-content { padding-top: 80px; }
+    .case-section { margin-bottom: 96px; }
+    .section-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-dark); margin-bottom: 14px; font-weight: 500; }
+    .section-heading { font-family: 'Spectral', Georgia, serif; font-size: clamp(32px, 3.5vw, 46px); line-height: 1.1; letter-spacing: -0.02em; color: var(--black); margin-bottom: 24px; }
+    .section-body { font-size: 16px; line-height: 1.85; color: var(--gray-dark); max-width: 600px; font-weight: 300; margin-bottom: 20px; }
+
+    /* ── ITERATION STRIP (replaces MVP arc) ── */
+    .iteration-strip { display: flex; gap: 0; margin: 40px 0; border-radius: 16px; overflow: hidden; border: 1.5px solid var(--gray-light); }
+    .iteration-item { flex: 1; padding: 20px 18px; border-right: 1px solid var(--gray-light); position: relative; }
+    .iteration-item:last-child { border-right: none; }
+    .iter-num { font-family: 'Spectral', Georgia, serif; font-size: 11px; color: var(--accent-dark); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .iter-title { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 5px; line-height: 1.3; }
+    .iter-blurb { font-size: 12px; color: var(--gray-mid); line-height: 1.5; }
+    .iteration-item.featured { background: var(--accent-light); }
+    .iter-badge { position: absolute; top: 12px; right: 12px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-muted); }
+    .iteration-item.featured .iter-badge { background: var(--accent); }
+
+    /* ── DECISION DEEP DIVE ── */
+    .decision { margin: 52px 0 0; }
+    .decision-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .decision-num { font-family: 'Spectral', Georgia, serif; font-size: 48px; color: var(--accent-muted); line-height: 1; }
+    .decision-label-wrap { display: flex; flex-direction: column; gap: 3px; }
+    .decision-kicker { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; }
+    .decision-heading { font-family: 'Spectral', Georgia, serif; font-size: clamp(26px, 2.8vw, 36px); color: var(--black); line-height: 1.1; letter-spacing: -0.02em; }
+    .decision-divider { width: 100%; height: 1px; background: var(--gray-light); margin-bottom: 28px; }
+
+    /* ── STAT CALLOUT ── */
+    .stat-callout { background: var(--accent-light); border-left: 4px solid var(--accent); border-radius: 0 16px 16px 0; padding: 36px 44px; margin: 36px 0; display: flex; align-items: center; gap: 32px; }
+    .stat-number { font-family: 'Spectral', Georgia, serif; font-size: clamp(52px, 6vw, 76px); color: var(--accent-dark); line-height: 1; white-space: nowrap; }
+    .stat-text { flex: 1; }
+    .stat-label { font-size: 16px; color: var(--gray-dark); line-height: 1.55; margin-bottom: 6px; }
+    .stat-source { font-size: 11px; color: var(--gray-mid); letter-spacing: 0.04em; }
+
+    /* ── STAT ROW ── */
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray-light); border-radius: 16px; overflow: hidden; margin: 36px 0; }
+    .stat-cell { background: var(--off-white); padding: 28px 24px; display: flex; flex-direction: column; gap: 6px; }
+    .stat-cell-num { font-family: 'Spectral', Georgia, serif; font-size: 36px; color: var(--accent-dark); line-height: 1; }
+    .stat-cell-label { font-size: 13px; color: var(--gray-mid); line-height: 1.4; }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote { border-left: 3px solid var(--accent); padding: 8px 0 8px 28px; margin: 36px 0; }
+    .pull-quote p { font-family: 'Spectral', Georgia, serif; font-size: 21px; line-height: 1.55; color: var(--gray-dark); font-style: italic; }
+    .pull-quote-attr { font-size: 13px; color: var(--gray-mid); letter-spacing: 0.02em; margin-top: 10px; padding-left: 28px; }
+
+    /* ── INSIGHT GRID ── */
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+    .insight-card { background: var(--off-white); border-radius: 16px; padding: 26px 22px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+    .insight-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(108,63,197,0.08); }
+    .insight-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent-muted); }
+    .insight-card.hi::before { background: var(--accent); }
+    .insight-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-dark); font-weight: 500; margin-bottom: 10px; }
+    .insight-text { font-size: 15px; line-height: 1.65; color: var(--gray-dark); }
+
+    /* ── PRINCIPLE CARDS (3-column for learning principles) ── */
+    .principle-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 32px 0; }
+    .principle-card { border: 1.5px solid var(--gray-light); border-radius: 16px; padding: 24px 20px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .principle-card:hover { border-color: var(--accent-muted); box-shadow: 0 8px 24px rgba(108,63,197,0.08); }
+    .principle-icon { width: 36px; height: 36px; background: var(--accent-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+    .principle-icon svg { width: 18px; height: 18px; stroke: var(--accent-dark); fill: none; stroke-width: 1.5; }
+    .principle-name { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 8px; line-height: 1.3; }
+    .principle-desc { font-size: 13px; line-height: 1.65; color: var(--gray-mid); }
+
+    /* ── MODULE TABLE ── */
+    .module-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: 14px; }
+    .module-table th { text-align: left; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-mid); font-weight: 500; padding: 10px 16px; border-bottom: 1.5px solid var(--gray-light); }
+    .module-table td { padding: 14px 16px; border-bottom: 1px solid var(--gray-light); color: var(--gray-dark); line-height: 1.55; vertical-align: top; }
+    .module-table tr:last-child td { border-bottom: none; }
+    .module-chip { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 12px; font-weight: 500; }
+    .chip-pretest { background: #e8f5e9; color: #2e7d32; }
+    .chip-module { background: var(--accent-light); color: var(--accent-dark); }
+    .chip-posttest { background: #fef3e2; color: #92540a; }
+
+    /* ── MEDIA PLACEHOLDER ── */
+    .media-placeholder { background: var(--off-white); border-radius: 16px; overflow: hidden; border: 1.5px dashed var(--gray-light); margin: 28px 0; }
+    .media-placeholder-header { background: var(--accent-light); padding: 12px 18px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--accent-muted); }
+    .media-placeholder-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    .media-placeholder-title { font-size: 12px; font-weight: 500; color: var(--accent-dark); letter-spacing: 0.04em; }
+    .media-placeholder-body { padding: 48px 24px; text-align: center; color: var(--gray-mid); font-size: 13px; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px; }
+    .media-placeholder-body svg { width: 32px; height: 32px; stroke: var(--gray-light); fill: none; stroke-width: 1.5; }
+
+    /* Screenshots row */
+    .screens-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 28px 0; align-items: start; }
+
+    /* ── SCREEN CARDS ── */
+    .screen-card { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .screen-card img { width: 100%; border-radius: 16px; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+    .screen-card-label { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--gray-mid); text-transform: uppercase; text-align: center; }
+
+    /* ── FEATURE CARDS ── */
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0; }
+    .feature-card { border: 1.5px solid var(--gray-light); border-radius: 16px; padding: 24px 22px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .feature-card:hover { border-color: var(--accent-muted); box-shadow: 0 8px 24px rgba(108,63,197,0.08); }
+    .feature-name { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 7px; }
+    .feature-desc { font-size: 13px; line-height: 1.65; color: var(--gray-mid); }
+
+    /* ── OUTCOME QUOTE ── */
+    .outcome-quote { background: var(--black); border-radius: 24px; padding: 64px 72px; position: relative; overflow: hidden; }
+    .outcome-quote::before { content: '\201C'; font-family: 'Spectral', Georgia, serif; font-size: 160px; color: var(--accent); opacity: 0.2; position: absolute; top: -20px; left: 48px; line-height: 1; }
+    .outcome-quote-text { font-family: 'Spectral', Georgia, serif; font-size: clamp(22px, 2.5vw, 30px); line-height: 1.5; color: var(--white); font-style: italic; position: relative; z-index: 1; margin-bottom: 28px; }
+    .outcome-quote-attr { font-size: 13px; color: rgba(255,255,255,0.45); letter-spacing: 0.04em; position: relative; z-index: 1; }
+
+    /* ── NEXT PROJECT ── */
+    .next-project { background: var(--off-white); border-radius: 24px; padding: 64px; display: flex; justify-content: space-between; align-items: center; max-width: calc(1100px - 96px); margin: 0 auto 80px; }
+    .next-side { display: flex; flex-direction: column; gap: 8px; text-decoration: none; }
+    .next-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-mid); }
+    .next-title { font-family: 'Spectral', Georgia, serif; font-size: 28px; color: var(--black); transition: transform 0.3s ease, color 0.2s; display: inline-block; }
+    .next-left:hover .next-title, .next-right:hover .next-title { color: var(--accent-dark); }
+    .next-right:hover .next-title { transform: translateX(6px); }
+    .next-left:hover .next-title { transform: translateX(-6px); }
+    .next-divider { width: 1px; height: 60px; background: var(--gray-light); }
+    .next-left { text-align: left; }
+    .next-right { text-align: right; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
+      .hero-media { aspect-ratio: 16/9; }
+      .case-body { grid-template-columns: 1fr; padding: 0 24px 80px; }
+      .breadcrumb-nav { position: static; padding: 20px 0; border-top: 1px solid var(--gray-light); border-bottom: 1px solid var(--gray-light); margin-bottom: 40px; }
+      .breadcrumb-list { flex-direction: row; overflow-x: auto; }
+      .breadcrumb-list::before { display: none; }
+      .breadcrumb-item { padding: 6px 16px 6px 0; white-space: nowrap; }
+      .breadcrumb-item::before { display: none; }
+      .iteration-strip { flex-direction: column; }
+      .iteration-item { border-right: none; border-bottom: 1px solid var(--gray-light); }
+      .iteration-item:last-child { border-bottom: none; }
+      .insight-grid, .feature-grid, .principle-grid { grid-template-columns: 1fr; }
+      .stat-callout { flex-direction: column; gap: 8px; }
+      .stat-number { font-size: 56px; }
+      .stat-row { grid-template-columns: 1fr; }
+      .outcome-quote { padding: 40px 36px; }
+      .next-project { flex-direction: column; gap: 32px; padding: 40px; margin: 0 24px 60px; }
+      .next-divider { width: 60px; height: 1px; }
+      nav { padding: 0 24px; }
+      .screens-row { grid-template-columns: 1fr 1fr; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress-bar"></div>
+
+  <nav id="main-nav">
+    <a href="./index.html" class="nav-logo">PZ</a>
+    <div class="nav-links">
+      <a href="./index.html">Home</a>
+      <a href="./projects.html">Projects</a>
+      <a href="./about.html">About</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-media">
+      <img src="./images/ImpressChat/demo%20linkedin.MP4.gif" alt="ImpressChat app demo" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center;" />
+    </div>
+
+    <div class="hero-content">
+      <a href="./projects.html" class="back-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 12L6 8l4-4"/></svg>
+        Back to Projects
+      </a>
+      <p class="project-label">UX Design · EdTech · Learning Science</p>
+      <h1 class="project-title"><em>Impress</em>Chat</h1>
+      <p class="project-description">A mobile learning app that teaches Impressionist art through chat-based interaction — guiding learners through structured conversations with historical figures, POE activities, and immediate AI-graded feedback. Accepted to ACM Learning@Scale 2026 in Seoul.</p>
+      <div class="hero-divider"></div>
+      <div class="meta-grid">
+        <span class="meta-label">Role</span>
+        <span class="meta-value">UX Designer · Instructional Designer</span>
+        <span class="meta-label">Team</span>
+        <span class="meta-value">3 people (PM, Developer, UX Designer)</span>
+        <span class="meta-label">Tools</span>
+        <span class="meta-value">Figma · Xcode · OpenAI API</span>
+        <span class="meta-label">Venue</span>
+        <span class="meta-value"><span class="meta-badge">ACM L@S 2026 · Seoul</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE BODY -->
+  <div class="case-body">
+
+    <nav class="breadcrumb-nav" aria-label="Section navigation">
+      <ul class="breadcrumb-list">
+        <li class="breadcrumb-item active" data-section="overview"><a href="#overview">Overview</a></li>
+        <li class="breadcrumb-item" data-section="process"><a href="#process">Design Process</a></li>
+        <li class="breadcrumb-item" data-section="learning"><a href="#learning">Learning Design</a></li>
+        <li class="breadcrumb-item" data-section="reflections"><a href="#reflections">Reflections</a></li>
+      </ul>
+    </nav>
+
+    <div class="case-content">
+
+      <!-- OVERVIEW -->
+      <section class="case-section" id="overview">
+        <p class="section-label reveal">Overview</p>
+        <h2 class="section-heading reveal reveal-delay-1">Art education online is mostly passive.<br>ImpressChat is not.</h2>
+        <p class="section-body reveal reveal-delay-2">Most online art courses ask learners to read articles and watch videos. They deliver content, but they don't build the perceptual skills that art understanding actually requires — the ability to look closely, reason about what you see, and connect visual details to historical context. That kind of skill develops through practice, not consumption.</p>
+        <p class="section-body reveal">ImpressChat addresses this by putting interaction first. Learners don't scroll through facts about Monet — they chat with him. They're prompted to make predictions before receiving any instruction, then observe visual evidence, then explain their reasoning. The app measures learning through parallel pre- and post-tests so growth is visible.</p>
+
+        <div class="stat-callout reveal">
+          <div class="stat-number">3</div>
+          <div class="stat-text">
+            <p class="stat-label">chat-based instructional modules, each led by a distinct historical voice — an Art Historian, Claude Monet, and Roger Fry — giving learners three different expert lenses on Impressionism</p>
+            <p class="stat-source">ImpressChat · ACM Learning@Scale 2026</p>
+          </div>
+        </div>
+
+        <div class="insight-grid reveal">
+          <div class="insight-card hi">
+            <p class="insight-tag">The Problem</p>
+            <p class="insight-text">Online art education prioritizes content delivery over active analysis, making it hard for learners to develop perceptual and interpretive skills that only come from genuine engagement with visual material.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">The Audience</p>
+            <p class="insight-text">Adult learners approaching Impressionism for the first time — whether in a classroom, a museum workshop, or self-directed. The app needed to work without an instructor present.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">My Contribution</p>
+            <p class="insight-text">I designed the full interface in Figma — every screen, interaction state, and feedback display — while also contributing to the instructional design of the learning modules and the course structure.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">The Outcome</p>
+            <p class="insight-text">ImpressChat was accepted as a demo and poster presentation at ACM Learning@Scale 2026 in Seoul, one of the leading international conferences on technology-supported learning at scale.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DESIGN PROCESS -->
+      <section class="case-section" id="process">
+        <p class="section-label reveal">Design Process</p>
+        <h2 class="section-heading reveal reveal-delay-1">Backwards design.<br>Two rounds of testing.</h2>
+        <p class="section-body reveal reveal-delay-2">ImpressChat followed a backwards design process — we defined learning objectives first, then mapped the user flow, then built from low-fidelity wireframes to high-fidelity Figma prototypes before the developer implemented in Xcode. Design decisions were always traced back to a specific learning goal.</p>
+
+        <!-- Iteration strip -->
+        <div class="iteration-strip reveal">
+          <div class="iteration-item">
+            <div class="iter-badge"></div>
+            <p class="iter-num">Phase 1</p>
+            <p class="iter-title">Learning objectives</p>
+            <p class="iter-blurb">Define LOs, map pre/post-test structure and module flow</p>
+          </div>
+          <div class="iteration-item">
+            <div class="iter-badge"></div>
+            <p class="iter-num">Phase 2</p>
+            <p class="iter-title">Lo-fi wireframes</p>
+            <p class="iter-blurb">Sketch chat interaction patterns, navigation, feedback layouts</p>
+          </div>
+          <div class="iteration-item featured">
+            <div class="iter-badge"></div>
+            <p class="iter-num">Phase 3</p>
+            <p class="iter-title">Think-aloud testing</p>
+            <p class="iter-blurb">Figma prototype testing revealed cognitive overload in message density</p>
+          </div>
+          <div class="iteration-item featured">
+            <div class="iter-badge"></div>
+            <p class="iter-num">Phase 4</p>
+            <p class="iter-title">Implemented app testing</p>
+            <p class="iter-blurb">Live Xcode build surfaced terminology confusion and technical bugs</p>
+          </div>
+          <div class="iteration-item">
+            <div class="iter-badge"></div>
+            <p class="iter-num">Phase 5</p>
+            <p class="iter-title">Final build</p>
+            <p class="iter-blurb">Refined flows, confirmed assessment structure, submitted to L@S</p>
+          </div>
+        </div>
+
+        <p class="section-body reveal" style="font-size: 14px; color: var(--gray-mid);">Phases 3 and 4 — the two testing rounds — drove the most significant design changes.</p>
+
+        <!-- Decision 1 -->
+        <div class="decision reveal">
+          <div class="decision-eyebrow">
+            <span class="decision-num">01</span>
+            <div class="decision-label-wrap">
+              <span class="decision-kicker">Design Decision</span>
+              <h3 class="decision-heading">Breaking messages apart<br>to reduce cognitive load</h3>
+            </div>
+          </div>
+          <div class="decision-divider"></div>
+
+          <p class="section-body">In the first round of think-aloud testing on Figma prototypes, users were visibly overwhelmed by the chat interface. Long blocks of instructional text landed in a single message bubble — and even though the content was well-designed, learners stopped reading before they reached the key point. The medium was working against the message.</p>
+
+          <p class="section-body">The fix was structural: I broke instructional content into smaller, sequentially revealed message chunks, and tuned the timing between them. This wasn't just aesthetic — it matched how people actually read in a chat context: one idea at a time, with space to process before the next arrives. Shorter messages also made the response options easier to locate, reducing the scanning work required at every interaction step.</p>
+
+          <div class="feature-grid">
+            <div class="feature-card">
+              <p class="feature-name">Chunked message delivery</p>
+              <p class="feature-desc">Instructional content split into 1–2 sentence bursts, each visually distinct, so learners absorb one idea before the next appears. Reduced the amount of text visible at any one time.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Timed reveal sequence</p>
+              <p class="feature-desc">Messages appeared with deliberate pacing rather than all at once, mimicking a real conversation rhythm and giving learners a moment to engage before more content arrived.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Persistent response options</p>
+              <p class="feature-desc">Answer choices anchored at the bottom of the screen at all times, so users never had to scroll to find them — a friction point the first prototype hadn't accounted for.</p>
+            </div>
+            <div class="feature-card">
+              <p class="feature-name">Visual keyword highlighting</p>
+              <p class="feature-desc">Key art terms (e.g., "light," "atmosphere," "brushwork") visually highlighted in feedback messages to anchor understanding and aid recall of terminology.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decision 2 -->
+        <div class="decision reveal" style="margin-top: 72px;">
+          <div class="decision-eyebrow">
+            <span class="decision-num">02</span>
+            <div class="decision-label-wrap">
+              <span class="decision-kicker">Design Decision</span>
+              <h3 class="decision-heading">Fixing terminology and<br>navigation on the live build</h3>
+            </div>
+          </div>
+          <div class="decision-divider"></div>
+
+          <p class="section-body">The second round of testing happened on the implemented Xcode build, and it surfaced a different category of problems: terminology confusion and bugs that only appeared under real interaction conditions. Learners weren't sure what "Module" meant in context, couldn't tell whether they'd completed a section, and in some cases got stuck when the app didn't recover gracefully from an unexpected input.</p>
+
+          <p class="section-body">This round was valuable precisely because it was messier than Figma testing. Real implementation reveals friction that even high-fidelity prototypes can paper over — the exact moment a transition feels abrupt, the specific label that makes someone pause. I iterated directly from session notes, prioritising fixes that affected comprehension over fixes that affected polish.</p>
+
+          <div class="insight-grid" style="margin-top: 28px;">
+            <div class="insight-card hi">
+              <p class="insight-tag">Changed</p>
+              <p class="insight-text">Module labels rewritten in plain language — from system-centric labels ("Module 2") to content-centric ones ("Chat with Monet") so learners understood what was coming, not just where they were in a sequence.</p>
+            </div>
+            <div class="insight-card hi">
+              <p class="insight-tag">Changed</p>
+              <p class="insight-text">Completion states added to module cards on the course outline screen, giving learners a clear visual record of progress and reducing re-entry confusion when returning to the app.</p>
+            </div>
+            <div class="insight-card">
+              <p class="insight-tag">Confirmed</p>
+              <p class="insight-text">The core chat interaction model held up under real use. Learners understood the predict-before-instruction structure without explanation, validating the scaffolded response-option design.</p>
+            </div>
+            <div class="insight-card">
+              <p class="insight-tag">Confirmed</p>
+              <p class="insight-text">The pretest-to-posttest arc felt meaningful to learners. Seeing their score improve gave the app a clear sense of purpose — learning was visible, not just felt.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- App screens placeholder -->
+        <div style="margin-top: 52px;">
+          <p class="section-label reveal">App Screens</p>
+          <div class="screens-row reveal">
+            <div class="screen-card">
+              <img src="./images/ImpressChat/landing%20page.PNG" alt="Course Outline screen" />
+              <span class="screen-card-label">Landing Page</span>
+            </div>
+            <div class="screen-card">
+              <img src="./images/ImpressChat/pre-test.PNG" alt="Pre-test question screen" />
+              <span class="screen-card-label">Pre-test</span>
+            </div>
+            <div class="screen-card">
+              <img src="./images/ImpressChat/catelog.PNG" alt="Chat module screen" />
+              <span class="screen-card-label">Catalog</span>
+            </div>
+            <div class="screen-card">
+              <img src="./images/ImpressChat/Instruction.png" alt="Instruction screen" />
+              <span class="screen-card-label">Instruction</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full demo video -->
+        <div class="media-placeholder reveal">
+          <div class="media-placeholder-header">
+            <div class="media-placeholder-dot"></div>
+            <span class="media-placeholder-title">Full Demo</span>
+          </div>
+          <div style="padding: 0; background: #000; border-radius: 0 0 16px 16px; overflow: hidden; display: flex; justify-content: center;">
+            <video controls style="height: 640px; width: auto; display: block; background: #000;">
+              <source src="./images/ImpressChat/impresschat-demo.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEARNING DESIGN -->
+      <section class="case-section" id="learning">
+        <p class="section-label reveal">Learning Design</p>
+        <h2 class="section-heading reveal reveal-delay-1">Three principles.<br>One coherent learning arc.</h2>
+        <p class="section-body reveal reveal-delay-2">My role wasn't only the interface — I also contributed to the instructional design of the modules. Every design decision in the UI maps back to a specific learning science principle. The visual design isn't decoration on top of the pedagogy; it is the pedagogy made visible.</p>
+
+        <div class="principle-grid reveal">
+          <div class="principle-card">
+            <div class="principle-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <p class="principle-name">Structured chat to scaffold interaction</p>
+            <p class="principle-desc">Conversational interfaces activate social responses and promote active cognitive processing. Fixed response options scaffold learners without removing agency, and manage cognitive load by constraining the decision space.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <p class="principle-name">Predict–Observe–Explain</p>
+            <p class="principle-desc">Learners predict before any instruction is delivered. This activates prior knowledge and creates a cognitive need for the content that follows. POE activities consistently produce deeper understanding than passive reading.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <p class="principle-name">Immediate, targeted feedback</p>
+            <p class="principle-desc">Corrective and explanatory feedback is embedded directly into the interaction — not shown on a results screen at the end. Feedback names the concept, explains the reasoning, and highlights the visual evidence in the painting.</p>
+          </div>
+        </div>
+
+        <p class="section-body reveal" style="margin-top: 8px;">The three learning objectives drove every assessment and module decision:</p>
+
+        <table class="module-table reveal">
+          <thead>
+            <tr>
+              <th>Learning Objective</th>
+              <th>Pre/Post-test Questions</th>
+              <th>Instructional Module</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Recall</strong> — sequence and contextualise Impressionist movements</td>
+              <td><span class="module-chip chip-pretest">Q1 MCQ</span> &nbsp; <span class="module-chip chip-posttest">Q2 Open Response</span></td>
+              <td>Module 1 — What is Impressionism? Ask the Art Historian</td>
+            </tr>
+            <tr>
+              <td><strong>Classify</strong> — identify Impressionist works from a mixed set</td>
+              <td><span class="module-chip chip-pretest">Q3 Image MCQ</span></td>
+              <td>Module 2 — The Artists: Chat with Monet & Degas</td>
+            </tr>
+            <tr>
+              <td><strong>Evaluate</strong> — attribute unseen paintings to specific artists</td>
+              <td><span class="module-chip chip-pretest">Q4 Image MCQ</span> &nbsp; <span class="module-chip chip-posttest">Q5 Dropdown cloze</span></td>
+              <td>Module 3 — Post-Impressionism: Chat with Roger Fry</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pull-quote reveal">
+          <p>The pre- and post-tests are structurally parallel — same question types, same learning objectives, different paintings. Growth is real, not just familiar.</p>
+        </div>
+
+        <p class="section-body reveal">This parallel structure was a deliberate instructional design choice. If the post-test used the same artworks as the pre-test, an improvement score could reflect recognition rather than understanding. By using new, unseen paintings that test the same skills, the assessment actually measures whether learners can transfer what they've learned — the bar that makes educational measurement meaningful.</p>
+      </section>
+
+      <!-- REFLECTIONS -->
+      <section class="case-section" id="reflections">
+        <p class="section-label reveal">Reflections</p>
+
+        <div class="outcome-quote reveal">
+          <p class="outcome-quote-text">The chat interface only works as a learning tool if the design earns trust at every step — the learner has to believe the conversation is worth slowing down for.</p>
+          <p class="outcome-quote-attr">— ImpressChat · Reflection after L@S submission · 2026</p>
+        </div>
+
+        <p class="section-body reveal" style="margin-top: 36px;">Building ImpressChat taught me that mobile learning design lives or dies at the sentence level. A block of instructional text that looks fine in a Figma frame becomes an obstacle in a real chat interface — and no amount of good pedagogy recovers a learner who has already stopped reading. The two testing rounds weren't checkboxes; they were the actual design work.</p>
+
+        <div class="insight-grid reveal">
+          <div class="insight-card">
+            <p class="insight-tag">Do differently</p>
+            <p class="insight-text">Run a cognitive load check on every message before prototyping, not after. I caught the message density problem in the first think-aloud, but an earlier audit of word count per bubble would have saved a full iteration cycle.</p>
+          </div>
+          <div class="insight-card">
+            <p class="insight-tag">Do differently</p>
+            <p class="insight-text">Test navigation labels earlier in the process. The terminology confusion in round two was a solvable problem — but it only surfaced on the live build because we'd assumed shared vocabulary between the team and the learner. That assumption was wrong.</p>
+          </div>
+          <div class="insight-card hi">
+            <p class="insight-tag">Carry forward</p>
+            <p class="insight-text">Backwards design keeps the team honest. Starting from learning objectives meant every interface decision had a clear answer to "why does this exist?" It kept scope tight and gave us a shared language for saying no to ideas that felt good but didn't serve a learning goal.</p>
+          </div>
+          <div class="insight-card hi">
+            <p class="insight-tag">Carry forward</p>
+            <p class="insight-text">The POE structure is transferable beyond art. Making learners commit to a prediction before any instruction is one of the highest-leverage moves in instructional design — it works because it gives learners a stake in the answer before they receive it. I'd use this in future projects across domains.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="next-project">
+    <a href="./kbtutor.html" class="next-side next-left">
+      <span class="next-label">← Previous</span>
+      <span class="next-title">KB Tutor</span>
+    </a>
+    <div class="next-divider"></div>
+    <a href="./pagelens.html" class="next-side next-right">
+      <span class="next-label">Next Project</span>
+      <span class="next-title">PageLens →</span>
+    </a>
+  </div>
+
+  <script>
+    const bar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      bar.style.width = pct + '%';
+    });
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => revealObs.observe(el));
+    const sections = document.querySelectorAll('.case-section[id]');
+    const navItems = document.querySelectorAll('.breadcrumb-item[data-section]');
+    const sectionObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navItems.forEach(i => i.classList.remove('active'));
+          const a = document.querySelector(`.breadcrumb-item[data-section="${e.target.id}"]`);
+          if (a) a.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+    sections.forEach(s => sectionObs.observe(s));
+  </script>
+</body>
+</html>
