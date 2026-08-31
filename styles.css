@@ -460,6 +460,37 @@ button {
   position: relative;
 }
 
+.project-card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(29, 37, 49, 0.22));
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.project-annotation {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--ink);
+  box-shadow: 0 8px 24px rgba(29, 37, 49, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
 .project-card-image .image-placeholder {
   width: 100%;
   height: 100%;
@@ -470,6 +501,23 @@ button {
 .project-card:hover .image-placeholder {
   transform: scale(1.03);
   filter: brightness(0.95);
+}
+
+.project-card:hover .project-card-image::after {
+  opacity: 1;
+}
+
+.project-card:hover .project-annotation {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+@media (max-width: 480px) {
+  .project-annotation {
+    right: 12px;
+    bottom: 12px;
+    font-size: 10px;
+  }
 }
 
 .project-card-body {
@@ -511,6 +559,36 @@ button {
   padding: 6px 12px;
   border-radius: 100px;
 }
+
+/* Project tags carry the same color language as their case-study surfaces. */
+.project-theme-bumble .tag,
+.project-theme-bumble .project-annotation {
+  color: #6b5400;
+  background: #fff3b8;
+}
+
+.project-theme-tutor .tag,
+.project-theme-tutor .project-annotation {
+  color: #315f3d;
+  background: #e5f1e8;
+}
+
+.project-theme-impresschat .tag,
+.project-theme-impresschat .project-annotation {
+  color: #5a3f85;
+  background: #eee8f6;
+}
+
+.project-theme-pagelens .tag,
+.project-theme-pagelens .project-annotation {
+  color: #71572f;
+  background: #f3e8d3;
+}
+
+.project-theme-bumble:hover .project-annotation { background: #fff0a8; }
+.project-theme-tutor:hover .project-annotation { background: #dceddf; }
+.project-theme-impresschat:hover .project-annotation { background: #e7def2; }
+.project-theme-pagelens:hover .project-annotation { background: #eedfc4; }
 
 .project-card-link {
   display: inline-flex;
@@ -1976,4 +2054,3 @@ a.cs-next-right:hover .cs-next-title {
 .impressionism-case {
   --accent: #c9a8e0;
 }
-

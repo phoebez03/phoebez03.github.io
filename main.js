@@ -263,6 +263,17 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     start: 'top 87%',
   });
 
+  // Evidence annotations arrive from the image edge just after each card,
+  // giving the project grid a more editorial, portfolio-specific rhythm.
+  ScrollTrigger.batch('.project-annotation', {
+    onEnter: (els) => gsap.fromTo(els,
+      { autoAlpha: 0, x: 18, scale: 0.96 },
+      { autoAlpha: 1, x: 0, scale: 1, stagger: 0.13, duration: 0.65, ease: 'power3.out', clearProps: 'transform' }
+    ),
+    once: true,
+    start: 'top 88%',
+  });
+
   // Projects-page list rows
   ScrollTrigger.batch('.project-row', {
     onEnter: (els) => gsap.fromTo(els,
@@ -343,7 +354,7 @@ mm.add('(prefers-reduced-motion: reduce)', () => {
   gsap.set([
     '.hero-label', '.hero-role', '.hero-heading .word',
     '.hero-text', '.hero-ctas', '.hero-content',
-    '.reveal', '.project-card', '.project-row', '.cred-bar',
+    '.reveal', '.project-card', '.project-annotation', '.project-row', '.cred-bar',
     '.nav-logo', '.nav-link',
     '.photo-frame', '.journey-marquee', '.edu-card', '.skill-row',
   ], { clearProps: 'all' });
