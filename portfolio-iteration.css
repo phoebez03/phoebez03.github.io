@@ -1,0 +1,545 @@
+/* Portfolio layout iteration — isolated for review before publishing. */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+:root {
+  --page-gutter: clamp(28px, 6vw, 96px);
+  --section-space: clamp(88px, 9vw, 144px);
+  --content-measure: 68ch;
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --type-display: clamp(50px, 6.4vw, 98px);
+  --type-section: clamp(38px, 4.4vw, 66px);
+  --type-card: clamp(27px, 2.5vw, 38px);
+  --type-lead: clamp(18px, 1.55vw, 24px);
+  --type-body: clamp(15px, 1.08vw, 17px);
+}
+
+/* Two-typeface system from the reference: Georgia display + Manrope text. */
+body,
+body * {
+  font-family: Manrope, Arial, sans-serif !important;
+}
+
+h1,
+h1 *,
+h2,
+h2 *,
+h3,
+h3 *,
+blockquote,
+.closing > p,
+.story-lead,
+.project-placeholder,
+.portrait-placeholder > span,
+.experience-popover > p {
+  font-family: Georgia, 'Times New Roman', serif !important;
+}
+
+body {
+  line-height: 1.6;
+}
+
+p {
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 400 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 1.04 !important;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--type-display) !important;
+}
+
+h2 {
+  font-size: var(--type-section) !important;
+}
+
+h3 {
+  font-size: var(--type-card) !important;
+}
+
+/* Remove editorial hard breaks and let the browser balance meaningful lines. */
+h1 br,
+h2 br {
+  content: '';
+  display: inline-block;
+  width: 0.22em;
+}
+
+/* Most authored breaks sit directly before an emphasized phrase. Let those
+   phrases reflow naturally, while preserving their missing word space. */
+h1 br:has(+ em),
+h2 br:has(+ em) {
+  display: none;
+}
+
+h1 br + em::before,
+h2 br + em::before {
+  content: ' ';
+  white-space: pre;
+}
+
+/* The homepage introduction intentionally keeps the full name on line two. */
+.hero h1 br {
+  display: block;
+  width: 100%;
+}
+
+.hero h1 br + em::before {
+  content: none;
+}
+
+/* The About introduction is a deliberate three-part statement. */
+.about-hero h1 br {
+  display: block;
+  width: 100%;
+}
+
+.about-hero h1 br + em::before {
+  content: none;
+}
+
+/* This compact mobile heading is strongest as two equal phrases. */
+.about-practice h2 br {
+  display: block;
+  width: 100%;
+}
+
+.about-practice h2 br + em::before {
+  content: none;
+}
+
+.hero h1 em {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.dek,
+.case-lead,
+.about-hero-copy > p {
+  font-size: var(--type-lead);
+  line-height: 1.55;
+}
+
+.case-section-intro > p,
+.product-story p,
+.decision-copy > p,
+.reflection-section p,
+.about-practice p {
+  font-size: var(--type-body);
+}
+
+.project-card h3,
+.project-tile h2,
+.coverflow-card h3,
+.experience-card h3 {
+  font-size: var(--type-card) !important;
+}
+
+/* Education cards grow from their content instead of clipping longer entries. */
+.education-cards {
+  align-items: start;
+}
+
+.education-cards article,
+.education-cards article:nth-child(3) {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 0;
+}
+
+.education-cards img,
+.education-cards article:nth-child(3) img {
+  flex: 0 0 auto;
+  height: clamp(320px, 32vw, 430px);
+}
+
+.education-cards article > div {
+  flex: 1 0 auto;
+  min-height: 210px;
+}
+
+.education-cards article:nth-child(3) > div {
+  min-height: 280px;
+  padding-bottom: 36px;
+}
+
+.education-cards h3 {
+  font-size: clamp(24px, 2vw, 29px) !important;
+  line-height: 1.1 !important;
+}
+
+/* Reveal the skills as one concise group when the sticky photo arrives. */
+@supports (animation-timeline: view()) {
+  .about-practice-photo {
+    animation-range: entry 0% cover 16% !important;
+  }
+
+  .about-skill-list {
+    animation: linear both aboutClipReveal;
+    animation-timeline: view();
+    animation-range: entry 0% cover 14%;
+  }
+
+  .about-skill-list article,
+  .about-skill-list article:nth-child(2),
+  .about-skill-list article:nth-child(3),
+  .about-skill-list article:nth-child(4) {
+    animation: none !important;
+    clip-path: none !important;
+  }
+}
+
+/* Motion system: purposeful scroll progress, sequential stories, and calm
+   screen movement. Native view animations remain as a no-script fallback. */
+.site-progress {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--mango), var(--teal));
+  transform: scaleX(0);
+}
+
+.motion-enhanced .journey-track::before {
+  animation: none !important;
+  transform: scaleX(var(--journey-progress, 0));
+}
+
+.motion-enhanced .journey-stop,
+.motion-enhanced .about-portrait,
+.motion-enhanced .education-cards article,
+.motion-enhanced .about-practice-photo,
+.motion-enhanced .about-skill-list,
+.motion-enhanced .about-skill-list article,
+.motion-enhanced .painting-wall figure,
+.motion-enhanced .pagelens-demo-grid,
+.motion-enhanced .pagelens-concept-film,
+.motion-enhanced .pagelens-process-figures figure {
+  animation: none !important;
+}
+
+.journey-stop,
+.about-skill-list article,
+.education-cards article,
+.painting-wall figure,
+.project-card,
+.experience-card,
+.problem-grid article,
+.mvp-card,
+.decision-copy,
+.decision-media {
+  backface-visibility: hidden;
+}
+
+.about-practice-photo {
+  overflow: hidden;
+}
+
+.about-practice-photo img,
+.motion-screen {
+  will-change: transform;
+}
+
+.about-skill-list article {
+  overflow: hidden;
+  transition: background-color 0.34s ease, box-shadow 0.34s ease !important;
+}
+
+.about-skill-list article:hover {
+  padding-left: 0;
+  padding-right: 0;
+  box-shadow: inset 3px 0 0 var(--mango);
+}
+
+.about-skill-list article > * {
+  transition: transform 0.34s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.28s ease;
+}
+
+.about-skill-list article:hover > * {
+  transform: translateX(9px);
+}
+
+.about-skill-list article:hover > span {
+  color: var(--red);
+}
+
+.about-skill-list h3 {
+  font-size: clamp(20px, 1.55vw, 22px) !important;
+  line-height: 1.08 !important;
+}
+
+.case-anchor-nav a {
+  transition: color 0.28s ease, background-color 0.28s ease, transform 0.28s ease;
+}
+
+.case-anchor-nav a.is-current {
+  color: var(--paper);
+  background: var(--ink);
+  transform: translateY(-2px);
+}
+
+.motion-enhanced .decision-media,
+.motion-enhanced .project-card,
+.motion-enhanced .experience-card,
+.motion-enhanced .education-cards article,
+.motion-enhanced .journey-stop {
+  will-change: transform, opacity;
+}
+
+/* Context-aware display scales prevent orphaned one-word lines. */
+.about-hero h1 {
+  font-size: clamp(54px, 5vw, 72px) !important;
+}
+
+.about-journey h2,
+.about-education h2,
+.about-practice h2,
+.about-art h2 {
+  font-size: clamp(38px, 3.3vw, 48px) !important;
+  line-height: 1.07 !important;
+}
+
+.case-section-intro h2 {
+  font-size: clamp(38px, 3.2vw, 44px) !important;
+  line-height: 1.07 !important;
+}
+
+.about-education h2 {
+  font-size: clamp(36px, 3vw, 40px) !important;
+}
+
+.mobile-demo-copy h2,
+.pagelens-hero-copy h2 {
+  font-size: clamp(32px, 2.7vw, 40px) !important;
+  line-height: 1.09 !important;
+}
+
+.impact-band h2 {
+  font-size: clamp(32px, 2.65vw, 38px) !important;
+  line-height: 1.09 !important;
+}
+
+/* One responsive horizontal gutter throughout the site. */
+.site-header,
+.hero,
+.work,
+.page-hero,
+.project-list,
+.experience-section,
+.coverflow-heading,
+.coverflow-controls,
+.about-hero,
+.about-journey,
+.about-education,
+.about-practice,
+.about-art,
+.case-hero,
+.case-section,
+.impact-band,
+.case-anchor-nav,
+.reflection-section,
+.case-next,
+.closing,
+.site-footer {
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
+}
+
+/* Consistent section rhythm without disturbing purpose-built card interiors. */
+.work,
+.experience-section,
+.about-journey,
+.about-education,
+.about-practice,
+.about-art,
+.case-section,
+.impact-band,
+.reflection-section,
+.case-next {
+  padding-top: var(--section-space);
+  padding-bottom: var(--section-space);
+}
+
+.section-heading,
+.case-section-intro,
+.experience-heading,
+.about-section-heading {
+  margin-bottom: var(--space-xl);
+}
+
+.project-grid,
+.project-list,
+.problem-grid,
+.education-cards {
+  gap: var(--space-lg);
+}
+
+.project-content,
+.project-tile-body {
+  padding: var(--space-md);
+}
+
+.hero .dek,
+.case-intro,
+.case-section-intro > p,
+.product-story p,
+.decision-copy > p,
+.reflection-section p,
+.about-hero p,
+.about-practice p {
+  max-width: var(--content-measure);
+}
+
+/* The logo already provides the home affordance. */
+.site-header nav > a:first-child {
+  display: none;
+}
+
+/* Project cards are already full-card links, so this repeats the same action. */
+.work .project-status {
+  display: none;
+}
+
+@media (max-width: 850px) {
+  :root {
+    --page-gutter: clamp(20px, 5.5vw, 28px);
+    --section-space: clamp(72px, 16vw, 96px);
+    --space-xl: 48px;
+    --type-display: clamp(46px, 13.2vw, 68px);
+    --type-section: clamp(34px, 10vw, 50px);
+    --type-card: clamp(26px, 7vw, 34px);
+    --type-lead: clamp(17px, 4.8vw, 21px);
+  }
+
+  .site-header nav {
+    gap: clamp(14px, 4vw, 24px);
+  }
+
+  .project-grid,
+  .project-list,
+  .problem-grid,
+  .education-cards {
+    gap: var(--space-md);
+  }
+
+  .site-progress {
+    height: 2px;
+  }
+}
+
+@media (max-width: 520px) {
+  :root {
+    --page-gutter: 20px;
+    --section-space: 72px;
+  }
+
+  .project-content,
+  .project-tile-body {
+    padding: 18px;
+  }
+
+  .hero h1 {
+    font-size: clamp(44px, 12.4vw, 56px) !important;
+    letter-spacing: -0.055em !important;
+  }
+
+  .about-hero h1 {
+    font-size: clamp(42px, 11.5vw, 54px) !important;
+  }
+
+  .about-journey h2,
+  .about-education h2,
+  .about-practice h2,
+  .about-art h2,
+  .case-section-intro h2,
+  .mobile-demo-copy h2,
+  .pagelens-hero-copy h2,
+  .impact-band h2 {
+    font-size: clamp(34px, 9.5vw, 46px) !important;
+  }
+
+  .about-practice h2,
+  .process-section .case-section-intro h2 {
+    font-size: 32px !important;
+  }
+
+  .mobile-demo-copy h2 {
+    font-size: 30px !important;
+    line-height: 1.12 !important;
+  }
+
+  .education-cards img,
+  .education-cards article:nth-child(3) img {
+    height: 320px;
+  }
+
+  .education-cards article > div,
+  .education-cards article:nth-child(3) > div {
+    min-height: 0;
+    padding-bottom: 21px;
+  }
+
+  .motion-enhanced .journey-track {
+    --journey-line-left: 17px;
+    padding-left: 20px;
+  }
+
+  .motion-enhanced .journey-track::before {
+    display: block;
+    top: 30px;
+    right: auto;
+    bottom: 30px;
+    left: var(--journey-line-left);
+    width: 2px;
+    height: auto;
+    transform: scaleY(var(--journey-progress, 0));
+    transform-origin: top;
+  }
+
+  .motion-enhanced .journey-stop > i {
+    left: -15px;
+  }
+
+  .about-skill-list h3 {
+    font-size: clamp(18px, 5vw, 21px) !important;
+  }
+
+  .about-skill-list article:hover > * {
+    transform: translateX(5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .site-progress {
+    display: none;
+  }
+}
