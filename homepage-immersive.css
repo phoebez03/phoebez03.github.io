@@ -1,0 +1,398 @@
+/* Immersive homepage introduction. Loaded site-wide so it also survives route changes. */
+.homepage-immersive-mounted > main > .hero:not(.home-immersive) {
+  display: none;
+}
+
+.home-immersive {
+  display: block !important;
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 0 !important;
+  background: var(--paper);
+  color: var(--ink);
+  overflow: visible !important;
+}
+
+.home-story {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+}
+
+.home-story.is-animated {
+  height: 330svh;
+}
+
+.home-story.is-animated .home-story-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 600px;
+}
+
+.home-story-pin {
+  position: relative;
+  display: grid;
+  min-height: calc(100svh - 72px);
+  place-items: center;
+  padding: clamp(72px, 10vw, 132px) var(--page-gutter);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.home-story-pin::before,
+.home-story-pin::after {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgba(7, 29, 74, 0.11);
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+}
+
+.home-story-pin::before {
+  width: min(66vw, 880px);
+  aspect-ratio: 1;
+}
+
+.home-story-pin::after {
+  width: min(42vw, 550px);
+  aspect-ratio: 1;
+}
+
+.home-story-scenes {
+  position: relative;
+  display: grid;
+  width: min(1120px, 100%);
+  min-height: 360px;
+  place-items: center;
+}
+
+.home-statement {
+  grid-area: 1 / 1;
+  display: grid;
+  width: 100%;
+  place-items: center;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+.home-statement p {
+  max-width: 1100px;
+  margin: 0;
+  font: 400 clamp(48px, 7.3vw, 112px) / 0.98 Georgia, 'Times New Roman', serif !important;
+  font-style: normal !important;
+  letter-spacing: -0.058em;
+  text-wrap: balance;
+}
+
+.home-statement--role p {
+  max-width: 1050px;
+  font-size: clamp(43px, 6.2vw, 94px) !important;
+}
+
+.home-statement--purpose p {
+  max-width: 1150px;
+  font-size: clamp(40px, 5.7vw, 84px) !important;
+  line-height: 1.04 !important;
+}
+
+.home-story-ui {
+  position: absolute;
+  right: var(--page-gutter);
+  bottom: 30px;
+  left: var(--page-gutter);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.home-story-count {
+  justify-self: start;
+}
+
+.home-story-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.home-story-dots i {
+  width: 26px;
+  height: 2px;
+  background: rgba(7, 29, 74, 0.2);
+  transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.home-story-dots i.is-current {
+  background: var(--ink);
+  transform: scaleX(1.18);
+}
+
+.home-scroll-cue {
+  justify-self: end;
+}
+
+.home-scroll-cue span {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 14px;
+}
+
+.home-architecture {
+  min-height: 100svh;
+  padding: clamp(100px, 13vw, 180px) var(--page-gutter);
+  background: #faf8f2;
+}
+
+.home-architecture-inner {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.home-architecture-heading {
+  margin: 0 auto clamp(54px, 7vw, 90px);
+}
+
+.home-architecture-heading > span {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.home-architecture-heading h2 {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: clamp(48px, 6.5vw, 90px) !important;
+  font-style: normal !important;
+}
+
+.home-capability-stack {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  width: min(820px, 100%);
+  margin: 0 auto;
+  filter: drop-shadow(0 22px 22px rgba(7, 29, 74, 0.08));
+  perspective: 1000px;
+}
+
+.home-capability-layer {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  min-height: 78px;
+  margin-top: -1px;
+  border: 1px solid var(--ink);
+  padding: 15px 20px;
+  color: var(--ink);
+  background: var(--paper);
+  text-align: left;
+  cursor: pointer;
+  will-change: transform, opacity;
+  transform: translateY(var(--reveal-y, 0)) rotateX(var(--reveal-rotate, 0deg));
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.32s ease;
+}
+
+.home-capability-layer:hover,
+.home-capability-layer:focus-visible,
+.home-capability-layer.is-open {
+  z-index: 2;
+  outline: none;
+  box-shadow: 8px 9px 0 rgba(7, 29, 74, 0.16);
+  transform: translateY(calc(var(--reveal-y, 0px) - 4px)) rotateX(var(--reveal-rotate, 0deg));
+}
+
+.home-capability-layer > b {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.home-capability-layer > span {
+  font-size: clamp(18px, 2vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.home-capability-layer > small {
+  max-width: 230px;
+  font-size: 11px;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.home-capability-layer--research {
+  width: 100%;
+  background: var(--pineapple);
+}
+
+.home-capability-layer--product {
+  width: 89%;
+  background: var(--papaya);
+}
+
+.home-capability-layer--collaboration {
+  width: 78%;
+  background: var(--mango);
+}
+
+.home-capability-layer--ai {
+  width: 67%;
+  background: var(--pineapple);
+}
+
+.home-capability-layer--craft {
+  width: 56%;
+  color: var(--paper);
+  background: var(--teal);
+}
+
+.home-architecture-note {
+  max-width: 530px;
+  margin: 38px auto 0;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.home-story:not(.is-animated) .home-story-pin {
+  display: block;
+  height: auto;
+  min-height: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.home-story:not(.is-animated) .home-story-pin::before,
+.home-story:not(.is-animated) .home-story-pin::after,
+.home-story:not(.is-animated) .home-story-ui {
+  display: none;
+}
+
+.home-story:not(.is-animated) .home-story-scenes {
+  display: block;
+  min-height: 0;
+}
+
+.home-story:not(.is-animated) .home-statement {
+  min-height: 72svh;
+  padding: 80px 0;
+}
+
+@media (max-width: 850px) {
+  .home-story-pin {
+    min-height: calc(100svh - 72px);
+  }
+
+  .home-statement p {
+    font-size: clamp(45px, 12.7vw, 76px) !important;
+    line-height: 1.01 !important;
+  }
+
+  .home-statement--role p,
+  .home-statement--purpose p {
+    font-size: clamp(38px, 10.2vw, 62px) !important;
+    line-height: 1.05 !important;
+  }
+
+  .home-story-ui {
+    bottom: 22px;
+  }
+
+  .home-capability-layer {
+    grid-template-columns: auto 1fr;
+    gap: 9px 14px;
+    min-height: 86px;
+  }
+
+  .home-capability-layer > small {
+    grid-column: 2;
+    max-width: none;
+    text-align: left;
+  }
+
+  .home-capability-layer--research { width: 100%; }
+  .home-capability-layer--product { width: 94%; }
+  .home-capability-layer--collaboration { width: 88%; }
+  .home-capability-layer--ai { width: 82%; }
+  .home-capability-layer--craft { width: 76%; }
+}
+
+@media (max-width: 520px) {
+  .home-story-pin {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .home-story-scenes {
+    min-height: 330px;
+  }
+
+  .home-statement p {
+    font-size: clamp(43px, 13.5vw, 59px) !important;
+  }
+
+  .home-statement--role p,
+  .home-statement--purpose p {
+    font-size: clamp(34px, 10.5vw, 47px) !important;
+  }
+
+  .home-story-ui {
+    right: 20px;
+    bottom: 17px;
+    left: 20px;
+    grid-template-columns: auto 1fr;
+  }
+
+  .home-story-dots {
+    justify-self: end;
+  }
+
+  .home-scroll-cue {
+    display: none;
+  }
+
+  .home-architecture {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .home-architecture-heading h2 {
+    font-size: clamp(43px, 13vw, 58px) !important;
+  }
+
+  .home-capability-layer,
+  .home-capability-layer--research,
+  .home-capability-layer--product,
+  .home-capability-layer--collaboration,
+  .home-capability-layer--ai,
+  .home-capability-layer--craft {
+    width: 100%;
+  }
+
+  .home-capability-layer {
+    min-height: 82px;
+    padding: 13px 14px;
+  }
+
+  .home-capability-layer > span {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-statement,
+  .home-capability-layer {
+    will-change: auto;
+  }
+}

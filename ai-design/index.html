@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Playground — Phoebe Zhang</title>
+    <meta name="description" content="A playground for AI design and service design by Phoebe Zhang.">
+    <meta property="og:title" content="Playground — Phoebe Zhang">
+    <meta property="og:description" content="AI design and service design experiments by Phoebe Zhang.">
+    <link rel="stylesheet" href="/ai-design/ai-design.css?v=15">
+    <script defer src="/vendor/gsap.min.js"></script>
+    <script defer src="/ai-design/ai-design.js?v=7"></script>
+  </head>
+  <body>
+    <main class="playground-page" id="top">
+      <header class="site-header">
+        <a class="site-logo" href="/" aria-label="Phoebe Zhang, home">Phoebe Zhang</a>
+        <nav aria-label="Primary navigation">
+          <a href="/#projects">Projects</a>
+          <a class="active" href="/ai-design/" aria-current="page">Playground</a>
+          <a href="/about">About</a>
+        </nav>
+      </header>
+
+      <section class="playground-landing" aria-labelledby="playground-title">
+        <h1 id="playground-title">Playground</h1>
+        <nav class="playground-entry-points" aria-label="Playground categories">
+          <a class="is-active" href="#ai-design" aria-current="location">AI Design</a>
+          <a href="#service-design">Service Design</a>
+          <a href="#painting">Painting</a>
+        </nav>
+      </section>
+
+      <section class="ai-project ai-project--vibestack" id="ai-design" aria-labelledby="vibestack-title">
+        <div class="project-copy playground-reveal">
+          <p class="project-index">Project 01</p>
+          <h2 id="vibestack-title">VibeStack</h2>
+          <p class="project-summary">A designer-first platform that helps designers discover the right AI tools for every stage of their workflow.</p>
+          <ul class="project-tools" aria-label="Tools and AI knowledge used">
+            <li>WordPress</li>
+            <li>Claude Code</li>
+            <li>AI Skills</li>
+          </ul>
+        </div>
+
+        <figure class="fold-showcase playground-reveal" aria-label="VibeStack interface walkthrough">
+          <div class="fold-stack" id="vibestack-gallery" data-fold-stack>
+            <div class="fold-card" data-position="0">
+              <img src="/ai-design/assets/vibestack-01-live.jpg" alt="VibeStack running on a designer's workstation" width="4032" height="3024">
+            </div>
+            <div class="fold-card" data-position="1">
+              <img src="/ai-design/assets/vibestack-02-all-tools.png" alt="VibeStack AI tools directory" width="2870" height="1596">
+            </div>
+            <div class="fold-card" data-position="2">
+              <img src="/ai-design/assets/vibestack-03-tool-detail.png" alt="VibeStack individual tool and comparison page" width="2822" height="1612">
+            </div>
+            <div class="fold-card" data-position="3">
+              <img src="/ai-design/assets/vibestack-04-submit-tool.png" alt="VibeStack tool submission page" width="2848" height="1584">
+            </div>
+          </div>
+          <div class="fold-controls" aria-label="VibeStack image navigation">
+            <button type="button" data-fold-prev aria-controls="vibestack-gallery" aria-label="Show previous VibeStack image">←</button>
+            <button type="button" data-fold-next aria-controls="vibestack-gallery" aria-label="Show next VibeStack image">→</button>
+          </div>
+        </figure>
+      </section>
+
+      <section class="ai-project" id="vibecrew" aria-labelledby="vibecrew-title">
+        <div class="project-copy playground-reveal">
+          <p class="project-index">Project 02</p>
+          <h2 id="vibecrew-title">VibeCrew</h2>
+          <p class="project-summary">VibeCrew turns rough design briefs into stress-tested prototype prompts through a debate between specialized AI agents.</p>
+          <ul class="project-tools" aria-label="Tools and AI knowledge used">
+            <li>Claude</li>
+            <li>Multi-Agent AI</li>
+            <li>APIs</li>
+          </ul>
+        </div>
+
+        <figure class="fold-showcase playground-reveal" aria-label="VibeCrew interface walkthrough">
+          <div class="fold-stack" id="vibecrew-gallery" data-fold-stack>
+            <div class="fold-card" data-position="0">
+              <img src="/ai-design/assets/vibecrew-01.png" alt="VibeCrew brief entry interface" width="1588" height="1286">
+            </div>
+            <div class="fold-card" data-position="1">
+              <img src="/ai-design/assets/vibecrew-02.png?v=2" alt="VibeCrew expanded Researcher and Critic reasoning" width="988" height="686">
+            </div>
+            <div class="fold-card" data-position="2">
+              <img src="/ai-design/assets/vibecrew-03.png?v=2" alt="VibeCrew two-round multi-agent debate overview" width="922" height="618">
+            </div>
+            <div class="fold-card" data-position="3">
+              <img src="/ai-design/assets/vibecrew-04.png" alt="VibeCrew prototype prompt output" width="1436" height="1412">
+            </div>
+          </div>
+          <div class="fold-controls" aria-label="VibeCrew image navigation">
+            <button type="button" data-fold-prev aria-controls="vibecrew-gallery" aria-label="Show previous VibeCrew image">←</button>
+            <button type="button" data-fold-next aria-controls="vibecrew-gallery" aria-label="Show next VibeCrew image">→</button>
+          </div>
+        </figure>
+      </section>
+
+      <section class="service-design-anchor" id="service-design" aria-labelledby="service-design-title">
+        <h2 id="service-design-title">Service Design</h2>
+      </section>
+
+      <section class="painting-showcase" id="painting" aria-labelledby="painting-title">
+        <h2 id="painting-title">Painting</h2>
+        <div class="painting-gallery" data-painting-gallery aria-label="Painting gallery">
+          <figure class="painting-tile"><img src="/about/painting-waterlilies.jpg" alt="Water lilies painting by Phoebe Zhang" loading="lazy"></figure>
+          <figure class="painting-tile"><img src="/about/painting-sunset-1.jpg" alt="Sunset landscape painting by Phoebe Zhang" loading="lazy"></figure>
+          <figure class="painting-tile"><img src="/about/painting-brushes.jpg" alt="Paint brushes in Phoebe Zhang’s studio" loading="lazy"></figure>
+          <figure class="painting-tile"><img src="/about/painting-sunset-2.jpg" alt="Sunset study painted by Phoebe Zhang" loading="lazy"></figure>
+          <figure class="painting-tile"><img src="/about/painting-studio.jpg" alt="Blossoming branches painting by Phoebe Zhang" loading="lazy"></figure>
+          <figure class="painting-tile"><img src="/about/painting-smock.jpg" alt="Phoebe Zhang wearing a paint-covered studio smock" loading="lazy"></figure>
+          <figure class="painting-tile"><img src="/about/painting-starry-night.jpg" alt="Starry Night study painted by Phoebe Zhang" loading="lazy"></figure>
+          <figure class="painting-tile"><img src="/about/painting-water-garden.jpg" alt="Water garden painting by Phoebe Zhang" loading="lazy"></figure>
+        </div>
+      </section>
+
+      <footer class="site-footer" aria-labelledby="playground-footer-contact-title">
+        <strong id="playground-footer-contact-title">Let’s talk</strong>
+        <div class="footer-contact" aria-label="Contact Phoebe Zhang">
+          <a href="mailto:phoebezhang90@gmail.com">Email ↗</a>
+          <a href="https://linkedin.com/in/phoebe-zhang-4a6866246" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
