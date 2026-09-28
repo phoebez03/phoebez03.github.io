@@ -30,13 +30,15 @@ Project accents such as Bumble yellow remain project-specific. Text on light sur
 - Display family: use the established portfolio display face consistently within a page family.
 - Homepage hero: `clamp(44px, 5.2vw, 72px)`, weight 600, line-height 1.0, two lines on desktop.
 - Project hero: `clamp(50px, 6.4vw, 98px)`.
-- Section heading: `clamp(38px, 4.4vw, 66px)`.
-- Card heading: `clamp(27px, 2.5vw, 38px)`.
+- Section heading: `clamp(32px, 3.4vw, 52px)`.
+- Card heading: `clamp(20px, 2vw, 30px)`.
 - Lead: `clamp(18px, 1.55vw, 24px)`.
 - Body: `clamp(15px, 1.08vw, 17px)`.
 - Labels and keyword badges: 11–13px, weight 600.
 
-Headings use the primary ink, compact line-height, balanced wrapping, and a maximum of two lines whenever the copy permits.
+Headings use the primary ink and a compact line-height. Prefer one concise line; two lines is the absolute maximum on desktop. Edit the copy before reducing the type size, and never enlarge a heading merely to fill space. Card headings must remain at least one clear type step below their section heading.
+
+Avoid decorative em dashes and repeated hyphen constructions in headings. Use punctuation only when it improves meaning. When a chapter label or table-of-contents item already names the section, do not repeat the same meaning in a second heading; keep the label and let the content begin.
 
 ## Spacing and Layout
 
@@ -67,6 +69,6 @@ Headings use the primary ink, compact line-height, balanced wrapping, and a maxi
 
 ## Case-Study Structure
 
-Overview → Highlights → Impact → Problem → Process → Product Walkthrough → Design Decisions → Reflection.
+Hero → Problem → Product Overview → Process (Research, Design, Test, Iterate) → Final Experience → Reflection.
 
 Use KB Tutor as the reference implementation for shared hierarchy, components, and animation behavior.

@@ -20,6 +20,22 @@
     if (element && element.textContent.trim() !== text) element.textContent = text;
   }
 
+  function setParagraphsIfNeeded(element, paragraphs) {
+    if (!element) return;
+    const signature = paragraphs.join('|');
+    if (element.dataset.paragraphs === signature) return;
+
+    element.classList.add('case-lead-split');
+    element.dataset.paragraphs = signature;
+    element.replaceChildren(
+      ...paragraphs.map((paragraph) => {
+        const span = document.createElement('span');
+        span.textContent = paragraph;
+        return span;
+      })
+    );
+  }
+
   function prepareHeroKeywords(page, keywordText) {
     if (!page) return;
     const heading = page.querySelector('.case-title-grid h1');
@@ -219,9 +235,12 @@
       { label: 'Timeline', value: 'Feb - Mar 2026' },
       { label: 'Tools', value: 'Figma · Figma Make' }
     ]);
-    setTextIfNeeded(
+    setParagraphsIfNeeded(
       page.querySelector('.case-lead'),
-      'Cross-platform feature design extending Bumble’s design system across iOS, Android, and Apple Watch.'
+      [
+        'An interest-based feature that turns matches into conversations through playful, low-pressure interactions.',
+        'I designed a cohesive experience across iOS, Android and Apple Watch, extending Bumble’s design system.'
+      ]
     );
     page.querySelector('.bumble-hero-media .mobile-demo-copy > p')?.remove();
     const impact = page.querySelector('.bumble-impact');
@@ -484,9 +503,12 @@
       { label: 'Timeline', value: 'Mar - Jul 2026' },
       { label: 'Tools', value: 'Figma · Figma Make' }
     ]);
-    setTextIfNeeded(
+    setParagraphsIfNeeded(
       page.querySelector('.case-lead'),
-      'Learning art through conversation, not consumption — a mobile app design'
+      [
+        'An AI-powered mobile app that makes learning art history an interactive conversation.',
+        'I combined instructional design and conversational UX to turn passive content into active learning.'
+      ]
     );
     const teamValue = Array.from(page.querySelectorAll('.case-meta > div')).find(
       (item) => item.querySelector('span')?.textContent.trim().toLowerCase() === 'team'
@@ -697,9 +719,12 @@
       { label: 'Timeline', value: 'March - May 2026' },
       { label: 'Tools', value: 'Figma' }
     ]);
-    setTextIfNeeded(
+    setParagraphsIfNeeded(
       page.querySelector('.case-lead'),
-      'Reimagining physical reading through inclusive design and AI-powered AR.'
+      [
+        'An AI-powered reading companion that brings adaptive accessibility features to physical library books.',
+        'I connected physical and digital interactions through accessibility research, service design and technical feasibility exploration.'
+      ]
     );
     page.querySelector('.pagelens-hero-copy > p')?.remove();
     Array.from(page.querySelectorAll('.pagelens-product .case-section-intro > p:not(.case-section-label)')).forEach(
@@ -849,6 +874,284 @@
     prepareDecisionReveals(page);
   }
 
+  function buildKbTutorStory(page) {
+    if (!page || page.dataset.kbStoryRedesign === 'true') return;
+    page.dataset.kbStoryRedesign = 'true';
+    page.classList.add('kb-case-redesign');
+
+    const hero = page.querySelector('.case-hero');
+    const problem = page.querySelector('.problem-section');
+    const impact = page.querySelector('.impact-band');
+    const nextProject = page.querySelector('.case-next');
+    if (!hero || !problem || !impact || !nextProject) return;
+
+    const previousHighlights = page.querySelector('.kb-highlight-carousel');
+    previousHighlights?.remove();
+
+    page
+      .querySelectorAll(
+        '.product-story, .process-section, .decisions-section, .reflection-section, .case-anchor-nav, .kb-story-section, .kb-story-nav, .kb-image-dialog'
+      )
+      .forEach((node) => node.remove());
+
+    const problemIntro = problem.querySelector('.case-section-intro');
+    const problemLabel = problemIntro?.querySelector('.case-section-label');
+    setTextIfNeeded(problemLabel, 'Problem');
+    if (problemLabel) problemLabel.id = 'problem-heading';
+    if (problemIntro) {
+      problemIntro.querySelector('h2')?.remove();
+      problemIntro.querySelector('p:last-of-type')?.remove();
+    }
+
+    const storyNav = document.createElement('nav');
+    storyNav.className = 'case-anchor-nav kb-story-nav';
+    storyNav.setAttribute('aria-label', 'KB Tutor case study chapters');
+    storyNav.innerHTML = `
+      <a class="is-current" href="#problem" aria-current="location">Problem</a>
+      <a href="#how-it-works">Product overview</a>
+      <a href="#research">Process</a>
+      <a href="#reflection">Reflection</a>`;
+
+    const story = document.createElement('div');
+    story.className = 'kb-story';
+    story.innerHTML = `
+      <section class="case-section kb-story-section kb-how" id="how-it-works" aria-labelledby="kb-how-heading">
+        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
+          <p class="case-section-label" id="kb-how-heading">Product overview</p>
+        </header>
+        <div class="kb-product-map kb-story-reveal" aria-label="Top-down overview of how KB Tutor works">
+          <div class="kb-map-root"><span>KB Tutor</span><strong>Learning begins in two ways</strong></div>
+          <div class="kb-map-stem" aria-hidden="true"></div>
+          <div class="kb-map-branches">
+            <article><strong>Teacher-assigned</strong><p>A teacher selects the content and mode, then sends the activity to students.</p></article>
+            <article><strong>Independent</strong><p>A student chooses a topic and starts practicing toward an individual goal.</p></article>
+          </div>
+          <div class="kb-map-stem" aria-hidden="true"></div>
+          <div class="kb-mode-summary">
+            <article><strong>Practice</strong><p>Hints, glossary terms, retries, and feedback support reasoning when needed.</p></article>
+            <article><strong>Exam</strong><p>Students check their understanding without instructional scaffolding.</p></article>
+            <article><strong>Review</strong><p>Missed questions, bookmarks, and notes return in one place.</p></article>
+            <article class="is-teacher"><strong>Teacher dashboard</strong><p>Assignments and class-level signals help teachers decide where support is needed.</p></article>
+          </div>
+          <div class="kb-map-shared"><strong>Shared progress record</strong><span>Students and teachers see the same learning history.</span></div>
+        </div>
+      </section>
+
+      <section class="case-section kb-story-section kb-research" id="research" aria-labelledby="kb-research-heading">
+        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
+          <p class="case-section-label" id="kb-research-heading">Research</p>
+        </header>
+        <p class="kb-test-intro kb-story-reveal">Conducted think-aloud sessions with two students and a biology teacher as they solved the same exam-style problem.</p>
+        <div class="kb-research-carousel kb-story-reveal">
+          <div class="kb-research-track" role="list">
+          <article class="kb-finding-slide" role="listitem">
+            <div class="kb-finding-copy"><span>Finding 01</span><h3>Different questions, same approach.</h3><p>Students reused familiar answer patterns even when the question required a different kind of reasoning.</p><div class="kb-finding-decision"><b>Design response</b><p>Make the reasoning step visible instead of only confirming the final answer.</p></div></div>
+            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/cta-01.png" data-kb-caption="CTA 01 · Reused answer strategies across multipart questions"><img src="/projects/kb-tutor/process/cta-01.png" alt="Cognitive task analysis showing a student reusing the same answer across multipart questions" loading="lazy"></button>
+          </article>
+          <article class="kb-finding-slide" role="listitem">
+            <div class="kb-finding-copy"><span>Finding 02</span><h3>Working backward was difficult.</h3><p>Students struggled to move from an outcome to the biological relationship that could explain it.</p><div class="kb-finding-decision"><b>Design response</b><p>Break complex reasoning into smaller prompts that can be followed and checked.</p></div></div>
+            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/cta-02.png" data-kb-caption="CTA 02 · Reasoning through gradient direction and energy requirements">
+              <img src="/projects/kb-tutor/process/cta-02.png" alt="Cognitive task analysis showing gradient direction and energy requirements" loading="lazy">
+            </button>
+          </article>
+          <article class="kb-finding-slide" role="listitem">
+            <div class="kb-finding-copy"><span>Finding 03</span><h3>Keywords stood in for reasoning.</h3><p>Recognizing a term could lead to the right option without a clear explanation of why it was right.</p><div class="kb-finding-decision"><b>Design response</b><p>Use hints and feedback to connect vocabulary to cause, relationship, and evidence.</p></div></div>
+            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/cta-03.png" data-kb-caption="CTA 03 · Keyword heuristics compared with constraint-based reasoning"><img src="/projects/kb-tutor/process/cta-03.png" alt="Cognitive task analysis comparing keyword heuristics with constraint-based reasoning" loading="lazy"></button>
+          </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section kb-story-section kb-design" id="design" aria-labelledby="kb-design-heading">
+        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
+          <p class="case-section-label" id="kb-design-heading">Design</p>
+        </header>
+
+        <article class="kb-design-part kb-story-reveal">
+          <div class="kb-part-copy"><span>Part A · Structure</span><h3 class="kb-one-line-heading">We started with four learning modes.</h3></div>
+          <div class="kb-mode-map" aria-label="Initial information architecture with four learning modes">
+            <div class="kb-mode-start">Choose a topic</div><i></i>
+            <div class="kb-mode-grid"><article><b>Guided</b><span>Step-by-step support</span></article><article><b>Practice</b><span>Hints and feedback</span></article><article><b>Exam</b><span>Assessment only</span></article><article><b>Review</b><span>Revisit past work</span></article></div>
+          </div>
+        </article>
+
+        <article class="kb-design-part kb-design-decision kb-story-reveal">
+          <div class="kb-part-copy kb-copy-without-heading"><span>Part B · Usability testing</span><p>Guided felt too easy, while Practice felt long and repetitive. The distinction added work without adding enough value.</p></div>
+          <div class="kb-before-after">
+            <figure><span>Before</span><img src="/projects/kb-tutor/process/before-four-modes.png" alt="Early KB Tutor screen offering Guided, Practice, Exam, and Review as four separate modes" loading="lazy"><figcaption>Four separate modes divided support across the product.</figcaption></figure>
+            <div class="kb-change-arrow"><span>Testing showed overlap</span><b>→</b></div>
+            <figure><span>After</span><img src="/projects/kb-tutor/decision-1-modes.png" alt="Revised KB Tutor mode selection after Guided and Practice were combined" loading="lazy"><figcaption>Guided and Practice became one Practice mode with optional hints, glossary, and feedback.</figcaption></figure>
+          </div>
+          <div class="kb-decision-summary"><span>Finding</span><p>Students needed support at different moments, not a separate guided journey.</p><span>Decision</span><p>Merge Guided and Practice.</p><span>Resulting design</span><p>One Practice mode with help available on demand.</p></div>
+        </article>
+
+        <article class="kb-design-part kb-story-reveal">
+          <div class="kb-part-copy"><span>Part C · Prototyping</span><h3 class="kb-one-line-heading">Traditional design, AI-assisted prototyping</h3></div>
+          <div class="kb-prototype-carousel">
+            <div class="kb-prototype-track" role="list">
+              <article class="kb-prototype-card" role="listitem">
+                <div><span>Step 01</span><h3>Map flows</h3><p>Define the learning path, decision points, and how students move between modes.</p></div>
+                <button class="kb-prototype-single kb-zoomable" type="button" aria-label="Open the short-answer practice flow" data-kb-zoom="/projects/kb-tutor/process/saq-map-flow.png" data-kb-caption="Short-answer practice user flow"><img src="/projects/kb-tutor/process/saq-map-flow.png" alt="KB Tutor short-answer practice flow with scaffolded hints, retries, notes, AI feedback, and review" loading="lazy"></button>
+              </article>
+              <article class="kb-prototype-card" role="listitem">
+                <div><span>Step 02</span><h3>Design in Figma</h3><p>Translate the flow into clear student and teacher interfaces.</p></div>
+                <div class="kb-prototype-stack" aria-label="Two overlapping low-fidelity Figma prototype boards">
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open low-fidelity Figma exploration 01" style="--stack-i:0" data-kb-zoom="/projects/kb-tutor/process/mvp-01-overview.png" data-kb-caption="Low-fidelity Figma prototype board · Exploration 01"><img src="/projects/kb-tutor/process/mvp-01-overview.png" alt="Low-fidelity Figma screens exploring the KB Tutor learning flow" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open low-fidelity Figma exploration 02" style="--stack-i:1" data-kb-zoom="/projects/kb-tutor/process/mvp-01-overview-v2.png" data-kb-caption="Low-fidelity Figma prototype board · Exploration 02"><img src="/projects/kb-tutor/process/mvp-01-overview-v2.png" alt="Second low-fidelity Figma screen set for KB Tutor" loading="lazy"></button>
+                </div>
+              </article>
+              <article class="kb-prototype-card" role="listitem">
+                <div><span>Step 03</span><h3>Build the design system</h3><p>Create reusable patterns so five MVPs could evolve without losing consistency.</p></div>
+                <button class="kb-prototype-single kb-zoomable" type="button" aria-label="Open the KB Tutor design-system image" data-kb-zoom="/projects/kb-tutor/process/mvp-02-color-tokens.png" data-kb-caption="KB Tutor design system · Color tokens"><img src="/projects/kb-tutor/process/mvp-02-color-tokens.png" alt="KB Tutor design-system documentation showing reusable color tokens" loading="lazy"></button>
+              </article>
+              <article class="kb-prototype-card" role="listitem">
+                <div><span>Step 04</span><h3>Create working prototypes</h3><p>Use functional prototypes to test behavior and clarify implementation with developers.</p></div>
+                <div class="kb-prototype-stack is-three" aria-label="Three overlapping working prototype versions">
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 01" style="--stack-i:0" data-kb-zoom="/projects/kb-tutor/process/working-prototype-v1.png" data-kb-caption="Working prototype · Version 01"><img src="/projects/kb-tutor/process/working-prototype-v1.png" alt="First working prototype of the KB Tutor dashboard" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 02" style="--stack-i:1" data-kb-zoom="/projects/kb-tutor/process/working-prototype-v2.png" data-kb-caption="Working prototype · Version 02"><img src="/projects/kb-tutor/process/working-prototype-v2.png" alt="Second working prototype of the KB Tutor dashboard" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 03" style="--stack-i:2" data-kb-zoom="/projects/kb-tutor/process/working-prototype-v3.png" data-kb-caption="Working prototype · Version 03"><img src="/projects/kb-tutor/process/working-prototype-v3.png" alt="Working prototype of the KB Tutor mock-exam setup" loading="lazy"></button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="case-section kb-story-section kb-test" id="test" aria-labelledby="kb-test-heading">
+        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
+          <p class="case-section-label" id="kb-test-heading">Test</p>
+        </header>
+        <p class="kb-test-intro kb-story-reveal">We conducted classroom testing with 103 active students, analyzed 3,634 attempts, and used the patterns to identify the following insights.</p>
+        <div class="kb-findings-carousel kb-story-reveal">
+          <div class="kb-findings-track" role="list">
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 01</span><h3>Review was easy to miss.</h3><p>Only 49 of 103 students used Review, and bookmarked work was not reliably revisited.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-03-participation.png" data-kb-caption="Verified participation across Practice, Exam, and Review"><img src="/projects/kb-tutor/process/mvp-03-participation.png" alt="Bar chart showing participation across Practice, Exam, and Review" loading="lazy"></button></article>
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 02</span><h3>Students chose the minimum session.</h3><p>This suggested that fixed session lengths were not the right approach for independent practice.</p></div><div class="kb-duration-illustration" aria-label="Illustration showing students choosing the minimum available session duration"><span>Session length</span><div><i>5 min</i><b>Most selected</b></div><div><i>10 min</i></div><div><i>15 min</i></div></div></article>
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 03</span><h3>Teachers needed clearer information.</h3><p>Scores alone did not show what students misunderstood or where intervention was needed.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" data-kb-caption="Annotated teacher-dashboard exploration"><img src="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" alt="Annotated teacher-dashboard exploration" loading="lazy"></button></article>
+          </div>
+        </div>
+        <div class="kb-followup kb-story-reveal">
+          <p class="kb-test-intro">After introducing short-answer questions, we conducted follow-up think-aloud sessions with 25 students.</p>
+          <div class="kb-followup-finding"><span>Follow-up finding</span><p>Students often knew the correct answer but struggled to express their understanding in complete sentences.</p></div>
+        </div>
+      </section>
+
+      <section class="case-section kb-story-section kb-iterate" id="iterate" aria-labelledby="kb-iterate-heading">
+        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
+          <p class="case-section-label" id="kb-iterate-heading">Iterate</p>
+        </header>
+        <div class="kb-supporting-carousel kb-story-reveal">
+          <div class="kb-supporting-track" role="list">
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 01</span><h3>Continuous Practice</h3><p>Students can keep practicing without choosing a fixed session length or restarting the flow.</p></div><img src="/projects/kb-tutor/practice-mode.png" alt="KB Tutor continuous practice experience" loading="lazy"></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 02</span><h3>Review hub</h3><p>Missed questions, bookmarks, and notes became visible, actionable parts of one Review destination.</p></div><div class="kb-review-mini-gallery" aria-label="Three future Review hub images"><div class="kb-process-placeholder" role="img" aria-label="Placeholder for Review overview"><span>Review overview</span></div><div class="kb-process-placeholder" role="img" aria-label="Placeholder for missed questions"><span>Missed questions</span></div><div class="kb-process-placeholder" role="img" aria-label="Placeholder for bookmarks and notes"><span>Bookmarks and notes</span></div></div></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 03</span><h3>Note-taking</h3><p>Students can capture and organize their thinking before turning it into a complete response.</p></div><img src="/projects/kb-tutor/showcase/teacher-note.png" alt="KB Tutor note-taking feature" loading="lazy"></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 04</span><h3>Teacher dashboard</h3><p>Assignments, class progress, and question-level results are organized around decisions teachers need to make.</p></div><video controls muted playsinline preload="none" poster="/projects/kb-tutor/media/teacher-dashboard-poster.jpg"><source src="/projects/kb-tutor/media/teacher-dashboard.mp4" type="video/mp4"></video></article>
+          </div>
+        </div>
+
+        <div class="kb-final-experience kb-story-reveal">
+          <div class="kb-highlight-heading kb-highlight-label-only"><span>Final experience</span></div>
+          <div class="kb-highlight-slot"></div>
+        </div>
+      </section>
+
+      <section class="reflection-section kb-story-section kb-reflection" id="reflection" aria-labelledby="kb-reflection-heading">
+        <p class="case-section-label" id="kb-reflection-heading">Reflection</p>
+        <ul class="kb-reflection-list">
+          <li><strong>01 · Engagement vs. Development Time</strong><span>Students responded positively to gamification, but our timeline required us to prioritize core learning features. We introduced badges and confetti instead of a larger reward system. Next, I’d test whether these lightweight rewards actually improve motivation.</span></li>
+          <li><strong>02 · AI Speed vs. Reliability</strong><span>AI helped us build a more capable learning platform, but generated questions and short-answer grading still need further validation. Before scaling, I’d prioritize expert review and compare AI-generated scores with teachers’ grading.</span></li>
+        </ul>
+      </section>`;
+
+    impact.remove();
+    hero.after(storyNav);
+    storyNav.after(problem);
+    problem.after(...Array.from(story.children));
+    storyNav.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const target = page.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      event.preventDefault();
+      storyNav.querySelectorAll('a').forEach((item) => {
+        const isCurrent = item === link;
+        item.classList.toggle('is-current', isCurrent);
+        if (isCurrent) item.setAttribute('aria-current', 'location');
+        else item.removeAttribute('aria-current');
+      });
+      const offset = 48 + storyNav.getBoundingClientRect().height;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.history.replaceState(null, '', link.getAttribute('href'));
+      window.scrollTo({ top, behavior: motionPreference.matches ? 'auto' : 'smooth' });
+    });
+    const highlightSlot = page.querySelector('.kb-highlight-slot');
+    if (highlightSlot && previousHighlights) highlightSlot.appendChild(previousHighlights);
+    addHorizontalControls(page.querySelector('.kb-supporting-track'), {
+      controlsClass: 'kb-supporting-controls',
+      itemSelector: '.kb-iteration-card',
+      label: 'Supporting product changes',
+      previousLabel: 'Show previous supporting change',
+      nextLabel: 'Show next supporting change',
+    });
+    addHorizontalControls(page.querySelector('.kb-prototype-track'), {
+      controlsClass: 'kb-prototype-controls',
+      itemSelector: '.kb-prototype-card',
+      label: 'Prototyping process',
+      previousLabel: 'Show previous prototyping step',
+      nextLabel: 'Show next prototyping step',
+    });
+    addHorizontalControls(page.querySelector('.kb-findings-track'), {
+      controlsClass: 'kb-findings-controls',
+      itemSelector: '.kb-finding-slide',
+      label: 'Classroom testing findings',
+      previousLabel: 'Show previous testing finding',
+      nextLabel: 'Show next testing finding',
+    });
+    addHorizontalControls(page.querySelector('.kb-research-track'), {
+      controlsClass: 'kb-research-controls',
+      itemSelector: '.kb-finding-slide',
+      label: 'Think-aloud research findings',
+      previousLabel: 'Show previous research finding',
+      nextLabel: 'Show next research finding',
+    });
+
+    const dialog = document.createElement('dialog');
+    dialog.className = 'kb-image-dialog';
+    dialog.setAttribute('aria-label', 'Expanded case-study image');
+    dialog.innerHTML = '<button type="button" aria-label="Close expanded image">×</button><figure><img alt=""><figcaption></figcaption></figure>';
+    nextProject.before(dialog);
+    const dialogImage = dialog.querySelector('img');
+    const dialogCaption = dialog.querySelector('figcaption');
+    const closeDialog = () => dialog.close();
+    dialog.querySelector('button').addEventListener('click', closeDialog);
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) closeDialog();
+    });
+    page.querySelectorAll('[data-kb-zoom]').forEach((button) => {
+      button.addEventListener('click', () => {
+        dialogImage.src = button.dataset.kbZoom;
+        dialogImage.alt = button.querySelector('img')?.alt || '';
+        dialogCaption.textContent = button.dataset.kbCaption || '';
+        dialog.showModal();
+      });
+    });
+
+    const revealItems = Array.from(page.querySelectorAll('.kb-story-reveal'));
+    const reveal = (item) => item.classList.add('is-visible');
+    if ('IntersectionObserver' in window && !motionPreference.matches) {
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          reveal(entry.target);
+          observer.unobserve(entry.target);
+        }),
+        { threshold: 0.1, rootMargin: '0px 0px -7% 0px' }
+      );
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach(reveal);
+    }
+  }
+
   function prepareCaseStudyContent() {
     delayAutoplayVideos();
 
@@ -893,9 +1196,12 @@
       { label: 'Timeline', value: 'Jan–Jul 2026' },
       { label: 'Tools', value: 'Figma · Claude Code, Cursor' }
     ]);
-    setTextIfNeeded(
+    setParagraphsIfNeeded(
       page.querySelector('.case-lead'),
-      '0→1 end-to-end product design for a web-based biology learning platform.'
+      [
+        'An AI-powered biology learning platform that helps students move beyond memorization and build conceptual understanding.',
+        'I led end-to-end product design, using classroom research and five MVP iterations to shape the learning experience.'
+      ]
     );
 
     const productDemo = page.querySelector('.case-meta > a');
@@ -1006,32 +1312,100 @@
     }
 
     const impactHeading = page.querySelector('#impact-heading');
-    setTextIfNeeded(impactHeading, 'The impact');
+    setTextIfNeeded(impactHeading, 'Evidence from a live classroom.');
     const impactLabel = impactHeading?.closest('.impact-band')?.querySelector('.case-section-label');
     if (impactLabel?.textContent.trim().toLowerCase() === 'the impact') impactLabel.remove();
 
-    const problemIntro = page.querySelector('.problem-section .case-section-intro');
-    if (problemIntro && !problemIntro.querySelector('.kb-proficiency-visual')) {
-      const visual = document.createElement('figure');
-      visual.className = 'kb-proficiency-visual';
-      visual.setAttribute('aria-label', '50.6 percent of students scored below proficiency');
-      visual.innerHTML =
-        '<div class="kb-donut" aria-hidden="true"><div><strong>50.6%</strong><span>below proficiency</span></div></div><figcaption>Keystone Biology benchmark</figcaption>';
-      problemIntro.appendChild(visual);
+    const problemSection = page.querySelector('.problem-section');
+    const problemGrid = problemSection?.querySelector('.problem-grid');
+    if (problemGrid && problemGrid.dataset.visualProblems !== 'true') {
+      problemGrid.dataset.visualProblems = 'true';
+      problemGrid.className = 'kb-problem-board';
+      problemGrid.innerHTML = `
+        <article class="kb-problem-card kb-problem-evidence">
+          <div class="kb-problem-copy">
+            <span class="kb-problem-number">Problem 01</span>
+            <h3>No Keystone-specific preparation</h3>
+            <p>Students lacked practice designed around the exam’s real format and standards, in a context where more than half were already below proficiency.</p>
+          </div>
+          <figure class="kb-proficiency-visual" aria-label="50.6 percent of students scored below proficiency on the Keystone Biology benchmark">
+            <div class="kb-donut" aria-hidden="true"><div><strong>50.6%</strong><span>below proficiency</span></div></div>
+            <figcaption>Keystone Biology benchmark</figcaption>
+          </figure>
+        </article>
+        <article class="kb-problem-card kb-problem-reasoning">
+          <div class="kb-problem-copy">
+            <span class="kb-problem-number">Problem 02</span>
+            <h3>Answers rewarded recognition, not reasoning</h3>
+            <p>Students could map familiar words to an answer choice without understanding the biological relationship behind it.</p>
+          </div>
+          <div class="kb-state-comparison" aria-label="Comparison between keyword matching and conceptual reasoning">
+            <section class="kb-state-card is-current">
+              <span>Current state</span>
+              <strong>Keyword matching</strong>
+              <div class="kb-keyword-map" aria-hidden="true">
+                <i>sunlight</i><i>chloroplast</i><i>glucose</i>
+                <b>looks familiar → choose B</b>
+              </div>
+            </section>
+            <span class="kb-state-arrow" aria-hidden="true">→</span>
+            <section class="kb-state-card is-needed">
+              <span>Desired state</span>
+              <strong>Explain the relationship</strong>
+              <div class="kb-reasoning-flow" aria-hidden="true">
+                <i>Light energy</i><b>is converted into</b><i>Chemical energy</i>
+                <em>“Glucose stores the energy produced during photosynthesis.”</em>
+              </div>
+            </section>
+          </div>
+        </article>
+        <article class="kb-problem-card kb-problem-visibility">
+          <div class="kb-problem-copy">
+            <span class="kb-problem-number">Problem 03</span>
+            <h3>Scores missed the reasoning.</h3>
+            <p>Teachers could see how many students answered correctly, but not the misconception behind an error or who needed intervention next.</p>
+          </div>
+          <div class="kb-dashboard-comparison" aria-label="Comparison between a score-only teacher dashboard and an insight-led dashboard concept">
+            <section class="kb-dashboard-mini is-current">
+              <div class="kb-dashboard-bar"><i></i><i></i><i></i><span>Assignment results</span></div>
+              <small>Current dashboard</small>
+              <strong>68%</strong>
+              <p>22 of 32 students correct</p>
+              <div class="kb-score-bar" aria-hidden="true"><i></i></div>
+            </section>
+            <span class="kb-state-arrow" aria-hidden="true">→</span>
+            <section class="kb-dashboard-mini is-needed">
+              <div class="kb-dashboard-bar"><i></i><i></i><i></i><span>Class insights</span></div>
+              <small>Needed dashboard</small>
+              <div class="kb-insight-stack">
+                <p><b>8 students</b><span>need support now</span></p>
+                <p><b>Key misconception</b><span>Energy is created, not transformed</span></p>
+                <p><b>Suggested next step</b><span>Review energy transfer in photosynthesis</span></p>
+              </div>
+            </section>
+          </div>
+        </article>`;
 
-      const revealDonut = () => visual.classList.add('is-visible');
+      const visualCards = Array.from(problemGrid.querySelectorAll('.kb-problem-card'));
+      const revealCard = (card) => {
+        card.classList.add('is-visible');
+        card.querySelector('.kb-proficiency-visual')?.classList.add('is-visible');
+      };
+
       if ('IntersectionObserver' in window && !motionPreference.matches) {
-        const donutObserver = new IntersectionObserver(
+        const problemObserver = new IntersectionObserver(
           (entries, observer) => {
-            if (!entries.some((entry) => entry.isIntersecting)) return;
-            revealDonut();
-            observer.disconnect();
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              revealCard(entry.target);
+              observer.unobserve(entry.target);
+            });
           },
-          { threshold: 0.45 }
+          { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }
         );
-        donutObserver.observe(visual);
+        visualCards.forEach((card) => problemObserver.observe(card));
       } else {
-        revealDonut();
+        visualCards.forEach(revealCard);
       }
     }
 
@@ -1284,6 +1658,7 @@
 
     setTextIfNeeded(page.querySelector('.decision-media-collaboration > strong'), 'Collaboration');
     prepareDecisionReveals(page);
+    buildKbTutorStory(page);
   }
 
   function ensureHomepageNavigation() {
