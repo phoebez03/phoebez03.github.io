@@ -897,10 +897,15 @@
     const problemIntro = problem.querySelector('.case-section-intro');
     const problemLabel = problemIntro?.querySelector('.case-section-label');
     setTextIfNeeded(problemLabel, 'Problem');
-    if (problemLabel) problemLabel.id = 'problem-heading';
+    if (problemLabel) problemLabel.removeAttribute('id');
     if (problemIntro) {
       problemIntro.querySelector('h2')?.remove();
       problemIntro.querySelector('p:last-of-type')?.remove();
+      const problemHeading = document.createElement('h3');
+      problemHeading.className = 'kb-section-title';
+      problemHeading.id = 'problem-heading';
+      problemHeading.textContent = 'Students were preparing for the test, not learning to reason';
+      problemLabel?.after(problemHeading);
     }
 
     const storyNav = document.createElement('nav');
@@ -916,32 +921,35 @@
     story.className = 'kb-story';
     story.innerHTML = `
       <section class="case-section kb-story-section kb-how" id="how-it-works" aria-labelledby="kb-how-heading">
-        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
-          <p class="case-section-label" id="kb-how-heading">Product overview</p>
+        <header class="kb-chapter-heading kb-section-heading kb-story-reveal">
+          <p class="case-section-label">Product overview</p>
+          <h3 class="kb-section-title" id="kb-how-heading">One platform. Two ways to learn.</h3>
         </header>
-        <div class="kb-product-map kb-story-reveal" aria-label="Top-down overview of how KB Tutor works">
-          <div class="kb-map-root"><span>KB Tutor</span><strong>Learning begins in two ways</strong></div>
-          <div class="kb-map-stem" aria-hidden="true"></div>
-          <div class="kb-map-branches">
-            <article><strong>Teacher-assigned</strong><p>A teacher selects the content and mode, then sends the activity to students.</p></article>
-            <article><strong>Independent</strong><p>A student chooses a topic and starts practicing toward an individual goal.</p></article>
+        <div class="kb-product-map kb-story-reveal" aria-label="Overview of KB Tutor learning paths and teacher dashboard">
+          <div class="kb-product-layout">
+            <div class="kb-student-flow">
+              <div class="kb-map-branches">
+                <article><span>Path 01</span><strong>Teacher-assigned</strong><p>A teacher selects the content and mode, then sends the activity to students.</p></article>
+                <article><span>Path 02</span><strong>Independent</strong><p>A student chooses a topic and starts practicing toward an individual goal.</p></article>
+              </div>
+              <div class="kb-map-stem" aria-hidden="true"></div>
+              <div class="kb-mode-summary is-student-modes">
+                <article><strong>Practice mode</strong><p>Hints, glossary terms, retries, and feedback support reasoning when needed.</p></article>
+                <article><strong>Exam mode</strong><p>Students check their understanding without instructional scaffolding.</p></article>
+              </div>
+              <div class="kb-review-destination"><strong>Review hub</strong><p>Missed questions, bookmarks, and notes return in one place.</p></div>
+            </div>
+            <aside class="kb-teacher-companion"><span>Teacher view</span><strong>Teacher dashboard</strong><p>Assignments and class-level signals help teachers decide where support is needed.</p></aside>
           </div>
-          <div class="kb-map-stem" aria-hidden="true"></div>
-          <div class="kb-mode-summary">
-            <article><strong>Practice</strong><p>Hints, glossary terms, retries, and feedback support reasoning when needed.</p></article>
-            <article><strong>Exam</strong><p>Students check their understanding without instructional scaffolding.</p></article>
-            <article><strong>Review</strong><p>Missed questions, bookmarks, and notes return in one place.</p></article>
-            <article class="is-teacher"><strong>Teacher dashboard</strong><p>Assignments and class-level signals help teachers decide where support is needed.</p></article>
-          </div>
-          <div class="kb-map-shared"><strong>Shared progress record</strong><span>Students and teachers see the same learning history.</span></div>
         </div>
       </section>
 
       <section class="case-section kb-story-section kb-research" id="research" aria-labelledby="kb-research-heading">
-        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
-          <p class="case-section-label" id="kb-research-heading">Research</p>
+        <header class="kb-chapter-heading kb-section-heading kb-story-reveal">
+          <p class="case-section-label">Research</p>
+          <h3 class="kb-section-title" id="kb-research-heading">We watched how students think.</h3>
+          <p class="kb-section-note">Conducted think-aloud sessions with two students and a biology teacher as they solved the same exam-style problem.</p>
         </header>
-        <p class="kb-test-intro kb-story-reveal">Conducted think-aloud sessions with two students and a biology teacher as they solved the same exam-style problem.</p>
         <div class="kb-research-carousel kb-story-reveal">
           <div class="kb-research-track" role="list">
           <article class="kb-finding-slide" role="listitem">
@@ -971,18 +979,18 @@
           <div class="kb-part-copy"><span>Part A · Structure</span><h3 class="kb-one-line-heading">We started with four learning modes.</h3></div>
           <div class="kb-mode-map" aria-label="Initial information architecture with four learning modes">
             <div class="kb-mode-start">Choose a topic</div><i></i>
-            <div class="kb-mode-grid"><article><b>Guided</b><span>Step-by-step support</span></article><article><b>Practice</b><span>Hints and feedback</span></article><article><b>Exam</b><span>Assessment only</span></article><article><b>Review</b><span>Revisit past work</span></article></div>
+            <div class="kb-mode-grid"><article><b>Guided mode</b><span>Step-by-step support</span></article><article><b>Practice mode</b><span>Hints and feedback</span></article><article><b>Exam mode</b><span>Assessment only</span></article><article><b>Review mode</b><span>Revisit past work</span></article></div>
           </div>
         </article>
 
         <article class="kb-design-part kb-design-decision kb-story-reveal">
-          <div class="kb-part-copy kb-copy-without-heading"><span>Part B · Usability testing</span><p>Guided felt too easy, while Practice felt long and repetitive. The distinction added work without adding enough value.</p></div>
+          <div class="kb-part-copy kb-copy-without-heading"><span>Part B · Usability testing</span><p>Guided mode felt too easy, while Practice mode felt long and repetitive. The distinction added work without adding enough value.</p></div>
           <div class="kb-before-after">
             <figure><span>Before</span><img src="/projects/kb-tutor/process/before-four-modes.png" alt="Early KB Tutor screen offering Guided, Practice, Exam, and Review as four separate modes" loading="lazy"><figcaption>Four separate modes divided support across the product.</figcaption></figure>
             <div class="kb-change-arrow"><span>Testing showed overlap</span><b>→</b></div>
-            <figure><span>After</span><img src="/projects/kb-tutor/decision-1-modes.png" alt="Revised KB Tutor mode selection after Guided and Practice were combined" loading="lazy"><figcaption>Guided and Practice became one Practice mode with optional hints, glossary, and feedback.</figcaption></figure>
+            <figure><span>After</span><img src="/projects/kb-tutor/decision-1-modes.png" alt="Revised KB Tutor mode selection after Guided mode and Practice mode were combined" loading="lazy"><figcaption>Guided mode and Practice mode became one Practice mode with optional hints, glossary, and feedback.</figcaption></figure>
           </div>
-          <div class="kb-decision-summary"><span>Finding</span><p>Students needed support at different moments, not a separate guided journey.</p><span>Decision</span><p>Merge Guided and Practice.</p><span>Resulting design</span><p>One Practice mode with help available on demand.</p></div>
+          <div class="kb-decision-summary"><span>Finding</span><p>Students needed support at different moments, not a separate guided journey.</p><span>Decision</span><p>Merge Guided mode and Practice mode.</p><span>Resulting design</span><p>One Practice mode with help available on demand.</p></div>
         </article>
 
         <article class="kb-design-part kb-story-reveal">
@@ -991,7 +999,10 @@
             <div class="kb-prototype-track" role="list">
               <article class="kb-prototype-card" role="listitem">
                 <div><span>Step 01</span><h3>Map flows</h3><p>Define the learning path, decision points, and how students move between modes.</p></div>
-                <button class="kb-prototype-single kb-zoomable" type="button" aria-label="Open the short-answer practice flow" data-kb-zoom="/projects/kb-tutor/process/saq-map-flow.png" data-kb-caption="Short-answer practice user flow"><img src="/projects/kb-tutor/process/saq-map-flow.png" alt="KB Tutor short-answer practice flow with scaffolded hints, retries, notes, AI feedback, and review" loading="lazy"></button>
+                <div class="kb-prototype-stack is-flow-stack" aria-label="Two overlapping maps for multiple-choice and short-answer learning flows">
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open the multiple-choice learning flow" data-kb-zoom="/projects/kb-tutor/process/map-flow-mcq.png" data-kb-caption="Multiple-choice Practice mode and Exam mode flows"><img src="/projects/kb-tutor/process/map-flow-mcq.png" alt="KB Tutor multiple-choice flow through Practice mode and Exam mode" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open the short-answer learning flow" data-kb-zoom="/projects/kb-tutor/process/map-flow-saq.png" data-kb-caption="Short-answer Practice mode with scaffolded support"><img src="/projects/kb-tutor/process/map-flow-saq.png" alt="KB Tutor short-answer flow with scaffolded hints, retries, notes, AI feedback, and review" loading="lazy"></button>
+                </div>
               </article>
               <article class="kb-prototype-card" role="listitem">
                 <div><span>Step 02</span><h3>Design in Figma</h3><p>Translate the flow into clear student and teacher interfaces.</p></div>
@@ -1018,15 +1029,16 @@
       </section>
 
       <section class="case-section kb-story-section kb-test" id="test" aria-labelledby="kb-test-heading">
-        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
-          <p class="case-section-label" id="kb-test-heading">Test</p>
+        <header class="kb-chapter-heading kb-section-heading kb-story-reveal">
+          <p class="case-section-label">Test</p>
+          <h3 class="kb-section-title" id="kb-test-heading">We tested it in real classrooms.</h3>
+          <p class="kb-section-note">We conducted classroom testing with 103 active students, analyzed 3,634 attempts, and used the patterns to identify the following insights.</p>
         </header>
-        <p class="kb-test-intro kb-story-reveal">We conducted classroom testing with 103 active students, analyzed 3,634 attempts, and used the patterns to identify the following insights.</p>
         <div class="kb-findings-carousel kb-story-reveal">
           <div class="kb-findings-track" role="list">
-            <article class="kb-finding-slide" role="listitem"><div><span>Finding 01</span><h3>Review was easy to miss.</h3><p>Only 49 of 103 students used Review, and bookmarked work was not reliably revisited.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-03-participation.png" data-kb-caption="Verified participation across Practice, Exam, and Review"><img src="/projects/kb-tutor/process/mvp-03-participation.png" alt="Bar chart showing participation across Practice, Exam, and Review" loading="lazy"></button></article>
-            <article class="kb-finding-slide" role="listitem"><div><span>Finding 02</span><h3>Students chose the minimum session.</h3><p>This suggested that fixed session lengths were not the right approach for independent practice.</p></div><div class="kb-duration-illustration" aria-label="Illustration showing students choosing the minimum available session duration"><span>Session length</span><div><i>5 min</i><b>Most selected</b></div><div><i>10 min</i></div><div><i>15 min</i></div></div></article>
-            <article class="kb-finding-slide" role="listitem"><div><span>Finding 03</span><h3>Teachers needed clearer information.</h3><p>Scores alone did not show what students misunderstood or where intervention was needed.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" data-kb-caption="Annotated teacher-dashboard exploration"><img src="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" alt="Annotated teacher-dashboard exploration" loading="lazy"></button></article>
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 01</span><h3>Review was easy to miss.</h3><p>Only 49 of 103 students used Review, and bookmarked work was not reliably revisited.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-03-participation.png" data-kb-caption="Verified participation across Practice mode, Exam mode, and Review"><img src="/projects/kb-tutor/process/mvp-03-participation.png" alt="Bar chart showing participation across Practice mode, Exam mode, and Review" loading="lazy"></button></article>
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 02</span><h3>Teachers needed clearer information.</h3><p>Scores alone did not show what students misunderstood or where intervention was needed.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" data-kb-caption="Annotated teacher-dashboard exploration"><img src="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" alt="Annotated teacher-dashboard exploration" loading="lazy"></button></article>
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 03</span><h3>Students chose the minimum session.</h3><p>This suggested that fixed session lengths were not the right approach for independent practice.</p></div><div class="kb-duration-illustration" aria-label="Illustration showing students choosing the minimum available session duration"><span>Session length</span><div><i>5 min</i><b>Most selected</b></div><div><i>10 min</i></div><div><i>15 min</i></div></div></article>
           </div>
         </div>
         <div class="kb-followup kb-story-reveal">
@@ -1036,21 +1048,31 @@
       </section>
 
       <section class="case-section kb-story-section kb-iterate" id="iterate" aria-labelledby="kb-iterate-heading">
-        <header class="kb-chapter-heading kb-chapter-label-only kb-story-reveal">
-          <p class="case-section-label" id="kb-iterate-heading">Iterate</p>
+        <header class="kb-chapter-heading kb-section-heading kb-story-reveal">
+          <p class="case-section-label">Iterate</p>
+          <h3 class="kb-section-title" id="kb-iterate-heading">We changed what wasn't working.</h3>
         </header>
         <div class="kb-supporting-carousel kb-story-reveal">
           <div class="kb-supporting-track" role="list">
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 01</span><h3>Continuous Practice</h3><p>Students can keep practicing without choosing a fixed session length or restarting the flow.</p></div><img src="/projects/kb-tutor/practice-mode.png" alt="KB Tutor continuous practice experience" loading="lazy"></article>
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 02</span><h3>Review hub</h3><p>Missed questions, bookmarks, and notes became visible, actionable parts of one Review destination.</p></div><div class="kb-review-mini-gallery" aria-label="Three future Review hub images"><div class="kb-process-placeholder" role="img" aria-label="Placeholder for Review overview"><span>Review overview</span></div><div class="kb-process-placeholder" role="img" aria-label="Placeholder for missed questions"><span>Missed questions</span></div><div class="kb-process-placeholder" role="img" aria-label="Placeholder for bookmarks and notes"><span>Bookmarks and notes</span></div></div></article>
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 03</span><h3>Note-taking</h3><p>Students can capture and organize their thinking before turning it into a complete response.</p></div><img src="/projects/kb-tutor/showcase/teacher-note.png" alt="KB Tutor note-taking feature" loading="lazy"></article>
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 04</span><h3>Teacher dashboard</h3><p>Assignments, class progress, and question-level results are organized around decisions teachers need to make.</p></div><video controls muted playsinline preload="none" poster="/projects/kb-tutor/media/teacher-dashboard-poster.jpg"><source src="/projects/kb-tutor/media/teacher-dashboard.mp4" type="video/mp4"></video></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 01</span><h3>Review hub</h3><p>Missed questions, bookmarks, and notes became visible, actionable parts of one Review destination.</p></div><div class="kb-prototype-stack kb-review-stack is-three" aria-label="Three overlapping Review hub screens"><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open missed-questions view" data-kb-zoom="/projects/kb-tutor/process/review-missed-questions.png" data-kb-caption="Review hub · Missed questions"><img src="/projects/kb-tutor/process/review-missed-questions.png" alt="Review hub organized by missed questions" loading="lazy"></button><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open bookmarked-questions view" data-kb-zoom="/projects/kb-tutor/process/review-bookmarked.png" data-kb-caption="Review hub · Bookmarked questions"><img src="/projects/kb-tutor/process/review-bookmarked.png" alt="Review hub showing bookmarked questions with feedback" loading="lazy"></button><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open notes view" data-kb-zoom="/projects/kb-tutor/process/review-note.png" data-kb-caption="Review hub · Notes"><img src="/projects/kb-tutor/process/review-note.png" alt="Review hub showing saved learning notes alongside a question" loading="lazy"></button></div></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 02</span><h3>Teacher dashboard</h3><p>Assignments, class progress, and question-level results are organized around decisions teachers need to make.</p></div><video controls muted playsinline preload="none" poster="/projects/kb-tutor/media/teacher-dashboard-poster.jpg"><source src="/projects/kb-tutor/media/teacher-dashboard.mp4" type="video/mp4"></video></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 03</span><h3>Continuous practice mode</h3><p>Students can keep practicing without choosing a fixed session length or restarting the flow.</p></div><img src="/projects/kb-tutor/practice-mode.png" alt="KB Tutor continuous Practice mode experience" loading="lazy"></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 04</span><h3>Note-taking</h3><p>Students can capture and organize their thinking before turning it into a complete response.</p></div><img src="/projects/kb-tutor/showcase/teacher-note.png" alt="KB Tutor note-taking feature" loading="lazy"></article>
           </div>
         </div>
 
         <div class="kb-final-experience kb-story-reveal">
           <div class="kb-highlight-heading kb-highlight-label-only"><span>Final experience</span></div>
           <div class="kb-highlight-slot"></div>
+        </div>
+
+        <div class="kb-impact-simple kb-story-reveal" aria-labelledby="kb-impact-heading">
+          <p class="case-section-label" id="kb-impact-heading">Impact</p>
+          <div class="kb-impact-metrics">
+            <article><strong>103</strong><span>active students</span></article>
+            <article><strong>75.8%</strong><span>error recovery</span></article>
+            <article><strong>5</strong><span>MVP iterations</span></article>
+          </div>
         </div>
       </section>
 
