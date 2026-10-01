@@ -30,8 +30,8 @@ Project accents such as Bumble yellow remain project-specific. Text on light sur
 - Display family: use the established portfolio display face consistently within a page family.
 - Homepage hero: `clamp(44px, 5.2vw, 72px)`, weight 600, line-height 1.0, two lines on desktop.
 - Project hero: `clamp(50px, 6.4vw, 98px)`.
-- Section heading: `clamp(32px, 3.4vw, 52px)`.
-- Card heading: `clamp(20px, 2vw, 30px)`.
+- Case-study section heading: semantic `h3`, `clamp(19px, 1.8vw, 25px)`, weight 600, one line on desktop.
+- Card heading: `clamp(20px, 1.8vw, 24px)`, always smaller than the section heading in perceived hierarchy.
 - Lead: `clamp(18px, 1.55vw, 24px)`.
 - Body: `clamp(15px, 1.08vw, 17px)`.
 - Labels and keyword badges: 11–13px, weight 600.
@@ -69,6 +69,35 @@ Avoid decorative em dashes and repeated hyphen constructions in headings. Use pu
 
 ## Case-Study Structure
 
-Hero → Problem → Product Overview → Process (Research, Design, Test, Iterate) → Final Experience → Reflection.
+Hero → Problem → Product Overview → Process (Research, Design, Test, Iterate) → Final Experience → Impact → Reflection.
 
 Use KB Tutor as the reference implementation for shared hierarchy, components, and animation behavior.
+
+- Pair the chapter label with a concise one-line `h3`; allow wrapping only on narrow screens.
+- Use 15px muted body copy inside case-study cards and supporting section notes.
+- Use 18px-radius white cards with a subtle grey hairline on the secondary surface.
+- Default case-study cards to a two-column composition: concise text on the left and the primary image, chart, interface, or diagram on the right. Stack the columns only on narrow screens.
+- Vertically center the text panel within two-column cards so short descriptions stay visually balanced with the artifact.
+- Treat image clarity as a layout decision, not a hover interaction. Keep concise copy on the left and the full visual on the right; widen the card before stacking it, constrain the card to roughly one viewport, and use `contain` on a tinted surface to avoid cropping or white letterboxing. Use the KB Tutor-style overlap for multi-image explorations, with every layer revealable by hover, keyboard focus, or click.
+- When a chapter contains multiple comparable artifacts, use the KB Tutor horizontal card track with right-aligned circular arrow controls.
+- Every contents bar includes Impact. Mark the current chapter with charcoal text and a thin underline, never color alone. Keep chapter tracking active with reduced motion enabled.
+- Reveal headings and visual/card groups with the same subtle fade and 24px rise across projects; animate explanatory charts on entry. All content stays visible when reduced motion is requested.
+- Mobile walkthroughs use a compact dark panel: project label and H3 on the left, a naturally proportioned phone demo on the right. Stack on small screens; avoid oversized empty frames.
+- Visualize each problem inside its own card. Pair the concise explanation with a chart, interface state, or purpose-built diagram.
+- Keep Impact minimal: a label and three metrics only, without introductory or explanatory paragraphs.
+- Compress the final chapter rhythm: use 24–56px transitions between Test/Iteration, walkthrough, and Impact instead of repeating full major-section padding.
+- Use neutral placeholders when final imagery has not been supplied; preserve the intended image area and replace it in a later asset round.
+
+### ImpressChat
+
+- Order: Hero → Problem → Process (stages → Get the highlights → Product walkthrough) → Impact → Reflection.
+- Match KB Tutor's compact one-line H3 section headings; use 18px card headings and 15px muted descriptions, with text left and visuals right on desktop.
+- Predict, Observe, Explain, and Feedback belong inside one visibly bounded Structured chat container.
+- Use a single walkthrough and minimal Impact metrics. Keep stage descriptions visible without hover, and let section heights adapt to their content.
+- Portrait highlight cards are narrower than landscape-artifact cards: approximately 660px total width, with a 280px image column.
+
+### PageLens
+
+- Order: Hero → Problem → Process → Concept (both videos) → Design decisions → Impact → Reflection.
+- Use the same H3 hierarchy, 15px supporting copy, horizontal stage/decision tracks, and neutral cards as KB Tutor.
+- Keep reading simulations explicitly labeled as illustrative, not universal depictions of dyslexia.

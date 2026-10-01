@@ -102,7 +102,7 @@ figure, h1, h2, h3, p { margin-top: 0; }
 }
 .about-hero h1 em,
 .about-section-heading h2 em { color: var(--muted); font-style: normal; }
-.about-hero-copy > p:last-child {
+.about-hero-copy > .about-intro {
   max-width: 640px;
   margin: 24px 0 0;
   color: var(--muted);
@@ -113,6 +113,42 @@ figure, h1, h2, h3, p { margin-top: 0; }
   letter-spacing: -0.025em;
 }
 .about-hero-copy strong { color: var(--ink); font-weight: 600; }
+.about-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.about-hero-actions a {
+  display: inline-flex;
+  min-height: 42px;
+  padding: 10px 18px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.about-hero-actions a:last-child {
+  color: var(--ink);
+  background: #fff;
+  border-color: var(--hairline);
+}
+.about-hero-actions a:hover {
+  background: var(--blue-focus);
+  border-color: var(--blue-focus);
+}
+.about-hero-actions a:last-child:hover {
+  color: var(--blue);
+  background: #f5f5f7;
+  border-color: #c7c7cc;
+}
+.about-hero-actions a:active { transform: scale(0.97); }
 .about-portrait {
   position: relative;
   align-self: center;
@@ -270,7 +306,7 @@ figure, h1, h2, h3, p { margin-top: 0; }
 @media (max-width: 640px) {
   .global-nav nav a { display: none; }
   .about-hero h1 { font-size: clamp(36px, 10vw, 48px); }
-  .about-hero-copy > p:last-child { margin-top: 28px; font-size: 20px; }
+  .about-hero-copy > .about-intro { margin-top: 28px; font-size: 20px; }
   .about-portrait { width: min(76vw, 360px); min-height: 0; height: auto; margin-bottom: 52px; }
   .about-journey, .about-education { padding-top: 64px; padding-bottom: 72px; }
   .journey-track { grid-template-columns: 1fr; gap: 12px; margin-top: 44px; }

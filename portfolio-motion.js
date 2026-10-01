@@ -9,6 +9,9 @@
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const desktopPreference = window.matchMedia('(min-width: 851px)');
   let activeContext = null;
+  let activeMotionRoot = null;
+  let caseNavigationController = null;
+  let currentCaseNavigation = null;
   let activePath = '';
   let activeDesktopState = desktopPreference.matches;
   let progressIndicator = null;
@@ -224,6 +227,189 @@
     blocks.forEach((block) => observer.observe(block));
   }
 
+  function buildBumbleIteration(page) {
+    if (!page || page.dataset.bumbleIterationV2 === 'true') return;
+    page.dataset.bumbleIterationV2 = 'true';
+    page.classList.add('bumble-iteration-v2');
+
+    const hero = page.querySelector('.case-hero');
+    const nextProject = page.querySelector('.case-next');
+    if (!hero || !nextProject) return;
+
+    const walkthroughStage = page.querySelector('.bumble-hero-media');
+    const walkthroughPhone = walkthroughStage?.querySelector('.mobile-demo-phone');
+    walkthroughStage?.remove();
+    page
+      .querySelectorAll(
+        '.product-story, .impact-band, .case-anchor-nav, .problem-section, .process-section, .decisions-section, .reflection-section, .bumble-v2-story-nav, .bumble-v2-section'
+      )
+      .forEach((node) => node.remove());
+
+    const storyNav = document.createElement('nav');
+    storyNav.className = 'case-anchor-nav bumble-v2-story-nav';
+    storyNav.setAttribute('aria-label', 'Bumble Skill Snack case study chapters');
+    storyNav.innerHTML = `
+      <a class="is-current" href="#problem" aria-current="location">Problem</a>
+      <a href="#bumble-research">Process</a>
+      <a href="#bumble-impact">Impact</a>
+      <a href="#reflection">Reflection</a>`;
+
+    const story = document.createElement('div');
+    story.className = 'bumble-v2-story';
+    story.innerHTML = `
+      <section class="case-section bumble-v2-section bumble-v2-problem" id="problem" aria-labelledby="bumble-problem-heading">
+        <header class="bumble-v2-section-heading">
+          <p class="case-section-label">Problem</p>
+          <h3 class="bumble-v2-section-title" id="bumble-problem-heading">Matches happened, but conversations stalled.</h3>
+        </header>
+        <div class="bumble-v2-problem-grid">
+          <article class="bumble-v2-problem-card">
+            <div class="bumble-v2-card-copy"><span>Problem 01</span><h3>Matches stalled</h3><p>People were matching, but many never turned that match into a conversation.</p></div>
+            <figure class="bumble-v2-donut-visual" aria-label="40 percent of matches did not become conversations">
+              <div class="bumble-v2-donut"><strong>40%</strong></div>
+              <figcaption>matched but did not talk</figcaption>
+            </figure>
+          </article>
+          <article class="bumble-v2-problem-card">
+            <div class="bumble-v2-card-copy"><span>Problem 02</span><h3>The blank-box burden</h3><p>A blank message field gave people no shared starting point or low-pressure way to begin.</p></div>
+            <div class="bumble-v2-chat-visual" aria-label="A new match with an empty message field">
+              <div class="bumble-v2-chat-window">
+                <span>New match</span>
+                <div><i>Type a message...</i><b aria-hidden="true">↗</b></div>
+              </div>
+              <p>Where do I start?</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section bumble-v2-section bumble-v2-process" id="bumble-research" aria-labelledby="bumble-research-heading">
+        <header class="bumble-v2-section-heading">
+          <p class="case-section-label">Research</p>
+          <h3 class="bumble-v2-section-title" id="bumble-research-heading">I mapped where the experience should begin.</h3>
+        </header>
+        <div class="bumble-v2-carousel">
+          <div class="bumble-v2-track" role="list">
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 01</span><h3>User flow</h3><p>Map how Skill Snack enters the match journey without interrupting the core Bumble experience.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-user-flow.png" alt="Bumble Skill Snack user flow from onboarding through matching and chat" loading="lazy"></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 02</span><h3>Low-fidelity exploration</h3><p>Explore the main decisions and edge cases before defining the visual system.</p></div><div class="bumble-v2-image-stack" aria-label="Two overlapping low-fidelity Skill Snack explorations"><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the early flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-01.png" alt="Early Skill Snack flow and concept exploration" loading="lazy"></figure><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the detailed flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-02.png" alt="Detailed low-fidelity Skill Snack flow" loading="lazy"></figure></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section bumble-v2-section bumble-v2-process" id="bumble-design" aria-labelledby="bumble-design-heading">
+        <header class="bumble-v2-section-heading">
+          <p class="case-section-label">Design</p>
+          <h3 class="bumble-v2-section-title" id="bumble-design-heading">I designed for three connected use cases.</h3>
+        </header>
+        <div class="bumble-v2-carousel">
+          <div class="bumble-v2-track" role="list">
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Use case 01</span><h3>Onboarding</h3><p>Introduce Skill Snack with a clear purpose and a low-pressure first step.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="0 0 1600 872" role="img" aria-label="Bumble Skill Snack onboarding flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Use case 02</span><h3>Free user flow</h3><p>Give free users a focused path from a shared interest to a conversation.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="1649 0 1959 872" role="img" aria-label="Bumble Skill Snack free-user flow across five mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Use case 03</span><h3>Premium user flow</h3><p>Extend the interaction with additional choice while preserving the same simple rhythm.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="3752 0 1600 872" role="img" aria-label="Bumble Skill Snack premium-user flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section bumble-v2-section bumble-v2-process" id="bumble-test" aria-labelledby="bumble-test-heading">
+        <header class="bumble-v2-section-heading">
+          <p class="case-section-label">Test + iterate</p>
+          <h3 class="bumble-v2-section-title" id="bumble-test-heading">I refined trust and expanded the system.</h3>
+        </header>
+        <div class="bumble-v2-carousel">
+          <div class="bumble-v2-track" role="list">
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact" role="listitem"><div class="bumble-v2-card-copy"><span>Iteration 01</span><h3>Add a safety check</h3><p>Introduce clear verification, failure, and retry states before Skill Snack becomes part of a conversation.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/safety-check-transparent.svg" alt="Bumble Skill Snack verification and safety-check flow across six mobile screens" loading="lazy"></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact bumble-v2-platform-card" role="listitem"><div class="bumble-v2-card-copy"><span>Iteration 02</span><h3>Expand across platforms</h3><p>Compare native iOS and Android patterns while carrying the same focused interaction to Apple Watch.</p></div><div class="bumble-v2-platform-comparison" aria-label="Android, iOS, and Apple Watch Skill Snack comparison"><figure class="is-mobile-platforms"><div class="bumble-v2-platform-labels"><span>Android</span><span>iOS</span></div><img src="/projects/bumble-skill-snack/process/platforms-transparent.svg" alt="Native Android and iOS Skill Snack verification flows shown side by side" loading="lazy"></figure><figure class="is-watch"><figcaption>Apple Watch</figcaption><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/decision-02-poster.jpg"><source src="/projects/bumble-skill-snack/media/decision-02.mp4" type="video/mp4"></video></figure></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section bumble-v2-section bumble-v2-impact" id="bumble-impact" aria-labelledby="bumble-impact-heading">
+        <div class="bumble-v2-impact-walkthrough-grid">
+          <div class="bumble-v2-impact-summary">
+            <p class="case-section-label" id="bumble-impact-heading">Impact</p>
+            <div class="bumble-v2-impact-metrics">
+              <article><strong>3</strong><span>platforms</span></article>
+              <article><strong>10</strong><span>user flows</span></article>
+              <article><strong>5+</strong><span>interactive states</span></article>
+            </div>
+          </div>
+          <div class="bumble-v2-walkthrough" aria-label="Bumble Skill Snack product walkthrough">
+            <div class="bumble-v2-walkthrough-slot"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="reflection-section bumble-v2-section bumble-v2-reflection" id="reflection" aria-labelledby="bumble-reflection-heading">
+        <p class="case-section-label" id="bumble-reflection-heading">Reflection</p>
+        <ul class="bumble-v2-reflection-list">
+          <li><strong>01 · Design systems save time, not just create consistency.</strong><span>Working within Bumble’s existing patterns showed me that defining components, spacing, hierarchy, and interaction rules early made later screens much faster to design and easier to keep consistent.</span></li>
+          <li><strong>02 · Not every platform needs every feature.</strong><span>I explored a desktop version of Skill Snack, but after reviewing Bumble’s existing web experience and the project timeline, I prioritized iOS, Android, and Apple Watch—where the feature better fit the core matching and messaging experience.</span></li>
+        </ul>
+      </section>`;
+
+    hero.after(storyNav, story);
+    const walkthroughSlot = story.querySelector('.bumble-v2-walkthrough-slot');
+    if (walkthroughSlot && walkthroughPhone) {
+      walkthroughPhone.classList.add('bumble-v2-walkthrough-phone');
+      walkthroughSlot.appendChild(walkthroughPhone);
+    }
+
+    story.querySelectorAll('.bumble-v2-track').forEach((track, index) => {
+      const labels = ['research artifact', 'design use case', 'iteration'];
+      addHorizontalControls(track, {
+        label: `Bumble ${labels[index]} cards`,
+        itemSelector: '.bumble-v2-card',
+        controlsClass: 'bumble-v2-controls',
+        previousLabel: `Show previous ${labels[index]}`,
+        nextLabel: `Show next ${labels[index]}`,
+      });
+    });
+
+    story.querySelectorAll('.bumble-v2-image-stack').forEach((stack) => {
+      const layers = Array.from(stack.querySelectorAll('figure'));
+      const toggleLayer = (layer) => {
+        const willActivate = !layer.classList.contains('is-active');
+        layers.forEach((item) => {
+          const isActive = item === layer && willActivate;
+          item.classList.toggle('is-active', isActive);
+          item.setAttribute('aria-pressed', String(isActive));
+        });
+      };
+
+      layers.forEach((layer) => {
+        layer.addEventListener('click', () => toggleLayer(layer));
+        layer.addEventListener('keydown', (event) => {
+          if (event.key !== 'Enter' && event.key !== ' ') return;
+          event.preventDefault();
+          toggleLayer(layer);
+        });
+      });
+    });
+
+    const setActiveChapter = (href) => {
+      storyNav.querySelectorAll('a').forEach((item) => {
+        const isCurrent = item.getAttribute('href') === href;
+        item.classList.toggle('is-current', isCurrent);
+        if (isCurrent) item.setAttribute('aria-current', 'location');
+        else item.removeAttribute('aria-current');
+      });
+    };
+
+    storyNav.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      const target = page.querySelector(link.getAttribute('href'));
+      if (!target) return;
+      event.preventDefault();
+      setActiveChapter(link.getAttribute('href'));
+      const offset = 48 + storyNav.getBoundingClientRect().height;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.history.replaceState(null, '', link.getAttribute('href'));
+      window.scrollTo({ top, behavior: motionPreference.matches ? 'auto' : 'smooth' });
+    });
+
+  }
+
   function prepareBumbleCaseStudy(page) {
     if (!page || page.dataset.bumbleRefined === 'true') return;
     page.dataset.bumbleRefined = 'true';
@@ -242,6 +428,8 @@
         'I designed a cohesive experience across iOS, Android and Apple Watch, extending Bumble’s design system.'
       ]
     );
+    buildBumbleIteration(page);
+    return;
     page.querySelector('.bumble-hero-media .mobile-demo-copy > p')?.remove();
     const impact = page.querySelector('.bumble-impact');
     const impactGrid = impact?.querySelector('.impact-grid');
@@ -515,6 +703,10 @@
     )?.querySelector('strong');
     setTextIfNeeded(teamValue, '3 people — PM, Developer, UX Designer');
     page.querySelector('.impress-hero-media .mobile-demo-copy > p')?.remove();
+    const hero = page.querySelector('.case-hero');
+    const heroMedia = page.querySelector('.impress-hero-media');
+    const heroWalkthrough = heroMedia?.querySelector('.impress-demo-frame');
+    heroMedia?.remove();
 
     const highlights = page.querySelector('.product-story');
     const highlightIntro = highlights?.querySelector('.case-section-intro');
@@ -529,8 +721,18 @@
       carousel.className = 'impress-highlight-carousel';
       screenWall.classList.add('impress-highlight-track');
       screenWall.setAttribute('role', 'list');
-      screenWall.querySelectorAll('.impress-screen-card').forEach((card) => {
+      const highlightTitles = ['Course outline', 'Foundation check', 'Learning modules', 'Structured chat'];
+      screenWall.querySelectorAll('.impress-screen-card').forEach((card, index) => {
         card.setAttribute('role', 'listitem');
+        const caption = card.querySelector('figcaption');
+        const title = caption?.querySelector('strong');
+        if (title) {
+          const heading = document.createElement('h3');
+          heading.textContent = highlightTitles[index];
+          title.replaceWith(heading);
+        }
+        setTextIfNeeded(caption?.querySelector('span'), `Highlight ${String(index + 1).padStart(2, '0')}`);
+        if (caption) card.prepend(caption);
       });
       screenWall.before(carousel);
       carousel.appendChild(screenWall);
@@ -544,14 +746,17 @@
     }
 
     const impact = page.querySelector('.impress-impact');
-    if (highlights && impact) highlights.after(impact);
 
     const problemSection = page.querySelector('.impress-problem');
     const problemIntro = problemSection?.querySelector('.case-section-intro');
+    setTextIfNeeded(problemIntro?.querySelector('.case-section-label'), 'Problem');
     if (problemIntro) {
       const problemHeading = problemIntro.querySelector('h2');
       if (problemHeading) {
-        problemHeading.innerHTML = '<span>Two learning loops.</span> <em>Two different outcomes.</em>';
+        const compactHeading = document.createElement('h3');
+        compactHeading.id = problemHeading.id;
+        compactHeading.textContent = 'Passive learning did not teach people to look.';
+        problemHeading.replaceWith(compactHeading);
       }
       Array.from(problemIntro.querySelectorAll('p:not(.case-section-label)')).forEach((paragraph) => paragraph.remove());
     }
@@ -580,10 +785,9 @@
             ['Predict', 'Form an idea'],
             ['Observe', 'Look closely'],
             ['Explain', 'Use evidence'],
-            ['Structured chat', 'Scaffold interaction'],
             ['Feedback', 'Refine thinking'],
           ],
-          caption: 'Each cycle scaffolds the next response.',
+          caption: 'The chat contains and scaffolds the complete learning cycle.',
         },
       ];
 
@@ -595,6 +799,12 @@
         header.innerHTML = `<h3>${spec.title}</h3><span>${spec.mode}</span>`;
         const flow = document.createElement('div');
         flow.className = 'impress-loop-flow';
+        if (spec.className === 'is-active') {
+          const chatLabel = document.createElement('span');
+          chatLabel.className = 'impress-structured-chat-label';
+          chatLabel.textContent = 'Structured chat';
+          flow.appendChild(chatLabel);
+        }
         spec.steps.forEach(([title, detail], index) => {
           const step = document.createElement('div');
           step.className = 'impress-loop-step';
@@ -617,6 +827,14 @@
     }
 
     const processSection = page.querySelector('.impress-process');
+    setTextIfNeeded(processSection?.querySelector('.case-section-label'), 'Process');
+    const processHeading = processSection?.querySelector('.case-section-intro h2');
+    if (processHeading) {
+      const compactHeading = document.createElement('h3');
+      compactHeading.id = processHeading.id;
+      compactHeading.textContent = 'From learning goals to interaction design.';
+      processHeading.replaceWith(compactHeading);
+    }
     const processTrack = processSection?.querySelector('.mvp-timeline');
     Array.from(processSection?.querySelectorAll('.case-section-intro > p:not(.case-section-label)') || []).forEach(
       (paragraph) => paragraph.remove()
@@ -625,7 +843,7 @@
     if (processTrack && processCards.length === 5) {
       const first = processCards[0];
       setTextIfNeeded(first.querySelector('.mvp-number'), 'Stage 01');
-      setTextIfNeeded(first.querySelector('h3'), 'Backward Design & Learning Objectives');
+      setTextIfNeeded(first.querySelector('h3'), 'Learning goals');
       setTextIfNeeded(first.querySelector('.mvp-keywords'), 'Learning science · Outcomes · Curriculum · Scaffolding');
       setTextIfNeeded(
         first.querySelector('.mvp-detail'),
@@ -660,6 +878,7 @@
     refinedProcessCards.forEach((card, index) => {
       if (card.dataset.impressStageEnhanced === 'true') return;
       card.dataset.impressStageEnhanced = 'true';
+      card.querySelector('.mvp-keywords')?.remove();
       const copy = document.createElement('div');
       copy.className = 'impress-stage-copy';
       Array.from(card.childNodes).forEach((node) => copy.appendChild(node));
@@ -678,34 +897,90 @@
       nextLabel: 'Show next design stage',
     });
 
+    const highlightHeading = highlightIntro?.querySelector('h2');
+    if (highlightHeading) {
+      const compactHeading = document.createElement('h3');
+      compactHeading.id = highlightHeading.id;
+      compactHeading.textContent = 'Get the highlights';
+      highlightHeading.replaceWith(compactHeading);
+    }
+
     const sourceDemo = highlights?.querySelector('.impress-full-demo');
     const decisionsSection = page.querySelector('.impress-decisions');
-    if (sourceDemo && processSection && decisionsSection && !page.querySelector('.impress-walkthrough')) {
-      const video = sourceDemo.querySelector('video');
+    sourceDemo?.remove();
+    decisionsSection?.remove();
+    if (heroWalkthrough && processSection && !page.querySelector('.impress-walkthrough')) {
       const walkthrough = document.createElement('section');
-      walkthrough.className = 'case-section impress-walkthrough';
+      walkthrough.className = 'impress-walkthrough';
       walkthrough.setAttribute('aria-labelledby', 'impress-walkthrough-heading');
 
       const intro = document.createElement('div');
       intro.className = 'case-section-intro';
-      intro.innerHTML = '<h2 id="impress-walkthrough-heading">Complete product walkthrough</h2>';
+      intro.innerHTML = '<h3 id="impress-walkthrough-heading">Product walkthrough</h3>';
 
       const layout = document.createElement('div');
       layout.className = 'impress-walkthrough-layout';
       const media = document.createElement('figure');
       media.className = 'impress-walkthrough-video';
-      if (video) media.appendChild(video);
-      const description = document.createElement('p');
-      description.className = 'impress-walkthrough-copy';
-      description.textContent =
-        'ImpressChat, a mobile application that supports interactive, assessment-backed learning of Impressionist art for adult learners. The system guides learners through a pretest, three chat-based instructional modules, and a posttest.';
-      layout.append(media, description);
+      media.appendChild(heroWalkthrough);
+      layout.append(media);
       walkthrough.append(intro, layout);
-      processSection.after(walkthrough);
-      sourceDemo.remove();
+      highlights?.after(walkthrough);
     }
 
-    prepareDecisionReveals(page);
+    const walkthrough = page.querySelector('.impress-walkthrough');
+    const reflection = page.querySelector('.impress-reflection');
+    setTextIfNeeded(reflection?.querySelector('.case-section-label'), 'Reflection');
+    const reflectionHeading = reflection?.querySelector('h2');
+    if (reflectionHeading) {
+      const compactHeading = document.createElement('h3');
+      compactHeading.id = reflectionHeading.id;
+      compactHeading.textContent = 'Design beyond my own understanding.';
+      reflectionHeading.replaceWith(compactHeading);
+    }
+
+    if (impact) {
+      impact.classList.remove('impact-band');
+      impact.classList.add('case-section', 'impress-impact-combined');
+      impact.classList.add('impress-impact-simple');
+      impact.id = 'impact';
+      impact.innerHTML = `
+        <div class="impress-impact-walkthrough-grid">
+          <div class="impress-impact-summary">
+            <p class="case-section-label" id="impress-impact-heading">Impact</p>
+            <div class="impress-impact-metrics">
+              <article><strong>ACM</strong><span>Learning@Scale 2026 demo accepted</span></article>
+              <article><strong>80%</strong><span>pre-test to post-test learning gain</span></article>
+            </div>
+          </div>
+        </div>`;
+      impact.setAttribute('aria-labelledby', 'impress-impact-heading');
+      impact.querySelector('.impress-impact-walkthrough-grid')?.append(walkthrough);
+    }
+
+    const anchorNav = page.querySelector('.case-anchor-nav');
+    if (anchorNav) {
+      anchorNav.innerHTML = '<a href="#problem">Problem</a><a href="#process">Process</a><a href="#impact">Impact</a><a href="#reflection">Reflection</a>';
+      anchorNav.addEventListener('click', (event) => {
+        const link = event.target.closest('a[href^="#"]');
+        const target = link && page.querySelector(link.getAttribute('href'));
+        if (!target) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const top = target.getBoundingClientRect().top + window.scrollY - 48 - anchorNav.offsetHeight;
+        window.history.replaceState(null, '', link.getAttribute('href'));
+        window.scrollTo({ top, behavior: motionPreference.matches ? 'auto' : 'smooth' });
+      });
+    }
+
+    if (hero && anchorNav && problemSection && processSection && highlights && walkthrough && impact && reflection) {
+      hero.after(anchorNav);
+      anchorNav.after(problemSection);
+      problemSection.after(processSection);
+      processSection.after(highlights);
+      highlights.after(impact);
+      impact.after(reflection);
+    }
   }
 
   function preparePageLensCaseStudy(page) {
@@ -871,7 +1146,132 @@
 
     processSection?.querySelector('.pagelens-process-figures')?.remove();
 
-    prepareDecisionReveals(page);
+    preparePageLensStory(page);
+  }
+
+  function preparePageLensStory(page) {
+    page.classList.add('pagelens-story-v2');
+    const hero = page.querySelector('.case-hero');
+    const nav = page.querySelector('.case-anchor-nav');
+    const problem = page.querySelector('.pagelens-problem');
+    const process = page.querySelector('.pagelens-process');
+    const concept = page.querySelector('.pagelens-product');
+    const decisions = page.querySelector('.pagelens-decisions');
+    const impact = page.querySelector('.pagelens-impact');
+    const reflection = page.querySelector('.pagelens-reflection');
+
+    decisions?.remove();
+
+    const headings = [
+      [problem, 'Problem', 'Physical books are fixed. Readers are not.'],
+      [process, 'Process', 'From library context to a feasible system.'],
+      [concept, 'The concept', 'Reading support that meets people at the page.'],
+      [reflection, 'Reflection', 'Accessible design supports autonomy and dignity.'],
+    ];
+    headings.forEach(([section, label, title]) => {
+      if (!section) return;
+      setTextIfNeeded(section.querySelector('.case-section-label'), label);
+      const old = section.querySelector('h2');
+      if (old) {
+        const heading = document.createElement('h3');
+        heading.id = old.id;
+        heading.textContent = title;
+        old.replaceWith(heading);
+      }
+    });
+    concept.id = 'concept';
+    impact.id = 'impact';
+    impact.innerHTML = '<div class="case-section-intro pagelens-impact-heading"><p class="case-section-label">Impact</p><h3 id="pagelens-impact-heading">Research translated into one feasible system.</h3></div><div class="pagelens-impact-metrics"><article><strong>4</strong><span>reading features</span></article><article><strong>3</strong><span>technologies</span></article><article><strong>1</strong><span>integrated concept</span></article></div>';
+    impact.setAttribute('aria-labelledby', 'pagelens-impact-heading');
+    page.querySelectorAll('.pagelens-stage-copy .mvp-keywords').forEach((node) => node.remove());
+
+    const readingVisual = page.querySelector('.pagelens-reading-visual');
+    if (readingVisual) {
+      const samples = [...readingVisual.querySelectorAll('.pagelens-reading-sample img')];
+      const cards = document.createElement('div');
+      cards.className = 'pagelens-problem-cards';
+      cards.innerHTML = `
+        <article><div><span>Problem 01</span><h3>One fixed page, different needs</h3><p>Dense print and tightly packed lines can make it harder to separate letters and keep a place.</p></div><figure>${samples[0]?.outerHTML || ''}</figure></article>
+        <article><div><span>Problem 02</span><h3>The reader does all the adapting</h3><p>A printed page cannot adjust to a reader’s changing needs, leaving them to find support elsewhere.</p></div><figure>${samples[1]?.outerHTML || ''}</figure></article>`;
+      const note = document.createElement('p');
+      note.className = 'pagelens-simulation-note';
+      note.textContent = 'Illustrative simulations only — dyslexia varies from person to person.';
+      readingVisual.replaceWith(cards, note);
+    }
+
+    nav.innerHTML = '<a href="#problem">Problem</a><a href="#process">Process</a><a href="#concept">Concept</a><a href="#impact">Impact</a><a href="#reflection">Reflection</a>';
+    hero.after(nav, problem, process, concept, impact, reflection);
+  }
+
+  // One navigation and mobile-demo pattern for every case study. This runs
+  // independently of GSAP so chapter indicators also work with reduced motion.
+  function prepareSharedCasePresentation() {
+    const page = document.querySelector('.case-page');
+    if (!page) return;
+    const nav = page.querySelector('.case-anchor-nav');
+    const impact = page.querySelector('.kb-impact-simple, .bumble-v2-impact, .impress-impact, .pagelens-impact');
+    if (nav && impact && ![...nav.querySelectorAll('a')].some((link) => link.textContent.trim() === 'Impact')) {
+      if (!impact.id) impact.id = 'impact';
+      const link = document.createElement('a');
+      link.href = `#${impact.id}`;
+      link.textContent = 'Impact';
+      const reflectionLink = nav.querySelector('a[href="#reflection"]');
+      if (reflectionLink) reflectionLink.before(link);
+      else nav.append(link);
+    }
+
+    const walkthrough = page.querySelector('.bumble-v2-walkthrough, .impress-walkthrough');
+    if (walkthrough && !walkthrough.querySelector('.mobile-walkthrough-panel')) {
+      const isBumble = page.classList.contains('bumble-case');
+      const phone = walkthrough.querySelector('.mobile-demo-phone, .impress-demo-frame');
+      const panel = document.createElement('div');
+      panel.className = 'mobile-walkthrough-panel';
+      const headingId = isBumble ? 'bumble-walkthrough-heading' : 'impress-walkthrough-heading';
+      panel.innerHTML = `<div class="mobile-walkthrough-copy"><span>${isBumble ? 'Bumble × Skill Snack' : 'ImpressChat'}</span><h3 id="${headingId}">Product walkthrough</h3><p>${isBumble ? 'From shared interests to a first conversation.' : 'From a foundation check to learning through structured chat.'}</p></div><div class="mobile-walkthrough-media"></div>`;
+      if (phone) panel.querySelector('.mobile-walkthrough-media').append(phone);
+      walkthrough.replaceChildren(panel);
+    }
+
+    if (nav === currentCaseNavigation) return;
+    caseNavigationController?.abort();
+    currentCaseNavigation = nav;
+    if (!nav) return;
+    caseNavigationController = new AbortController();
+    const signal = caseNavigationController.signal;
+    const entries = [...nav.querySelectorAll('a[href^="#"]')]
+      .map((link) => ({ link, section: page.querySelector(link.getAttribute('href')) }))
+      .filter(({ section }) => section);
+    const activate = (active) => entries.forEach(({ link }) => {
+      const selected = link === active;
+      link.classList.toggle('is-current', selected);
+      if (selected) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const probe = 48 + nav.offsetHeight + Math.min(120, window.innerHeight * 0.15);
+      let active = entries[0]?.link;
+      entries.forEach(({ link, section }) => {
+        if (section.getBoundingClientRect().top <= probe) active = link;
+      });
+      activate(active);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    signal.addEventListener('abort', () => cancelAnimationFrame(frame));
+    window.addEventListener('scroll', schedule, { passive: true, signal });
+    window.addEventListener('resize', schedule, { passive: true, signal });
+    nav.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      const entry = entries.find((item) => item.link === link);
+      if (!entry || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      activate(link);
+      history.replaceState(null, '', link.getAttribute('href'));
+      window.scrollTo({ top: entry.section.getBoundingClientRect().top + window.scrollY - 48 - nav.offsetHeight, behavior: motionPreference.matches ? 'auto' : 'smooth' });
+    }, { capture: true, signal });
+    update();
   }
 
   function buildKbTutorStory(page) {
@@ -1739,17 +2139,20 @@
 
     const nextPath = window.location.pathname;
     const nextDesktopState = desktopPreference.matches;
-    if (!force && activeContext && activePath === nextPath && activeDesktopState === nextDesktopState) return;
+    const nextRoot = document.querySelector('.case-page') || document.body;
+    if (!force && activeContext && activeMotionRoot === nextRoot && progressIndicator?.isConnected && activePath === nextPath && activeDesktopState === nextDesktopState) return;
 
     if (activeContext) activeContext.revert();
     if (progressIndicator) progressIndicator.remove();
 
     activePath = nextPath;
+    activeMotionRoot = nextRoot;
     activeDesktopState = nextDesktopState;
     document.documentElement.classList.toggle('motion-reduced', motionPreference.matches);
     document.documentElement.classList.toggle('motion-enhanced', !motionPreference.matches);
 
     if (motionPreference.matches) {
+      activeContext = null;
       window.ScrollTrigger.getAll().forEach((trigger) => {
         if (String(trigger.vars.id || '').startsWith('portfolio-')) trigger.kill();
       });
@@ -1944,6 +2347,7 @@
       let groupIndex = 0;
       revealGroups.forEach(([containerSelector, itemSelector]) => {
         document.querySelectorAll(containerSelector).forEach((container) => {
+          if (container.closest('.impress-refined, .pagelens-story-v2')) return;
           const items = gsap.utils.toArray(container.querySelectorAll(itemSelector));
           if (!items.length) return;
           groupIndex += 1;
@@ -1964,6 +2368,71 @@
         });
       });
 
+      // Animate the same structural layers on every new case-study layout.
+      // Track wrappers reveal together; their horizontal scrolling stays native.
+      const storyReveals = gsap.utils.toArray(
+        '.bumble-v2-section-heading, .bumble-v2-problem-grid, .bumble-v2-carousel, .bumble-v2-impact-metrics, .mobile-walkthrough-panel, .impress-learning-loop, .impress-process .mvp-timeline, .impress-highlight-carousel, .impress-impact-metrics, .pagelens-problem-cards, .pagelens-timeline, .pagelens-demo-grid, .pagelens-concept-film, .pagelens-impact-metrics'
+      );
+      storyReveals.forEach((element, index) => {
+        gsap.from(element, {
+          autoAlpha: 0,
+          y: 24,
+          duration: 0.7,
+          clearProps: clearMotionStyles,
+          scrollTrigger: { id: `portfolio-story-${index}`, trigger: element, start: enterStart, once: true },
+        });
+      });
+
+      // PageLens uses the same chapter-heading reveal language as the other
+      // case studies while keeping every image and interaction accessible.
+      gsap.utils.toArray('.pagelens-story-v2 .case-section-intro').forEach((heading, index) => {
+        const children = gsap.utils.toArray(heading.children);
+        if (!children.length) return;
+        gsap.from(children, {
+          autoAlpha: 0,
+          y: isDesktop ? 22 : 16,
+          duration: 0.62,
+          stagger: 0.08,
+          clearProps: clearMotionStyles,
+          scrollTrigger: {
+            id: `portfolio-pagelens-heading-${index}`,
+            trigger: heading,
+            start: enterStart,
+            once: true,
+          },
+        });
+      });
+
+      gsap.utils.toArray(
+        '.pagelens-story-v2 .pagelens-problem-cards figure, .pagelens-story-v2 .pagelens-stage-visual img, .pagelens-story-v2 .pagelens-demo-grid video, .pagelens-story-v2 .pagelens-youtube-frame'
+      ).forEach((visual, index) => {
+        gsap.from(visual, {
+          autoAlpha: 0,
+          y: 14,
+          scale: 0.985,
+          duration: 0.78,
+          clearProps: clearMotionStyles,
+          scrollTrigger: {
+            id: `portfolio-pagelens-visual-${index}`,
+            trigger: visual,
+            start: enterStart,
+            once: true,
+          },
+        });
+      });
+
+      const donut = document.querySelector('.bumble-v2-donut');
+      if (donut) gsap.fromTo(donut, { '--donut-sweep': '0%' }, {
+        '--donut-sweep': '40%', duration: 1.15, ease: 'power2.out',
+        scrollTrigger: { id: 'portfolio-bumble-donut', trigger: donut, start: 'top 78%', once: true },
+      });
+      gsap.utils.toArray('.impress-loop-flow').forEach((flow, index) => {
+        gsap.from(flow.querySelectorAll('.impress-loop-step'), {
+          autoAlpha: 0, y: 16, duration: 0.55, stagger: 0.12, clearProps: clearMotionStyles,
+          scrollTrigger: { id: `portfolio-learning-loop-${index}`, trigger: flow, start: enterStart, once: true },
+        });
+      });
+
       gsap.utils.toArray('.decision-block').forEach((block, index) => {
         const copy = block.querySelector('.decision-copy');
         const media = block.querySelector('.decision-media');
@@ -1980,7 +2449,7 @@
 
         // KB Tutor uses a dedicated IntersectionObserver reveal so the effect is
         // visible and deterministic even when ScrollTrigger refreshes late.
-        if (usesDedicatedDecisionReveal) return;
+        if (usesDedicatedDecisionReveal || block.closest('.pagelens-story-v2')) return;
 
         const decisionTimeline = gsap.timeline({
           scrollTrigger: {
@@ -2102,36 +2571,6 @@
         });
       }
 
-      const anchorLinks = gsap.utils.toArray('.case-anchor-nav a[href^="#"]');
-      if (anchorLinks.length) {
-        const activateLink = (activeLink) => {
-          anchorLinks.forEach((link) => {
-            const isCurrent = link === activeLink;
-            link.classList.toggle('is-current', isCurrent);
-            if (isCurrent) link.setAttribute('aria-current', 'location');
-            else link.removeAttribute('aria-current');
-          });
-        };
-
-        const anchoredSections = anchorLinks
-          .map((link) => ({ link, section: document.querySelector(link.getAttribute('href')) }))
-          .filter(({ section }) => section);
-
-        anchoredSections.forEach(({ link, section }, index) => {
-          const nextSection = anchoredSections[index + 1]?.section;
-          ScrollTrigger.create({
-            id: `portfolio-anchor-${index}`,
-            trigger: section,
-            start: 'top 48%',
-            endTrigger: nextSection || section,
-            end: nextSection ? 'top 48%' : 'bottom 48%',
-            onToggle: (self) => {
-              if (self.isActive) activateLink(link);
-            },
-          });
-        });
-      }
-
       gsap.utils.toArray('.reflection-section, .case-next, .closing').forEach((section, index) => {
         gsap.from(section.children, {
           autoAlpha: 0,
@@ -2187,13 +2626,18 @@
       ensureAiDesignNavigation();
       ensureHomepageNavigation();
       prepareCaseStudyContent();
-      if (window.location.pathname !== activePath) window.setTimeout(() => mountMotionSystem(true), 0);
+      prepareSharedCasePresentation();
+      const motionRoot = document.querySelector('.case-page') || document.body;
+      if (window.location.pathname !== activePath || activeMotionRoot !== motionRoot || (!motionPreference.matches && !progressIndicator?.isConnected)) {
+        window.requestAnimationFrame(() => mountMotionSystem());
+      }
     });
     pageObserver.observe(document.body, { childList: true, subtree: true });
 
     ensureAiDesignNavigation();
     ensureHomepageNavigation();
     prepareCaseStudyContent();
+    prepareSharedCasePresentation();
     mountMotionSystem();
   }
 
