@@ -19,6 +19,31 @@
 
   const clearMotionStyles = 'transform,opacity,visibility';
 
+  const moonFaviconLinks = [
+    { rel: 'icon', href: '/favicon.png?v=3', type: 'image/png', sizes: '64x64' },
+    { rel: 'shortcut icon', href: '/favicon.ico?v=3' },
+    { rel: 'apple-touch-icon', href: '/apple-touch-icon.png?v=3', sizes: '180x180' },
+  ];
+
+  function ensureMoonFavicon() {
+    const current = [...document.head.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')];
+    const isCurrent = moonFaviconLinks.every(({ rel, href }) =>
+      current.some((link) => link.rel === rel && link.getAttribute('href') === href)
+    );
+    if (isCurrent && current.length === moonFaviconLinks.length) return;
+
+    current.forEach((link) => link.remove());
+    moonFaviconLinks.forEach(({ rel, href, type, sizes }) => {
+      const link = document.createElement('link');
+      link.rel = rel;
+      link.href = href;
+      if (type) link.type = type;
+      if (sizes) link.setAttribute('sizes', sizes);
+      link.dataset.moonFavicon = 'true';
+      document.head.appendChild(link);
+    });
+  }
+
   function setTextIfNeeded(element, text) {
     if (element && element.textContent.trim() !== text) element.textContent = text;
   }
@@ -680,8 +705,33 @@
     prepareDecisionReveals(page);
   }
 
+  function syncCaseReflection(page, selector, headingId, rows) {
+    const reflection = page?.querySelector(selector);
+    if (!reflection) return;
+    const version = rows.map(([title, body]) => `${title}|${body}`).join('||');
+    if (reflection.querySelector('.case-reflection-list')?.dataset.reflectionVersion === version) return;
+
+    reflection.innerHTML = `
+      <p class="case-section-label" id="${headingId}">Reflection</p>
+      <ul class="case-reflection-list" data-reflection-version="${version}">
+        ${rows.map(([title, body], index) => `<li><strong>${String(index + 1).padStart(2, '0')} · ${title}</strong><span>${body}</span></li>`).join('')}
+      </ul>`;
+  }
+
+  const impressReflectionRows = [
+    ['Focus before expansion.', 'We had ideas for more artist chapters and features like a museum mode, but limited time meant focusing on the core chapters and refining the learning experience before expanding the product.'],
+    ['Good learning UX is more than easy interaction.', 'Concepts that felt obvious to me were not obvious to first-time learners. Testing exposed that expert blind spot and pushed me to simplify terminology, content density, and pacing by designing for how learners actually understood the experience.'],
+  ];
+
+  const pageLensReflectionRows = [
+    ['Research can challenge intuition.', 'Some accessibility ideas that initially felt helpful were not supported by evidence. Research pushed us away from one-size-fits-all solutions and toward flexible reading support grounded in actual user needs.'],
+    ['Accessibility should give people control, not labels.', 'The goal was not simply to make text easier to read, but to let readers choose the support they wanted without being singled out or forced to disclose anything about themselves.'],
+  ];
+
   function prepareImpressCaseStudy(page) {
-    if (!page || page.dataset.impressRefined === 'true') return;
+    if (!page) return;
+    syncCaseReflection(page, '.impress-reflection', 'impress-reflection-heading', impressReflectionRows);
+    if (page.dataset.impressRefined === 'true') return;
     page.dataset.impressRefined = 'true';
     page.classList.add('impress-refined');
 
@@ -930,14 +980,6 @@
 
     const walkthrough = page.querySelector('.impress-walkthrough');
     const reflection = page.querySelector('.impress-reflection');
-    setTextIfNeeded(reflection?.querySelector('.case-section-label'), 'Reflection');
-    const reflectionHeading = reflection?.querySelector('h2');
-    if (reflectionHeading) {
-      const compactHeading = document.createElement('h3');
-      compactHeading.id = reflectionHeading.id;
-      compactHeading.textContent = 'Design beyond my own understanding.';
-      reflectionHeading.replaceWith(compactHeading);
-    }
 
     if (impact) {
       impact.classList.remove('impact-band');
@@ -984,7 +1026,9 @@
   }
 
   function preparePageLensCaseStudy(page) {
-    if (!page || page.dataset.pagelensRefined === 'true') return;
+    if (!page) return;
+    syncCaseReflection(page, '.pagelens-reflection', 'pagelens-reflection-heading', pageLensReflectionRows);
+    if (page.dataset.pagelensRefined === 'true') return;
     page.dataset.pagelensRefined = 'true';
     page.classList.add('pagelens-refined');
 
@@ -1166,7 +1210,6 @@
       [problem, 'Problem', 'Physical books are fixed. Readers are not.'],
       [process, 'Process', 'From library context to a feasible system.'],
       [concept, 'The concept', 'Reading support that meets people at the page.'],
-      [reflection, 'Reflection', 'Accessible design supports autonomy and dignity.'],
     ];
     headings.forEach(([section, label, title]) => {
       if (!section) return;
@@ -2614,6 +2657,10 @@
   function initializePortfolioEnhancements() {
     if (document.documentElement.dataset.portfolioInitialized === 'true') return;
     document.documentElement.dataset.portfolioInitialized = 'true';
+
+    ensureMoonFavicon();
+    const faviconObserver = new MutationObserver(ensureMoonFavicon);
+    faviconObserver.observe(document.head, { childList: true });
 
     if (window.location.pathname.startsWith('/projects/kb-tutor')) {
       document.documentElement.classList.add('kb-apple');

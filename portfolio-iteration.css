@@ -9882,3 +9882,61 @@ html .site-progress {
     white-space: normal;
   }
 }
+
+/* ImpressChat and PageLens use the same two-row reflection system as KB Tutor. */
+.case-page.impress-case.impress-refined .impress-reflection,
+.case-page.pagelens-case.pagelens-story-v2 .pagelens-reflection {
+  display: block;
+  color: #fff;
+  background: #232325 !important;
+}
+
+.case-page.impress-case.impress-refined .impress-reflection > .case-section-label,
+.case-page.pagelens-case.pagelens-story-v2 .pagelens-reflection > .case-section-label {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58) !important;
+}
+
+.case-page .case-reflection-list {
+  display: grid;
+  max-width: 1080px;
+  gap: 0;
+  margin: 56px 0 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  list-style: none;
+}
+
+.case-page .case-reflection-list li {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: 28px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.case-page .case-reflection-list strong {
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.case-page .case-reflection-list span {
+  padding: 0;
+  color: rgba(255, 255, 255, 0.66);
+  border: 0;
+  border-radius: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (max-width: 850px) {
+  .case-page .case-reflection-list {
+    margin-top: 40px;
+  }
+
+  .case-page .case-reflection-list li {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+}
