@@ -315,8 +315,8 @@
         </header>
         <div class="bumble-v2-carousel">
           <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 01</span><h3>User flow</h3><p>Map how Skill Snack enters the match journey without interrupting the core Bumble experience.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-user-flow.png" alt="Bumble Skill Snack user flow from onboarding through matching and chat" loading="lazy"></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 02</span><h3>Low-fidelity exploration</h3><p>Explore the main decisions and edge cases before defining the visual system.</p></div><div class="bumble-v2-image-stack" aria-label="Two overlapping low-fidelity Skill Snack explorations"><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the early flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-01.png" alt="Early Skill Snack flow and concept exploration" loading="lazy"></figure><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the detailed flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-02.png" alt="Detailed low-fidelity Skill Snack flow" loading="lazy"></figure></div></article>
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 01</span><h3>User Flow</h3><p>Bumble serves different user types, including free and premium users, as well as different gender-based interaction flows. I mapped these experiences first to understand where Skill Snack could fit naturally into the existing product.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-user-flow.png" alt="Bumble Skill Snack user flow from onboarding through matching and chat" loading="lazy"></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 02</span><h3>Low-Fidelity Prototyping</h3><p>Once the flow was clear, I used Figma Make for rapid interactive prototyping. It helped me test the experience and micro-interactions quickly, while the final fidelity still required careful manual refinement and design judgment.</p></div><div class="bumble-v2-image-stack" aria-label="Two overlapping low-fidelity Skill Snack explorations"><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the early flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-01.png" alt="Early Skill Snack flow and concept exploration" loading="lazy"></figure><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the detailed flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-02.png" alt="Detailed low-fidelity Skill Snack flow" loading="lazy"></figure></div></article>
           </div>
         </div>
       </section>
@@ -324,13 +324,14 @@
       <section class="case-section bumble-v2-section bumble-v2-process" id="bumble-design" aria-labelledby="bumble-design-heading">
         <header class="bumble-v2-section-heading">
           <p class="case-section-label">Design</p>
-          <h3 class="bumble-v2-section-title" id="bumble-design-heading">I designed for three connected use cases.</h3>
+          <h3 class="bumble-v2-section-title" id="bumble-design-heading">I designed experience flows</h3>
         </header>
         <div class="bumble-v2-carousel">
           <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Use case 01</span><h3>Onboarding</h3><p>Introduce Skill Snack with a clear purpose and a low-pressure first step.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="0 0 1600 872" role="img" aria-label="Bumble Skill Snack onboarding flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Use case 02</span><h3>Free user flow</h3><p>Give free users a focused path from a shared interest to a conversation.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="1649 0 1959 872" role="img" aria-label="Bumble Skill Snack free-user flow across five mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Use case 03</span><h3>Premium user flow</h3><p>Extend the interaction with additional choice while preserving the same simple rhythm.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="3752 0 1600 872" role="img" aria-label="Bumble Skill Snack premium-user flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-free-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Free user flow</span><h3>Let free users experience the value before asking them to upgrade.</h3><p>Free users can discover Skill Snack matches and start conversations, but customization and deeper skill content remain limited.</p></div><figure class="bumble-v2-natural-visual bumble-v2-free-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--blur"><span>02</span><strong>Some skill information is blurred on profiles</strong></div><div class="bumble-v2-free-flow-art"><svg class="bumble-v2-art-crop" viewBox="1649 0 1959 872" role="img" aria-label="Bumble Skill Snack free-user flow across five mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callouts-bottom"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--customize"><span>01</span><strong>Cannot customize the skills they want to teach or learn</strong></div><div class="bumble-v2-flow-callout bumble-v2-flow-callout--video"><span>03</span><strong>Cannot access the full skill video</strong></div></div></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-premium-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Premium user flow</span><h3>Premium gives users more control over the experience.</h3><p>This makes Skill Snack feel more intentional: users can shape the kinds of conversations they want instead of relying only on default recommendations.</p></div><figure class="bumble-v2-natural-visual bumble-v2-premium-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-premium-callout--content"><span>02</span><strong>View the full Skill Snack content on a match’s profile</strong></div><div class="bumble-v2-premium-flow-art"><svg class="bumble-v2-art-crop" viewBox="3752 0 1600 872" role="img" aria-label="Bumble Skill Snack premium-user flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callout bumble-v2-premium-callout--personalize"><span>01</span><strong>Personalize both sides of the exchange</strong></div></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Onboarding</span><h3>Start with what you can teach and what you want to learn.</h3><p>Users set up their Skill Snack profile by choosing interests, learning goals, and the skills they can share. This gives the feature enough context to create relevant conversation starters from the beginning.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="0 0 1600 872" role="img" aria-label="Bumble Skill Snack onboarding flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Once matched</span><h3>Turn a blank chat into a shared starting point.</h3><p>After matching, users can start normally or choose to teach/learn a skill, giving both people something meaningful to talk about right away.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/once-matched.svg" alt="Bumble Skill Snack matched-chat flow across four mobile screens" loading="lazy"></figure></article>
           </div>
         </div>
       </section>
@@ -342,8 +343,8 @@
         </header>
         <div class="bumble-v2-carousel">
           <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact" role="listitem"><div class="bumble-v2-card-copy"><span>Iteration 01</span><h3>Add a safety check</h3><p>Introduce clear verification, failure, and retry states before Skill Snack becomes part of a conversation.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/safety-check-transparent.svg" alt="Bumble Skill Snack verification and safety-check flow across six mobile screens" loading="lazy"></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact bumble-v2-platform-card" role="listitem"><div class="bumble-v2-card-copy"><span>Iteration 02</span><h3>Expand across platforms</h3><p>Compare native iOS and Android patterns while carrying the same focused interaction to Apple Watch.</p></div><div class="bumble-v2-platform-comparison" aria-label="Android, iOS, and Apple Watch Skill Snack comparison"><figure class="is-mobile-platforms"><div class="bumble-v2-platform-labels"><span>Android</span><span>iOS</span></div><img src="/projects/bumble-skill-snack/process/platforms-transparent.svg" alt="Native Android and iOS Skill Snack verification flows shown side by side" loading="lazy"></figure><figure class="is-watch"><figcaption>Apple Watch</figcaption><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/decision-02-poster.jpg"><source src="/projects/bumble-skill-snack/media/decision-02.mp4" type="video/mp4"></video></figure></div></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact" role="listitem"><div class="bumble-v2-card-copy"><span>Safety</span><h3>Add guardrails before sharing skills</h3><p>Testing made me realize users could enter joke, inappropriate, or low-quality skills (e.g. “I’m good at farting”).</p><p>I added a safety check before publishing to catch content that could make the experience feel unsafe or unserious.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/safety-check-transparent.svg" alt="Bumble Skill Snack verification and safety-check flow across six mobile screens" loading="lazy"></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact bumble-v2-platform-card" role="listitem"><div class="bumble-v2-card-copy"><span>System expansion</span><h3>Keep one feature consistent across platforms</h3><p>After validating the core flow, I expanded Skill Snack across iOS, Android, and Apple Watch.</p><p>The challenge was keeping the same interaction logic while adapting the experience to each platform’s conventions.</p></div><div class="bumble-v2-platform-comparison" aria-label="Android, iOS, and Apple Watch Skill Snack comparison"><figure class="is-mobile-platforms"><div class="bumble-v2-platform-labels"><span>Android</span><span>iOS</span></div><img src="/projects/bumble-skill-snack/process/platforms-transparent.svg" alt="Native Android and iOS Skill Snack verification flows shown side by side" loading="lazy"></figure><figure class="is-watch"><figcaption>Apple Watch</figcaption><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/decision-02-poster.jpg"><source src="/projects/bumble-skill-snack/media/decision-02.mp4" type="video/mp4"></video></figure></div></article>
           </div>
         </div>
       </section>
@@ -354,7 +355,7 @@
             <p class="case-section-label" id="bumble-impact-heading">Impact</p>
             <div class="bumble-v2-impact-metrics">
               <article><strong>3</strong><span>platforms</span></article>
-              <article><strong>10</strong><span>user flows</span></article>
+              <article><strong>10</strong><span>high-fidelity user flows</span></article>
               <article><strong>5+</strong><span>interactive states</span></article>
             </div>
           </div>
@@ -756,32 +757,80 @@
     const hero = page.querySelector('.case-hero');
     const heroMedia = page.querySelector('.impress-hero-media');
     const heroWalkthrough = heroMedia?.querySelector('.impress-demo-frame');
+    const walkthroughVideo = heroWalkthrough?.querySelector('video');
+    if (walkthroughVideo) {
+      walkthroughVideo.poster = '/projects/impresschat/media/demo-linkedin-poster.jpg';
+      const source = walkthroughVideo.querySelector('source');
+      if (source) {
+        source.src = '/projects/impresschat/media/demo-linkedin.mp4';
+        source.type = 'video/mp4';
+      }
+      walkthroughVideo.load();
+    }
     heroMedia?.remove();
 
     const highlights = page.querySelector('.product-story');
     const highlightIntro = highlights?.querySelector('.case-section-intro');
     if (highlights) highlights.classList.add('impress-highlights');
     highlightIntro?.querySelector('.case-section-label')?.remove();
-    setTextIfNeeded(highlightIntro?.querySelector('h2'), 'Get the highlights');
+    setTextIfNeeded(highlightIntro?.querySelector('h2'), 'The learning journey');
     Array.from(highlightIntro?.querySelectorAll('p') || []).forEach((paragraph) => paragraph.remove());
 
     const screenWall = highlights?.querySelector('.impress-screen-wall');
     if (screenWall && !highlights.querySelector('.impress-highlight-carousel')) {
+      const journeyStages = [
+        {
+          title: 'Start with a clear path',
+          description: 'We used Backward Design to define the learning objectives and pre/post assessments before designing the interface. The course then follows the history of Impressionism across three modules: understanding the movement, exploring key artists, and moving into Post-Impressionism.',
+          src: '/projects/impresschat/highlights-svg/stage-01-landing.svg',
+          alt: 'ImpressChat course outline shown inside an iPhone frame',
+        },
+        {
+          title: 'Measure before teaching',
+          description: 'The five-question foundation check maps directly to our learning objectives using multiple-choice, short-answer, image-based, and dropdown questions. The post-test follows the same structure, allowing us to compare learning before and after the course.',
+          images: [
+            ['/projects/impresschat/highlights-svg/stage-02-pre-test.svg', 'ImpressChat image-based pre-test shown inside an iPhone frame'],
+            ['/projects/impresschat/journey-assets/measure-pretest-detail.svg', 'ImpressChat pre-test assessment screen'],
+            ['/projects/impresschat/journey-assets/measure-pretest-framed-cropped.svg', 'ImpressChat pre-test result screen'],
+          ],
+        },
+        {
+          title: 'Learn through conversation',
+          description: 'Each module places learners in a conversation with characters from the Impressionist era. Using Predict–Observe–Explain, learners make a prediction, examine artwork or evidence, and explain what they notice instead of simply reading information.',
+          images: [
+            ['/projects/impresschat/highlights-svg/stage-03-module-4.svg', 'ImpressChat Module 1 shown inside an iPhone frame'],
+            ['/projects/impresschat/highlights-svg/stage-04-module-5.svg', 'ImpressChat Module 2 shown inside an iPhone frame'],
+            ['/projects/impresschat/highlights-svg/stage-05-module-6.svg', 'ImpressChat Module 3 shown inside an iPhone frame'],
+          ],
+        },
+        {
+          title: 'Return to the same learning goals',
+          description: 'The post-test revisits the same objectives and assessment formats, helping us measure what learners understood after completing the experience.',
+          src: '/projects/impresschat/highlights-svg/stage-06-post-test.svg',
+          alt: 'ImpressChat post-test shown inside an iPhone frame',
+        },
+      ];
+      screenWall.replaceChildren();
+      journeyStages.forEach((stage, index) => {
+        const card = document.createElement('figure');
+        const images = stage.images || [[stage.src, stage.alt]];
+        card.className = `impress-screen-card${images.length > 1 ? ' has-multi-screen' : ''}`;
+        const visual = images.length > 1
+          ? `<div class="impress-phone-frame is-svg-poster is-multi-screen"><div class="impress-phone-row">${images.map(([src, alt]) => `<img src="${src}" alt="${alt}" loading="${index === 0 ? 'eager' : 'lazy'}">`).join('')}</div></div>`
+          : `<div class="impress-phone-frame is-svg-poster"><img src="${images[0][0]}" alt="${images[0][1]}" loading="${index === 0 ? 'eager' : 'lazy'}"></div>`;
+        card.innerHTML = `
+          ${visual}
+          <figcaption><span>${String(index + 1).padStart(2, '0')}</span><h3>${stage.title}</h3><p>${stage.description}</p></figcaption>`;
+        screenWall.appendChild(card);
+      });
       const carousel = document.createElement('div');
       carousel.className = 'impress-highlight-carousel';
       screenWall.classList.add('impress-highlight-track');
       screenWall.setAttribute('role', 'list');
-      const highlightTitles = ['Course outline', 'Foundation check', 'Learning modules', 'Structured chat'];
       screenWall.querySelectorAll('.impress-screen-card').forEach((card, index) => {
         card.setAttribute('role', 'listitem');
         const caption = card.querySelector('figcaption');
-        const title = caption?.querySelector('strong');
-        if (title) {
-          const heading = document.createElement('h3');
-          heading.textContent = highlightTitles[index];
-          title.replaceWith(heading);
-        }
-        setTextIfNeeded(caption?.querySelector('span'), `Highlight ${String(index + 1).padStart(2, '0')}`);
+        setTextIfNeeded(caption?.querySelector('span'), String(index + 1).padStart(2, '0'));
         if (caption) card.prepend(caption);
       });
       screenWall.before(carousel);
@@ -882,65 +931,85 @@
     if (processHeading) {
       const compactHeading = document.createElement('h3');
       compactHeading.id = processHeading.id;
-      compactHeading.textContent = 'From learning goals to interaction design.';
+      compactHeading.textContent = 'How we designed it.';
       processHeading.replaceWith(compactHeading);
     }
     const processTrack = processSection?.querySelector('.mvp-timeline');
     Array.from(processSection?.querySelectorAll('.case-section-intro > p:not(.case-section-label)') || []).forEach(
       (paragraph) => paragraph.remove()
     );
-    const processCards = Array.from(processTrack?.querySelectorAll('.mvp-card') || []);
-    if (processTrack && processCards.length === 5) {
-      const first = processCards[0];
-      setTextIfNeeded(first.querySelector('.mvp-number'), 'Stage 01');
-      setTextIfNeeded(first.querySelector('h3'), 'Learning goals');
-      setTextIfNeeded(first.querySelector('.mvp-keywords'), 'Learning science · Outcomes · Curriculum · Scaffolding');
-      setTextIfNeeded(
-        first.querySelector('.mvp-detail'),
-        'I defined the observation, interpretation, and evidence-based reasoning learners should develop, then translated those outcomes into foundation checks, terminology support, visual comparison, and application.'
-      );
-      processCards[1].remove();
-
-      Array.from(processTrack.querySelectorAll('.mvp-card')).forEach((card, index) => {
-        setTextIfNeeded(card.querySelector('.mvp-number'), `Stage ${String(index + 1).padStart(2, '0')}`);
+    const processStages = [
+      {
+        title: 'Design the learning before the interface',
+        detail: 'Using Backward Design, we defined the learning objectives and assessments first, then structured the course around what learners should understand by the end.',
+        src: '/projects/impresschat/process/stage-01-learning-objectives.png',
+        alt: 'Learning objectives mapped to course modules and assessment activities',
+      },
+      {
+        title: 'Turn the learning plan into a flow',
+        detail: 'I created low-fidelity flows in Figma and interactive prototypes with Figma Make to explore how quizzes, conversations, artwork, and feedback could work together.',
+        src: '/projects/impresschat/process/stage-02-prototype.png',
+        alt: 'Low-fidelity ImpressChat conversation and course-flow prototype',
+      },
+      {
+        title: 'User testing round 1',
+        detail: 'Testing with 8 learners revealed three issues: chat messages were too dense, two characters speaking in the critique activity were confusing, and learners had mixed reactions to receiving pre-test results.',
+        src: '/projects/impresschat/process/stage-03-testing.png',
+        alt: 'Course-flow testing map showing learner confusion and early termination points',
+      },
+      {
+        title: 'A/B test for the pre-test decision',
+        detail: '<strong>Should learners see their score?</strong> We ran a small A/B test with four learners. The no-score version left some learners unsure how well they had done or what level was expected. We decided to show the score but not reveal answer feedback, giving learners a benchmark without turning the pre-test into instruction.',
+        src: '/projects/impresschat/process-updates/ab-test-score-comparison.png',
+        alt: 'A/B test comparing a pre-test result with score and feedback against a completion screen without either',
+        visualClass: 'is-wide-comparison',
+      },
+      {
+        title: 'Iteration',
+        detail: 'We limited chatbot responses to about 30 words and made each character’s position toward Impressionism more explicit. This reduced reading load and helped learners understand who was speaking and why.',
+        src: '/projects/impresschat/process-updates/iteration-before-after.svg',
+        alt: 'Three ImpressChat screens showing two designs before iteration and the refined design after iteration',
+        visualClass: 'is-wide-comparison',
+      },
+      {
+        title: 'Test again',
+        detail: '<strong>3 more learners exposed an expert blind spot.</strong> Terms that felt obvious to us were unfamiliar to first-time art learners. We added a short vocabulary introduction and highlighted important terms inside the conversation so support was available when learners needed it.',
+        src: '/projects/impresschat/process-updates/test-again.svg',
+        alt: 'Two ImpressChat screens showing vocabulary support added after the second round of testing',
+        visualClass: 'is-wide-comparison',
+      },
+      {
+        title: 'Refine and share',
+        detail: 'We fixed remaining interaction issues, refined the final experience, and prepared the project for presentation at Learning@Scale.',
+        src: '/projects/impresschat/process/stage-04-presentation.jpg',
+        alt: 'ImpressChat team presenting the research poster',
+      },
+    ];
+    if (processTrack) {
+      processTrack.replaceChildren();
+      processStages.forEach((stage, index) => {
+        const card = document.createElement('article');
+        card.className = 'mvp-card';
+        card.tabIndex = 0;
+        const copy = document.createElement('div');
+        copy.className = 'impress-stage-copy';
+        copy.innerHTML = `<span class="mvp-number">Stage ${String(index + 1).padStart(2, '0')}</span><h3>${stage.title}</h3><p class="mvp-detail">${stage.detail}</p>`;
+        const visual = document.createElement('figure');
+        visual.className = `impress-stage-visual${stage.visualClass ? ` ${stage.visualClass}` : ''}`;
+        if (stage.src) {
+          const image = document.createElement('img');
+          image.src = stage.src;
+          image.alt = stage.alt;
+          image.loading = index === 0 ? 'eager' : 'lazy';
+          visual.appendChild(image);
+        } else {
+          visual.classList.add('is-placeholder');
+          visual.innerHTML = `<span aria-hidden="true">＋</span><p>${stage.placeholder}</p>`;
+        }
+        card.append(copy, visual);
+        processTrack.appendChild(card);
       });
     }
-
-    const refinedProcessCards = Array.from(processTrack?.querySelectorAll('.mvp-card') || []);
-    const stageAssets = [
-      [
-        '/projects/impresschat/process/stage-01-learning-objectives.png',
-        'Learning objectives mapped to course modules and assessment activities',
-      ],
-      [
-        '/projects/impresschat/process/stage-02-prototype.png',
-        'Low-fidelity ImpressChat conversation and course-flow prototype',
-      ],
-      [
-        '/projects/impresschat/process/stage-03-testing.png',
-        'Course-flow testing map showing learner confusion and early termination points',
-      ],
-      [
-        '/projects/impresschat/process/stage-04-presentation.jpg',
-        'ImpressChat team presenting the research poster',
-      ],
-    ];
-    refinedProcessCards.forEach((card, index) => {
-      if (card.dataset.impressStageEnhanced === 'true') return;
-      card.dataset.impressStageEnhanced = 'true';
-      card.querySelector('.mvp-keywords')?.remove();
-      const copy = document.createElement('div');
-      copy.className = 'impress-stage-copy';
-      Array.from(card.childNodes).forEach((node) => copy.appendChild(node));
-      const visual = document.createElement('figure');
-      visual.className = 'impress-stage-visual';
-      const image = document.createElement('img');
-      image.src = stageAssets[index]?.[0] || '';
-      image.alt = stageAssets[index]?.[1] || '';
-      image.loading = index === 0 ? 'eager' : 'lazy';
-      visual.appendChild(image);
-      card.append(copy, visual);
-    });
     addHorizontalControls(processTrack, {
       label: 'ImpressChat design process stages',
       previousLabel: 'Show previous design stage',
@@ -951,7 +1020,7 @@
     if (highlightHeading) {
       const compactHeading = document.createElement('h3');
       compactHeading.id = highlightHeading.id;
-      compactHeading.textContent = 'Get the highlights';
+      compactHeading.textContent = 'The learning journey';
       highlightHeading.replaceWith(compactHeading);
     }
 
@@ -1045,7 +1114,14 @@
         'I connected physical and digital interactions through accessibility research, service design and technical feasibility exploration.'
       ]
     );
+    const heroStatement = page.querySelector('.pagelens-hero-copy h2');
+    if (heroStatement) {
+      const heading = document.createElement('h3');
+      heading.textContent = 'Accessibility design';
+      heroStatement.replaceWith(heading);
+    }
     page.querySelector('.pagelens-hero-copy > p')?.remove();
+    page.querySelector('.pagelens-demo-copy > p')?.remove();
     Array.from(page.querySelectorAll('.pagelens-product .case-section-intro > p:not(.case-section-label)')).forEach(
       (paragraph) => paragraph.remove()
     );
@@ -1140,43 +1216,92 @@
     const processTrack = processSection?.querySelector('.pagelens-timeline');
     const processCards = Array.from(processTrack?.querySelectorAll('.mvp-card') || []);
     const stageAssets = [
-      [
-        '/projects/pagelens/process/stage-01-research.png',
+      [[
+        '/projects/pagelens/process-updates/opportunity-and-research.png',
         'Library field research and reading-context exploration for PageLens',
-      ],
+      ]],
       [
-        '/projects/pagelens/process/stage-02-hardware.png',
-        'Annotated PageLens hardware prototype with camera, tablet, book cradle, and headphones',
+        [
+          '/projects/pagelens/process-updates/technology-exploration-1.png',
+          'Annotated PageLens technology exploration with motorized tablet arm, IR sensor, book cradle, iPad, and headphones',
+        ],
+        [
+          '/projects/pagelens/process-updates/technology-exploration-2.png',
+          'Annotated compact PageLens technology exploration with folding tablet arm, camera, book cradle, iPad, and headphones',
+        ],
       ],
-      [
-        '/projects/pagelens/process/stage-03-user-flow.png',
+      [[
+        '/projects/pagelens/process-updates/experience-mapping.png',
         'PageLens user flow from approaching the reading station through session reset',
-      ],
-      [
-        '/projects/pagelens/process/stage-04-system-diagram.png',
+      ]],
+      [[
+        '/projects/pagelens/process-updates/system-feasibility.png',
         'PageLens system diagram connecting sensing, hardware, interaction, actuation, and intelligence layers',
-      ],
-      [
-        '/projects/pagelens/process/stage-05-failure-handling.png',
-        'Responsible-design framework for technical failure, user mistakes, environmental challenges, and graceful handling',
-      ],
+      ]],
+      [[
+        '/projects/pagelens/process-updates/responsible-design.png',
+        'Illustration of people bringing different perspectives together through connected puzzle pieces',
+      ]],
     ];
 
     processCards.forEach((card, index) => {
       if (card.dataset.pagelensStageEnhanced === 'true') return;
       card.dataset.pagelensStageEnhanced = 'true';
+      if ((stageAssets[index] || []).length > 1) card.classList.add('has-image-stack');
 
       const copy = document.createElement('div');
       copy.className = 'pagelens-stage-copy';
       Array.from(card.childNodes).forEach((node) => copy.appendChild(node));
 
       const visual = document.createElement('figure');
-      visual.className = 'pagelens-stage-visual';
-      const image = document.createElement('img');
-      image.src = stageAssets[index]?.[0] || '';
-      image.alt = stageAssets[index]?.[1] || '';
-      image.loading = index === 0 ? 'eager' : 'lazy';
-      visual.appendChild(image);
+      const images = stageAssets[index] || [];
+      const usesStack = images.length > 1;
+      visual.className = `pagelens-stage-visual${usesStack ? ' is-image-stack' : ''}`;
+      images.forEach(([src, alt], imageIndex) => {
+        const image = document.createElement('img');
+        image.src = src;
+        image.alt = alt;
+        image.loading = index === 0 ? 'eager' : 'lazy';
+        if (!usesStack) {
+          visual.appendChild(image);
+          return;
+        }
+
+        const layer = document.createElement('button');
+        layer.type = 'button';
+        layer.className = 'pagelens-stack-shot';
+        layer.style.setProperty('--stack-i', imageIndex);
+        layer.setAttribute('aria-label', `Bring ${alt} to the front`);
+        layer.setAttribute('aria-pressed', 'false');
+        layer.appendChild(image);
+        visual.appendChild(layer);
+      });
+
+      if (usesStack) {
+        const layers = Array.from(visual.querySelectorAll('.pagelens-stack-shot'));
+        const toggleLayer = (layer) => {
+          const willActivate = !layer.classList.contains('is-active');
+          layers.forEach((item) => {
+            const isActive = item === layer && willActivate;
+            item.classList.toggle('is-active', isActive);
+            item.setAttribute('aria-pressed', String(isActive));
+          });
+        };
+
+        layers.forEach((layer) => {
+          layer.addEventListener('pointerdown', () => {
+            toggleLayer(layer);
+            layer.dataset.pointerToggled = 'true';
+          });
+          layer.addEventListener('click', () => {
+            if (layer.dataset.pointerToggled === 'true') {
+              delete layer.dataset.pointerToggled;
+              return;
+            }
+            toggleLayer(layer);
+          });
+        });
+      }
       card.append(copy, visual);
     });
 
@@ -1600,21 +1725,9 @@
       });
     });
 
-    const revealItems = Array.from(page.querySelectorAll('.kb-story-reveal'));
-    const reveal = (item) => item.classList.add('is-visible');
-    if ('IntersectionObserver' in window && !motionPreference.matches) {
-      const observer = new IntersectionObserver(
-        (entries) => entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          reveal(entry.target);
-          observer.unobserve(entry.target);
-        }),
-        { threshold: 0.1, rootMargin: '0px 0px -7% 0px' }
-      );
-      revealItems.forEach((item) => observer.observe(item));
-    } else {
-      revealItems.forEach(reveal);
-    }
+    // Keep the CSS fallback visible; the shared GSAP section timelines below
+    // now coordinate heading-first reveals across all four case studies.
+    page.querySelectorAll('.kb-story-reveal').forEach((item) => item.classList.add('is-visible'));
   }
 
   function prepareCaseStudyContent() {
@@ -2244,6 +2357,7 @@
         .toArray('.section-heading, .about-section-heading, .case-section-intro, .coverflow-heading, .experience-heading')
         .forEach((heading, index) => {
           if (heading.closest('.about-practice') || heading.closest('.about-journey')) return;
+          if (heading.closest('.bumble-iteration-v2, .impress-refined, .pagelens-story-v2, .kb-case-redesign')) return;
           gsap.from(heading.children, {
             autoAlpha: 0,
             y: 20,
@@ -2390,7 +2504,7 @@
       let groupIndex = 0;
       revealGroups.forEach(([containerSelector, itemSelector]) => {
         document.querySelectorAll(containerSelector).forEach((container) => {
-          if (container.closest('.impress-refined, .pagelens-story-v2')) return;
+          if (container.closest('.bumble-iteration-v2, .impress-refined, .pagelens-story-v2, .kb-case-redesign')) return;
           const items = gsap.utils.toArray(container.querySelectorAll(itemSelector));
           if (!items.length) return;
           groupIndex += 1;
@@ -2411,56 +2525,66 @@
         });
       });
 
-      // Animate the same structural layers on every new case-study layout.
-      // Track wrappers reveal together; their horizontal scrolling stays native.
-      const storyReveals = gsap.utils.toArray(
-        '.bumble-v2-section-heading, .bumble-v2-problem-grid, .bumble-v2-carousel, .bumble-v2-impact-metrics, .mobile-walkthrough-panel, .impress-learning-loop, .impress-process .mvp-timeline, .impress-highlight-carousel, .impress-impact-metrics, .pagelens-problem-cards, .pagelens-timeline, .pagelens-demo-grid, .pagelens-concept-film, .pagelens-impact-metrics'
-      );
-      storyReveals.forEach((element, index) => {
-        gsap.from(element, {
-          autoAlpha: 0,
-          y: 24,
-          duration: 0.7,
-          clearProps: clearMotionStyles,
-          scrollTrigger: { id: `portfolio-story-${index}`, trigger: element, start: enterStart, once: true },
-        });
-      });
+      // One heading-first reveal pattern for every project. Using a single
+      // timeline per chapter prevents cards from appearing before their title.
+      const caseRevealPlans = [
+        ['.bumble-v2-problem', '.bumble-v2-section-heading', '.bumble-v2-problem-grid'],
+        ['#bumble-research', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
+        ['#bumble-design', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
+        ['#bumble-test', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
+        ['.bumble-v2-impact', '.bumble-v2-impact-summary > .case-section-label', '.bumble-v2-impact-metrics, .mobile-walkthrough-panel'],
+        ['.impress-problem', '.case-section-intro', '.impress-learning-loops'],
+        ['.impress-process', '.case-section-intro', '.mvp-timeline, .mvp-process-controls'],
+        ['.impress-highlights', '.case-section-intro', '.impress-highlight-carousel'],
+        ['.impress-impact', '.impress-impact-summary > .case-section-label', '.impress-impact-metrics, .mobile-walkthrough-panel'],
+        ['.pagelens-problem', '.case-section-intro', '.pagelens-problem-cards, .pagelens-simulation-note'],
+        ['.pagelens-process', '.case-section-intro', '.pagelens-timeline, .mvp-process-controls'],
+        ['.pagelens-product', '.case-section-intro', '.pagelens-demo-grid, .pagelens-concept-film'],
+        ['.pagelens-impact', '.pagelens-impact-heading', '.pagelens-impact-metrics'],
+        ['.kb-how', '.kb-chapter-heading', '.kb-product-map'],
+        ['.kb-research', '.kb-chapter-heading', '.kb-research-carousel'],
+        ['.kb-design', '.kb-chapter-heading', '.kb-design-part'],
+        ['.kb-test', '.kb-chapter-heading', '.kb-findings-carousel, .kb-followup'],
+        ['.kb-iterate', '.kb-chapter-heading', '.kb-supporting-carousel, .kb-final-experience, .kb-impact-simple'],
+      ];
 
-      // PageLens uses the same chapter-heading reveal language as the other
-      // case studies while keeping every image and interaction accessible.
-      gsap.utils.toArray('.pagelens-story-v2 .case-section-intro').forEach((heading, index) => {
-        const children = gsap.utils.toArray(heading.children);
-        if (!children.length) return;
-        gsap.from(children, {
-          autoAlpha: 0,
-          y: isDesktop ? 22 : 16,
-          duration: 0.62,
-          stagger: 0.08,
-          clearProps: clearMotionStyles,
-          scrollTrigger: {
-            id: `portfolio-pagelens-heading-${index}`,
-            trigger: heading,
-            start: enterStart,
-            once: true,
-          },
-        });
-      });
+      caseRevealPlans.forEach(([sectionSelector, headingSelector, contentSelector], index) => {
+        document.querySelectorAll(sectionSelector).forEach((section, sectionIndex) => {
+          const heading = section.querySelector(headingSelector);
+          const headingItems = heading
+            ? (heading.matches('.case-section-label') ? [heading] : gsap.utils.toArray(heading.children))
+            : [];
+          const contentItems = gsap.utils.toArray(section.querySelectorAll(contentSelector));
+          if (!headingItems.length && !contentItems.length) return;
 
-      gsap.utils.toArray(
-        '.pagelens-story-v2 .pagelens-problem-cards figure, .pagelens-story-v2 .pagelens-stage-visual img, .pagelens-story-v2 .pagelens-demo-grid video, .pagelens-story-v2 .pagelens-youtube-frame'
-      ).forEach((visual, index) => {
-        gsap.from(visual, {
-          autoAlpha: 0,
-          y: 14,
-          scale: 0.985,
-          duration: 0.78,
-          clearProps: clearMotionStyles,
-          scrollTrigger: {
-            id: `portfolio-pagelens-visual-${index}`,
-            trigger: visual,
-            start: enterStart,
-            once: true,
-          },
+          const revealTimeline = gsap.timeline({
+            defaults: { ease: 'power3.out' },
+            scrollTrigger: {
+              id: `portfolio-case-section-${index}-${sectionIndex}`,
+              trigger: section,
+              start: enterStart,
+              once: true,
+            },
+          });
+
+          if (headingItems.length) {
+            revealTimeline.from(headingItems, {
+              autoAlpha: 0,
+              y: isDesktop ? 22 : 16,
+              duration: 0.58,
+              stagger: 0.065,
+              clearProps: clearMotionStyles,
+            });
+          }
+          if (contentItems.length) {
+            revealTimeline.from(contentItems, {
+              autoAlpha: 0,
+              y: isDesktop ? 24 : 18,
+              duration: 0.7,
+              stagger: 0.1,
+              clearProps: clearMotionStyles,
+            }, headingItems.length ? '>-0.02' : 0);
+          }
         });
       });
 

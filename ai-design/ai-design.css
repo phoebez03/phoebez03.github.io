@@ -52,10 +52,23 @@ a { color: inherit; text-decoration: none; }
 }
 
 .site-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: #fff;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: -0.01em;
+}
+
+.site-logo::before {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  content: "";
+  background: currentColor;
+  -webkit-mask: url("/brand/moon-mark.svg") center / contain no-repeat;
+  mask: url("/brand/moon-mark.svg") center / contain no-repeat;
 }
 
 .site-header nav {
@@ -350,13 +363,45 @@ a { color: inherit; text-decoration: none; }
 .fold-controls button:disabled { cursor: default; opacity: 0.45; transform: none; }
 
 .service-design-anchor {
+  display: grid;
   min-height: 240px;
   padding: clamp(64px, 8vw, 96px) 0;
+  grid-template-columns: minmax(0, 0.7fr) minmax(280px, 0.3fr);
+  align-items: center;
+  gap: clamp(32px, 6vw, 80px);
   border-top: 1px solid var(--line);
   scroll-margin-top: 72px;
 }
 
 .service-design-anchor h2 { font-size: clamp(38px, 4.4vw, 66px); }
+
+.service-coming-soon {
+  min-height: 150px;
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+.service-coming-soon span {
+  display: inline-flex;
+  padding: 7px 11px;
+  color: var(--muted);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.service-coming-soon p {
+  max-width: 28ch;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
 
 .painting-showcase {
   min-height: min(720px, calc(100svh - 48px));
@@ -478,7 +523,7 @@ a { color: inherit; text-decoration: none; }
   .fold-showcase { gap: 12px; }
   .fold-controls button { width: 40px; height: 40px; }
 
-  .service-design-anchor { min-height: 190px; }
+  .service-design-anchor { min-height: 190px; grid-template-columns: 1fr; gap: 24px; }
   .painting-showcase { min-height: 0; padding-block: 52px; }
   .painting-gallery { gap: 10px; margin-top: 30px; }
   .painting-tile { border-radius: 14px; }
