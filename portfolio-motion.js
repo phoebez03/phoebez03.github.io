@@ -315,8 +315,8 @@
         </header>
         <div class="bumble-v2-carousel">
           <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 01</span><h3>User Flow</h3><p>Bumble serves different user types, including free and premium users, as well as different gender-based interaction flows. I mapped these experiences first to understand where Skill Snack could fit naturally into the existing product.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-user-flow.png" alt="Bumble Skill Snack user flow from onboarding through matching and chat" loading="lazy"></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 02</span><h3>Low-Fidelity Prototyping</h3><p>Once the flow was clear, I used Figma Make for rapid interactive prototyping. It helped me test the experience and micro-interactions quickly, while the final fidelity still required careful manual refinement and design judgment.</p></div><div class="bumble-v2-image-stack" aria-label="Two overlapping low-fidelity Skill Snack explorations"><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the early flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-01.png" alt="Early Skill Snack flow and concept exploration" loading="lazy"></figure><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the detailed flow exploration to the front"><img src="/projects/bumble-skill-snack/process/stage-02.png" alt="Detailed low-fidelity Skill Snack flow" loading="lazy"></figure></div></article>
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 01</span><h3>User Flow</h3><p>Bumble serves different user types, including free and premium users, as well as different gender-based interaction flows. I mapped these experiences first to understand where Skill Snack could fit naturally into the existing product.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-research-user-flow.png" alt="Bumble Skill Snack user flow from onboarding through matching and chat" loading="lazy"></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 02</span><h3>Low-Fidelity Prototyping</h3><p>Once the flow was clear, I used Figma Make for rapid interactive prototyping. It helped me test the experience and micro-interactions quickly, while the final fidelity still required careful manual refinement and design judgment.</p></div><div class="bumble-v2-image-stack" aria-label="Two overlapping low-fidelity Skill Snack explorations"><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the early flow exploration to the front"><img src="/projects/bumble-skill-snack/process/bumble-research-concept-overview.png" alt="Early Skill Snack flow and concept exploration" loading="lazy"></figure><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the detailed flow exploration to the front"><img src="/projects/bumble-skill-snack/process/bumble-research-low-fidelity-flow.png" alt="Detailed low-fidelity Skill Snack flow" loading="lazy"></figure></div></article>
           </div>
         </div>
       </section>
@@ -328,10 +328,10 @@
         </header>
         <div class="bumble-v2-carousel">
           <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-free-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Free user flow</span><h3>Let free users experience the value before asking them to upgrade.</h3><p>Free users can discover Skill Snack matches and start conversations, but customization and deeper skill content remain limited.</p></div><figure class="bumble-v2-natural-visual bumble-v2-free-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--blur"><span>02</span><strong>Some skill information is blurred on profiles</strong></div><div class="bumble-v2-free-flow-art"><svg class="bumble-v2-art-crop" viewBox="1649 0 1959 872" role="img" aria-label="Bumble Skill Snack free-user flow across five mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callouts-bottom"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--customize"><span>01</span><strong>Cannot customize the skills they want to teach or learn</strong></div><div class="bumble-v2-flow-callout bumble-v2-flow-callout--video"><span>03</span><strong>Cannot access the full skill video</strong></div></div></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-premium-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Premium user flow</span><h3>Premium gives users more control over the experience.</h3><p>This makes Skill Snack feel more intentional: users can shape the kinds of conversations they want instead of relying only on default recommendations.</p></div><figure class="bumble-v2-natural-visual bumble-v2-premium-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-premium-callout--content"><span>02</span><strong>View the full Skill Snack content on a match’s profile</strong></div><div class="bumble-v2-premium-flow-art"><svg class="bumble-v2-art-crop" viewBox="3752 0 1600 872" role="img" aria-label="Bumble Skill Snack premium-user flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callout bumble-v2-premium-callout--personalize"><span>01</span><strong>Personalize both sides of the exchange</strong></div></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Onboarding</span><h3>Start with what you can teach and what you want to learn.</h3><p>Users set up their Skill Snack profile by choosing interests, learning goals, and the skills they can share. This gives the feature enough context to create relevant conversation starters from the beginning.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="0 0 1600 872" role="img" aria-label="Bumble Skill Snack onboarding flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/updated-visuals.svg?v=1" width="7782" height="2103"/></svg></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Once matched</span><h3>Turn a blank chat into a shared starting point.</h3><p>After matching, users can start normally or choose to teach/learn a skill, giving both people something meaningful to talk about right away.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/once-matched.svg" alt="Bumble Skill Snack matched-chat flow across four mobile screens" loading="lazy"></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-free-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Free user flow</span><h3>Let free users experience the value before asking them to upgrade.</h3><p>Free users can discover Skill Snack matches and start conversations, but customization and deeper skill content remain limited.</p></div><figure class="bumble-v2-natural-visual bumble-v2-free-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--blur"><span>02</span><strong>Some skill information is blurred on profiles</strong></div><div class="bumble-v2-free-flow-art"><svg class="bumble-v2-art-crop" viewBox="1649 0 1959 872" role="img" aria-label="Bumble Skill Snack free-user flow across five mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callouts-bottom"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--customize"><span>01</span><strong>Cannot customize the skills they want to teach or learn</strong></div><div class="bumble-v2-flow-callout bumble-v2-flow-callout--video"><span>03</span><strong>Cannot access the full skill video</strong></div></div></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-premium-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Premium user flow</span><h3>Premium gives users more control over the experience.</h3><p>This makes Skill Snack feel more intentional: users can shape the kinds of conversations they want instead of relying only on default recommendations.</p></div><figure class="bumble-v2-natural-visual bumble-v2-premium-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-premium-callout--content"><span>02</span><strong>View the full Skill Snack content on a match’s profile</strong></div><div class="bumble-v2-premium-flow-art"><svg class="bumble-v2-art-crop" viewBox="3752 0 1600 872" role="img" aria-label="Bumble Skill Snack premium-user flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callout bumble-v2-premium-callout--personalize"><span>01</span><strong>Personalize both sides of the exchange</strong></div></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Onboarding</span><h3>Start with what you can teach and what you want to learn.</h3><p>Users set up their Skill Snack profile by choosing interests, learning goals, and the skills they can share. This gives the feature enough context to create relevant conversation starters from the beginning.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="0 0 1600 872" role="img" aria-label="Bumble Skill Snack onboarding flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Once matched</span><h3>Turn a blank chat into a shared starting point.</h3><p>After matching, users can start normally or choose to teach/learn a skill, giving both people something meaningful to talk about right away.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-design-once-matched-flow.svg" alt="Bumble Skill Snack matched-chat flow across four mobile screens" loading="lazy"></figure></article>
           </div>
         </div>
       </section>
@@ -343,8 +343,8 @@
         </header>
         <div class="bumble-v2-carousel">
           <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact" role="listitem"><div class="bumble-v2-card-copy"><span>Safety</span><h3>Add guardrails before sharing skills</h3><p>Testing made me realize users could enter joke, inappropriate, or low-quality skills (e.g. “I’m good at farting”).</p><p>I added a safety check before publishing to catch content that could make the experience feel unsafe or unserious.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/safety-check-transparent.svg" alt="Bumble Skill Snack verification and safety-check flow across six mobile screens" loading="lazy"></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact bumble-v2-platform-card" role="listitem"><div class="bumble-v2-card-copy"><span>System expansion</span><h3>Keep one feature consistent across platforms</h3><p>After validating the core flow, I expanded Skill Snack across iOS, Android, and Apple Watch.</p><p>The challenge was keeping the same interaction logic while adapting the experience to each platform’s conventions.</p></div><div class="bumble-v2-platform-comparison" aria-label="Android, iOS, and Apple Watch Skill Snack comparison"><figure class="is-mobile-platforms"><div class="bumble-v2-platform-labels"><span>Android</span><span>iOS</span></div><img src="/projects/bumble-skill-snack/process/platforms-transparent.svg" alt="Native Android and iOS Skill Snack verification flows shown side by side" loading="lazy"></figure><figure class="is-watch"><figcaption>Apple Watch</figcaption><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/decision-02-poster.jpg"><source src="/projects/bumble-skill-snack/media/decision-02.mp4" type="video/mp4"></video></figure></div></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact" role="listitem"><div class="bumble-v2-card-copy"><span>Safety</span><h3>Add guardrails before sharing skills</h3><p>Testing made me realize users could enter joke, inappropriate, or low-quality skills (e.g. “I’m good at farting”).</p><p>I added a safety check before publishing to catch content that could make the experience feel unsafe or unserious.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-iteration-safety-flow.svg" alt="Bumble Skill Snack verification and safety-check flow across six mobile screens" loading="lazy"></figure></article>
+            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact bumble-v2-platform-card" role="listitem"><div class="bumble-v2-card-copy"><span>System expansion</span><h3>Keep one feature consistent across platforms</h3><p>After validating the core flow, I expanded Skill Snack across iOS, Android, and Apple Watch.</p><p>The challenge was keeping the same interaction logic while adapting the experience to each platform’s conventions.</p></div><div class="bumble-v2-platform-comparison" aria-label="Android, iOS, and Apple Watch Skill Snack comparison"><figure class="is-mobile-platforms"><div class="bumble-v2-platform-labels"><span>Android</span><span>iOS</span></div><img src="/projects/bumble-skill-snack/process/bumble-system-platform-comparison.svg" alt="Native Android and iOS Skill Snack verification flows shown side by side" loading="lazy"></figure><figure class="is-watch"><figcaption>Apple Watch</figcaption><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/bumble-decision-apple-watch-poster.jpg"><source src="/projects/bumble-skill-snack/media/bumble-decision-apple-watch.mp4" type="video/mp4"></video></figure></div></article>
           </div>
         </div>
       </section>
@@ -547,20 +547,20 @@
     );
 
     const processImages = [
-      ['/projects/bumble-skill-snack/process/stage-01.png', 'Early research, user flows, and concept exploration for Skill Snack'],
+      ['/projects/bumble-skill-snack/process/bumble-research-concept-overview.png', 'Early research, user flows, and concept exploration for Skill Snack'],
       [
-        '/projects/bumble-skill-snack/process/stage-02.png',
+        '/projects/bumble-skill-snack/process/bumble-research-low-fidelity-flow.png',
         'Detailed cross-platform product flows for Skill Snack',
-        '/projects/bumble-skill-snack/process/stage-02-design-system.png',
+        '/projects/bumble-skill-snack/process/bumble-design-system.png',
         'Bumble design-system patterns used across the feature',
       ],
       [
-        '/projects/bumble-skill-snack/process/stage-03.png',
+        '/projects/bumble-skill-snack/process/bumble-iteration-safety-exploration.png',
         'High-fidelity Skill Snack screens across iOS, Android, and Apple Watch',
-        '/projects/bumble-skill-snack/process/stage-03-micro-interaction.mp4',
+        '/projects/bumble-skill-snack/process/bumble-iteration-microinteraction.mp4',
         'Skill Snack micro-interaction prototype',
       ],
-      ['/projects/bumble-skill-snack/process/stage-04.png?v=2', 'Skill verification translated across native Android and iOS photo-selection patterns'],
+      ['/projects/bumble-skill-snack/process/bumble-system-cross-platform-flow.png?v=2', 'Skill verification translated across native Android and iOS photo-selection patterns'],
     ];
 
     processTrack?.querySelectorAll('.mvp-card').forEach((card, index) => {
@@ -586,7 +586,7 @@
           video.muted = true;
           video.playsInline = true;
           video.preload = 'metadata';
-          video.poster = '/projects/bumble-skill-snack/process/stage-03-micro-interaction-poster.jpg';
+          video.poster = '/projects/bumble-skill-snack/process/bumble-iteration-microinteraction-poster.jpg';
           video.setAttribute('aria-label', assetLabel);
           const source = document.createElement('source');
           source.src = assetUrl;
@@ -666,9 +666,9 @@
       video.muted = true;
       video.playsInline = true;
       video.preload = 'metadata';
-      video.poster = '/projects/bumble-skill-snack/media/decision-01-poster.jpg';
+      video.poster = '/projects/bumble-skill-snack/media/bumble-decision-user-flow-poster.jpg';
       const source = document.createElement('source');
-      source.src = '/projects/bumble-skill-snack/media/decision-01.mp4';
+      source.src = '/projects/bumble-skill-snack/media/bumble-decision-user-flow.mp4';
       source.type = 'video/mp4';
       video.appendChild(source);
       frame.appendChild(video);
@@ -693,7 +693,7 @@
       const flow = document.createElement('figure');
       flow.className = 'decision-media-frame bumble-user-flow-frame';
       const image = document.createElement('img');
-      image.src = '/projects/bumble-skill-snack/decision-01-user-flow.png';
+      image.src = '/projects/bumble-skill-snack/process/bumble-research-user-flow.png';
       image.alt = 'End-to-end Skill Snack user flow from onboarding through matching and conversation';
       image.loading = 'lazy';
       flow.appendChild(image);
@@ -759,10 +759,10 @@
     const heroWalkthrough = heroMedia?.querySelector('.impress-demo-frame');
     const walkthroughVideo = heroWalkthrough?.querySelector('video');
     if (walkthroughVideo) {
-      walkthroughVideo.poster = '/projects/impresschat/media/demo-linkedin-poster.jpg';
+      walkthroughVideo.poster = '/projects/impresschat/media/impresschat-product-demo-poster.jpg';
       const source = walkthroughVideo.querySelector('source');
       if (source) {
-        source.src = '/projects/impresschat/media/demo-linkedin.mp4';
+        source.src = '/projects/impresschat/media/impresschat-product-demo.mp4';
         source.type = 'video/mp4';
       }
       walkthroughVideo.load();
@@ -782,31 +782,31 @@
         {
           title: 'Start with a clear path',
           description: 'We used Backward Design to define the learning objectives and pre/post assessments before designing the interface. The course then follows the history of Impressionism across three modules: understanding the movement, exploring key artists, and moving into Post-Impressionism.',
-          src: '/projects/impresschat/highlights-svg/stage-01-landing.svg',
+          src: '/projects/impresschat/journey/impresschat-journey-01-course-path.svg',
           alt: 'ImpressChat course outline shown inside an iPhone frame',
         },
         {
           title: 'Measure before teaching',
           description: 'The five-question foundation check maps directly to our learning objectives using multiple-choice, short-answer, image-based, and dropdown questions. The post-test follows the same structure, allowing us to compare learning before and after the course.',
           images: [
-            ['/projects/impresschat/highlights-svg/stage-02-pre-test.svg', 'ImpressChat image-based pre-test shown inside an iPhone frame'],
-            ['/projects/impresschat/journey-assets/measure-pretest-detail.svg', 'ImpressChat pre-test assessment screen'],
-            ['/projects/impresschat/journey-assets/measure-pretest-framed-cropped.svg', 'ImpressChat pre-test result screen'],
+            ['/projects/impresschat/journey/impresschat-journey-02-foundation-check.svg', 'ImpressChat image-based pre-test shown inside an iPhone frame'],
+            ['/projects/impresschat/journey/impresschat-journey-02-foundation-check-detail.svg', 'ImpressChat pre-test assessment screen'],
+            ['/projects/impresschat/journey/impresschat-journey-02-foundation-check-result.svg', 'ImpressChat pre-test result screen'],
           ],
         },
         {
           title: 'Learn through conversation',
           description: 'Each module places learners in a conversation with characters from the Impressionist era. Using Predict–Observe–Explain, learners make a prediction, examine artwork or evidence, and explain what they notice instead of simply reading information.',
           images: [
-            ['/projects/impresschat/highlights-svg/stage-03-module-4.svg', 'ImpressChat Module 1 shown inside an iPhone frame'],
-            ['/projects/impresschat/highlights-svg/stage-04-module-5.svg', 'ImpressChat Module 2 shown inside an iPhone frame'],
-            ['/projects/impresschat/highlights-svg/stage-05-module-6.svg', 'ImpressChat Module 3 shown inside an iPhone frame'],
+            ['/projects/impresschat/journey/impresschat-journey-03-module-01.svg', 'ImpressChat Module 1 shown inside an iPhone frame'],
+            ['/projects/impresschat/journey/impresschat-journey-03-module-02.svg', 'ImpressChat Module 2 shown inside an iPhone frame'],
+            ['/projects/impresschat/journey/impresschat-journey-03-module-03.svg', 'ImpressChat Module 3 shown inside an iPhone frame'],
           ],
         },
         {
           title: 'Return to the same learning goals',
           description: 'The post-test revisits the same objectives and assessment formats, helping us measure what learners understood after completing the experience.',
-          src: '/projects/impresschat/highlights-svg/stage-06-post-test.svg',
+          src: '/projects/impresschat/journey/impresschat-journey-04-post-test.svg',
           alt: 'ImpressChat post-test shown inside an iPhone frame',
         },
       ];
@@ -942,46 +942,46 @@
       {
         title: 'Design the learning before the interface',
         detail: 'Using Backward Design, we defined the learning objectives and assessments first, then structured the course around what learners should understand by the end.',
-        src: '/projects/impresschat/process/stage-01-learning-objectives.png',
+        src: '/projects/impresschat/process/impresschat-process-01-learning-objectives.png',
         alt: 'Learning objectives mapped to course modules and assessment activities',
       },
       {
         title: 'Turn the learning plan into a flow',
         detail: 'I created low-fidelity flows in Figma and interactive prototypes with Figma Make to explore how quizzes, conversations, artwork, and feedback could work together.',
-        src: '/projects/impresschat/process/stage-02-prototype.png',
+        src: '/projects/impresschat/process/impresschat-process-02-prototype.png',
         alt: 'Low-fidelity ImpressChat conversation and course-flow prototype',
       },
       {
         title: 'User testing round 1',
         detail: 'Testing with 8 learners revealed three issues: chat messages were too dense, two characters speaking in the critique activity were confusing, and learners had mixed reactions to receiving pre-test results.',
-        src: '/projects/impresschat/process/stage-03-testing.png',
+        src: '/projects/impresschat/process/impresschat-process-03-user-testing.png',
         alt: 'Course-flow testing map showing learner confusion and early termination points',
       },
       {
         title: 'A/B test for the pre-test decision',
         detail: '<strong>Should learners see their score?</strong> We ran a small A/B test with four learners. The no-score version left some learners unsure how well they had done or what level was expected. We decided to show the score but not reveal answer feedback, giving learners a benchmark without turning the pre-test into instruction.',
-        src: '/projects/impresschat/process-updates/ab-test-score-comparison.png',
+        src: '/projects/impresschat/process/impresschat-process-04-ab-test.png',
         alt: 'A/B test comparing a pre-test result with score and feedback against a completion screen without either',
         visualClass: 'is-wide-comparison',
       },
       {
         title: 'Iteration',
         detail: 'We limited chatbot responses to about 30 words and made each character’s position toward Impressionism more explicit. This reduced reading load and helped learners understand who was speaking and why.',
-        src: '/projects/impresschat/process-updates/iteration-before-after.svg',
+        src: '/projects/impresschat/process/impresschat-process-05-iteration-before-after.svg',
         alt: 'Three ImpressChat screens showing two designs before iteration and the refined design after iteration',
         visualClass: 'is-wide-comparison',
       },
       {
         title: 'Test again',
         detail: '<strong>3 more learners exposed an expert blind spot.</strong> Terms that felt obvious to us were unfamiliar to first-time art learners. We added a short vocabulary introduction and highlighted important terms inside the conversation so support was available when learners needed it.',
-        src: '/projects/impresschat/process-updates/test-again.svg',
+        src: '/projects/impresschat/process/impresschat-process-06-test-again.svg',
         alt: 'Two ImpressChat screens showing vocabulary support added after the second round of testing',
         visualClass: 'is-wide-comparison',
       },
       {
         title: 'Refine and share',
         detail: 'We fixed remaining interaction issues, refined the final experience, and prepared the project for presentation at Learning@Scale.',
-        src: '/projects/impresschat/process/stage-04-presentation.jpg',
+        src: '/projects/impresschat/process/impresschat-process-07-presentation.jpg',
         alt: 'ImpressChat team presenting the research poster',
       },
     ];
@@ -1159,10 +1159,10 @@
       book.innerHTML = `
         <div class="pagelens-reading-samples">
           <div class="pagelens-reading-sample" data-sample="dense">
-            <img src="/projects/pagelens/problem/dyslexia-reading-01.png" alt="Illustrative simulation of dense, crowded printed text" loading="lazy">
+            <img src="/projects/pagelens/problem/pagelens-reading-challenge-01.png" alt="Illustrative simulation of dense, crowded printed text" loading="lazy">
           </div>
           <div class="pagelens-reading-sample" data-sample="unstable">
-            <img src="/projects/pagelens/problem/dyslexia-reading-02.png" alt="Illustrative simulation of distorted and unstable letterforms" loading="lazy">
+            <img src="/projects/pagelens/problem/pagelens-reading-challenge-02.png" alt="Illustrative simulation of distorted and unstable letterforms" loading="lazy">
           </div>
         </div>
         <figcaption>Illustrative simulations only — dyslexia varies from person to person.</figcaption>
@@ -1217,29 +1217,29 @@
     const processCards = Array.from(processTrack?.querySelectorAll('.mvp-card') || []);
     const stageAssets = [
       [[
-        '/projects/pagelens/process-updates/opportunity-and-research.png',
+        '/projects/pagelens/process/pagelens-process-01-opportunity-research.png',
         'Library field research and reading-context exploration for PageLens',
       ]],
       [
         [
-          '/projects/pagelens/process-updates/technology-exploration-1.png',
+          '/projects/pagelens/process/pagelens-process-02-technology-library.png',
           'Annotated PageLens technology exploration with motorized tablet arm, IR sensor, book cradle, iPad, and headphones',
         ],
         [
-          '/projects/pagelens/process-updates/technology-exploration-2.png',
+          '/projects/pagelens/process/pagelens-process-02-technology-portable.png',
           'Annotated compact PageLens technology exploration with folding tablet arm, camera, book cradle, iPad, and headphones',
         ],
       ],
       [[
-        '/projects/pagelens/process-updates/experience-mapping.png',
+        '/projects/pagelens/process/pagelens-process-03-experience-map.png',
         'PageLens user flow from approaching the reading station through session reset',
       ]],
       [[
-        '/projects/pagelens/process-updates/system-feasibility.png',
+        '/projects/pagelens/process/pagelens-process-04-system-feasibility.png',
         'PageLens system diagram connecting sensing, hardware, interaction, actuation, and intelligence layers',
       ]],
       [[
-        '/projects/pagelens/process-updates/responsible-design.png',
+        '/projects/pagelens/process/pagelens-process-05-responsible-design.png',
         'Illustration of people bringing different perspectives together through connected puzzle pieces',
       ]],
     ];
@@ -1522,17 +1522,17 @@
           <div class="kb-research-track" role="list">
           <article class="kb-finding-slide" role="listitem">
             <div class="kb-finding-copy"><span>Finding 01</span><h3>Different questions, same approach.</h3><p>Students reused familiar answer patterns even when the question required a different kind of reasoning.</p><div class="kb-finding-decision"><b>Design response</b><p>Make the reasoning step visible instead of only confirming the final answer.</p></div></div>
-            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/cta-01.png" data-kb-caption="CTA 01 · Reused answer strategies across multipart questions"><img src="/projects/kb-tutor/process/cta-01.png" alt="Cognitive task analysis showing a student reusing the same answer across multipart questions" loading="lazy"></button>
+            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-testing-cta-01.png" data-kb-caption="CTA 01 · Reused answer strategies across multipart questions"><img src="/projects/kb-tutor/process/kb-tutor-testing-cta-01.png" alt="Cognitive task analysis showing a student reusing the same answer across multipart questions" loading="lazy"></button>
           </article>
           <article class="kb-finding-slide" role="listitem">
             <div class="kb-finding-copy"><span>Finding 02</span><h3>Working backward was difficult.</h3><p>Students struggled to move from an outcome to the biological relationship that could explain it.</p><div class="kb-finding-decision"><b>Design response</b><p>Break complex reasoning into smaller prompts that can be followed and checked.</p></div></div>
-            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/cta-02.png" data-kb-caption="CTA 02 · Reasoning through gradient direction and energy requirements">
-              <img src="/projects/kb-tutor/process/cta-02.png" alt="Cognitive task analysis showing gradient direction and energy requirements" loading="lazy">
+            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-testing-cta-02.png" data-kb-caption="CTA 02 · Reasoning through gradient direction and energy requirements">
+              <img src="/projects/kb-tutor/process/kb-tutor-testing-cta-02.png" alt="Cognitive task analysis showing gradient direction and energy requirements" loading="lazy">
             </button>
           </article>
           <article class="kb-finding-slide" role="listitem">
             <div class="kb-finding-copy"><span>Finding 03</span><h3>Keywords stood in for reasoning.</h3><p>Recognizing a term could lead to the right option without a clear explanation of why it was right.</p><div class="kb-finding-decision"><b>Design response</b><p>Use hints and feedback to connect vocabulary to cause, relationship, and evidence.</p></div></div>
-            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/cta-03.png" data-kb-caption="CTA 03 · Keyword heuristics compared with constraint-based reasoning"><img src="/projects/kb-tutor/process/cta-03.png" alt="Cognitive task analysis comparing keyword heuristics with constraint-based reasoning" loading="lazy"></button>
+            <button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-testing-cta-03.png" data-kb-caption="CTA 03 · Keyword heuristics compared with constraint-based reasoning"><img src="/projects/kb-tutor/process/kb-tutor-testing-cta-03.png" alt="Cognitive task analysis comparing keyword heuristics with constraint-based reasoning" loading="lazy"></button>
           </article>
           </div>
         </div>
@@ -1554,9 +1554,9 @@
         <article class="kb-design-part kb-design-decision kb-story-reveal">
           <div class="kb-part-copy kb-copy-without-heading"><span>Part B · Usability testing</span><p>Guided mode felt too easy, while Practice mode felt long and repetitive. The distinction added work without adding enough value.</p></div>
           <div class="kb-before-after">
-            <figure><span>Before</span><img src="/projects/kb-tutor/process/before-four-modes.png" alt="Early KB Tutor screen offering Guided, Practice, Exam, and Review as four separate modes" loading="lazy"><figcaption>Four separate modes divided support across the product.</figcaption></figure>
+            <figure><span>Before</span><img src="/projects/kb-tutor/process/kb-tutor-learning-modes-before.png" alt="Early KB Tutor screen offering Guided, Practice, Exam, and Review as four separate modes" loading="lazy"><figcaption>Four separate modes divided support across the product.</figcaption></figure>
             <div class="kb-change-arrow"><span>Testing showed overlap</span><b>→</b></div>
-            <figure><span>After</span><img src="/projects/kb-tutor/decision-1-modes.png" alt="Revised KB Tutor mode selection after Guided mode and Practice mode were combined" loading="lazy"><figcaption>Guided mode and Practice mode became one Practice mode with optional hints, glossary, and feedback.</figcaption></figure>
+            <figure><span>After</span><img src="/projects/kb-tutor/process/kb-tutor-decision-learning-modes.png" alt="Revised KB Tutor mode selection after Guided mode and Practice mode were combined" loading="lazy"><figcaption>Guided mode and Practice mode became one Practice mode with optional hints, glossary, and feedback.</figcaption></figure>
           </div>
           <div class="kb-decision-summary"><span>Finding</span><p>Students needed support at different moments, not a separate guided journey.</p><span>Decision</span><p>Merge Guided mode and Practice mode.</p><span>Resulting design</span><p>One Practice mode with help available on demand.</p></div>
         </article>
@@ -1568,27 +1568,27 @@
               <article class="kb-prototype-card" role="listitem">
                 <div><span>Step 01</span><h3>Map flows</h3><p>Define the learning path, decision points, and how students move between modes.</p></div>
                 <div class="kb-prototype-stack is-flow-stack" aria-label="Two overlapping maps for multiple-choice and short-answer learning flows">
-                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open the multiple-choice learning flow" data-kb-zoom="/projects/kb-tutor/process/map-flow-mcq.png" data-kb-caption="Multiple-choice Practice mode and Exam mode flows"><img src="/projects/kb-tutor/process/map-flow-mcq.png" alt="KB Tutor multiple-choice flow through Practice mode and Exam mode" loading="lazy"></button>
-                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open the short-answer learning flow" data-kb-zoom="/projects/kb-tutor/process/map-flow-saq.png" data-kb-caption="Short-answer Practice mode with scaffolded support"><img src="/projects/kb-tutor/process/map-flow-saq.png" alt="KB Tutor short-answer flow with scaffolded hints, retries, notes, AI feedback, and review" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open the multiple-choice learning flow" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-flow-mcq.png" data-kb-caption="Multiple-choice Practice mode and Exam mode flows"><img src="/projects/kb-tutor/process/kb-tutor-flow-mcq.png" alt="KB Tutor multiple-choice flow through Practice mode and Exam mode" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open the short-answer learning flow" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-flow-saq.png" data-kb-caption="Short-answer Practice mode with scaffolded support"><img src="/projects/kb-tutor/process/kb-tutor-flow-saq.png" alt="KB Tutor short-answer flow with scaffolded hints, retries, notes, AI feedback, and review" loading="lazy"></button>
                 </div>
               </article>
               <article class="kb-prototype-card" role="listitem">
                 <div><span>Step 02</span><h3>Design in Figma</h3><p>Translate the flow into clear student and teacher interfaces.</p></div>
                 <div class="kb-prototype-stack" aria-label="Two overlapping low-fidelity Figma prototype boards">
-                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open low-fidelity Figma exploration 01" style="--stack-i:0" data-kb-zoom="/projects/kb-tutor/process/mvp-01-overview.png" data-kb-caption="Low-fidelity Figma prototype board · Exploration 01"><img src="/projects/kb-tutor/process/mvp-01-overview.png" alt="Low-fidelity Figma screens exploring the KB Tutor learning flow" loading="lazy"></button>
-                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open low-fidelity Figma exploration 02" style="--stack-i:1" data-kb-zoom="/projects/kb-tutor/process/mvp-01-overview-v2.png" data-kb-caption="Low-fidelity Figma prototype board · Exploration 02"><img src="/projects/kb-tutor/process/mvp-01-overview-v2.png" alt="Second low-fidelity Figma screen set for KB Tutor" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open low-fidelity Figma exploration 01" style="--stack-i:0" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-mvp-01-overview.png" data-kb-caption="Low-fidelity Figma prototype board · Exploration 01"><img src="/projects/kb-tutor/process/kb-tutor-mvp-01-overview.png" alt="Low-fidelity Figma screens exploring the KB Tutor learning flow" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open low-fidelity Figma exploration 02" style="--stack-i:1" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-mvp-01-overview-v2.png" data-kb-caption="Low-fidelity Figma prototype board · Exploration 02"><img src="/projects/kb-tutor/process/kb-tutor-mvp-01-overview-v2.png" alt="Second low-fidelity Figma screen set for KB Tutor" loading="lazy"></button>
                 </div>
               </article>
               <article class="kb-prototype-card" role="listitem">
                 <div><span>Step 03</span><h3>Build the design system</h3><p>Create reusable patterns so five MVPs could evolve without losing consistency.</p></div>
-                <button class="kb-prototype-single kb-zoomable" type="button" aria-label="Open the KB Tutor design-system image" data-kb-zoom="/projects/kb-tutor/process/mvp-02-color-tokens.png" data-kb-caption="KB Tutor design system · Color tokens"><img src="/projects/kb-tutor/process/mvp-02-color-tokens.png" alt="KB Tutor design-system documentation showing reusable color tokens" loading="lazy"></button>
+                <button class="kb-prototype-single kb-zoomable" type="button" aria-label="Open the KB Tutor design-system image" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-mvp-02-color-tokens.png" data-kb-caption="KB Tutor design system · Color tokens"><img src="/projects/kb-tutor/process/kb-tutor-mvp-02-color-tokens.png" alt="KB Tutor design-system documentation showing reusable color tokens" loading="lazy"></button>
               </article>
               <article class="kb-prototype-card" role="listitem">
                 <div><span>Step 04</span><h3>Create working prototypes</h3><p>Use functional prototypes to test behavior and clarify implementation with developers.</p></div>
                 <div class="kb-prototype-stack is-three" aria-label="Three overlapping working prototype versions">
-                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 01" style="--stack-i:0" data-kb-zoom="/projects/kb-tutor/process/working-prototype-v1.png" data-kb-caption="Working prototype · Version 01"><img src="/projects/kb-tutor/process/working-prototype-v1.png" alt="First working prototype of the KB Tutor dashboard" loading="lazy"></button>
-                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 02" style="--stack-i:1" data-kb-zoom="/projects/kb-tutor/process/working-prototype-v2.png" data-kb-caption="Working prototype · Version 02"><img src="/projects/kb-tutor/process/working-prototype-v2.png" alt="Second working prototype of the KB Tutor dashboard" loading="lazy"></button>
-                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 03" style="--stack-i:2" data-kb-zoom="/projects/kb-tutor/process/working-prototype-v3.png" data-kb-caption="Working prototype · Version 03"><img src="/projects/kb-tutor/process/working-prototype-v3.png" alt="Working prototype of the KB Tutor mock-exam setup" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 01" style="--stack-i:0" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-working-prototype-v1.png" data-kb-caption="Working prototype · Version 01"><img src="/projects/kb-tutor/process/kb-tutor-working-prototype-v1.png" alt="First working prototype of the KB Tutor dashboard" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 02" style="--stack-i:1" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-working-prototype-v2.png" data-kb-caption="Working prototype · Version 02"><img src="/projects/kb-tutor/process/kb-tutor-working-prototype-v2.png" alt="Second working prototype of the KB Tutor dashboard" loading="lazy"></button>
+                  <button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open working prototype version 03" style="--stack-i:2" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-working-prototype-v3.png" data-kb-caption="Working prototype · Version 03"><img src="/projects/kb-tutor/process/kb-tutor-working-prototype-v3.png" alt="Working prototype of the KB Tutor mock-exam setup" loading="lazy"></button>
                 </div>
               </article>
             </div>
@@ -1604,8 +1604,8 @@
         </header>
         <div class="kb-findings-carousel kb-story-reveal">
           <div class="kb-findings-track" role="list">
-            <article class="kb-finding-slide" role="listitem"><div><span>Finding 01</span><h3>Review was easy to miss.</h3><p>Only 49 of 103 students used Review, and bookmarked work was not reliably revisited.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-03-participation.png" data-kb-caption="Verified participation across Practice mode, Exam mode, and Review"><img src="/projects/kb-tutor/process/mvp-03-participation.png" alt="Bar chart showing participation across Practice mode, Exam mode, and Review" loading="lazy"></button></article>
-            <article class="kb-finding-slide" role="listitem"><div><span>Finding 02</span><h3>Teachers needed clearer information.</h3><p>Scores alone did not show what students misunderstood or where intervention was needed.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" data-kb-caption="Annotated teacher-dashboard exploration"><img src="/projects/kb-tutor/process/mvp-02-dashboard-notes.png" alt="Annotated teacher-dashboard exploration" loading="lazy"></button></article>
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 01</span><h3>Review was easy to miss.</h3><p>Only 49 of 103 students used Review, and bookmarked work was not reliably revisited.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-mvp-03-participation.png" data-kb-caption="Verified participation across Practice mode, Exam mode, and Review"><img src="/projects/kb-tutor/process/kb-tutor-mvp-03-participation.png" alt="Bar chart showing participation across Practice mode, Exam mode, and Review" loading="lazy"></button></article>
+            <article class="kb-finding-slide" role="listitem"><div><span>Finding 02</span><h3>Teachers needed clearer information.</h3><p>Scores alone did not show what students misunderstood or where intervention was needed.</p></div><button class="kb-zoomable" type="button" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-mvp-02-dashboard-notes.png" data-kb-caption="Annotated teacher-dashboard exploration"><img src="/projects/kb-tutor/process/kb-tutor-mvp-02-dashboard-notes.png" alt="Annotated teacher-dashboard exploration" loading="lazy"></button></article>
             <article class="kb-finding-slide" role="listitem"><div><span>Finding 03</span><h3>Students chose the minimum session.</h3><p>This suggested that fixed session lengths were not the right approach for independent practice.</p></div><div class="kb-duration-illustration" aria-label="Illustration showing students choosing the minimum available session duration"><span>Session length</span><div><i>5 min</i><b>Most selected</b></div><div><i>10 min</i></div><div><i>15 min</i></div></div></article>
           </div>
         </div>
@@ -1622,10 +1622,10 @@
         </header>
         <div class="kb-supporting-carousel kb-story-reveal">
           <div class="kb-supporting-track" role="list">
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 01</span><h3>Review hub</h3><p>Missed questions, bookmarks, and notes became visible, actionable parts of one Review destination.</p></div><div class="kb-prototype-stack kb-review-stack is-three" aria-label="Three overlapping Review hub screens"><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open missed-questions view" data-kb-zoom="/projects/kb-tutor/process/review-missed-questions.png" data-kb-caption="Review hub · Missed questions"><img src="/projects/kb-tutor/process/review-missed-questions.png" alt="Review hub organized by missed questions" loading="lazy"></button><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open bookmarked-questions view" data-kb-zoom="/projects/kb-tutor/process/review-bookmarked.png" data-kb-caption="Review hub · Bookmarked questions"><img src="/projects/kb-tutor/process/review-bookmarked.png" alt="Review hub showing bookmarked questions with feedback" loading="lazy"></button><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open notes view" data-kb-zoom="/projects/kb-tutor/process/review-note.png" data-kb-caption="Review hub · Notes"><img src="/projects/kb-tutor/process/review-note.png" alt="Review hub showing saved learning notes alongside a question" loading="lazy"></button></div></article>
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 02</span><h3>Teacher dashboard</h3><p>Assignments, class progress, and question-level results are organized around decisions teachers need to make.</p></div><video controls muted playsinline preload="none" poster="/projects/kb-tutor/media/teacher-dashboard-poster.jpg"><source src="/projects/kb-tutor/media/teacher-dashboard.mp4" type="video/mp4"></video></article>
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 03</span><h3>Continuous practice mode</h3><p>Students can keep practicing without choosing a fixed session length or restarting the flow.</p></div><img src="/projects/kb-tutor/practice-mode.png" alt="KB Tutor continuous Practice mode experience" loading="lazy"></article>
-            <article class="kb-iteration-card" role="listitem"><div><span>Change 04</span><h3>Note-taking</h3><p>Students can capture and organize their thinking before turning it into a complete response.</p></div><img src="/projects/kb-tutor/showcase/teacher-note.png" alt="KB Tutor note-taking feature" loading="lazy"></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 01</span><h3>Review hub</h3><p>Missed questions, bookmarks, and notes became visible, actionable parts of one Review destination.</p></div><div class="kb-prototype-stack kb-review-stack is-three" aria-label="Three overlapping Review hub screens"><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open missed-questions view" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-review-missed-questions.png" data-kb-caption="Review hub · Missed questions"><img src="/projects/kb-tutor/process/kb-tutor-review-missed-questions.png" alt="Review hub organized by missed questions" loading="lazy"></button><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open bookmarked-questions view" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-review-bookmarked.png" data-kb-caption="Review hub · Bookmarked questions"><img src="/projects/kb-tutor/process/kb-tutor-review-bookmarked.png" alt="Review hub showing bookmarked questions with feedback" loading="lazy"></button><button class="kb-stack-shot kb-zoomable" type="button" aria-label="Open notes view" data-kb-zoom="/projects/kb-tutor/process/kb-tutor-review-note.png" data-kb-caption="Review hub · Notes"><img src="/projects/kb-tutor/process/kb-tutor-review-note.png" alt="Review hub showing saved learning notes alongside a question" loading="lazy"></button></div></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 02</span><h3>Teacher dashboard</h3><p>Assignments, class progress, and question-level results are organized around decisions teachers need to make.</p></div><video controls muted playsinline preload="none" poster="/projects/kb-tutor/media/kb-tutor-teacher-dashboard-poster.jpg"><source src="/projects/kb-tutor/media/kb-tutor-teacher-dashboard.mp4" type="video/mp4"></video></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 03</span><h3>Continuous practice mode</h3><p>Students can keep practicing without choosing a fixed session length or restarting the flow.</p></div><img src="/projects/kb-tutor/showcase/kb-tutor-practice-mode.png" alt="KB Tutor continuous Practice mode experience" loading="lazy"></article>
+            <article class="kb-iteration-card" role="listitem"><div><span>Change 04</span><h3>Note-taking</h3><p>Students can capture and organize their thinking before turning it into a complete response.</p></div><img src="/projects/kb-tutor/showcase/kb-tutor-showcase-teacher-note.png" alt="KB Tutor note-taking feature" loading="lazy"></article>
           </div>
         </div>
 
@@ -1993,19 +1993,19 @@
     const processAssets = [
       [
         [
-          '/projects/kb-tutor/process/mvp-01-research-map.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-01-research-map.png',
           'Research notes mapping how students reason through biology questions',
           'Understand How Students Think',
           'We used Cognitive Task Analysis and think-alouds with students and teachers to uncover where reasoning broke down. Mapping novice and expert task flows revealed three challenges: task-type confusion, weak backward reasoning, and missing decision rules.',
         ],
         [
-          '/projects/kb-tutor/process/mvp-01-overview-v2.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-01-overview-v2.png',
           'Low-fidelity wireframes exploring the KB Tutor experience',
           'Shape the Experience',
           'I used low-fidelity wireframes to explore layout, hierarchy, and user flow before investing in visual design.',
         ],
         [
-          '/projects/kb-tutor/process/mvp-01-ai-prototype.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-01-ai-prototype.png',
           'Medium-fidelity KB Tutor interaction prototype',
           'AI prototype the interaction, not the polish',
           'I used Figma Make to quickly explore interactions and bring the structure to medium fidelity. AI accelerated prototyping, but often generated unnecessary content, reinforcing that more UI isn’t better UI. I used AI to test interaction ideas, not make design decisions for me.',
@@ -2013,48 +2013,48 @@
       ],
       [
         [
-          '/projects/kb-tutor/process/mvp-02-dashboard-notes.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-02-dashboard-notes.png',
           'Teacher dashboard design exploration',
           'Teacher dashboard exploration',
         ],
         [
-          '/projects/kb-tutor/process/mvp-02-color-tokens.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-02-color-tokens.png',
           'KB Tutor color-token documentation',
           'Reusable color system',
         ],
       ],
       [
         [
-          '/projects/kb-tutor/process/mvp-03-metrics.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-03-metrics.png',
           'Evaluation framework showing the classroom metrics and how each one is measured',
           'Evaluation framework',
         ],
         [
-          '/projects/kb-tutor/process/mvp-03-participation.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-03-participation.png',
           'Student participation across practice, exam, and review modes',
           'Participation across modes',
         ],
         [
-          '/projects/kb-tutor/process/mvp-03-outcomes.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-03-outcomes.png',
           'Student answer outcomes showing corrected responses after scaffolded feedback',
           'Scaffolding outcomes',
         ],
       ],
       [
         [
-          '/projects/kb-tutor/process/mvp-04-saq-flow.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-04-saq-flow.png',
           'End-to-end short-answer practice, exam, and review flow map',
           'Short-answer experience flow',
         ],
         [
-          '/projects/kb-tutor/process/mvp-04-notes.png',
+          '/projects/kb-tutor/process/kb-tutor-mvp-04-notes.png',
           'Short-answer practice interface with a highlighted prompt and staged responses',
           'Short-answer practice',
         ],
       ],
       [
         [
-          '/projects/kb-tutor/process/mvp-05-presentation.jpg',
+          '/projects/kb-tutor/process/kb-tutor-mvp-05-presentation.jpg',
           'Presenting the deployed KB Tutor product in a classroom',
           'Classroom deployment',
         ],
@@ -2215,8 +2215,8 @@
     }
 
     const decisionPosters = [
-      '/projects/kb-tutor/media/saq-poster.jpg',
-      '/projects/kb-tutor/media/teacher-dashboard-poster.jpg',
+      '/projects/kb-tutor/media/kb-tutor-saq-feedback-poster.jpg',
+      '/projects/kb-tutor/media/kb-tutor-teacher-dashboard-poster.jpg',
     ];
     page.querySelectorAll('.decision-media-video video').forEach((video, index) => {
       const poster = decisionPosters[index];
