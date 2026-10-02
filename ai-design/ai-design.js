@@ -37,47 +37,38 @@
     let paused = false;
     let moving = false;
     let autoplayTimer;
-    const fadeDuration = reduceMotion ? 0 : 1050;
-    const settleDuration = reduceMotion ? 20 : 2150;
+    let transitionTimer;
+    const fadeDuration = 180;
     const previousButton = showcase.querySelector('[data-fold-prev]');
     const nextButton = showcase.querySelector('[data-fold-next]');
-    const controls = [previousButton, nextButton].filter(Boolean);
 
     const placeCards = () => {
       cards.forEach((card, index) => card.dataset.position = String(index));
     };
 
-    const setControlsDisabled = (disabled) => {
-      controls.forEach((control) => control.disabled = disabled);
-    };
-
     const moveStack = (direction, automatic = false) => {
-      if ((automatic && (paused || document.hidden)) || moving) return;
-      moving = true;
-      setControlsDisabled(true);
+      if (cards.length < 2 || (automatic && (paused || document.hidden || moving))) return;
+
+      // A manual choice always takes effect immediately, even mid-crossfade.
+      window.clearTimeout(transitionTimer);
+      cards.forEach((card) => card.classList.remove('is-leaving'));
+      moving = false;
 
       const leaving = cards[0];
-      leaving.classList.add('is-leaving');
+      cards = direction > 0
+        ? [...cards.slice(1), leaving]
+        : [cards[cards.length - 1], ...cards.slice(0, -1)];
+      placeCards();
 
-      window.setTimeout(() => {
-        leaving.classList.add('is-resetting');
-        cards = direction > 0
-          ? [...cards.slice(1), leaving]
-          : [cards[cards.length - 1], ...cards.slice(0, -1)];
-        placeCards();
-        leaving.classList.remove('is-leaving');
-
-        window.requestAnimationFrame(() => {
-          window.requestAnimationFrame(() => {
-            leaving.classList.remove('is-resetting');
-          });
-        });
-      }, fadeDuration);
-
-      window.setTimeout(() => {
-        moving = false;
-        setControlsDisabled(false);
-      }, settleDuration);
+      // Autoplay briefly fades the old image over the already-visible new one.
+      if (automatic && !reduceMotion) {
+        moving = true;
+        leaving.classList.add('is-leaving');
+        transitionTimer = window.setTimeout(() => {
+          leaving.classList.remove('is-leaving');
+          moving = false;
+        }, fadeDuration);
+      }
     };
 
     const restartAutoplay = () => {

@@ -2360,9 +2360,10 @@
           if (heading.closest('.bumble-iteration-v2, .impress-refined, .pagelens-story-v2, .kb-case-redesign')) return;
           gsap.from(heading.children, {
             autoAlpha: 0,
-            y: 20,
-            duration: 0.62,
-            stagger: 0.065,
+            y: isDesktop ? 12 : 8,
+            duration: 0.85,
+            stagger: { amount: 0.06 },
+            ease: 'sine.out',
             clearProps: clearMotionStyles,
             scrollTrigger: {
               id: `portfolio-heading-${index}`,
@@ -2510,10 +2511,10 @@
           groupIndex += 1;
           gsap.from(items, {
             autoAlpha: 0,
-            y: isDesktop ? 30 : 22,
-            scale: 0.992,
-            duration: 0.66,
-            stagger: isDesktop ? 0.1 : 0.075,
+            y: isDesktop ? 16 : 10,
+            duration: 0.9,
+            stagger: { amount: 0.12 },
+            ease: 'sine.out',
             clearProps: clearMotionStyles,
             scrollTrigger: {
               id: `portfolio-group-${groupIndex}`,
@@ -2525,8 +2526,8 @@
         });
       });
 
-      // One heading-first reveal pattern for every project. Using a single
-      // timeline per chapter prevents cards from appearing before their title.
+      // Headings lead by only a moment, with content joining the same reveal
+      // instead of waiting for the heading animation to finish.
       const caseRevealPlans = [
         ['.bumble-v2-problem', '.bumble-v2-section-heading', '.bumble-v2-problem-grid'],
         ['#bumble-research', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
@@ -2551,14 +2552,12 @@
       caseRevealPlans.forEach(([sectionSelector, headingSelector, contentSelector], index) => {
         document.querySelectorAll(sectionSelector).forEach((section, sectionIndex) => {
           const heading = section.querySelector(headingSelector);
-          const headingItems = heading
-            ? (heading.matches('.case-section-label') ? [heading] : gsap.utils.toArray(heading.children))
-            : [];
+          const headingItems = heading ? [heading] : [];
           const contentItems = gsap.utils.toArray(section.querySelectorAll(contentSelector));
           if (!headingItems.length && !contentItems.length) return;
 
           const revealTimeline = gsap.timeline({
-            defaults: { ease: 'power3.out' },
+            defaults: { ease: 'sine.out' },
             scrollTrigger: {
               id: `portfolio-case-section-${index}-${sectionIndex}`,
               trigger: section,
@@ -2570,20 +2569,19 @@
           if (headingItems.length) {
             revealTimeline.from(headingItems, {
               autoAlpha: 0,
-              y: isDesktop ? 22 : 16,
-              duration: 0.58,
-              stagger: 0.065,
+              y: isDesktop ? 12 : 8,
+              duration: 0.85,
               clearProps: clearMotionStyles,
             });
           }
           if (contentItems.length) {
             revealTimeline.from(contentItems, {
               autoAlpha: 0,
-              y: isDesktop ? 24 : 18,
-              duration: 0.7,
-              stagger: 0.1,
+              y: isDesktop ? 16 : 10,
+              duration: 0.9,
+              stagger: { amount: 0.08 },
               clearProps: clearMotionStyles,
-            }, headingItems.length ? '>-0.02' : 0);
+            }, headingItems.length ? 0.08 : 0);
           }
         });
       });
@@ -2741,9 +2739,10 @@
       gsap.utils.toArray('.reflection-section, .case-next, .closing').forEach((section, index) => {
         gsap.from(section.children, {
           autoAlpha: 0,
-          y: 20,
-          duration: 0.66,
-          stagger: 0.075,
+          y: isDesktop ? 12 : 8,
+          duration: 0.85,
+          stagger: { amount: 0.08 },
+          ease: 'sine.out',
           clearProps: clearMotionStyles,
           scrollTrigger: {
             id: `portfolio-closing-${index}`,
@@ -2776,7 +2775,8 @@
   window.addEventListener('resize', scheduleResponsiveRemount, { passive: true });
   motionPreference.addEventListener('change', () => mountMotionSystem(true));
   window.addEventListener('pageshow', () => mountMotionSystem());
-  window.addEventListener('popstate', () => window.setTimeout(() => mountMotionSystem(true), 0));
+  // Hash navigation should not hide and replay content that already appeared.
+  window.addEventListener('popstate', () => window.setTimeout(() => mountMotionSystem(), 0));
 
   function initializePortfolioEnhancements() {
     if (document.documentElement.dataset.portfolioInitialized === 'true') return;

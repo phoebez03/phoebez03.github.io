@@ -1825,6 +1825,11 @@ h2 br + em::before {
   transform: none;
 }
 
+/* GSAP owns each reveal frame; CSS transitions must not lag behind its updates. */
+.motion-enhanced .kb-case-redesign .kb-story-reveal {
+  transition: none;
+}
+
 .kb-learning-paths {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
