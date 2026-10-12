@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="346" viewBox="0 0 360 346" role="img" aria-labelledby="title">
+  <title id="title">Recognizing a keyword leads to an option while reasoning is skipped</title>
+  <rect width="360" height="346" rx="18" fill="#f1f6fc"/>
+  <rect x="16" y="16" width="328" height="148" rx="13" fill="#fff" stroke="#d8e0ea"/>
+  <text x="34" y="43" fill="#6e7783" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1">QUESTION</text>
+  <rect x="34" y="59" width="119" height="9" rx="4.5" fill="#cbd7e5"/>
+  <rect x="165" y="51" width="151" height="27" rx="7" fill="#dcecff"/>
+  <text x="240" y="70" text-anchor="middle" fill="#0066cc" font-family="Arial, sans-serif" font-size="15" font-weight="700">familiar word</text>
+  <rect x="34" y="89" width="263" height="8" rx="4" fill="#cbd7e5"/>
+  <rect x="34" y="111" width="286" height="36" rx="8" fill="#eaf3ff" stroke="#a7c9f1"/>
+  <circle cx="55" cy="129" r="8" fill="#0066cc"/>
+  <circle cx="55" cy="129" r="3" fill="#fff"/>
+  <text x="76" y="135" fill="#1d1d1f" font-family="Arial, sans-serif" font-size="16" font-weight="700">Choose option B</text>
+  <path d="M180 170v36" stroke="#0066cc" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="m173 197 7 9 7-9" fill="none" stroke="#0066cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="194" y="192" fill="#0066cc" font-family="Arial, sans-serif" font-size="13" font-weight="700">shortcut</text>
+  <rect x="16" y="221" width="328" height="109" rx="13" fill="#fff" stroke="#c1cbd6" stroke-dasharray="6 6"/>
+  <text x="34" y="249" fill="#687685" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing=".6">REASONING CHECK SKIPPED</text>
+  <rect x="34" y="269" width="88" height="32" rx="16" fill="#edf0f4"/>
+  <rect x="132" y="269" width="103" height="32" rx="16" fill="#edf0f4"/>
+  <rect x="245" y="269" width="82" height="32" rx="16" fill="#edf0f4"/>
+  <text x="78" y="290" text-anchor="middle" fill="#697583" font-family="Arial, sans-serif" font-size="12" font-weight="600">cause</text>
+  <text x="183" y="290" text-anchor="middle" fill="#697583" font-family="Arial, sans-serif" font-size="12" font-weight="600">relationship</text>
+  <text x="286" y="290" text-anchor="middle" fill="#697583" font-family="Arial, sans-serif" font-size="12" font-weight="600">evidence</text>
+</svg>

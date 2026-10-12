@@ -13,17 +13,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#000000">
     <title>Phoebe Zhang</title>
-    <meta name="description" content="Product designer creating learning-centered, AI-augmented, human-centered experiences.">
+    <meta name="description" content="Phoebe Zhang is a product designer grounded in psychology and HCI, with experience in research, education, and learning design.">
     <meta property="og:title" content="Phoebe Zhang">
-    <meta property="og:description" content="Product designer creating learning-centered, AI-augmented, human-centered experiences.">
+    <meta property="og:description" content="Phoebe Zhang is a product designer grounded in psychology and HCI, with experience in research, education, and learning design.">
     <meta property="og:image" content="https://phoebez03.github.io/og.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=3"/>
-<link rel="shortcut icon" href="/favicon.ico?v=3"/>
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3"/>
+    <link rel="icon" type="image/png" sizes="64x64" href="./favicon.png?v=3"/>
+    <link rel="shortcut icon" href="./favicon.ico?v=3"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=3"/>
     <script>document.documentElement.classList.add('motion-ready', 'experience-complete');</script>
-    <link rel="stylesheet" href="/apple-home.css?v=18">
-    <script defer src="/vendor/gsap.min.js"></script>
-    <script defer src="/apple-home.js?v=13"></script>
+    <link rel="stylesheet" href="./apple-home.css?v=31">
+    <script defer src="./vendor/gsap.min.js"></script>
+    <script defer src="./apple-home.js?v=17"></script>
   </head>
   <body>
     <a class="skip-link" href="#projects">Skip to projects</a>
@@ -43,10 +43,24 @@
     <main id="top">
       <section class="homepage-hero" aria-labelledby="intro-title">
         <div class="homepage-hero-inner">
-          <h1 id="intro-title" aria-label="I'm a UX/ Product Designer who makes complex things simple.">
-            I'm a UX/ Product Designer
-            <span class="homepage-typed-line" aria-hidden="true"><span data-typing-target data-typing-text="who makes complex things simple.">who makes complex things simple.</span><i class="homepage-typing-cursor"></i></span>
-          </h1>
+          <div class="hero-composition">
+            <div class="hero-note hero-note-intro" data-hero-piece>
+              <div class="card-perforations" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+              <h1 id="intro-title">I’m a Product Designer who turns human insights into product decisions.</h1>
+            </div>
+            <div class="hero-note hero-note-support" data-hero-piece>
+              <p>Grounded in psychology and HCI, with experience in UX research and product management.</p>
+            </div>
+            <figure class="hero-school hero-school-cmu" data-hero-piece>
+              <span class="hero-school-logo hero-school-logo-cmu"><img src="./brand/cmu-logo.png" alt="Carnegie Mellon University"></span>
+              <figcaption>HCI</figcaption>
+            </figure>
+            <figure class="hero-school hero-school-melbourne" data-hero-piece>
+              <span class="hero-school-logo"><img src="./brand/unimelb-logo.png" alt="The University of Melbourne"></span>
+              <figcaption>Psychology</figcaption>
+            </figure>
+          </div>
+          <a class="hero-project-link" href="#projects" data-hero-piece>Explore selected work <span aria-hidden="true">↘</span></a>
         </div>
       </section>
 
@@ -55,77 +69,76 @@
           <h2 id="projects-title">Selected work</h2>
         </div>
 
-        <div class="project-coverflow-stage" id="project-grid" tabindex="0" aria-label="Project coverflow. Use arrow keys, swipe, or a horizontal trackpad gesture to explore.">
-          <article class="project-card project-kb" data-project data-tags="learning ai edtech product design biology tutor">
-            <a class="project-link" href="/projects/kb-tutor" aria-label="View KB Tutor project">
-              <div class="project-visual">
-                <span class="project-number">01</span>
-                <img class="kb-illustration" src="/projects/kb-tutor/cover/kb-tutor-cover-illustration.webp" alt="" aria-hidden="true">
-                <div class="project-device kb-device"><img src="/projects/kb-tutor/cover/kb-tutor-cover-interface.png" alt="KB Tutor multiple-choice practice interface"></div>
-              </div>
-              <div class="project-content">
-                <div class="project-title-row"><h3>KB Tutor</h3><span class="arrow-button" aria-hidden="true">↗</span></div>
+        <div class="project-feature-list" id="project-grid">
+          <article class="project-feature project-kb" data-project>
+            <a class="project-feature-link" href="/projects/kb-tutor">
+              <div class="feature-copy">
+                <span class="feature-index">01 / 04</span>
+                <h3>KB Tutor</h3>
                 <p>An adaptive Biology tutor that helps students reason and gives teachers actionable insight.</p>
-                <ul class="project-tags" aria-label="Project skills"><li>Web App</li><li>0-&gt;1 Product Design</li><li>UX Research</li></ul>
+                <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
+              <div class="feature-media feature-media-kb">
+                <div class="kb-computer">
+                  <div class="kb-computer-display">
+                    <div class="kb-computer-screen">
+                      <img class="kb-student-dashboard" src="./projects/kb-tutor/media/kb-tutor-product-introduction-poster.jpg" alt="KB Tutor student dashboard with learning effort and assigned work">
+                      <img class="kb-teacher-dashboard" src="./projects/kb-tutor/media/kb-tutor-teacher-dashboard-poster.jpg" alt="KB Tutor teacher dashboard with class analytics">
+                    </div>
+                  </div>
+                  <div class="kb-computer-base" aria-hidden="true"></div>
+                </div>
+              </div>
+              <ul class="feature-keywords" aria-label="Project skills"><li>Web App</li><li>0-&gt;1 Product Design</li><li>UX Research</li></ul>
             </a>
           </article>
 
-          <article class="project-card project-bumble" data-project data-tags="learning design system cross-platform figma ios android apple watch conversation">
-            <a class="project-link" href="/projects/bumble-skill-snack" aria-label="View Bumble Skill Snack project">
-              <div class="project-visual">
-                <span class="project-number">02</span>
-                <img class="bumble-logo" src="/projects/bumble-skill-snack/brand/bumble-brand-logo.png" alt="" aria-hidden="true">
-                <img class="bumble-primary" src="/projects/bumble-skill-snack/cover/bumble-cover-primary.svg" alt="Bumble Skill Snack mobile interface">
-                <img class="bumble-secondary" src="/projects/bumble-skill-snack/cover/bumble-cover-secondary.svg" alt="" aria-hidden="true">
-              </div>
-              <div class="project-content">
-                <div class="project-title-row"><h3>Bumble × Skill Snack</h3><span class="arrow-button" aria-hidden="true">↗</span></div>
+          <article class="project-feature project-bumble" data-project>
+            <a class="project-feature-link" href="/projects/bumble-skill-snack">
+              <div class="feature-copy">
+                <span class="feature-index">02 / 04</span>
+                <h3>Bumble × Skill Snack</h3>
                 <p>A low-pressure conversation feature that turns shared interests into reasons to start talking.</p>
-                <ul class="project-tags" aria-label="Project skills"><li>Cross-Platform App</li><li>UI Design</li><li>Micro-interactions</li></ul>
+                <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
+              <div class="feature-media feature-media-bumble">
+                <img class="bumble-screen bumble-screen-primary" src="./projects/bumble-skill-snack/cover/bumble-cover-primary.svg" alt="Bumble Skill Snack mobile interface">
+                <img class="bumble-screen bumble-screen-secondary" src="./projects/bumble-skill-snack/cover/bumble-cover-secondary.svg" alt="" aria-hidden="true">
+              </div>
+              <ul class="feature-keywords" aria-label="Project skills"><li>Cross-Platform App</li><li>UI Design</li><li>Micro-interactions</li></ul>
             </a>
           </article>
 
-          <article class="project-card project-impress" data-project data-tags="learning conversational ux instruction mobile art ai">
-            <a class="project-link" href="/projects/impresschat" aria-label="View ImpressChat project">
-              <div class="project-visual">
-                <span class="project-number">03</span>
-                <img class="impress-art" src="/projects/impresschat/cover/impresschat-cover-painting.png" alt="Impression, Sunrise by Claude Monet">
-                <img class="impress-phone" src="/projects/impresschat/cover/impresschat-cover-phone.png" alt="ImpressChat learning experience on a mobile phone">
-              </div>
-              <div class="project-content">
-                <div class="project-title-row"><h3>ImpressChat</h3><span class="arrow-button" aria-hidden="true">↗</span></div>
+          <article class="project-feature project-impress" data-project>
+            <a class="project-feature-link" href="/projects/impresschat">
+              <div class="feature-copy">
+                <span class="feature-index">03 / 04</span>
+                <h3>ImpressChat</h3>
                 <p>A conversational art-learning experience that turns close looking into active reasoning.</p>
-                <ul class="project-tags" aria-label="Project skills"><li>Mobile App</li><li>Interaction Design</li><li>Instructional Design</li></ul>
+                <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
+              <div class="feature-media feature-media-impress">
+                <img class="impress-art" src="./projects/impresschat/cover/impresschat-cover-painting.png" alt="Impression, Sunrise by Claude Monet">
+                <img class="impress-phone" src="./projects/impresschat/cover/impresschat-cover-phone.png" alt="ImpressChat learning experience on a mobile phone">
+              </div>
+              <ul class="feature-keywords" aria-label="Project skills"><li>Mobile App</li><li>Interaction Design</li><li>Instructional Design</li></ul>
             </a>
           </article>
 
-          <article class="project-card project-pagelens" data-project data-tags="accessibility ai ar ux research design ethics reading">
-            <a class="project-link" href="/projects/pagelens" aria-label="View PageLens project">
-              <div class="project-visual">
-                <span class="project-number">04</span>
-                <div class="pagelens-device"><img src="/projects/pagelens/cover/pagelens-cover.png" alt="PageLens tablet reading companion mounted above a physical book"></div>
-              </div>
-              <div class="project-content">
-                <div class="project-title-row"><h3>PageLens</h3><span class="arrow-button" aria-hidden="true">↗</span></div>
+          <article class="project-feature project-pagelens" data-project>
+            <a class="project-feature-link" href="/projects/pagelens">
+              <div class="feature-copy">
+                <span class="feature-index">04 / 04</span>
+                <h3>PageLens</h3>
                 <p>An AI-powered AR companion that helps physical books adapt to every reader.</p>
-                <ul class="project-tags" aria-label="Project skills"><li>Physical + Digital</li><li>Accessibility Design</li><li>UX Research</li></ul>
+                <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
+              <div class="feature-media feature-media-pagelens">
+                <img src="./projects/pagelens/cover/pagelens-cover.png" alt="PageLens tablet reading companion mounted above a physical book">
+              </div>
+              <ul class="feature-keywords" aria-label="Project skills"><li>Physical + Digital</li><li>Accessibility Design</li><li>UX Research</li></ul>
             </a>
           </article>
-
-          <div class="coverflow-controls" aria-label="Project navigation">
-            <button class="coverflow-arrow" id="coverflow-prev" type="button" aria-label="Previous project">←</button>
-            <div class="coverflow-dots">
-              <button class="is-active" type="button" data-coverflow-index="0" aria-label="Show KB Tutor" aria-pressed="true">01</button>
-              <button type="button" data-coverflow-index="1" aria-label="Show Bumble Skill Snack" aria-pressed="false">02</button>
-              <button type="button" data-coverflow-index="2" aria-label="Show ImpressChat" aria-pressed="false">03</button>
-              <button type="button" data-coverflow-index="3" aria-label="Show PageLens" aria-pressed="false">04</button>
-            </div>
-            <button class="coverflow-arrow" id="coverflow-next" type="button" aria-label="Next project">→</button>
-          </div>
         </div>
 
       </section>

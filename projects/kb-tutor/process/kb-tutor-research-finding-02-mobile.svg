@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="346" viewBox="0 0 360 346" role="img" aria-labelledby="title">
+  <title id="title">Working backward from a known outcome to a missing cause</title>
+  <rect width="360" height="346" rx="18" fill="#f1f6fc"/>
+  <rect x="18" y="18" width="324" height="101" rx="13" fill="#fff" stroke="#a7c9f1"/>
+  <text x="38" y="47" fill="#0066cc" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="1">KNOWN OUTCOME</text>
+  <rect x="38" y="67" width="187" height="10" rx="5" fill="#88b7ee"/>
+  <rect x="38" y="88" width="263" height="8" rx="4" fill="#cbd7e5"/>
+  <path d="M180 131v83" stroke="#0066cc" stroke-width="2.5" stroke-dasharray="7 7" stroke-linecap="round"/>
+  <path d="m173 206 7 9 7-9" fill="none" stroke="#0066cc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="180" cy="172" r="25" fill="#fff" stroke="#a7c9f1" stroke-width="2"/>
+  <text x="180" y="181" text-anchor="middle" fill="#0066cc" font-family="Arial, sans-serif" font-size="27" font-weight="700">?</text>
+  <rect x="18" y="227" width="324" height="101" rx="13" fill="#fff" stroke="#c1cbd6" stroke-dasharray="6 6"/>
+  <text x="38" y="256" fill="#687685" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing=".6">BIOLOGICAL RELATIONSHIP</text>
+  <rect x="38" y="274" width="78" height="29" rx="14" fill="#edf0f4"/>
+  <rect x="125" y="274" width="86" height="29" rx="14" fill="#edf0f4"/>
+  <rect x="220" y="274" width="80" height="29" rx="14" fill="#edf0f4"/>
+  <text x="77" y="293" text-anchor="middle" fill="#697583" font-family="Arial, sans-serif" font-size="12" font-weight="600">gradient</text>
+  <text x="168" y="293" text-anchor="middle" fill="#697583" font-family="Arial, sans-serif" font-size="12" font-weight="600">transport</text>
+  <text x="260" y="293" text-anchor="middle" fill="#697583" font-family="Arial, sans-serif" font-size="12" font-weight="600">energy</text>
+</svg>
