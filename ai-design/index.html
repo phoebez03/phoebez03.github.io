@@ -15,9 +15,9 @@
     <meta name="description" content="A playground for AI design and service design by Phoebe Zhang.">
     <meta property="og:title" content="Playground — Phoebe Zhang">
     <meta property="og:description" content="AI design and service design experiments by Phoebe Zhang.">
-    <link rel="stylesheet" href="/ai-design/ai-design.css?v=19">
+    <link rel="stylesheet" href="/ai-design/ai-design.css?v=20">
     <script defer src="/vendor/gsap.min.js"></script>
-    <script defer src="/ai-design/ai-design.js?v=8"></script>
+    <script defer src="/ai-design/ai-design.js?v=9"></script>
   <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=3"/>
 <link rel="shortcut icon" href="/favicon.ico?v=3"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3"/>
@@ -111,10 +111,38 @@
       </section>
 
       <section class="service-design-anchor" id="service-design" aria-labelledby="service-design-title">
-        <h2 id="service-design-title">Service Design</h2>
-        <div class="service-coming-soon" role="status">
-          <span>Coming soon</span>
-          <p>Service design projects are being prepared.</p>
+        <div class="service-design-intro">
+          <p class="project-index">Project 03 · Service Design</p>
+          <h2 id="service-design-title">Service Design</h2>
+          <h3>Amazon Prime</h3>
+          <p>A six-slide look at how Prime reshapes Amazon’s product-service system across shopping, grocery, and entertainment.</p>
+          <a class="service-pdf-link" href="/ai-design/media/amazon-prime-service-design.pdf" target="_blank" rel="noopener">View the full PDF <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="service-slide-deck" data-service-slides aria-label="Amazon Prime service design presentation">
+          <div class="service-slide-stage" id="amazon-prime-slides" tabindex="0" aria-label="Amazon Prime slides; use the arrow keys to change slides">
+            <figure class="service-slide is-active"><img src="/ai-design/media/amazon-prime-service-design-slide-01.webp" alt="Cover of Phoebe Zhang’s Amazon Prime service design presentation" width="1600" height="900"></figure>
+            <figure class="service-slide"><img src="/ai-design/media/amazon-prime-service-design-slide-02.webp" alt="Diagram comparing Amazon’s shopping-focused system before Prime with its broader membership system" width="1600" height="900" loading="lazy"></figure>
+            <figure class="service-slide"><img src="/ai-design/media/amazon-prime-service-design-slide-03.webp" alt="Diagram showing shared Prime membership value across shopping, grocery, and entertainment" width="1600" height="900" loading="lazy"></figure>
+            <figure class="service-slide"><img src="/ai-design/media/amazon-prime-service-design-slide-04.webp" alt="DART diagram of dialogue, access, risk assessment, and transparency in Prime’s co-created value" width="1600" height="900" loading="lazy"></figure>
+            <figure class="service-slide"><img src="/ai-design/media/amazon-prime-service-design-slide-05.webp" alt="Value-exchange map connecting Prime members, Amazon, and partners" width="1600" height="900" loading="lazy"></figure>
+            <figure class="service-slide"><img src="/ai-design/media/amazon-prime-service-design-slide-06.webp" alt="Customer journey through Prime shopping, grocery, entertainment, and shared platform services" width="1600" height="900" loading="lazy"></figure>
+          </div>
+          <div class="service-slide-controls">
+            <div class="service-slide-position" aria-live="polite"><span data-slide-number>01</span><span class="service-slide-total"> / 06</span><strong data-slide-title>Amazon Prime</strong></div>
+            <div class="service-slide-actions">
+              <a data-slide-open href="/ai-design/media/amazon-prime-service-design-slide-01.webp" target="_blank" rel="noopener" aria-label="Open current slide at full size">View full size ↗</a>
+              <button type="button" data-slide-prev aria-controls="amazon-prime-slides" aria-label="Previous slide">←</button>
+              <button type="button" data-slide-next aria-controls="amazon-prime-slides" aria-label="Next slide">→</button>
+            </div>
+          </div>
+          <div class="service-slide-index" role="group" aria-label="Choose a slide">
+            <button type="button" class="is-active" data-slide-index="0" aria-label="Slide 1: Amazon Prime" aria-current="true">01</button>
+            <button type="button" data-slide-index="1" aria-label="Slide 2: Reconfiguring the system">02</button>
+            <button type="button" data-slide-index="2" aria-label="Slide 3: Density of value">03</button>
+            <button type="button" data-slide-index="3" aria-label="Slide 4: DART co-creation">04</button>
+            <button type="button" data-slide-index="4" aria-label="Slide 5: Value exchange">05</button>
+            <button type="button" data-slide-index="5" aria-label="Slide 6: Customer journey">06</button>
+          </div>
         </div>
       </section>
 

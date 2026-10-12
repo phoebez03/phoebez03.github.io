@@ -94,7 +94,7 @@ Use KB Tutor as the reference implementation for shared hierarchy, components, a
 - Match KB Tutor's compact one-line H3 section headings; use 18px card headings and 15px muted descriptions, with text left and visuals right on desktop.
 - Predict, Observe, Explain, and Feedback belong inside one visibly bounded Structured chat container.
 - Use a single walkthrough and minimal Impact metrics. Keep stage descriptions visible without hover, and let section heights adapt to their content.
-- Portrait highlight cards are narrower than landscape-artifact cards: approximately 660px total width, with a 280px image column.
+- The learning journey follows the page's vertical scroll through all four stages. Keep text left and visuals right on desktop; stack each stage and its three-screen groups vertically on phones so no stage requires a sideways swipe.
 
 ### PageLens
 

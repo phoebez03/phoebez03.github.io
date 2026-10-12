@@ -696,7 +696,10 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
 }
 
 @media (max-width: 680px) {
-  .global-nav nav a { display: none; }
+  .global-nav .nav-inner { padding-inline: 12px; gap: 10px; }
+  .global-nav .brand { font-size: 11px; white-space: nowrap; }
+  .global-nav nav { gap: 10px; font-size: 11px; }
+  .global-nav nav a { display: inline-block; white-space: nowrap; }
   .homepage-hero { padding: 72px 22px 36px; }
   .hero-composition { gap: 12px; padding-bottom: 12px; }
   .hero-note { box-shadow: 0 12px 30px rgba(29, 29, 31, 0.09); }

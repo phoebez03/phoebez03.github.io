@@ -326,7 +326,7 @@
           <p class="case-section-label">Design</p>
           <h3 class="bumble-v2-section-title" id="bumble-design-heading">I designed experience flows</h3>
         </header>
-        <div class="bumble-v2-carousel">
+        <div class="bumble-v2-carousel bumble-v2-vertical">
           <div class="bumble-v2-track" role="list">
             <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-free-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Free user flow</span><h3>Let free users experience the value before asking them to upgrade.</h3><p>Free users can discover Skill Snack matches and start conversations, but customization and deeper skill content remain limited.</p></div><figure class="bumble-v2-natural-visual bumble-v2-free-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--blur"><span>02</span><strong>Some skill information is blurred on profiles</strong></div><div class="bumble-v2-free-flow-art"><svg class="bumble-v2-art-crop" viewBox="1649 0 1959 872" role="img" aria-label="Bumble Skill Snack free-user flow across five mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callouts-bottom"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--customize"><span>01</span><strong>Cannot customize the skills they want to teach or learn</strong></div><div class="bumble-v2-flow-callout bumble-v2-flow-callout--video"><span>03</span><strong>Cannot access the full skill video</strong></div></div></figure></article>
             <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-premium-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Premium user flow</span><h3>Premium gives users more control over the experience.</h3><p>This makes Skill Snack feel more intentional: users can shape the kinds of conversations they want instead of relying only on default recommendations.</p></div><figure class="bumble-v2-natural-visual bumble-v2-premium-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-premium-callout--content"><span>02</span><strong>View the full Skill Snack content on a match’s profile</strong></div><div class="bumble-v2-premium-flow-art"><svg class="bumble-v2-art-crop" viewBox="3752 0 1600 872" role="img" aria-label="Bumble Skill Snack premium-user flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callout bumble-v2-premium-callout--personalize"><span>01</span><strong>Personalize both sides of the exchange</strong></div></figure></article>
@@ -341,7 +341,7 @@
           <p class="case-section-label">Test + iterate</p>
           <h3 class="bumble-v2-section-title" id="bumble-test-heading">I refined trust and expanded the system.</h3>
         </header>
-        <div class="bumble-v2-carousel">
+        <div class="bumble-v2-carousel bumble-v2-vertical">
           <div class="bumble-v2-track" role="list">
             <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact" role="listitem"><div class="bumble-v2-card-copy"><span>Safety</span><h3>Add guardrails before sharing skills</h3><p>Testing made me realize users could enter joke, inappropriate, or low-quality skills (e.g. “I’m good at farting”).</p><p>I added a safety check before publishing to catch content that could make the experience feel unsafe or unserious.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-iteration-safety-flow.svg" alt="Bumble Skill Snack verification and safety-check flow across six mobile screens" loading="lazy"></figure></article>
             <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact bumble-v2-platform-card" role="listitem"><div class="bumble-v2-card-copy"><span>System expansion</span><h3>Keep one feature consistent across platforms</h3><p>After validating the core flow, I expanded Skill Snack across iOS, Android, and Apple Watch.</p><p>The challenge was keeping the same interaction logic while adapting the experience to each platform’s conventions.</p></div><div class="bumble-v2-platform-comparison" aria-label="Android, iOS, and Apple Watch Skill Snack comparison"><figure class="is-mobile-platforms"><div class="bumble-v2-platform-labels"><span>Android</span><span>iOS</span></div><img src="/projects/bumble-skill-snack/process/bumble-system-platform-comparison.svg" alt="Native Android and iOS Skill Snack verification flows shown side by side" loading="lazy"></figure><figure class="is-watch"><figcaption>Apple Watch</figcaption><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/bumble-decision-apple-watch-poster.jpg"><source src="/projects/bumble-skill-snack/media/bumble-decision-apple-watch.mp4" type="video/mp4"></video></figure></div></article>
@@ -380,14 +380,14 @@
       walkthroughSlot.appendChild(walkthroughPhone);
     }
 
-    story.querySelectorAll('.bumble-v2-track').forEach((track, index) => {
-      const labels = ['research artifact', 'design use case', 'iteration'];
+    story.querySelectorAll('.bumble-v2-carousel:not(.bumble-v2-vertical) .bumble-v2-track').forEach((track) => {
+      const label = 'research artifact';
       addHorizontalControls(track, {
-        label: `Bumble ${labels[index]} cards`,
+        label: `Bumble ${label} cards`,
         itemSelector: '.bumble-v2-card',
         controlsClass: 'bumble-v2-controls',
-        previousLabel: `Show previous ${labels[index]}`,
-        nextLabel: `Show next ${labels[index]}`,
+        previousLabel: `Show previous ${label}`,
+        nextLabel: `Show next ${label}`,
       });
     });
 
@@ -772,7 +772,7 @@
 
     const highlights = page.querySelector('.product-story');
     const highlightIntro = highlights?.querySelector('.case-section-intro');
-    if (highlights) highlights.classList.add('impress-highlights');
+    if (highlights) highlights.classList.add('impress-highlights', 'impress-vertical-journey');
     highlightIntro?.querySelector('.case-section-label')?.remove();
     setTextIfNeeded(highlightIntro?.querySelector('h2'), 'The learning journey');
     Array.from(highlightIntro?.querySelectorAll('p') || []).forEach((paragraph) => paragraph.remove());
@@ -826,7 +826,7 @@
       });
       const carousel = document.createElement('div');
       carousel.className = 'impress-highlight-carousel';
-      screenWall.classList.add('impress-highlight-track');
+      screenWall.classList.add('impress-highlight-track', 'is-vertical');
       screenWall.setAttribute('role', 'list');
       screenWall.querySelectorAll('.impress-screen-card').forEach((card, index) => {
         card.setAttribute('role', 'listitem');
@@ -836,13 +836,6 @@
       });
       screenWall.before(carousel);
       carousel.appendChild(screenWall);
-      addHorizontalControls(screenWall, {
-        label: 'ImpressChat product highlights',
-        itemSelector: '.impress-screen-card',
-        controlsClass: 'impress-highlight-controls',
-        previousLabel: 'Show previous ImpressChat screen',
-        nextLabel: 'Show next ImpressChat screen',
-      });
     }
 
     const impact = page.querySelector('.impress-impact');
@@ -2821,8 +2814,6 @@
       const caseRevealPlans = [
         ['.bumble-v2-problem', '.bumble-v2-section-heading', '.bumble-v2-problem-grid'],
         ['#bumble-research', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
-        ['#bumble-design', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
-        ['#bumble-test', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
         ['.bumble-v2-impact', '.bumble-v2-impact-summary > .case-section-label', '.bumble-v2-impact-metrics, .mobile-walkthrough-panel'],
         ['.impress-problem', '.case-section-intro', '.impress-learning-loops'],
         ['.impress-process', '.case-section-intro', '.mvp-timeline, .mvp-process-controls'],
@@ -2838,6 +2829,7 @@
 
       caseRevealPlans.forEach(([sectionSelector, headingSelector, contentSelector], index) => {
         document.querySelectorAll(sectionSelector).forEach((section, sectionIndex) => {
+          if (section.classList.contains('impress-vertical-journey')) return;
           // A chapter already above a deep link needs no entrance tween. Creating
           // one there can immediately dispose its trigger during initialization.
           if (section.closest('.kb-case-redesign') && section.getBoundingClientRect().bottom < 0) return;

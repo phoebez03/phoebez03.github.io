@@ -319,7 +319,10 @@ figure, h1, h2, h3, p { margin-top: 0; }
 }
 
 @media (max-width: 640px) {
-  .global-nav nav a { display: none; }
+  .global-nav .nav-inner { padding-inline: 12px; gap: 10px; }
+  .global-nav .brand { font-size: 11px; white-space: nowrap; }
+  .global-nav nav { gap: 10px; font-size: 11px; }
+  .global-nav nav a { display: inline-block; white-space: nowrap; }
   .about-hero h1 { font-size: clamp(36px, 10vw, 48px); }
   .about-hero-copy > .about-intro { margin-top: 28px; font-size: 20px; }
   .about-portrait { width: min(76vw, 360px); min-height: 0; height: auto; margin-bottom: 52px; }

@@ -4621,7 +4621,10 @@ body * { text-transform: none !important; }
 html.kb-apple .site-progress { height: 2px; background: var(--kb-blue, #0066cc); }
 
 @media (max-width: 850px) {
-  .case-page .site-header nav a:not(.contact-link):not(.active) { display: none; }
+  .case-page > .case-site-header { padding-inline: 12px; }
+  .case-page .site-logo { font-size: 11px; white-space: nowrap; }
+  .case-page .site-header nav { gap: 10px; font-size: 11px; }
+  .case-page .site-header nav a:not(.contact-link):not(:first-child) { display: inline-block; white-space: nowrap; }
   .case-page .case-hero { padding-top: 56px; }
   .case-page .case-title-grid,
   .case-page .case-section-intro,
@@ -12843,4 +12846,167 @@ html .site-progress {
   .case-page.kb-case-redesign .kb-teacher-step { grid-template-columns: 1fr; gap: 24px; }
   .case-page.kb-case-redesign .kb-teacher-step-copy p { max-width: 65ch; }
   .case-page.kb-case-redesign .kb-note-highlight { left: 40%; right: auto; width: 57%; }
+}
+
+/* Design and iteration read in page order, without a sideways card track. */
+.case-page.bumble-case.bumble-iteration-v2 .bumble-v2-vertical .bumble-v2-track {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 40px);
+  overflow: visible;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-v2-vertical .bumble-v2-card.bumble-v2-card--wide {
+  width: 100%;
+  scroll-snap-align: none;
+}
+
+@media (max-width: 620px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-v2-vertical .bumble-v2-platform-card {
+    grid-template-rows: auto auto;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-v2-vertical .bumble-v2-platform-card > .bumble-v2-platform-comparison {
+    height: auto;
+    overflow: visible;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-v2-vertical .bumble-v2-platform-card > .bumble-v2-platform-comparison figure.is-watch {
+    min-height: 300px;
+  }
+}
+
+/* ImpressChat learning stages follow the page's vertical reading order. */
+.case-page.impress-case.impress-refined .impress-highlights.impress-vertical-journey {
+  display: block;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+  padding-block: clamp(64px, 7vw, 104px) !important;
+}
+
+.case-page.impress-case.impress-refined .impress-vertical-journey .impress-highlight-carousel {
+  display: block;
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  width: 100%;
+  padding: 0;
+  overflow: visible;
+  scroll-snap-type: none;
+  cursor: auto;
+  touch-action: auto;
+  user-select: auto;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-screen-card:nth-child(n) {
+  display: grid;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: clamp(32px, 4vw, 56px) 0;
+  grid-template-columns: minmax(220px, 0.32fr) minmax(0, 0.68fr);
+  grid-template-rows: auto;
+  align-items: center;
+  gap: clamp(28px, 5vw, 72px);
+  overflow: visible;
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--case-hairline) !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  scroll-snap-align: none;
+  scroll-snap-stop: normal;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-screen-card figcaption {
+  padding: 0;
+  align-self: center;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-screen-card figcaption h3 {
+  white-space: normal;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  padding: clamp(18px, 2.5vw, 32px);
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  overflow: visible;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-svg-poster img,
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-svg-poster.case-expandable-visual img {
+  display: block;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: min(56vw, 460px) !important;
+  max-height: none !important;
+  object-fit: contain;
+  transform: none;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-row {
+  display: grid;
+  width: 100%;
+  height: auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 12px;
+}
+
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-multi-screen img,
+.case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-multi-screen.case-expandable-visual img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: min(42vw, 410px) !important;
+  max-height: none !important;
+}
+
+@media (max-width: 850px) {
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-screen-card:nth-child(n) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-multi-screen {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 620px) {
+  .case-page.impress-case.impress-refined .impress-highlights.impress-vertical-journey {
+    padding-block: 64px !important;
+  }
+
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-screen-card:nth-child(n) {
+    padding: 32px 0;
+  }
+
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-svg-poster img,
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-svg-poster.case-expandable-visual img,
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-multi-screen img,
+  .case-page.impress-case.impress-refined .impress-highlight-track.is-vertical .impress-phone-frame.is-multi-screen.case-expandable-visual img {
+    height: min(115vw, 430px) !important;
+  }
 }
