@@ -95,73 +95,9 @@
     });
 
     placeCards();
+    showcase.classList.add('is-enhanced');
     restartAutoplay();
   });
-
-  const serviceDeck = document.querySelector('[data-service-slides]');
-  if (serviceDeck) {
-    const slides = Array.from(serviceDeck.querySelectorAll('.service-slide'));
-    const slideButtons = Array.from(serviceDeck.querySelectorAll('[data-slide-index]'));
-    const slideNumber = serviceDeck.querySelector('[data-slide-number]');
-    const slideTitle = serviceDeck.querySelector('[data-slide-title]');
-    const fullSizeLink = serviceDeck.querySelector('[data-slide-open]');
-    const previous = serviceDeck.querySelector('[data-slide-prev]');
-    const next = serviceDeck.querySelector('[data-slide-next]');
-    const stage = serviceDeck.querySelector('.service-slide-stage');
-    const titles = [
-      'Amazon Prime',
-      'Reconfiguring the system',
-      'Density of value',
-      'DART and co-creation',
-      'Value exchange',
-      'Customer journey'
-    ];
-    let current = 0;
-    let touchStart = null;
-
-    const showSlide = (index) => {
-      current = Math.max(0, Math.min(index, slides.length - 1));
-      slides.forEach((slide, slideIndex) => {
-        const active = slideIndex === current;
-        slide.classList.toggle('is-active', active);
-        slide.setAttribute('aria-hidden', String(!active));
-      });
-      slideButtons.forEach((button, buttonIndex) => {
-        const active = buttonIndex === current;
-        button.classList.toggle('is-active', active);
-        if (active) button.setAttribute('aria-current', 'true');
-        else button.removeAttribute('aria-current');
-      });
-      slideNumber.textContent = String(current + 1).padStart(2, '0');
-      slideTitle.textContent = titles[current];
-      fullSizeLink.href = slides[current].querySelector('img').src;
-      fullSizeLink.setAttribute('aria-label', `Open slide ${current + 1} at full size`);
-      previous.disabled = current === 0;
-      next.disabled = current === slides.length - 1;
-    };
-
-    previous.addEventListener('click', () => showSlide(current - 1));
-    next.addEventListener('click', () => showSlide(current + 1));
-    slideButtons.forEach((button, index) => button.addEventListener('click', () => showSlide(index)));
-    serviceDeck.addEventListener('keydown', (event) => {
-      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-      event.preventDefault();
-      showSlide(current + (event.key === 'ArrowRight' ? 1 : -1));
-    });
-    stage.addEventListener('touchstart', (event) => {
-      if (event.touches.length === 1) touchStart = { x: event.touches[0].clientX, y: event.touches[0].clientY };
-    }, { passive: true });
-    stage.addEventListener('touchend', (event) => {
-      if (!touchStart || event.changedTouches.length !== 1) return;
-      const deltaX = event.changedTouches[0].clientX - touchStart.x;
-      const deltaY = event.changedTouches[0].clientY - touchStart.y;
-      if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY)) showSlide(current + (deltaX < 0 ? 1 : -1));
-      touchStart = null;
-    }, { passive: true });
-
-    showSlide(0);
-    serviceDeck.classList.add('is-enhanced');
-  }
 
   const paintingGallery = document.querySelector('[data-painting-gallery]');
   if (!paintingGallery) return;
