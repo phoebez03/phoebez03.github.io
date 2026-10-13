@@ -102,82 +102,187 @@
   const paintingGallery = document.querySelector('[data-painting-gallery]');
   if (!paintingGallery) return;
 
-  const paintingTiles = Array.from(paintingGallery.querySelectorAll('.painting-tile'));
-  if (reduceMotion || !window.gsap || !('IntersectionObserver' in window)) {
+  const reel = document.querySelector('[data-painting-reel]');
+  const paintingSection = paintingGallery.closest('.painting-showcase');
+  const canvas = reel?.querySelector('canvas');
+  const context = canvas?.getContext('2d', { alpha: false });
+  const paintingSources = Array.from(paintingGallery.querySelectorAll('img'), (image) => image.src);
+
+  if (reduceMotion || !context || !('Path2D' in window) || !('IntersectionObserver' in window) || paintingSources.length < 2) {
     paintingGallery.classList.add('is-landed');
     return;
   }
 
-  const { gsap } = window;
-  const rotations = [-4.5, 3.2, -2.4, 4.1, 2.8, -3.6, 3.8, -2.9];
-  const jitterX = [-52, 28, 58, -24, 42, -44, 18, 54];
-  const jitterY = [34, -38, 18, 48, -28, 30, -46, 12];
-  const galleryBounds = paintingGallery.getBoundingClientRect();
-  const galleryCenterX = galleryBounds.left + galleryBounds.width / 2;
-  const galleryCenterY = galleryBounds.top + galleryBounds.height / 2;
+  const prepareReel = () => Promise.all(paintingSources.map((source) => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = source;
+  }))).then((paintings) => {
+    const panels = paintings.map((image) => {
+      const scale = Math.min(1, 1000 / image.naturalWidth, 800 / image.naturalHeight);
+      const panel = document.createElement('canvas');
+      panel.width = Math.round(image.naturalWidth * scale);
+      panel.height = Math.round(image.naturalHeight * scale);
+      panel.getContext('2d').drawImage(image, 0, 0, panel.width, panel.height);
+      return panel;
+    });
+    let width = 0;
+    let height = 0;
+    let panelWidth = 0;
+    let offset = 0;
+    let inView = false;
+    let dragging = false;
+    let dragStartX = 0;
+    let dragStartOffset = 0;
+    let pauseUntil = 0;
+    let lastFrame = 0;
+    let frameRequest = 0;
 
-  const startStates = paintingTiles.map((tile, index) => {
-    const bounds = tile.getBoundingClientRect();
-    return {
-      x: galleryCenterX - (bounds.left + bounds.width / 2) + jitterX[index],
-      y: galleryCenterY - (bounds.top + bounds.height / 2) + jitterY[index],
-      rotation: rotations[index],
-      scale: 0.84 + (index % 3) * 0.025
+    const edgeAt = (x) => {
+      const distance = Math.abs((x - width / 2) / (width / 2));
+      const centerHalf = height * (width < 640 ? 0.27 : 0.20);
+      return centerHalf + (height * 0.46 - centerHalf) * Math.pow(distance, 1.7);
     };
-  });
 
-  paintingTiles.forEach((tile, index) => {
-    gsap.set(tile, {
-      autoAlpha: 0,
-      x: startStates[index].x,
-      y: startStates[index].y,
-      rotation: startStates[index].rotation,
-      scale: startStates[index].scale,
-      transformOrigin: '50% 50%'
-    });
-  });
+    const positionAt = (x) => {
+      const centered = x - width / 2;
+      const distance = centered / (width / 2);
+      return offset + centered * (0.82 + 0.18 * distance * distance);
+    };
 
-  const paintingTimeline = gsap.timeline({
-    paused: true,
-    onComplete: () => {
-      gsap.set(paintingTiles, { clearProps: 'transform,opacity,visibility' });
-      paintingGallery.classList.add('is-landed');
-    }
-  });
+    const draw = () => {
+      if (!width || !height) return;
+      context.fillStyle = '#fff';
+      context.fillRect(0, 0, width, height);
 
-  paintingTiles.forEach((tile, index) => {
-    const start = startStates[index];
-    const tileTimeline = gsap.timeline();
+      const path = new Path2D();
+      for (let x = 0; x <= width; x += 6) {
+        const edge = edgeAt(x);
+        if (x === 0) path.moveTo(x, height / 2 - edge);
+        else path.lineTo(x, height / 2 - edge);
+      }
+      path.lineTo(width, height / 2 - edgeAt(width));
+      for (let x = width; x >= 0; x -= 6) path.lineTo(x, height / 2 + edgeAt(x));
+      path.closePath();
 
-    tileTimeline
-      .to(tile, {
-        autoAlpha: 1,
-        x: start.x * 0.34,
-        y: start.y * 0.34,
-        rotation: start.rotation * 0.35,
-        scale: 0.95,
-        duration: 1.1,
-        ease: 'sine.inOut'
-      })
-      .to(tile, {
-        x: 0,
-        y: 0,
-        rotation: 0,
-        scale: 1,
-        duration: 1.35,
-        ease: 'power3.out'
+      context.save();
+      context.clip(path);
+      const cycle = panels.length * panelWidth;
+      const seams = [];
+      let lastPanel = -1;
+      for (let x = 0; x < width; x += 2) {
+        const position = ((positionAt(x) % cycle) + cycle) % cycle;
+        const panel = Math.floor(position / panelWidth);
+        if (lastPanel !== -1 && panel !== lastPanel) seams.push(x);
+        lastPanel = panel;
+
+        const image = panels[panel];
+        const inside = position - panel * panelWidth;
+        const sourceX = inside / panelWidth * image.width;
+        const sampleWidth = Math.min(image.width - sourceX, Math.max(1, (positionAt(x + 2) - positionAt(x)) / panelWidth * image.width));
+        const edge = edgeAt(x);
+        context.drawImage(image, sourceX, 0, sampleWidth, image.height, x, height / 2 - edge, 3, edge * 2);
+      }
+
+      context.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+      context.lineWidth = 2;
+      seams.forEach((x) => {
+        const edge = edgeAt(x);
+        context.beginPath();
+        context.moveTo(x, height / 2 - edge);
+        context.lineTo(x, height / 2 + edge);
+        context.stroke();
       });
+      context.restore();
 
-    paintingTimeline.add(tileTimeline, index * 0.12);
+      context.strokeStyle = 'rgba(41, 41, 44, 0.2)';
+      context.lineWidth = 1;
+      context.stroke(path);
+    };
+
+    const resize = () => {
+      const bounds = reel.getBoundingClientRect();
+      width = bounds.width;
+      height = bounds.height;
+      if (!width || !height) return;
+      const density = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.round(width * density);
+      canvas.height = Math.round(height * density);
+      context.setTransform(density, 0, 0, density, 0, 0);
+      panelWidth = Math.max(160, Math.min(380, width * 0.34));
+      draw();
+    };
+
+    const animate = (now) => {
+      if (!inView || document.hidden) {
+        frameRequest = 0;
+        lastFrame = 0;
+        return;
+      }
+      if (!lastFrame || now - lastFrame >= 33) {
+        if (lastFrame && !dragging && now > pauseUntil) offset += panelWidth / 5.5 * Math.min((now - lastFrame) / 1000, 0.1);
+        draw();
+        lastFrame = now;
+      }
+      frameRequest = window.requestAnimationFrame(animate);
+    };
+
+    const startAnimation = () => {
+      if (!frameRequest && inView && !document.hidden) frameRequest = window.requestAnimationFrame(animate);
+    };
+
+    reel.addEventListener('pointerdown', (event) => {
+      dragging = true;
+      dragStartX = event.clientX;
+      dragStartOffset = offset;
+      reel.classList.add('is-dragging');
+      reel.setPointerCapture(event.pointerId);
+    });
+    reel.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      offset = dragStartOffset - (event.clientX - dragStartX);
+      draw();
+    });
+    const stopDragging = () => {
+      dragging = false;
+      pauseUntil = performance.now() + 4000;
+      reel.classList.remove('is-dragging');
+    };
+    reel.addEventListener('pointerup', stopDragging);
+    reel.addEventListener('pointercancel', stopDragging);
+    reel.addEventListener('wheel', (event) => {
+      offset += event.deltaY * 0.35 + event.deltaX * 0.8;
+      pauseUntil = performance.now() + 4000;
+      draw();
+    }, { passive: true });
+    reel.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      offset += (event.key === 'ArrowRight' ? 1 : -1) * panelWidth * 0.7;
+      pauseUntil = performance.now() + 4000;
+      draw();
+    });
+
+    paintingSection.classList.add('has-reel');
+    offset = Math.max(160, Math.min(380, reel.clientWidth * 0.34)) / 2;
+    resize();
+    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(reel);
+    else window.addEventListener('resize', resize);
+    new IntersectionObserver((entries) => {
+      inView = entries[0].isIntersecting;
+      if (inView) startAnimation();
+    }, { threshold: 0.1 }).observe(reel);
+    document.addEventListener('visibilitychange', startAnimation);
+  }).catch(() => {
+    paintingSection.classList.remove('has-reel');
+    paintingGallery.classList.add('is-landed');
   });
 
-  const paintingObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      paintingTimeline.play(0);
-      observer.unobserve(entry.target);
-    });
-  }, { threshold: 0.18, rootMargin: '0px 0px -4% 0px' });
-
-  paintingObserver.observe(paintingGallery);
+  const loadObserver = new IntersectionObserver((entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+    observer.disconnect();
+    prepareReel();
+  }, { rootMargin: '500px 0px' });
+  loadObserver.observe(paintingSection);
 })();

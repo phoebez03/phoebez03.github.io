@@ -405,11 +405,56 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: -0.045em;
 }
 
+.painting-reel {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 36vw, 460px);
+  margin-top: clamp(24px, 3vw, 40px);
+  overflow: hidden;
+  background: var(--canvas);
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.painting-showcase.has-reel .painting-reel { display: block; }
+.painting-reel.is-dragging { cursor: grabbing; }
+.painting-reel:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+
+.painting-reel canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.painting-reel-hint {
+  display: none;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.painting-showcase.has-reel .painting-reel-hint { display: block; }
+
+.painting-showcase.has-reel .painting-gallery {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .painting-gallery {
   position: relative;
   display: grid;
   margin-top: clamp(32px, 4vw, 48px);
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(12px, 1.6vw, 20px);
   isolation: isolate;
 }
@@ -512,6 +557,7 @@ a { color: inherit; text-decoration: none; }
   .service-design-anchor { padding-block: 56px 72px; }
   .service-fold-showcase .fold-stack { min-height: 0; aspect-ratio: 1.5; }
   .painting-showcase { min-height: 0; padding-block: 52px; }
+  .painting-reel { height: clamp(240px, 80vw, 360px); margin-top: 24px; }
   .painting-gallery { gap: 10px; margin-top: 30px; }
   .painting-tile { border-radius: 14px; }
 

@@ -17,9 +17,8 @@
     <meta name="description" content="A playground for AI design and service design by Phoebe Zhang.">
     <meta property="og:title" content="Playground — Phoebe Zhang">
     <meta property="og:description" content="AI design and service design experiments by Phoebe Zhang.">
-    <link rel="stylesheet" href="/ai-design/ai-design.css?v=21">
-    <script defer src="/vendor/gsap.min.js"></script>
-    <script defer src="/ai-design/ai-design.js?v=10"></script>
+    <link rel="stylesheet" href="/ai-design/ai-design.css?v=22">
+    <script defer src="/ai-design/ai-design.js?v=11"></script>
   <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=3"/>
 <link rel="shortcut icon" href="/favicon.ico?v=3"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3"/>
@@ -136,13 +135,15 @@
 
       <section class="painting-showcase" id="painting" aria-labelledby="painting-title">
         <h2 id="painting-title">Painting</h2>
+        <div class="painting-reel" data-painting-reel role="region" tabindex="0" aria-label="Animated painting reel. Scroll or drag to browse, or use the left and right arrow keys.">
+          <canvas aria-hidden="true"></canvas>
+        </div>
+        <p class="painting-reel-hint">Scroll or drag to explore <span aria-hidden="true">·</span> Use ← → keys</p>
         <div class="painting-gallery" data-painting-gallery aria-label="Painting gallery">
           <figure class="painting-tile"><img src="/about/paintings/painting-waterlilies.jpg" alt="Water lilies painting by Phoebe Zhang" loading="lazy"></figure>
           <figure class="painting-tile"><img src="/about/paintings/painting-sunset-1.jpg" alt="Sunset landscape painting by Phoebe Zhang" loading="lazy"></figure>
-          <figure class="painting-tile"><img src="/about/paintings/painting-brushes.jpg" alt="Paint brushes in Phoebe Zhang’s studio" loading="lazy"></figure>
           <figure class="painting-tile"><img src="/about/paintings/painting-sunset-2.jpg" alt="Sunset study painted by Phoebe Zhang" loading="lazy"></figure>
           <figure class="painting-tile"><img src="/about/paintings/painting-studio.jpg" alt="Blossoming branches painting by Phoebe Zhang" loading="lazy"></figure>
-          <figure class="painting-tile"><img src="/about/paintings/painting-smock.jpg" alt="Phoebe Zhang wearing a paint-covered studio smock" loading="lazy"></figure>
           <figure class="painting-tile"><img src="/about/paintings/painting-starry-night.jpg" alt="Starry Night study painted by Phoebe Zhang" loading="lazy"></figure>
           <figure class="painting-tile"><img src="/about/paintings/painting-water-garden.jpg" alt="Water garden painting by Phoebe Zhang" loading="lazy"></figure>
         </div>
