@@ -104,11 +104,10 @@
 
   const reel = document.querySelector('[data-painting-reel]');
   const paintingSection = paintingGallery.closest('.painting-showcase');
-  const canvas = reel?.querySelector('canvas');
-  const context = canvas?.getContext('2d', { alpha: false });
+  const track = reel?.querySelector('.painting-reel-track');
   const paintingSources = Array.from(paintingGallery.querySelectorAll('img'), (image) => image.src);
 
-  if (reduceMotion || !context || !('Path2D' in window) || !('IntersectionObserver' in window) || paintingSources.length < 2) {
+  if (reduceMotion || !track || !('IntersectionObserver' in window) || paintingSources.length < 2) {
     paintingGallery.classList.add('is-landed');
     return;
   }
@@ -119,99 +118,52 @@
     image.onerror = reject;
     image.src = source;
   }))).then((paintings) => {
-    const panels = paintings.map((image) => {
-      const scale = Math.min(1, 1000 / image.naturalWidth, 800 / image.naturalHeight);
-      const panel = document.createElement('canvas');
-      panel.width = Math.round(image.naturalWidth * scale);
-      panel.height = Math.round(image.naturalHeight * scale);
-      panel.getContext('2d').drawImage(image, 0, 0, panel.width, panel.height);
-      return panel;
+    const cards = paintings.map((image) => {
+      const card = document.createElement('figure');
+      card.className = 'painting-reel-card';
+      image.alt = '';
+      image.draggable = false;
+      card.append(image);
+      track.append(card);
+      return card;
     });
-    let width = 0;
-    let height = 0;
-    let panelWidth = 0;
-    let offset = 0;
+    let cardSize = 0;
+    let spacing = 0;
+    let position = 0;
+    let target = 0;
     let inView = false;
     let dragging = false;
     let dragStartX = 0;
-    let dragStartOffset = 0;
+    let dragStartPosition = 0;
+    let hovering = false;
     let pauseUntil = 0;
     let lastFrame = 0;
     let frameRequest = 0;
 
-    const edgeAt = (x) => {
-      const distance = Math.abs((x - width / 2) / (width / 2));
-      const centerHalf = height * (width < 640 ? 0.27 : 0.20);
-      return centerHalf + (height * 0.46 - centerHalf) * Math.pow(distance, 1.7);
-    };
-
-    const positionAt = (x) => {
-      const centered = x - width / 2;
-      const distance = centered / (width / 2);
-      return offset + centered * (0.82 + 0.18 * distance * distance);
-    };
-
-    const draw = () => {
-      if (!width || !height) return;
-      context.fillStyle = '#fff';
-      context.fillRect(0, 0, width, height);
-
-      const path = new Path2D();
-      for (let x = 0; x <= width; x += 6) {
-        const edge = edgeAt(x);
-        if (x === 0) path.moveTo(x, height / 2 - edge);
-        else path.lineTo(x, height / 2 - edge);
-      }
-      path.lineTo(width, height / 2 - edgeAt(width));
-      for (let x = width; x >= 0; x -= 6) path.lineTo(x, height / 2 + edgeAt(x));
-      path.closePath();
-
-      context.save();
-      context.clip(path);
-      const cycle = panels.length * panelWidth;
-      const seams = [];
-      let lastPanel = -1;
-      for (let x = 0; x < width; x += 2) {
-        const position = ((positionAt(x) % cycle) + cycle) % cycle;
-        const panel = Math.floor(position / panelWidth);
-        if (lastPanel !== -1 && panel !== lastPanel) seams.push(x);
-        lastPanel = panel;
-
-        const image = panels[panel];
-        const inside = position - panel * panelWidth;
-        const sourceX = inside / panelWidth * image.width;
-        const sampleWidth = Math.min(image.width - sourceX, Math.max(1, (positionAt(x + 2) - positionAt(x)) / panelWidth * image.width));
-        const edge = edgeAt(x);
-        context.drawImage(image, sourceX, 0, sampleWidth, image.height, x, height / 2 - edge, 3, edge * 2);
-      }
-
-      context.strokeStyle = 'rgba(255, 255, 255, 0.9)';
-      context.lineWidth = 2;
-      seams.forEach((x) => {
-        const edge = edgeAt(x);
-        context.beginPath();
-        context.moveTo(x, height / 2 - edge);
-        context.lineTo(x, height / 2 + edge);
-        context.stroke();
+    const render = () => {
+      if (!cardSize) return;
+      const cyclePosition = ((position % cards.length) + cards.length) % cards.length;
+      cards.forEach((card, index) => {
+        let distance = index - cyclePosition;
+        if (distance > cards.length / 2) distance -= cards.length;
+        if (distance < -cards.length / 2) distance += cards.length;
+        const depth = Math.abs(distance);
+        const scale = Math.max(0.73, 1 - depth * 0.15);
+        const opacity = Math.max(0, 1 - Math.max(0, depth - 0.4) * 0.3);
+        card.style.transform = `translate3d(calc(-50% + ${distance * spacing}px), -50%, 0) scale(${scale})`;
+        card.style.opacity = String(opacity);
+        card.style.zIndex = String(Math.round((cards.length - depth) * 10));
+        card.style.visibility = depth > 2.6 ? 'hidden' : 'visible';
       });
-      context.restore();
-
-      context.strokeStyle = 'rgba(41, 41, 44, 0.2)';
-      context.lineWidth = 1;
-      context.stroke(path);
     };
 
     const resize = () => {
       const bounds = reel.getBoundingClientRect();
-      width = bounds.width;
-      height = bounds.height;
-      if (!width || !height) return;
-      const density = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = Math.round(width * density);
-      canvas.height = Math.round(height * density);
-      context.setTransform(density, 0, 0, density, 0, 0);
-      panelWidth = Math.max(160, Math.min(380, width * 0.34));
-      draw();
+      if (!bounds.width || !bounds.height) return;
+      cardSize = Math.min(bounds.width < 640 ? 250 : 390, bounds.width * (bounds.width < 640 ? 0.68 : 0.38), bounds.height * 0.78);
+      spacing = cardSize * (bounds.width < 640 ? 0.94 : 1.02);
+      reel.style.setProperty('--painting-card-size', `${cardSize}px`);
+      render();
     };
 
     const animate = (now) => {
@@ -220,11 +172,16 @@
         lastFrame = 0;
         return;
       }
-      if (!lastFrame || now - lastFrame >= 33) {
-        if (lastFrame && !dragging && now > pauseUntil) offset += panelWidth / 5.5 * Math.min((now - lastFrame) / 1000, 0.1);
-        draw();
-        lastFrame = now;
+      const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 0;
+      lastFrame = now;
+      if (!dragging && !hovering && now > pauseUntil) target += elapsed / 5500;
+      if (!dragging) position += (target - position) * Math.min(1, elapsed / 240);
+      if (Math.abs(position) > cards.length * 100) {
+        const cycles = Math.trunc(position / cards.length) * cards.length;
+        position -= cycles;
+        target -= cycles;
       }
+      render();
       frameRequest = window.requestAnimationFrame(animate);
     };
 
@@ -235,37 +192,41 @@
     reel.addEventListener('pointerdown', (event) => {
       dragging = true;
       dragStartX = event.clientX;
-      dragStartOffset = offset;
+      dragStartPosition = position;
       reel.classList.add('is-dragging');
       reel.setPointerCapture(event.pointerId);
     });
     reel.addEventListener('pointermove', (event) => {
       if (!dragging) return;
-      offset = dragStartOffset - (event.clientX - dragStartX);
-      draw();
+      position = dragStartPosition - (event.clientX - dragStartX) / spacing;
+      target = position;
+      render();
     });
     const stopDragging = () => {
+      if (!dragging) return;
       dragging = false;
-      pauseUntil = performance.now() + 4000;
+      target = Math.round(position);
+      pauseUntil = performance.now() + 3000;
       reel.classList.remove('is-dragging');
     };
     reel.addEventListener('pointerup', stopDragging);
     reel.addEventListener('pointercancel', stopDragging);
+    reel.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') hovering = true;
+    });
+    reel.addEventListener('pointerleave', () => { hovering = false; });
     reel.addEventListener('wheel', (event) => {
-      offset += event.deltaY * 0.35 + event.deltaX * 0.8;
-      pauseUntil = performance.now() + 4000;
-      draw();
+      target += (event.deltaX + event.deltaY * 0.35) / Math.max(spacing, 1);
+      pauseUntil = performance.now() + 2500;
     }, { passive: true });
     reel.addEventListener('keydown', (event) => {
       if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
       event.preventDefault();
-      offset += (event.key === 'ArrowRight' ? 1 : -1) * panelWidth * 0.7;
-      pauseUntil = performance.now() + 4000;
-      draw();
+      target = Math.round(target) + (event.key === 'ArrowRight' ? 1 : -1);
+      pauseUntil = performance.now() + 3500;
     });
 
     paintingSection.classList.add('has-reel');
-    offset = Math.max(160, Math.min(380, reel.clientWidth * 0.34)) / 2;
     resize();
     if ('ResizeObserver' in window) new ResizeObserver(resize).observe(reel);
     else window.addEventListener('resize', resize);

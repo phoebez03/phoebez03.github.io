@@ -409,10 +409,12 @@ a { color: inherit; text-decoration: none; }
   display: none;
   position: relative;
   width: 100%;
-  height: clamp(320px, 36vw, 460px);
+  height: clamp(360px, 42vw, 510px);
   margin-top: clamp(24px, 3vw, 40px);
   overflow: hidden;
-  background: var(--canvas);
+  border: 1px solid #e3e5e7;
+  border-radius: 22px;
+  background: radial-gradient(ellipse at 50% 42%, #f7f7f7 0%, #edeeef 72%, #e6e7e9 100%);
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
@@ -422,10 +424,34 @@ a { color: inherit; text-decoration: none; }
 .painting-reel.is-dragging { cursor: grabbing; }
 .painting-reel:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
 
-.painting-reel canvas {
+.painting-reel-track {
+  position: absolute;
+  inset: 0;
+}
+
+.painting-reel-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--painting-card-size);
+  aspect-ratio: 1;
+  margin: 0;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(35, 35, 40, .08);
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 22px 52px rgba(30, 33, 38, .14), 0 3px 12px rgba(30, 33, 38, .07);
+  will-change: transform, opacity;
+}
+
+.painting-reel-card img {
   display: block;
   width: 100%;
   height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .painting-reel-hint {
@@ -476,7 +502,7 @@ a { color: inherit; text-decoration: none; }
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 520ms var(--ease-out);
 }
 
@@ -557,7 +583,9 @@ a { color: inherit; text-decoration: none; }
   .service-design-anchor { padding-block: 56px 72px; }
   .service-fold-showcase .fold-stack { min-height: 0; aspect-ratio: 1.5; }
   .painting-showcase { min-height: 0; padding-block: 52px; }
-  .painting-reel { height: clamp(240px, 80vw, 360px); margin-top: 24px; }
+  .painting-reel { height: clamp(270px, 87vw, 360px); margin-top: 24px; border-radius: 16px; }
+  .painting-reel-card { padding: 8px; border-radius: 12px; }
+  .painting-reel-card img { border-radius: 5px; }
   .painting-gallery { gap: 10px; margin-top: 30px; }
   .painting-tile { border-radius: 14px; }
 
