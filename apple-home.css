@@ -386,23 +386,6 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
 .hero-school-logo img { width: 100%; height: 100%; object-fit: contain; }
 .hero-school-logo-cmu img { position: absolute; left: 50%; width: 191%; max-width: none; transform: translateX(-50%); }
 .hero-school figcaption { color: var(--muted); font-size: 11px; font-weight: 500; line-height: 1.2; letter-spacing: 0.02em; }
-.hero-project-link {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  width: max-content;
-  margin: 0 auto;
-  padding: 8px 2px;
-  color: var(--muted);
-  border-bottom: 1px solid #c5c5ca;
-  font-size: 14px;
-  font-weight: 600;
-  transition: color 200ms ease, border-color 200ms ease;
-}
-.hero-project-link span { color: var(--blue); font-size: 18px; }
-.hero-project-link:hover,
-.hero-project-link:focus-visible { color: var(--ink); border-color: var(--ink); }
-
 .project-section {
   min-height: 100svh;
   padding: clamp(48px, 7vh, 80px) var(--page-pad) clamp(56px, 8vh, 96px);
@@ -557,7 +540,7 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
   transform: translateX(-50%);
 }
 .kb-computer-screen { overflow: hidden; background: #dce9f9; aspect-ratio: 1730 / 1080; }
-.kb-computer-screen img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.kb-computer-screen video { display: block; width: 100%; height: 100%; object-fit: cover; }
 .kb-computer-base {
   position: relative;
   width: 108%;
@@ -578,9 +561,9 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
   background: #a9adb4;
   border-radius: 0 0 7px 7px;
 }
-.kb-computer-screen .kb-teacher-dashboard { display: none; }
 .project-feature:is(:hover, :focus-within) .kb-computer { transform: translateX(2%) scale(1.025); }
-.feature-media-bumble::before { background: #fff0b0; }
+.feature-media-bumble::before,
+.feature-media-impress::before { display: none; }
 .feature-media-bumble .bumble-screen {
   position: absolute;
   width: 43%;
@@ -593,7 +576,6 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
 .bumble-screen-secondary { right: 11%; bottom: -12%; transform: rotate(8deg); }
 .project-feature:is(:hover, :focus-within) .bumble-screen-primary { transform: translateY(-10px) rotate(-5deg); }
 .project-feature:is(:hover, :focus-within) .bumble-screen-secondary { transform: translateY(-7px) rotate(6deg); }
-.feature-media-impress::before { background: #dce6e5; }
 .feature-media-impress .impress-art {
   position: absolute;
   top: 17%;
@@ -608,13 +590,25 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
 }
 .feature-media-impress .impress-phone {
   position: absolute;
+  z-index: 2;
   right: 10%;
   bottom: -8%;
-  width: 38%;
   height: 106%;
-  object-fit: contain;
-  filter: drop-shadow(0 18px 22px rgba(45, 40, 35, 0.26));
+  aspect-ratio: 0.49;
+  padding: 8px;
+  overflow: hidden;
+  background: #1d1d1f;
+  border: 2px solid #54545b;
+  border-radius: 39px;
+  box-shadow: 0 18px 22px rgba(45, 40, 35, 0.26);
   transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.feature-media-impress .impress-phone video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
 }
 .project-feature:is(:hover, :focus-within) .impress-art { transform: translateY(-5px) rotate(-3deg); }
 .project-feature:is(:hover, :focus-within) .impress-phone { transform: translateY(-8px); }
@@ -729,13 +723,12 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
   .feature-cta { margin-top: 20px; }
   .feature-media { min-height: 250px; margin-top: 14px; }
   .kb-computer { width: 88%; }
-  .kb-computer-screen .kb-student-dashboard { display: none; }
-  .kb-computer-screen .kb-teacher-dashboard { display: block; }
   .feature-media-bumble .bumble-screen { width: 49%; }
   .bumble-screen-primary { left: 8%; }
   .bumble-screen-secondary { right: 7%; }
   .feature-media-impress .impress-art { left: 9%; width: 59%; height: 58%; }
-  .feature-media-impress .impress-phone { right: 8%; width: 43%; }
+  .feature-media-impress .impress-phone { right: 8%; border-radius: 28px; padding: 5px; }
+  .feature-media-impress .impress-phone video { border-radius: 21px; }
   .feature-media-pagelens img { width: 94%; }
   .feature-keywords { right: 18px; bottom: 18px; left: 18px; max-width: none; gap: 5px; }
   .feature-keywords li { padding: 5px 8px; font-size: 10px; }

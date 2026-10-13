@@ -2605,6 +2605,12 @@
     activeContext = gsap.context(() => {
       const isDesktop = desktopPreference.matches;
       const enterStart = isDesktop ? 'top 82%' : 'top 88%';
+      const casePage = document.querySelector('.case-page');
+      const isVisibleCaseContent = (element) => {
+        if (!casePage || !element) return false;
+        const bounds = element.getBoundingClientRect();
+        return bounds.top < window.innerHeight && bounds.bottom > 0;
+      };
 
       progressIndicator = document.createElement('div');
       progressIndicator.className = 'site-progress';
@@ -2622,8 +2628,9 @@
         },
       });
 
+      // Project titles stay visible on navigation instead of fading out and flashing back in.
       const heroItems = gsap.utils.toArray(
-        '.case-title-grid > *, .page-hero > *, .about-hero-copy > *, .about-portrait'
+        '.page-hero > *, .about-hero-copy > *, .about-portrait'
       );
       if (heroItems.length) {
         gsap.from(heroItems, {
@@ -2641,6 +2648,7 @@
         .forEach((heading, index) => {
           if (heading.closest('.about-practice') || heading.closest('.about-journey')) return;
           if (heading.closest('.bumble-iteration-v2, .impress-refined, .pagelens-story-v2, .kb-case-redesign')) return;
+          if (isVisibleCaseContent(heading)) return;
           gsap.from(heading.children, {
             autoAlpha: 0,
             y: isDesktop ? 12 : 8,
@@ -2789,6 +2797,7 @@
       revealGroups.forEach(([containerSelector, itemSelector]) => {
         document.querySelectorAll(containerSelector).forEach((container) => {
           if (container.closest('.bumble-iteration-v2, .impress-refined, .pagelens-story-v2, .kb-case-redesign')) return;
+          if (isVisibleCaseContent(container)) return;
           const items = gsap.utils.toArray(container.querySelectorAll(itemSelector));
           if (!items.length) return;
           groupIndex += 1;
@@ -2830,6 +2839,7 @@
       caseRevealPlans.forEach(([sectionSelector, headingSelector, contentSelector], index) => {
         document.querySelectorAll(sectionSelector).forEach((section, sectionIndex) => {
           if (section.classList.contains('impress-vertical-journey')) return;
+          if (isVisibleCaseContent(section)) return;
           // A chapter already above a deep link needs no entrance tween. Creating
           // one there can immediately dispose its trigger during initialization.
           if (section.closest('.kb-case-redesign') && section.getBoundingClientRect().bottom < 0) return;
@@ -2874,6 +2884,7 @@
         scrollTrigger: { id: 'portfolio-bumble-donut', trigger: donut, start: 'top 78%', once: true },
       });
       gsap.utils.toArray('.impress-loop-flow').forEach((flow, index) => {
+        if (isVisibleCaseContent(flow)) return;
         gsap.from(flow.querySelectorAll('.impress-loop-step'), {
           autoAlpha: 0, y: 16, duration: 0.55, stagger: 0.12, clearProps: clearMotionStyles,
           scrollTrigger: { id: `portfolio-learning-loop-${index}`, trigger: flow, start: enterStart, once: true },
@@ -2881,6 +2892,7 @@
       });
 
       gsap.utils.toArray('.decision-block').forEach((block, index) => {
+        if (isVisibleCaseContent(block)) return;
         const copy = block.querySelector('.decision-copy');
         const media = block.querySelector('.decision-media');
         const decisionEmphasis = block.querySelector('.decision-emphasis');
@@ -3019,6 +3031,7 @@
       }
 
       gsap.utils.toArray('.reflection-section, .case-next, .closing').forEach((section, index) => {
+        if (isVisibleCaseContent(section)) return;
         gsap.from(section.children, {
           autoAlpha: 0,
           y: isDesktop ? 12 : 8,

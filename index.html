@@ -23,9 +23,9 @@
     <link rel="shortcut icon" href="./favicon.ico?v=3"/>
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=3"/>
     <script>document.documentElement.classList.add('motion-ready', 'experience-complete');</script>
-    <link rel="stylesheet" href="./apple-home.css?v=32">
+    <link rel="stylesheet" href="./apple-home.css?v=33">
     <script defer src="./vendor/gsap.min.js"></script>
-    <script defer src="./apple-home.js?v=17"></script>
+    <script defer src="./apple-home.js?v=18"></script>
   </head>
   <body>
     <a class="skip-link" href="#projects">Skip to projects</a>
@@ -62,7 +62,6 @@
               <figcaption>Psychology</figcaption>
             </figure>
           </div>
-          <a class="hero-project-link" href="#projects" data-hero-piece>Explore selected work <span aria-hidden="true">↘</span></a>
         </div>
       </section>
 
@@ -84,8 +83,9 @@
                 <div class="kb-computer">
                   <div class="kb-computer-display">
                     <div class="kb-computer-screen">
-                      <img class="kb-student-dashboard" src="./projects/kb-tutor/media/kb-tutor-product-introduction-poster.jpg" alt="KB Tutor student dashboard with learning effort and assigned work">
-                      <img class="kb-teacher-dashboard" src="./projects/kb-tutor/media/kb-tutor-teacher-dashboard-poster.jpg" alt="KB Tutor teacher dashboard with class analytics">
+                      <video data-home-demo muted loop playsinline preload="none" poster="./projects/kb-tutor/media/kb-tutor-product-introduction-poster.jpg" aria-hidden="true">
+                        <source src="./projects/kb-tutor/media/kb-tutor-product-introduction.mp4" type="video/mp4">
+                      </video>
                     </div>
                   </div>
                   <div class="kb-computer-base" aria-hidden="true"></div>
@@ -121,7 +121,11 @@
               </div>
               <div class="feature-media feature-media-impress">
                 <img class="impress-art" src="./projects/impresschat/cover/impresschat-cover-painting.png" alt="Impression, Sunrise by Claude Monet">
-                <img class="impress-phone" src="./projects/impresschat/cover/impresschat-cover-phone.png" alt="ImpressChat learning experience on a mobile phone">
+                <div class="impress-phone">
+                  <video data-home-demo muted loop playsinline preload="none" poster="./projects/impresschat/media/impresschat-homepage-demo-poster.jpg" aria-hidden="true">
+                    <source src="./projects/impresschat/media/impresschat-homepage-demo.mp4" type="video/mp4">
+                  </video>
+                </div>
               </div>
               <ul class="feature-keywords" aria-label="Project skills"><li>Mobile App</li><li>Interaction Design</li><li>Instructional Design</li></ul>
             </a>
