@@ -4,6 +4,20 @@
     <meta name="robots" content="noindex">
     <script data-goatcounter="https://phoebe-portfolio.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
+        <script>
+      (function () {
+        var optedOut = false;
+        try {
+          optedOut = localStorage.getItem("phoebe-ga4-optout") === "1";
+        } catch (_) {}
+        if (!optedOut) {
+          try {
+            optedOut = /(?:^|;\s*)phoebe_ga4_optout=1(?:;|$)/.test(document.cookie);
+          } catch (_) {}
+        }
+        if (optedOut) window["ga-disable-G-JQBJD8PTVE"] = true;
+      })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JQBJD8PTVE"></script>
     <script>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <title>关闭此设备的访问统计 · Phoebe Zhang</title>
+    <style>
+      :root { color-scheme: light; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      body { margin: 0; min-height: 100vh; background: #f5f5f7; color: #29292c; display: grid; place-items: center; }
+      main { box-sizing: border-box; width: min(100% - 32px, 600px); padding: clamp(28px, 6vw, 56px); background: #fff; border: 1px solid #d2d2d7; border-radius: 20px; }
+      h1 { margin: 0 0 16px; font-size: clamp(26px, 5vw, 34px); line-height: 1.2; }
+      p { color: #4a4a4f; line-height: 1.6; }
+      #status { font-weight: 600; color: #29292c; }
+      .id-box { margin: 24px 0; padding: 16px; background: #f5f5f7; border-radius: 12px; overflow-wrap: anywhere; }
+      .id-box strong { display: block; margin-bottom: 8px; }
+      code { font-size: 15px; }
+      a { color: #0066cc; }
+      a:focus-visible { outline: 3px solid #0071e3; outline-offset: 4px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>关闭此设备的访问统计</h1>
+      <p id="status">正在设置…</p>
+      <p>此设置只对当前浏览器生效。请在你用来查看作品集的电脑和手机浏览器中分别打开本页。清除浏览器网站数据后，需要重新打开。</p>
+      <div class="id-box">
+        <strong>用于查找过去访问记录的识别码</strong>
+        <code id="client-id">正在检查…</code>
+      </div>
+      <p>如果你想删除这个浏览器过去的访问记录，请把上面的识别码发给我。它不是密码。若显示“未找到”，请使用之前访问作品集的同一个浏览器打开本页。</p>
+      <a href="/">返回作品集</a>
+      <noscript><p>请开启 JavaScript 后重新打开本页，才能完成设置。</p></noscript>
+    </main>
+    <script>
+      (function () {
+        var cookie = document.cookie.split("; ").find(function (part) {
+          return part.indexOf("_ga=") === 0;
+        });
+        var match = null;
+        try {
+          match = cookie && decodeURIComponent(cookie.slice(4)).match(/^GA\d+\.\d+\.(\d+\.\d+)$/);
+        } catch (_) {}
+        var clientId = match ? match[1] : null;
+        var saved = false;
+        try {
+          localStorage.setItem("phoebe-ga4-optout", "1");
+          saved = localStorage.getItem("phoebe-ga4-optout") === "1";
+        } catch (_) {}
+        try {
+          document.cookie = "phoebe_ga4_optout=1; Path=/; Max-Age=31536000; SameSite=Lax; Secure";
+          saved = saved || /(?:^|;\s*)phoebe_ga4_optout=1(?:;|$)/.test(document.cookie);
+        } catch (_) {}
+        window["ga-disable-G-JQBJD8PTVE"] = true;
+        document.getElementById("status").textContent = saved
+          ? "已关闭：这个浏览器今后访问作品集时不会发送 GA4 数据。"
+          : "未能保存设置。请允许此网站使用浏览器存储后重试。";
+        document.getElementById("client-id").textContent = clientId || "未找到";
+      })();
+    </script>
+  </body>
+</html>
