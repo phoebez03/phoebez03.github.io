@@ -433,3 +433,7 @@ figure, h1, h2, h3, p { margin-top: 0; }
 }
 
 body * { text-transform: none !important; }
+
+/* Homepage experience links land on the exact role, with context above it. */
+.education-affiliation[id] { scroll-margin-top: 180px; }
+.education-affiliation:target { outline: 1px solid #bceaff; outline-offset: 7px; border-radius: 3px; }

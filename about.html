@@ -34,10 +34,11 @@
     <meta property="og:title" content="Phoebe Zhang">
     <meta property="og:description" content="Product designer creating learning-centered, AI-augmented, human-centered experiences.">
     <meta property="og:image" content="https://phoebez03.github.io/og.png">
-    <link rel="preload" href="/about/profile/profile-oxford.jpg?v=2" as="image">
-    <link rel="stylesheet" href="/apple-about.css?v=24">
+    <link rel="preload" href="/about/profile/profile-cambridge.jpg" as="image">
+    <link rel="stylesheet" href="/apple-about.css?v=25">
+    <link rel="stylesheet" href="/about-collage.css?v=9">
     <script defer src="/vendor/gsap.min.js"></script>
-    <script defer src="/apple-about.js?v=6"></script>
+    <script defer src="/apple-about.js?v=10"></script>
   <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png?v=3"/>
 <link rel="shortcut icon" href="/favicon.ico?v=3"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3"/>
@@ -46,7 +47,7 @@
     <a class="skip-link" href="#about-main">Skip to content</a>
     <header class="global-nav">
       <div class="nav-inner">
-        <a class="brand" href="/" aria-label="Phoebe Zhang, search">Phoebe Zhang</a>
+        <a class="brand" href="/" aria-label="Phoebe Zhang, home">Phoebe Zhang</a>
         <nav aria-label="Primary navigation">
           <a href="/#projects">Projects</a>
           <a href="/ai-design/">Playground</a>
@@ -56,95 +57,103 @@
     </header>
 
     <main id="about-main">
-      <section class="about-hero about-hero-editorial">
-        <div class="about-hero-copy">
-          <p class="eyebrow">Phoebe (Baoyue) Zhang</p>
-          <h1>Human behavior.<br><em>Visual thinking.</em><br>Product design.</h1>
-          <p class="about-intro">I care about the <strong>why behind every design decision</strong>. My background in psychology, education, and HCI means I don’t just design interfaces—I think about the people, systems, and context underneath them.</p>
-          <div class="about-hero-actions" aria-label="Contact Phoebe Zhang">
-            <a href="https://linkedin.com/in/phoebe-zhang-4a6866246" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a href="mailto:phoebezhang90@gmail.com">Email ↗</a>
-          </div>
+      <section class="about-intro-section" aria-labelledby="about-title">
+        <div class="intro-story">
+          <h1 id="about-title">Hi, I’m Phoebe.</h1>
+          <p class="intro-description">I care about the <strong>why behind every design decision</strong>. My background in psychology, education, and HCI means I don’t just design interfaces—I think about the people, systems, and context underneath them.</p>
+          <div class="intro-contact"><a href="https://linkedin.com/in/phoebe-zhang-4a6866246" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="mailto:phoebezhang90@gmail.com">Email ↗</a></div>
+          <nav class="about-jump-links" aria-label="On this page"><a href="#my-path">My Path <span>↘</span></a><a href="#my-practice">Skill <span>↘</span></a><a href="#hobbies">Offscreen <span>↘</span></a><a href="#paintings">Paintings <span>↘</span></a></nav>
         </div>
-        <figure class="about-portrait">
-          <img src="/about/profile/profile-oxford.jpg?v=2" alt="Portrait of Phoebe Zhang beside the water in Oxford">
-        </figure>
-      </section>
-
-      <section class="about-education" aria-labelledby="education-heading">
-        <h2 class="about-section-kicker" id="education-heading">Education &amp; Experience</h2>
-        <div class="education-journey">
-          <div class="education-map" aria-label="Education and experience journey from Shanghai to Melbourne, Los Angeles, and Pittsburgh">
-            <div class="education-map-art" aria-hidden="true">
-              <img src="/about/education/world-map-reference.png" alt="">
-              <img src="/about/education/world-map-reference.png" alt="">
-            </div>
-            <svg class="education-map-route" viewBox="0 0 1000 537" aria-hidden="true" focusable="false">
-              <path class="education-route-guide" d="M 504 188 C 534 255 555 344 569 423 C 620 300 690 152 777 180 C 815 148 860 140 900 150"/>
-              <path class="education-route-segment" d="M 504 188 C 534 255 555 344 569 423"/>
-              <path class="education-route-segment" d="M 569 423 C 620 300 690 152 777 180"/>
-              <path class="education-route-segment" d="M 777 180 C 815 148 860 140 900 150"/>
-              <g class="education-map-stop" data-stop="0" transform="translate(504 188)"><circle class="stop-halo" r="17"/><circle class="stop-ring" r="8"/><circle class="stop-core" r="3"/></g>
-              <g class="education-map-stop" data-stop="1" transform="translate(569 423)"><circle class="stop-halo" r="17"/><circle class="stop-ring" r="8"/><circle class="stop-core" r="3"/></g>
-              <g class="education-map-stop" data-stop="2" transform="translate(777 180)"><circle class="stop-halo" r="17"/><circle class="stop-ring" r="8"/><circle class="stop-core" r="3"/></g>
-              <g class="education-map-stop" data-stop="3" transform="translate(900 150)"><circle class="stop-halo" r="17"/><circle class="stop-ring" r="8"/><circle class="stop-core" r="3"/></g>
-              <g class="education-plane" transform="translate(504 188)"><path d="M -13 -7 L 15 0 -13 7 -6 0 Z"/><path d="M -6 0 L 3 0"/></g>
-            </svg>
-            <div class="education-map-pin pin-shanghai" data-stop="0">
-              <button class="education-location" type="button" aria-controls="education-photo" aria-expanded="false" data-photo="/about/education/shanghai-photo.jpg" data-photo-alt="Phoebe Zhang in Shanghai">
-                <strong>Shanghai</strong>
-                <span class="education-detail">Born &amp; raised</span>
-              </button>
-            </div>
-            <div class="education-map-pin pin-melbourne" data-stop="1">
-              <button class="education-location" type="button" aria-controls="education-photo" aria-expanded="false" data-photo="/about/education/unimelb-graduate.jpg" data-photo-alt="Phoebe Zhang at the University of Melbourne">
-                <strong>Melbourne</strong>
-                <span class="education-affiliation"><img src="/brand/unimelb-logo.png" alt="University of Melbourne" loading="lazy"><span>B.A. Psychology</span></span>
-                <span class="education-affiliation"><img class="education-will-logo" src="/about/education/will-education-logo.jpg?v=2" alt="Will Education" loading="lazy"><span>Learning Experience Designer for 3+ years</span></span>
-              </button>
-            </div>
-            <div class="education-map-pin pin-la" data-stop="2">
-              <button class="education-location" type="button" aria-controls="education-photo" aria-expanded="false" data-photo="/about/education/ucla.jpg" data-photo-alt="Phoebe Zhang beside the UCLA Bruin statue">
-                <strong>Los Angeles</strong>
-                <span class="education-affiliation"><img src="/about/education/ucla-logo.png" alt="UCLA" loading="lazy"><span>Exchange · Media &amp; Communication</span></span>
-              </button>
-            </div>
-            <div class="education-map-pin pin-pittsburgh" data-stop="3">
-              <button class="education-location" type="button" aria-controls="education-photo" aria-expanded="false" data-photo="/about/education/cmu-graduate.jpg" data-photo-alt="Phoebe Zhang at Carnegie Mellon University graduation">
-                <strong>Pittsburgh</strong>
-                <span class="education-affiliation"><img src="/about/education/cmu-logo.png" alt="Carnegie Mellon University" loading="lazy"><span>M.S. Learning Sciences @ Human-Computer Interaction Institute</span></span>
-                <span class="education-affiliation"><img src="/about/education/ctag-logo.png" alt="CTAG" loading="lazy"><span>Product Designer Lead</span></span>
-                <span class="education-affiliation"><img src="/about/education/oli-logo.png" alt="Open Learning Initiative" loading="lazy"><span>UX Designer (Accessibility)</span></span>
-              </button>
-            </div>
-            <figure class="education-photo" id="education-photo" hidden>
-              <img src="/about/education/shanghai-photo.jpg" alt="Phoebe Zhang in Shanghai" loading="lazy">
-              <figcaption>Shanghai</figcaption>
-            </figure>
-          </div>
+        <div class="intro-collage">
+          <figure class="intro-portrait-print paper-print"><span class="paperclip" aria-hidden="true"></span><img src="/about/profile/profile-cambridge.jpg" alt="Phoebe beside the water in Cambridge" width="1600" height="1200" fetchpriority="high"><figcaption class="handwritten">Cambridge</figcaption></figure>
+          <div class="intro-note paper-note"><p lang="fr" class="handwritten">Croyez en vos rêves, ils sont gratuits</p></div>
         </div>
       </section>
 
-      <section class="about-practice" aria-labelledby="skills-heading">
-        <div class="about-practice-photo"><img src="/about/studio/design-desk.jpg" alt="Phoebe’s product design workspace with sketches, Figma, and code" loading="lazy"></div>
-        <div class="practice-copy">
-          <h2 class="about-section-kicker" id="skills-heading">Skills</h2>
-          <div class="about-skill-list">
-            <article><span>01</span><h3>Product Design</h3><p>Figma · User Flows · Wireframing · High-Fidelity Prototyping · Interaction Design · Responsive Web &amp; Mobile · Design Systems · Developer Handoff · HTML/CSS · Content Management System (CMS)</p></article>
-            <article><span>02</span><h3>Research &amp; Product</h3><p>PRDs &amp; Requirements Gathering · User Interviews · Usability Testing · Journey Mapping · Service Blueprints · Competitive Analysis · Design Reviews · Qualitative &amp; Quantitative Analysis · Jira</p></article>
-            <article><span>03</span><h3>Accessibility &amp; AI</h3><p>WCAG 2.2 · Keyboard &amp; Screen Reader Testing · Figma Make · Cursor · Claude Code · Codex · Google AI Studio</p></article>
-          </div>
+      <section class="about-path scrapbook-section" id="my-path" aria-labelledby="education-heading">
+        <div class="section-title path-title" data-reveal><h2 id="education-heading">My Path</h2></div>
+        <div class="path-board">
+          <svg class="path-thread" viewBox="0 0 1120 160" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M140 46 Q278 76 420 107"/><path pathLength="1" d="M420 107 Q554 55 700 40"/><path pathLength="1" d="M700 40 Q839 55 980 97"/></svg>
+          <article class="path-stop path-shanghai">
+            <figure class="path-photo"><span class="board-pin" aria-hidden="true"></span><img src="/about/education/shanghai-photo.jpg" alt="Phoebe in Shanghai" loading="lazy"><figcaption class="handwritten">Shanghai</figcaption></figure>
+            <div class="path-facts"><p class="handwritten origin-note">Born &amp; raised</p></div>
+          </article>
+          <article class="path-stop path-melbourne">
+            <figure class="path-photo"><span class="board-pin" aria-hidden="true"></span><img src="/about/education/unimelb-graduate.jpg" alt="Phoebe at her University of Melbourne graduation" loading="lazy"><figcaption class="handwritten">Melbourne</figcaption></figure>
+            <div class="path-facts">
+              <div class="path-affiliation"><img src="/brand/unimelb-logo.png" alt="" loading="lazy"><p><strong>University of Melbourne</strong><span>B.A. Psychology</span></p></div>
+              <div class="path-affiliation" id="will-education"><img src="/about/education/will-education-logo.jpg?v=2" alt="" loading="lazy"><p><strong>Will Education</strong><span>Learning Experience Designer · 3+ years</span></p></div>
+            </div>
+          </article>
+          <article class="path-stop path-la">
+            <figure class="path-photo"><span class="board-pin" aria-hidden="true"></span><img src="/about/education/ucla.jpg" alt="Phoebe beside the UCLA Bruin statue" loading="lazy"><figcaption class="handwritten">Los Angeles</figcaption></figure>
+            <div class="path-facts"><div class="path-affiliation"><img src="/about/education/ucla-logo.png" alt="" loading="lazy"><p><strong>UCLA</strong><span>Exchange · Media &amp; Communication</span></p></div></div>
+          </article>
+          <article class="path-stop path-pittsburgh">
+            <figure class="path-photo"><span class="board-pin" aria-hidden="true"></span><img src="/about/education/cmu-graduate.jpg" alt="Phoebe at her Carnegie Mellon University graduation" loading="lazy"><figcaption class="handwritten">Pittsburgh</figcaption></figure>
+            <div class="path-facts">
+              <div class="path-affiliation"><img src="/about/education/cmu-logo.png" alt="" loading="lazy"><p><strong>Carnegie Mellon University</strong><span>M.S. Learning Sciences<br>Human-Computer Interaction Institute</span></p></div>
+              <div class="path-affiliation"><img src="/about/education/ctag-logo.png" alt="" loading="lazy"><p><strong>CTAG</strong><span>Product Designer Lead</span></p></div>
+              <div class="path-affiliation" id="oli-experience"><img src="/about/education/oli-logo.png" alt="" loading="lazy"><p><strong>Open Learning Initiative</strong><span>UX Designer (Accessibility)</span></p></div>
+            </div>
+          </article>
         </div>
       </section>
 
+      <section class="about-workbench scrapbook-section" id="my-practice" aria-labelledby="skills-heading">
+        <div class="section-title skill-title" data-reveal><h2 id="skills-heading">Skill</h2></div>
+        <div class="skill-board">
+          <figure class="skill-sheet sheet-prototype" data-reveal><span class="paper-tape" aria-hidden="true"></span><div class="skill-image"><img src="/about/studio/about-prototyping.jpg" alt="Paper prototypes and hand-drawn interface sketches on a studio table" width="3024" height="4032" loading="lazy"></div><figcaption class="handwritten">Prototyping</figcaption></figure>
+          <figure class="skill-sheet sheet-wire" data-reveal><div class="skill-image"><img src="/about/skills/about-wireframing.png" alt="Mobile wireframe screens arranged in Figma with collaborator cursors" width="461" height="513" loading="lazy"></div><figcaption class="handwritten">Wireframing</figcaption></figure>
+          <figure class="skill-sheet sheet-system" data-reveal><span class="paperclip" aria-hidden="true"></span><div class="skill-image"><img src="/about/skills/about-design-system.jpg?v=2" alt="Bumble Skill Snack design system with reusable headings, icons, buttons and interactions" width="3024" height="4032" loading="lazy"></div><figcaption class="handwritten">Design system</figcaption></figure>
+          <figure class="skill-sheet sheet-interview" data-reveal><span class="paper-tape" aria-hidden="true"></span><div class="skill-image"><img src="/about/skills/about-interview-stickers.png" alt="A user interview with a physical prototype; faces covered by paper smiley stickers" width="1448" height="1086" loading="lazy"></div><figcaption class="handwritten">User interviews</figcaption></figure>
+          <figure class="skill-sheet sheet-collaboration" data-reveal><div class="skill-image"><img src="/about/studio/about-collaboration.jpg" alt="A shared Figma critique board with collaborators and their design explorations" width="4032" height="3024" loading="lazy"></div><figcaption class="handwritten">Collaboration</figcaption></figure>
+          <figure class="skill-sheet sheet-blueprint" data-reveal><span class="paper-tape" aria-hidden="true"></span><div class="skill-image"><img src="/about/skills/about-service-blueprint.jpg?v=2" alt="Fine dining service blueprint made with sticky notes for customer actions, frontstage, backstage and support processes" width="3024" height="4032" loading="lazy"></div><figcaption class="handwritten">Service blueprint</figcaption></figure>
+          <figure class="skill-sheet sheet-flow" data-reveal><div class="skill-image"><img src="/about/skills/about-user-flow.png" alt="User flow for browsing, adding and comparing AI tools for designers" width="4096" height="2107" loading="lazy"></div><figcaption class="handwritten">User flows</figcaption></figure>
+          <figure class="skill-sheet sheet-journey" data-reveal><div class="skill-image"><img src="/about/skills/about-journey-map.png" alt="Student job seeker journey map showing application stages, stress, information and touchpoints" width="1289" height="595" loading="lazy"></div><figcaption class="handwritten">Journey mapping</figcaption></figure>
+          <figure class="skill-sheet sheet-access" data-reveal><span class="paper-tape" aria-hidden="true"></span><div class="skill-image"><img src="/about/skills/about-wcag.png" alt="WCAG accessibility audit with support levels, user impact and testing methods" width="2826" height="1296" loading="lazy"></div><figcaption class="handwritten">WCAG</figcaption></figure>
+          <span class="tool-sticker sticker-figma" data-reveal><img src="/brand/home-collage/home-figma-transparent.png" alt="Figma" width="80" height="80" loading="lazy"></span>
+          <span class="tool-sticker sticker-adobe" data-reveal><img src="/brand/home-collage/home-adobe-transparent.png" alt="Adobe" width="80" height="80" loading="lazy"></span>
+          <span class="tool-sticker sticker-codex" data-reveal><img src="/brand/home-collage/home-codex.png" alt="Codex" width="80" height="80" loading="lazy"></span>
+          <span class="tool-sticker sticker-claude" data-reveal><img src="/brand/home-collage/home-claude.png" alt="Claude" width="80" height="80" loading="lazy"></span>
+        </div>
+      </section>
+
+      <section class="about-hobbies scrapbook-section" id="hobbies" aria-labelledby="hobbies-heading">
+        <div class="section-title" data-reveal><h2 id="hobbies-heading">Offscreen</h2></div>
+        <div class="offscreen-board">
+          <figure class="offscreen-football" data-reveal><div class="torn-photo"><img src="/about/hobbies/about-football.jpg" alt="A soccer shirt sleeve and a hand holding a paper bag" loading="lazy"></div><figcaption class="handwritten">Soccer</figcaption></figure>
+          <figure class="offscreen-tennis paper-print" data-reveal><span class="paper-tape" aria-hidden="true"></span><img src="/about/hobbies/about-tennis.jpg" alt="Phoebe holding a tennis racket beside the blue courts at Kia Arena" loading="lazy"><figcaption class="handwritten">Tennis</figcaption></figure>
+          <figure class="offscreen-golf" data-reveal><span class="paperclip" aria-hidden="true"></span><img src="/about/hobbies/about-golf.jpg" alt="Phoebe preparing a golf shot at a driving range" loading="lazy"><figcaption class="handwritten">Golf</figcaption></figure>
+          <figure class="offscreen-pickleball" data-reveal><img src="/about/hobbies/about-pickleball.jpg" alt="Two pickleball paddles and a yellow ball beside the court net" loading="lazy"><figcaption class="handwritten">Pickleball</figcaption></figure>
+          <div class="football-fans" data-reveal><div class="fan-stickers"><img class="fan-mbappe" src="/about/hobbies/about-mbappe-sticker.png" alt="Mbappé in his number 10 shirt, a small paper cutout" width="1122" height="1402" loading="lazy"><img class="fan-kaka" src="/about/hobbies/about-kaka-sticker.png" alt="Kaká in his number 22 shirt, a small paper cutout" width="1208" height="1268" loading="lazy"></div><p class="handwritten">Mbappé &amp; Kaká <span aria-hidden="true">♡</span></p></div>
+          <a class="offscreen-paint" href="#paintings" data-reveal><img src="/brand/home-collage/home-painting.png" alt="Watercolour paint palette" loading="lazy"><span class="handwritten">Painting</span></a>
+
+        </div>
+      </section>
+
+      <section class="about-gallery scrapbook-section" id="paintings" aria-labelledby="paintings-heading">
+        <div class="section-title" data-reveal><h2 id="paintings-heading">Paintings</h2></div>
+        <div class="painting-grid">
+          <figure class="painting-print" data-reveal><a class="painting-open" href="/about/paintings/painting-starry-night.jpg" data-title="Starry night" data-detail="Inspired by Van Gogh" aria-label="View Starry night painting"><span class="painting-image"><img src="/about/paintings/painting-starry-night.jpg" alt="Phoebe’s Starry Night study on an easel" loading="lazy"></span></a><figcaption><span>Starry night</span></figcaption></figure>
+          <figure class="painting-print" data-reveal><a class="painting-open" href="/about/paintings/painting-waterlilies.jpg" data-title="Water lilies" data-detail="Water & reflections" aria-label="View Water lilies painting"><span class="painting-image"><img src="/about/paintings/painting-waterlilies.jpg" alt="Phoebe’s water lily painting clipped to a drawing board" loading="lazy"></span></a><figcaption><span>Water lilies</span></figcaption></figure>
+          <figure class="painting-print" data-reveal><a class="painting-open" href="/about/paintings/painting-studio.jpg" data-title="Almond blossoms" data-detail="Inspired by Van Gogh" aria-label="View Almond blossoms painting"><span class="painting-image"><img src="/about/paintings/painting-studio.jpg" alt="Phoebe’s painting of white almond blossoms against a blue background" loading="lazy"></span></a><figcaption><span>Almond blossoms</span></figcaption></figure>
+          <figure class="painting-print" data-reveal><a class="painting-open" href="/about/paintings/painting-sunset-2.jpg" data-title="At the shore" data-detail="Light & colour" aria-label="View At the shore painting"><span class="painting-image"><img src="/about/paintings/painting-sunset-2.jpg" alt="Phoebe’s painting of a vivid sunset over breaking waves" loading="lazy"></span></a><figcaption><span>At the shore</span></figcaption></figure>
+          <figure class="painting-print" data-reveal><a class="painting-open" href="/about/paintings/painting-water-garden.jpg" data-title="Water garden" data-detail="A study in green" aria-label="View Water garden painting"><span class="painting-image"><img src="/about/paintings/painting-water-garden.jpg" alt="Phoebe’s painting of green lily pads on blue water" loading="lazy"></span></a><figcaption><span>Water garden</span></figcaption></figure>
+          <figure class="painting-print" data-reveal><a class="painting-open" href="/about/paintings/painting-sunset-1.jpg" data-title="Golden hour" data-detail="From my easel" aria-label="View Golden hour painting"><span class="painting-image"><img src="/about/paintings/painting-sunset-1.jpg" alt="Phoebe’s golden sunset painting on an easel" loading="lazy"></span></a><figcaption><span>Golden hour</span></figcaption></figure>
+        </div>
+      </section>
     </main>
+
+    <dialog class="painting-dialog" aria-labelledby="painting-dialog-title">
+      <div class="painting-dialog-bar"><h2 id="painting-dialog-title">My paintings</h2><button type="button" class="painting-close" autofocus aria-label="Close painting">×</button></div>
+      <div class="painting-dialog-stage"><button type="button" class="painting-prev" aria-label="Previous painting">‹</button><img class="painting-full" alt=""><button type="button" class="painting-next" aria-label="Next painting">›</button></div>
+      <p class="painting-dialog-caption" aria-live="polite"></p>
+    </dialog>
 
     <footer class="site-footer" aria-labelledby="about-footer-contact-title">
       <strong id="about-footer-contact-title">Let’s talk</strong>
-      <div class="footer-contact" aria-label="Contact Phoebe Zhang">
-        <a href="mailto:phoebezhang90@gmail.com">Email ↗</a>
-        <a href="https://linkedin.com/in/phoebe-zhang-4a6866246" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-      </div>
+      <div class="footer-contact" aria-label="Contact Phoebe Zhang"><a href="mailto:phoebezhang90@gmail.com">Email ↗</a><a href="https://linkedin.com/in/phoebe-zhang-4a6866246" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
     </footer>
   </body>
 </html>

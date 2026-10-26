@@ -1,0 +1,394 @@
+/* About: personal photographs, concise labels, and loose scrapbook layers. */
+.apple-about { --about-width: 1120px; --paper: #f2eddf; --pen: #2873b7; }
+.apple-about main { overflow: clip; }
+.apple-about button { font: inherit; }
+.apple-about [id] { scroll-margin-top: 90px; }
+.handwritten { font-family: "Bradley Hand", "Segoe Print", cursive; font-weight: 400; letter-spacing: -.025em; }
+.scrapbook-section { max-width: var(--about-width); margin-inline: auto; padding: 70px 0; }
+.section-title { margin-bottom: 36px; }
+.section-title h2 { margin: 0; font-size: 35px; font-weight: 600; line-height: 1.15; letter-spacing: -.045em; }
+.paper-print { position: relative; margin: 0; padding: 9px 9px 0; background: #fff; box-shadow: 0 4px 7px #2e33300c, 0 18px 35px #2e333011; }
+.paper-print figcaption { color: #42677c; padding: 13px 8px 15px; text-align: center; font-size: 21px; }
+.paper-tape { position: absolute; z-index: 3; width: 96px; height: 27px; top: -12px; left: calc(50% - 48px); background: #ece6d2c7; transform: rotate(-6deg); clip-path: polygon(1% 0,99% 4%,97% 96%,0 100%); }
+.paperclip { position: absolute; z-index: 4; top: -20px; left: 27px; width: 20px; height: 61px; border: 2px solid #9da1a0; border-radius: 12px 12px 9px 9px; transform: rotate(8deg); box-shadow: 1px 1px 1px #fff, 2px 2px 2px #0002; }
+.paperclip::after { content: ""; position: absolute; inset: 6px 4px -2px -2px; border: 2px solid #aaaead; border-bottom: 0; border-radius: 9px 9px 0 0; }
+/* Single Cambridge portrait. The handwritten note is the user's own chosen quote. */
+.about-intro-section { max-width: var(--about-width); display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 50px; padding: 120px 0 85px; margin: auto; min-height: min(800px,100svh); }
+.intro-story { padding-left: 12px; }
+.intro-story h1 { font-size: clamp(38px,4.4vw,56px); font-weight: 600; line-height: 1.08; letter-spacing: -.055em; margin: 0 0 25px; }
+.intro-description { max-width: 380px; color: #6e6e73; font-size: 19px; line-height: 1.5; margin-bottom: 26px; }
+.intro-contact { display: flex; gap: 26px; color: var(--blue); font-size: 14px; }
+.intro-contact a:hover { text-decoration: underline; }
+.about-jump-links { display: flex; flex-wrap: wrap; gap: 11px 22px; margin-top: 50px; padding-top: 20px; border-top: 1px solid #e8e8eb; max-width: 385px; }
+.about-jump-links a { font-size: 12px; color: #737378; transition: color .2s; }
+.about-jump-links a span { margin-left: 5px; color: #a4a4aa; }
+.about-jump-links a:hover, .about-jump-links a:hover span { color: var(--blue); }
+.intro-collage { position: relative; height: 580px; }
+.intro-portrait-print { width: 350px; margin: 0 auto; transform: rotate(-3deg); }
+.intro-portrait-print img { height: 400px; object-fit: cover; object-position: 65% center; }
+.intro-portrait-print .paperclip { left: auto; right: 42px; height: 76px; width: 25px; transform: rotate(10deg); }
+.intro-portrait-print figcaption { font-size: 24px; }
+.paper-note { background: #f3eddd; box-shadow: 1px 5px 9px #3331; }
+.intro-note { position: absolute; bottom: 0; right: 0; width: 300px; padding: 25px 28px; transform: rotate(3deg); clip-path: polygon(1% 0,100% 1%,99% 94%,91% 97%,78% 95%,62% 99%,49% 96%,31% 100%,14% 96%,0 99%); }
+.intro-note p { color: #595744; font-size: 26px; line-height: 1.35; margin: 0; }
+/* A photographic path held together by a single red thread. */
+.path-board { position: relative; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); align-items: start; gap: 27px; padding: 55px 25px 35px; isolation: isolate; }
+.path-board::before { content: ""; position: absolute; z-index: -2; inset: 7px -12px 0; background-color: #f7f5ef; background-image: radial-gradient(#aa987c1c .55px,transparent .7px); background-size: 5px 5px; transform: rotate(-.7deg); }
+.path-thread { position: absolute; top: 0; left: 0; width: 100%; height: 160px; z-index: 2; overflow: visible; pointer-events: none; }
+.path-thread path { fill: none; stroke: #c65342; stroke-width: 2.5; stroke-linecap: round; filter: drop-shadow(0 2px 1px #a0452f22); }
+.path-stop { position: relative; min-width: 0; }
+.path-melbourne { padding-top: 62px; }
+.path-la { margin-top: -5px; }
+.path-pittsburgh { padding-top: 50px; }
+.path-photo { transform-origin: 50% 0; position: relative; margin: 0; padding: 8px 8px 0; background: white; box-shadow: 0 7px 17px #322d2316; transform: rotate(-4deg); }
+.path-photo img { width: 100%; height: 260px; object-fit: cover; }
+.path-photo figcaption { font-size: 25px; line-height: 1.1; text-align: center; padding: 14px 0 17px; color: #396d92; }
+.path-melbourne .path-photo { transform: rotate(3deg); }
+.path-melbourne .path-photo img { height: 280px; object-position: center 58%; }
+.path-la .path-photo { transform: rotate(-3deg); }
+.path-la .path-photo img { height: 250px; object-position: 62% center; }
+.path-pittsburgh .path-photo { transform: rotate(4deg); }
+.path-pittsburgh .path-photo img { height: 215px; object-position: 55% center; }
+.board-pin { position: absolute; top: -16px; left: calc(50% - 6px); z-index: 4; width: 13px; height: 13px; border-radius: 50%; background: radial-gradient(circle at 35% 28%,#f28770,#d34435 50%,#8b2b25); box-shadow: 3px 5px 4px #6d2b2336; }
+.board-pin::before { content: ""; position: absolute; width: 4px; height: 14px; background: #9b2b26; transform: rotate(17deg); left: 4px; top: 6px; z-index: -1; border-radius: 4px; }
+.path-facts { margin-top: 28px; padding: 0 7px; }
+.path-affiliation { display: flex; align-items: flex-start; gap: 8px; padding: 0 0 16px; }
+.path-affiliation:last-child { padding-bottom: 0; }
+.path-affiliation > img { flex: none; width: 28px; height: 28px; object-fit: contain; border-radius: 2px; }
+.path-affiliation p { margin: 0; font-size: 12px; line-height: 1.4; color: #6d6a64; }
+.path-affiliation strong { display: block; color: #44443f; font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.path-affiliation span { display: block; }
+.path-affiliation[id] { scroll-margin-top: 180px; }
+.path-affiliation:target strong { color: #176ba4; text-decoration: underline; text-decoration-color: #c3d9e7; text-underline-offset: 5px; }
+.origin-note { color: #73715e; font-size: 21px; text-align: center; transform: rotate(-4deg); }
+/* Offscreen: different photo shapes and overlapping memories, not a card grid. */
+.about-hobbies { padding-top: 65px; }
+.offscreen-board { position: relative; height: 835px; margin-top: 12px; isolation: isolate; }
+.offscreen-board::before { content: ""; position: absolute; z-index: -2; inset: 35px 33px 30px; background-color: #faf9f5; background-image: linear-gradient(#5c8caf13 1px,transparent 1px),linear-gradient(90deg,#5c8caf13 1px,transparent 1px); background-size: 32px 32px; transform: rotate(-1.5deg); clip-path: polygon(1% 0,98% 1%,100% 96%,92% 98%,76% 97%,61% 100%,45% 98%,26% 100%,0 98%); }
+.offscreen-board figure { margin: 0; position: absolute; }
+.offscreen-football { top: 100px; left: 10px; width: 215px; transform: rotate(-7deg); }
+.torn-photo { padding: 6px; background: #fff; filter: drop-shadow(1px 5px 8px #0001); clip-path: polygon(1% 0,96% 1%,98% 13%,96% 29%,100% 44%,97% 62%,99% 79%,97% 98%,81% 97%,61% 100%,41% 98%,20% 99%,0 96%,2% 77%,0 56%,2% 37%,0 16%); }
+.torn-photo img { height: 290px; object-fit: cover; object-position: center; }
+.offscreen-football figcaption { font-size: 28px; padding: 12px 10px 0; color: var(--pen); }
+.offscreen-tennis { width: 350px; top: 5px; left: 248px; transform: rotate(3deg); z-index: 2; }
+.offscreen-tennis > img { height: 458px; object-fit: cover; object-position: center; }
+.offscreen-tennis figcaption { font-size: 27px; padding-block: 12px 16px; }
+.offscreen-golf { width: 283px; top: 76px; right: 5px; transform: rotate(7deg); }
+.offscreen-golf > img { height: 455px; object-fit: cover; border-radius: 48% 48% 2px 2px / 29% 29% 2px 2px; box-shadow: 0 14px 24px #36443217; }
+.offscreen-golf .paperclip { left: auto; right: 22px; top: 0; transform: rotate(-15deg); }
+.offscreen-golf figcaption { color: var(--pen); font-size: 30px; margin: 8px 0 0 24px; }
+.offscreen-pickleball { width: 260px; left: 554px; top: 440px; transform: rotate(-8deg); z-index: 3; }
+.offscreen-pickleball::before { content: ""; position: absolute; inset: -8px -9px 36px -7px; border: 2px solid #557d9c; transform: rotate(2deg); pointer-events: none; }
+.offscreen-pickleball > img { height: 320px; object-fit: cover; object-position: center 66%; box-shadow: 0 9px 24px #0001; }
+.offscreen-pickleball figcaption { color: var(--pen); font-size: 27px; margin: 9px 0 0; text-align: right; }
+.offscreen-paint { position: absolute; bottom: 30px; left: 268px; width: 190px; text-align: center; transform: rotate(-6deg); }
+.offscreen-paint img { width: 160px; height: 145px; object-fit: contain; margin: 0 auto 12px; mix-blend-mode: multiply; transition: transform .4s; }
+.offscreen-paint:hover img { transform: translateY(-5px) rotate(4deg); }
+.offscreen-paint .handwritten { font-size: 26px; color: var(--pen); }
+.about-gallery { padding-top: 55px; padding-bottom: 90px; }
+.painting-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 42px 28px; padding: 10px 8px; }
+.painting-print { position: relative; margin: 0; padding: 10px 10px 0; box-shadow: 0 5px 18px #252b3410; background: #fff; transform: rotate(-2deg); }
+.painting-print:nth-child(2) { transform: rotate(2deg); }
+.painting-print:nth-child(3) { transform: rotate(-1deg); }
+.painting-print:nth-child(4) { transform: rotate(1.5deg); }
+.painting-print:nth-child(5) { transform: rotate(-2.5deg); }
+.painting-print:nth-child(6) { transform: rotate(2deg); }
+.painting-open { position: relative; display: block; }
+.painting-image { display: block; overflow: hidden; aspect-ratio: 4/3; background: #f1f1f2; }
+.painting-image img { height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.22,.8,.25,1); }
+.painting-print:first-child .painting-image img { transform: scale(1.22); object-position: 49% 70%; }
+.painting-open:hover img { transform: scale(1.045); }
+.painting-print:first-child .painting-open:hover img { transform: scale(1.27); }
+.painting-print figcaption { display: flex; flex-direction: column; gap: 5px; padding: 15px 7px 17px; font-size: 13px; }
+.painting-print figcaption .handwritten { font-size: 16px; color: #7b7f88; }
+.gallery-note { margin: 45px 0 0; color: var(--pen); text-align: center; font-size: 23px; transform: rotate(-2deg); }
+.painting-dialog { padding: 0; width: min(1100px,94vw); max-width: 94vw; max-height: 94svh; background: #f8f8fa; color: #29292c; border: 1px solid #ffffff7d; border-radius: 16px; box-shadow: 0 40px 90px #0004; }
+.painting-dialog::backdrop { background: #16181ce0; }
+.painting-dialog-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid #e0e0e3; }
+.painting-dialog h2 { font-size: 15px; font-weight: 500; margin: 0; }
+.painting-dialog button { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border: 0; border-radius: 50%; background: #e8e8ec; color: #45454b; font-size: 28px; cursor: pointer; }
+.painting-dialog button:hover { background: #dedee5; }
+.painting-dialog-stage { display: grid; grid-template-columns: 40px minmax(0,1fr) 40px; gap: 15px; padding: 20px; align-items: center; }
+.painting-full { width: 100%; max-height: 70svh; object-fit: contain; }
+.painting-dialog-caption { font-size: 12px; text-align: center; margin: 0; padding: 0 20px 20px; color: #73737a; }
+body.painting-view-open { overflow: hidden; }
+
+@media (max-width: 1230px) {
+  .scrapbook-section, .about-intro-section { margin-inline: 6vw; }
+  .about-intro-section { gap: 30px; }
+  .intro-portrait-print { width: 320px; }
+  .intro-note { width: 280px; }
+  .path-board { padding-inline: 18px; gap: 22px; }
+  .path-affiliation p, .path-affiliation strong { font-size: 11px; }
+  .path-photo img { height: 230px; }
+  .path-melbourne .path-photo img { height: 270px; }
+  .path-la .path-photo img { height: 230px; }
+  .path-pittsburgh .path-photo img { height: 195px; }
+  .offscreen-tennis { width: 31%; left: 23%; }
+  .offscreen-football { width: 20%; left: 0; }
+  .offscreen-golf { width: 25%; right: 0; }
+  .offscreen-pickleball { width: 25%; left: 49%; }
+  .offscreen-paint { left: 25%; }
+}
+@media (max-width: 900px) {
+  .about-intro-section { grid-template-columns: .9fr 1.1fr; min-height: 680px; gap: 15px; }
+  .intro-story { padding: 0; }
+  .intro-story h1 { font-size: 38px; }
+  .intro-description { font-size: 17px; }
+  .intro-collage { height: 490px; }
+  .intro-portrait-print { width: 270px; }
+  .intro-portrait-print img { height: 320px; }
+  .intro-note { width: 230px; padding: 20px; }
+  .intro-note p { font-size: 23px; }
+  .path-board { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 44px 45px; padding: 25px 30px; }
+  .path-thread { display: none; }
+  .path-stop { padding-top: 0; margin-top: 0; }
+  .path-melbourne, .path-pittsburgh { margin-top: 45px; }
+  .path-photo img, .path-melbourne .path-photo img, .path-la .path-photo img { height: 300px; }
+  .path-pittsburgh .path-photo img { height: 250px; }
+  .path-affiliation p, .path-affiliation strong { font-size: 12px; }
+  .path-affiliation img { width: 30px; height: 30px; }
+  .offscreen-board { height: 720px; }
+  .offscreen-football { top: 95px; }
+  .torn-photo img { height: 220px; }
+  .offscreen-tennis { top: 0; width: 33%; left: 23%; }
+  .offscreen-tennis > img { height: 340px; }
+  .offscreen-golf { top: 65px; width: 26%; }
+  .offscreen-golf > img { height: 340px; }
+  .offscreen-pickleball { top: 370px; }
+  .offscreen-pickleball > img { height: 260px; }
+  .offscreen-paint { bottom: 14px; left: 19%; width: 140px; }
+  .offscreen-paint img { width: 130px; height: 125px; }
+  .painting-grid { gap: 30px 19px; }
+  .painting-print { padding: 7px 7px 0; }
+}
+@media (max-width: 680px) {
+  .scrapbook-section, .about-intro-section { margin-inline: 24px; }
+  .scrapbook-section { padding-block: 50px; }
+  .section-title { margin-bottom: 30px; }
+  .section-title h2 { font-size: 29px; }
+  .about-intro-section { grid-template-columns: 1fr; gap: 40px; min-height: auto; padding-top: 105px; padding-bottom: 40px; }
+  .intro-story h1 { font-size: 38px; margin-bottom: 18px; }
+  .intro-description { max-width: 380px; font-size: 17px; }
+  .about-jump-links { gap: 12px 21px; margin-top: 28px; }
+  .about-jump-links a { font-size: 11px; }
+  .intro-collage { max-width: 390px; width: 100%; height: 500px; margin: 12px auto 0; }
+  .intro-portrait-print { width: 80%; }
+  .intro-portrait-print img { height: 315px; }
+  .intro-portrait-print .paperclip { height: 63px; width: 21px; right: 27px; }
+  .intro-note { right: 0; width: 250px; }
+  .intro-note p { font-size: 24px; }
+  .path-board { gap: 30px; padding: 25px 15px 20px; }
+  .path-photo img, .path-melbourne .path-photo img, .path-la .path-photo img { height: 250px; }
+  .path-pittsburgh .path-photo img { height: 180px; }
+  .path-photo figcaption { font-size: 21px; }
+  .path-affiliation { gap: 7px; }
+  .path-affiliation p, .path-affiliation strong { font-size: 11px; }
+  .offscreen-board { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 18px; align-items: start; height: auto; padding: 12px 0 10px; }
+  .offscreen-board::before { inset: 30px -10px 10px; }
+  .offscreen-board figure { position: relative; inset: auto; width: 100%; }
+  .offscreen-football { margin-top: 50px !important; }
+  .torn-photo { padding: 4px; }
+  .torn-photo img { height: 205px; }
+  .offscreen-football figcaption { font-size: 23px; padding-top: 6px; }
+  .offscreen-tennis { transform: rotate(5deg); padding: 6px 6px 0; z-index: 2; }
+  .offscreen-tennis > img { height: 245px; }
+  .offscreen-tennis figcaption { font-size: 22px; padding: 9px; }
+  .offscreen-tennis .paper-tape { width: 65px; height: 23px; left: calc(50% - 32px); }
+  .offscreen-golf { transform: rotate(-5deg); margin-top: 5px !important; }
+  .offscreen-golf > img { height: 280px; }
+  .offscreen-golf figcaption { font-size: 26px; }
+  .offscreen-golf .paperclip { right: 10px; height: 48px; width: 17px; }
+  .offscreen-pickleball { transform: rotate(6deg); margin: -26px 0 0 -4px !important; }
+  .offscreen-pickleball > img { height: 240px; }
+  .offscreen-pickleball figcaption { font-size: 23px; }
+  .offscreen-paint { position: relative; grid-column: 1/-1; inset: auto; width: 150px; margin: 10px auto 0; transform: rotate(-4deg); }
+  .offscreen-paint img { height: 115px; width: 125px; }
+  .offscreen-paint .handwritten { font-size: 24px; }
+  .painting-grid { grid-template-columns: 1fr 1fr; gap: 25px 15px; padding: 8px 0; }
+  .painting-image { aspect-ratio: 1; }
+  .painting-print figcaption { font-size: 11px; padding-block: 12px; }
+  .painting-dialog-stage { grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px; }
+  .painting-dialog-stage img { grid-column: 1/-1; grid-row: 1; max-height: 62svh; }
+  .painting-dialog-stage button { justify-self: center; }
+}
+@media (max-width: 540px) {
+  .path-board { grid-template-columns: 1fr; gap: 36px; padding: 25px 7px; }
+  .path-stop { display: grid; grid-template-columns: 42% 1fr; align-items: center; gap: 16px; margin: 0; padding: 0; }
+  .path-photo { padding: 5px 5px 0; }
+  .path-photo img, .path-melbourne .path-photo img, .path-la .path-photo img, .path-pittsburgh .path-photo img { height: 166px; }
+  .path-photo figcaption { font-size: 17px; padding: 10px 0 12px; }
+  .path-affiliation { display: block; padding-bottom: 12px; }
+  .path-affiliation > img { width: 25px; height: 25px; margin-bottom: 7px; }
+  .path-affiliation p, .path-affiliation strong { font-size: 10px; }
+  .origin-note { font-size: 20px; }
+  .board-pin { width: 10px; height: 10px; top: -11px; }
+}
+@media (max-width: 360px) {
+  .scrapbook-section, .about-intro-section { margin-inline: 20px; }
+  .intro-story h1 { font-size: 33px; }
+  .intro-collage { height: 450px; }
+  .intro-portrait-print { width: 85%; }
+  .intro-portrait-print img { height: 265px; }
+  .intro-note { width: 230px; }
+  .intro-note p { font-size: 22px; }
+  .path-stop { gap: 12px; grid-template-columns: 41% 1fr; }
+  .path-photo img, .path-melbourne .path-photo img, .path-la .path-photo img, .path-pittsburgh .path-photo img { height: 150px; }
+  .path-photo figcaption { font-size: 15px; }
+  .offscreen-tennis > img { height: 215px; }
+  .torn-photo img { height: 185px; }
+  .offscreen-golf > img { height: 240px; }
+  .offscreen-pickleball > img { height: 215px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .apple-about *, .apple-about *::before, .apple-about *::after { transition: none !important; }
+}
+
+/* Photographs are pinned one at a time. */
+.path-title, .skill-title { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.path-affiliation { padding-bottom: 20px; }
+.path-affiliation strong { font-weight: 500; }
+.path-affiliation > img { filter: saturate(.85); }
+/* A compact visual inventory: labels identify skills without opening images. */
+.about-workbench, .about-hobbies { padding-block: 32px 28px; scroll-margin-top: 72px !important; }
+.about-workbench .section-title, .about-hobbies .section-title { margin-bottom: 22px; }
+.skill-board { --skill-photo-height: clamp(85px,18svh,150px); position: relative; display: grid; grid-template-columns: repeat(10,minmax(0,1fr)); align-items: center; gap: 32px 16px; padding: 18px 5px 22px; isolation: isolate; }
+.skill-board::before { content: ""; position: absolute; z-index: -2; inset: 28px 8px 10px; transform: rotate(-1deg); background: #faf9f5; clip-path: polygon(0 0,100% 1%,99% 98%,85% 99%,60% 98%,32% 100%,0 99%); }
+.skill-sheet { grid-column: span 2; min-width: 0; margin: 0; position: relative; padding: 7px 7px 0; background: #fff; box-shadow: 0 5px 14px #26334212; }
+.skill-image { display: flex; align-items: center; justify-content: center; height: var(--skill-photo-height); overflow: hidden; }
+.skill-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.skill-sheet figcaption { color: #315d79; font-size: clamp(16px,1.65vw,21px); line-height: 1.2; padding: 10px 0 12px; text-align: center; white-space: nowrap; }
+.skill-sheet .paper-tape { width: 58px; height: 18px; top: -9px; left: calc(50% - 29px); }
+.skill-sheet .paperclip { height: 43px; width: 14px; top: -18px; left: auto; right: 13px; }
+.sheet-prototype { transform: rotate(-3deg); }
+.sheet-prototype img { object-fit: cover; object-position: 50% 55%; }
+.sheet-wire { transform: rotate(3deg); background: #f5f1e4; margin-top: 16px; }
+.sheet-wire .skill-image { background: #202020; }
+.sheet-system { transform: rotate(-2deg); background: #f1f4f4; }
+.sheet-interview { transform: rotate(3deg); background: #eef0e2; margin-top: 20px; }
+.sheet-interview .skill-image { height: calc(var(--skill-photo-height) * .82); }
+.sheet-collaboration { transform: rotate(-3deg); }
+.sheet-collaboration .skill-image { height: calc(var(--skill-photo-height) * .85); }
+.sheet-blueprint { grid-column: 2/4; transform: rotate(-2deg); background: #f5f1e4; }
+.sheet-flow { grid-column: 4/6; transform: rotate(2deg); margin-top: 20px; }
+.sheet-flow .skill-image { height: calc(var(--skill-photo-height) * .76); }
+.sheet-journey { grid-column: 6/8; transform: rotate(-3deg); background: #edf2f8; }
+.sheet-journey .skill-image, .sheet-access .skill-image { height: calc(var(--skill-photo-height) * .72); }
+.sheet-access { grid-column: 8/10; transform: rotate(3deg); background: #f5f1e4; margin-top: 16px; }
+.tool-sticker { position: absolute; z-index: 4; width: 42px; height: 42px; filter: drop-shadow(0 3px 3px #1d2b3c20); pointer-events: none; }
+.tool-sticker img { width: 100%; height: 100%; object-fit: contain; }
+.sticker-figma { top: 42%; left: 18%; transform: rotate(13deg); }
+.sticker-adobe { top: 2%; right: 0; transform: rotate(-10deg); }
+.sticker-codex { bottom: 6%; left: 3%; transform: rotate(8deg); }
+.sticker-claude { bottom: 10%; right: 3%; transform: rotate(-13deg); }
+/* Small fan keepsakes: the personal sport photos keep visual priority. */
+.football-fans { position: absolute; top: 532px; left: 18px; width: 215px; z-index: 3; }
+.fan-stickers { position: relative; height: 173px; }
+.fan-stickers img { position: absolute; object-fit: contain; height: 170px; width: 132px; filter: drop-shadow(0 5px 3px #2c342520); }
+.fan-mbappe { left: 0; top: -7px; transform: rotate(-9deg); }
+.fan-kaka { right: -1px; top: 8px; transform: rotate(7deg); }
+.football-fans p { text-align: center; color: #58748a; font-size: 22px; line-height: 1.25; margin: 13px 0 0; transform: rotate(-3deg); }
+.football-fans p span { color: #b9544e; }
+@media (max-width: 1230px) {
+  .football-fans { left: 0; width: 20%; }
+  .fan-stickers img { width: 61%; }
+}
+@media (max-width: 900px) {
+  .football-fans { top: 416px; width: 24%; left: -3%; }
+  .fan-stickers { height: 145px; }
+  .fan-stickers img { height: 140px; }
+  .football-fans p { font-size: 19px; }
+}
+@media (max-width: 680px) {
+  .path-facts { margin: 0; padding: 0 4px; }
+  .path-affiliation { padding-bottom: 16px; }
+  .football-fans { position: relative; inset: auto; width: 100%; grid-column: 1; grid-row: 3; margin-top: 10px; }
+  .fan-stickers { height: 135px; }
+  .fan-stickers img { height: 130px; }
+  .football-fans p { font-size: 17px; white-space: nowrap; }
+  .offscreen-paint { grid-column: 2; grid-row: 3; width: 135px; margin-top: 40px; }
+  .offscreen-paint img { width: 100px; height: 95px; }
+  .offscreen-paint .handwritten { font-size: 21px; }
+}
+@media (prefers-reduced-motion: reduce) {
+
+}
+@media (max-width: 360px) {
+  .football-fans p { font-size: 15px; }
+  .offscreen-paint { width: 120px; }
+}
+
+/* Keep each collage within the viewport, with the labels at reading size. */
+.about-hobbies { --hobby-height: clamp(320px,calc(100svh - 210px),500px); }
+.offscreen-board { height: var(--hobby-height); width: min(100%,940px); margin: 4px auto 0; }
+.offscreen-board::before { inset: 18px 10px 10px; background-size: 25px 25px; }
+.offscreen-board figure { position: absolute; margin: 0 !important; }
+.offscreen-board .offscreen-football { top: 16%; left: 1%; width: 17%; }
+.torn-photo { padding: 4px; }
+.torn-photo img { height: calc(var(--hobby-height) * .46); width: 100%; }
+.offscreen-board .offscreen-football figcaption { font-size: 22px; padding: 6px 5px 0; }
+.offscreen-board .offscreen-tennis { top: 1%; left: 24%; width: 25%; padding: 7px 7px 0; }
+.offscreen-board .offscreen-tennis > img { height: calc(var(--hobby-height) * .62); }
+.offscreen-board .offscreen-tennis figcaption { font-size: 23px; padding: 8px 0 10px; }
+.offscreen-board .offscreen-tennis .paper-tape { width: 65px; height: 22px; left: calc(50% - 32px); top: -12px; }
+.offscreen-board .offscreen-golf { top: 8%; right: 3%; width: 19%; }
+.offscreen-board .offscreen-golf > img { height: calc(var(--hobby-height) * .61); }
+.offscreen-board .offscreen-golf figcaption { font-size: 24px; margin: 7px 0 0 12px; }
+.offscreen-board .offscreen-golf .paperclip { height: 48px; width: 17px; right: 14px; }
+.offscreen-board .offscreen-pickleball { top: 38%; left: 54%; width: 18%; }
+.offscreen-board .offscreen-pickleball > img { height: calc(var(--hobby-height) * .46); }
+.offscreen-board .offscreen-pickleball figcaption { font-size: 22px; margin-top: 7px; }
+.offscreen-board .offscreen-pickleball::before { inset: -5px -5px 26px; }
+.football-fans { top: auto; bottom: 1%; left: 4%; width: 145px; }
+.fan-stickers { height: 105px; }
+.fan-stickers img { height: 104px; width: 90px; }
+.football-fans p { font-size: 17px; margin-top: 7px; white-space: nowrap; }
+.offscreen-paint { bottom: 1%; left: 32%; width: 125px; margin: 0; }
+.offscreen-paint img { width: 100px; height: 85px; margin-bottom: 4px; }
+.offscreen-paint .handwritten { font-size: 22px; }
+@media (min-width: 681px) and (max-width: 900px) {
+  .skill-board { gap: 24px 10px; }
+  .skill-sheet { padding-inline: 5px; }
+  .skill-sheet figcaption { font-size: 14px; }
+  .tool-sticker { width: 34px; height: 34px; }
+}
+@media (max-width: 680px) {
+  .about-workbench, .about-hobbies { padding-block: 22px 20px; margin-inline: 20px; }
+  .about-workbench .section-title, .about-hobbies .section-title { margin-bottom: 16px; }
+  .skill-board { --skill-photo-height: clamp(42px,8svh,68px); grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px 18px; padding: 10px 4px; }
+  .skill-sheet { grid-column: auto; grid-row: auto; margin: 0; padding: 5px 5px 0; }
+  .skill-sheet .skill-image { height: var(--skill-photo-height); }
+  .skill-sheet figcaption { font-size: clamp(14px,3.8vw,18px); padding: 6px 0 8px; }
+  .sheet-access { grid-column: 1/-1; width: 54%; justify-self: center; }
+  .sheet-interview .skill-image img, .sheet-collaboration .skill-image img { object-fit: cover; }
+  .skill-sheet .paper-tape { width: 36px; height: 12px; top: -6px; left: calc(50% - 18px); }
+  .skill-sheet .paperclip { height: 28px; width: 10px; top: -10px; right: 8px; }
+  .tool-sticker { width: 28px; height: 28px; }
+  .sticker-figma { top: 18%; left: 43%; }
+  .sticker-adobe { top: 0; right: -3px; }
+  .sticker-codex { bottom: 7%; left: 3%; }
+  .sticker-claude { bottom: 9%; right: 3%; }
+  .about-hobbies { --hobby-height: clamp(400px,calc(100svh - 175px),570px); }
+  .offscreen-board { display: block; padding: 0; }
+  .offscreen-board .offscreen-football { top: 7%; left: 0; width: 41%; }
+  .torn-photo img { height: calc(var(--hobby-height) * .29); }
+  .offscreen-board .offscreen-football figcaption { font-size: 18px; }
+  .offscreen-board .offscreen-tennis { top: 0; left: auto; right: 0; width: 46%; padding: 5px 5px 0; }
+  .offscreen-board .offscreen-tennis > img { height: calc(var(--hobby-height) * .35); }
+  .offscreen-board .offscreen-tennis figcaption { font-size: 18px; padding: 5px 0 6px; }
+  .offscreen-board .offscreen-tennis .paper-tape { width: 42px; height: 15px; left: calc(50% - 21px); top: -8px; }
+  .offscreen-board .offscreen-golf { top: 43%; left: 2%; right: auto; width: 42%; }
+  .offscreen-board .offscreen-golf > img { height: calc(var(--hobby-height) * .32); }
+  .offscreen-board .offscreen-golf figcaption { font-size: 19px; margin-top: 4px; }
+  .offscreen-board .offscreen-golf .paperclip { height: 30px; width: 11px; right: 5px; }
+  .offscreen-board .offscreen-pickleball { top: 44%; left: auto; right: 1%; width: 43%; }
+  .offscreen-board .offscreen-pickleball > img { height: calc(var(--hobby-height) * .29); }
+  .offscreen-board .offscreen-pickleball figcaption { font-size: 18px; margin-top: 5px; }
+  .football-fans { position: absolute; inset: auto auto 0 1%; width: 40%; margin: 0; }
+  .fan-stickers { height: 62px; }
+  .fan-stickers img { height: 62px; width: 57%; }
+  .football-fans p { font-size: 12px; margin-top: 3px; }
+  .offscreen-paint { position: absolute; inset: auto 2% 0 auto; width: 37%; margin: 0; }
+  .offscreen-paint img { height: 55px; width: 70px; margin-bottom: 1px; }
+  .offscreen-paint .handwritten { font-size: 18px; }
+}

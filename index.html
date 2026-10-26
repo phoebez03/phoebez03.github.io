@@ -38,11 +38,11 @@
     <link rel="shortcut icon" href="./favicon.ico?v=3"/>
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=3"/>
     <script>document.documentElement.classList.add('motion-ready', 'experience-complete');</script>
-    <link rel="stylesheet" href="./apple-home.css?v=33">
+    <link rel="stylesheet" href="./apple-home.css?v=40">
     <script defer src="./vendor/gsap.min.js"></script>
-    <script defer src="./apple-home.js?v=18"></script>
+    <script defer src="./apple-home.js?v=26"></script>
   </head>
-  <body>
+  <body class="apple-home">
     <a class="skip-link" href="#projects">Skip to projects</a>
     <header class="global-nav">
       <div class="nav-inner">
@@ -58,31 +58,66 @@
     </header>
 
     <main id="top">
-      <section class="homepage-hero" aria-labelledby="intro-title">
-        <div class="homepage-hero-inner">
-          <div class="hero-composition">
-            <div class="hero-note hero-note-intro" data-hero-piece>
-              <div class="card-perforations" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-              <h1 id="intro-title">I’m a Product Designer who turns human insights into product decisions.</h1>
+      <section class="homepage-hero hero-atlas" aria-labelledby="intro-title">
+        <div class="hero-atlas-grid" id="hero-atlas-grid">
+          <article class="collage-piece intro-note">
+            <div class="window-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Note</span><span class="note-mark" aria-hidden="true">↗</span></div>
+            <div class="note-body">
+              <p class="note-greeting">Hi, I’m Phoebe.</p>
+              <h1 id="intro-title">I’m a Product Designer who turns <span class="ink-underline">human insights<svg viewBox="0 0 260 12" aria-hidden="true"><path d="M3 8 Q92 1 254 5 M32 10 Q145 5 242 9"/></svg></span> into product decisions.</h1>
+              <a class="collage-link" href="/about/">About me <span aria-hidden="true">↗</span></a>
             </div>
-            <div class="hero-note hero-note-support" data-hero-piece>
-              <p>Grounded in psychology and HCI, with experience in UX research and product management.</p>
+          </article>
+
+          <figure class="collage-piece studio-window" id="studio-window">
+            <figcaption class="window-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="studio-title">My studio</span><span class="studio-bar-spacer" aria-hidden="true"></span></figcaption>
+            <div class="studio-photo" data-view="studio"><img id="studio-image" src="./about/studio/design-desk.jpg" alt="My design desk: code on a monitor, Figma on a laptop and hand-drawn wireframes in a sketchbook." fetchpriority="high"></div>
+            <div class="selection-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="studio-callouts">
+              <span class="studio-callout callout-code" data-callout="code"><svg viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1 18 13 10 14 7 22Z"/></svg>I vibe code</span>
+              <span class="studio-callout callout-figma" data-callout="figma"><svg viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1 18 13 10 14 7 22Z"/></svg>I use Figma</span>
+              <span class="studio-callout callout-sketch" data-callout="sketch"><svg viewBox="0 0 20 24" aria-hidden="true"><path d="M2 1 18 13 10 14 7 22Z"/></svg>I design by hands</span>
             </div>
-            <figure class="hero-school hero-school-cmu" data-hero-piece>
-              <span class="hero-school-logo hero-school-logo-cmu"><img src="./brand/cmu-logo.png" alt="Carnegie Mellon University"></span>
-              <figcaption>HCI</figcaption>
-            </figure>
-            <figure class="hero-school hero-school-melbourne" data-hero-piece>
-              <span class="hero-school-logo"><img src="./brand/unimelb-logo.png" alt="The University of Melbourne"></span>
-              <figcaption>Psychology</figcaption>
-            </figure>
+          </figure>
+
+          <a class="collage-piece contact-widget" href="https://www.linkedin.com/in/phoebe-zhang-4a6866246/" aria-label="Phoebe Zhang on LinkedIn"><img src="./about/profile/profile-oxford.jpg" alt="Phoebe Zhang"><span>Phoebe <span aria-hidden="true">›</span></span></a>
+
+          <div class="collage-piece school-pair" aria-label="Education">
+            <figure><span class="school-logo cmu-logo"><img src="./brand/cmu-logo.png" alt="Carnegie Mellon University"></span><figcaption>HCI</figcaption></figure>
+            <figure><span class="school-logo"><img src="./brand/unimelb-logo.png" alt="University of Melbourne"></span><figcaption>Psychology</figcaption></figure>
           </div>
+
+          <figure class="collage-piece screen-time-print"><span class="paper-tape" aria-hidden="true"></span><img src="./brand/home-collage/home-screen-time.png" alt="My Screen Time snapshot: All Usage 28h 51m, Figma 8h 11m."></figure>
+          <a class="collage-piece painting-print" href="/ai-design/#painting" aria-label="See my watercolor paintings"><span class="paper-tape" aria-hidden="true"></span><span class="painting-crop"><img src="./about/paintings/painting-starry-night.jpg" alt="My painting inspired by The Starry Night"></span></a>
+
+          <section class="collage-piece projects-window" aria-labelledby="mini-projects-title">
+            <div class="window-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><h2 id="mini-projects-title">Projects</h2><span aria-hidden="true">▦</span></div>
+            <ul class="mini-projects">
+              <li><a href="/projects/kb-tutor"><img src="./about/education/ctag-logo.png" alt=""><span>KB Tutor</span></a></li>
+              <li><a href="/projects/bumble-skill-snack"><img src="./brand/home-collage/home-bumble.png" alt=""><span>Bumble</span></a></li>
+              <li><a href="/about/#my-path"><img src="./about/education/will-education-logo.jpg" alt=""><span>Will</span></a></li>
+              <li><a href="/about/#my-path"><img src="./about/education/oli-logo.png" alt=""><span>OLI</span></a></li>
+            </ul>
+            <a class="collage-link" href="#projects">All projects <span aria-hidden="true">↗</span></a>
+          </section>
+
+          <div class="collage-piece hobby-sticker sticker-palette"><button class="hobby-play" type="button" data-hobby="painting" aria-label="Bounce the paint palette sticker"><img src="./brand/home-collage/home-painting.png" alt="Watercolor paint palette"></button></div>
+
+          <div class="collage-piece tool-dock" role="group" aria-label="Creative tools">
+            <span class="dock-tool" tabindex="0" role="img" aria-label="Figma"><img src="./brand/home-collage/home-figma-transparent.png" alt=""><span aria-hidden="true">Figma</span></span>
+            <span class="dock-tool" tabindex="0" role="img" aria-label="Adobe"><img src="./brand/home-collage/home-adobe-transparent.png" alt=""><span aria-hidden="true">Adobe</span></span>
+            <span class="dock-tool" tabindex="0" role="img" aria-label="Claude"><img src="./brand/home-collage/home-claude.png" alt=""><span aria-hidden="true">Claude</span></span>
+            <span class="dock-tool" tabindex="0" role="img" aria-label="Codex"><img src="./brand/home-collage/home-codex.png" alt=""><span aria-hidden="true">Codex</span></span>
+            <span class="dock-divider" aria-hidden="true"></span>
+            <a href="#projects" aria-label="View all projects"><span class="folder-icon" aria-hidden="true"></span><span>Projects</span></a>
+          </div>
+          <button class="motion-toggle" type="button" aria-pressed="false" aria-label="Pause motion" title="Pause motion" hidden><span class="motion-toggle-icon" aria-hidden="true">Ⅱ</span></button>
         </div>
       </section>
 
       <section class="project-section" id="projects" aria-labelledby="projects-title">
         <div class="section-header">
-          <h2 id="projects-title">Selected work</h2>
+          <div><h2 id="projects-title">Selected work<span class="title-dot">.</span></h2></div><span class="work-count">01 — 04</span>
         </div>
 
         <div class="project-feature-list" id="project-grid">
