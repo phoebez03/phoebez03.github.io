@@ -1,6 +1,11 @@
 (() => {
   'use strict';
 
+  if (window.location.hash === '#painting') {
+    window.location.replace('/about/#paintings');
+    return;
+  }
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealItems = Array.from(document.querySelectorAll('.playground-reveal'));
 
@@ -99,151 +104,4 @@
     restartAutoplay();
   });
 
-  const paintingGallery = document.querySelector('[data-painting-gallery]');
-  if (!paintingGallery) return;
-
-  const reel = document.querySelector('[data-painting-reel]');
-  const paintingSection = paintingGallery.closest('.painting-showcase');
-  const track = reel?.querySelector('.painting-reel-track');
-  const paintingSources = Array.from(paintingGallery.querySelectorAll('img'), (image) => image.src);
-
-  if (reduceMotion || !track || !('IntersectionObserver' in window) || paintingSources.length < 2) {
-    paintingGallery.classList.add('is-landed');
-    return;
-  }
-
-  const prepareReel = () => Promise.all(paintingSources.map((source) => new Promise((resolve, reject) => {
-    const image = new Image();
-    image.onload = () => resolve(image);
-    image.onerror = reject;
-    image.src = source;
-  }))).then((paintings) => {
-    const cards = paintings.map((image) => {
-      const card = document.createElement('figure');
-      card.className = 'painting-reel-card';
-      image.alt = '';
-      image.draggable = false;
-      card.append(image);
-      track.append(card);
-      return card;
-    });
-    let cardSize = 0;
-    let spacing = 0;
-    let position = 0;
-    let target = 0;
-    let inView = false;
-    let dragging = false;
-    let dragStartX = 0;
-    let dragStartPosition = 0;
-    let hovering = false;
-    let pauseUntil = 0;
-    let lastFrame = 0;
-    let frameRequest = 0;
-
-    const render = () => {
-      if (!cardSize) return;
-      const cyclePosition = ((position % cards.length) + cards.length) % cards.length;
-      cards.forEach((card, index) => {
-        let distance = index - cyclePosition;
-        if (distance > cards.length / 2) distance -= cards.length;
-        if (distance < -cards.length / 2) distance += cards.length;
-        const depth = Math.abs(distance);
-        const scale = Math.max(0.73, 1 - depth * 0.15);
-        const opacity = Math.max(0, 1 - Math.max(0, depth - 0.4) * 0.3);
-        card.style.transform = `translate3d(calc(-50% + ${distance * spacing}px), -50%, 0) scale(${scale})`;
-        card.style.opacity = String(opacity);
-        card.style.zIndex = String(Math.round((cards.length - depth) * 10));
-        card.style.visibility = depth > 2.6 ? 'hidden' : 'visible';
-      });
-    };
-
-    const resize = () => {
-      const bounds = reel.getBoundingClientRect();
-      if (!bounds.width || !bounds.height) return;
-      cardSize = Math.min(bounds.width < 640 ? 250 : 390, bounds.width * (bounds.width < 640 ? 0.68 : 0.38), bounds.height * 0.78);
-      spacing = cardSize * (bounds.width < 640 ? 0.94 : 1.02);
-      reel.style.setProperty('--painting-card-size', `${cardSize}px`);
-      render();
-    };
-
-    const animate = (now) => {
-      if (!inView || document.hidden) {
-        frameRequest = 0;
-        lastFrame = 0;
-        return;
-      }
-      const elapsed = lastFrame ? Math.min(now - lastFrame, 64) : 0;
-      lastFrame = now;
-      if (!dragging && !hovering && now > pauseUntil) target += elapsed / 5500;
-      if (!dragging) position += (target - position) * Math.min(1, elapsed / 240);
-      if (Math.abs(position) > cards.length * 100) {
-        const cycles = Math.trunc(position / cards.length) * cards.length;
-        position -= cycles;
-        target -= cycles;
-      }
-      render();
-      frameRequest = window.requestAnimationFrame(animate);
-    };
-
-    const startAnimation = () => {
-      if (!frameRequest && inView && !document.hidden) frameRequest = window.requestAnimationFrame(animate);
-    };
-
-    reel.addEventListener('pointerdown', (event) => {
-      dragging = true;
-      dragStartX = event.clientX;
-      dragStartPosition = position;
-      reel.classList.add('is-dragging');
-      reel.setPointerCapture(event.pointerId);
-    });
-    reel.addEventListener('pointermove', (event) => {
-      if (!dragging) return;
-      position = dragStartPosition - (event.clientX - dragStartX) / spacing;
-      target = position;
-      render();
-    });
-    const stopDragging = () => {
-      if (!dragging) return;
-      dragging = false;
-      target = Math.round(position);
-      pauseUntil = performance.now() + 3000;
-      reel.classList.remove('is-dragging');
-    };
-    reel.addEventListener('pointerup', stopDragging);
-    reel.addEventListener('pointercancel', stopDragging);
-    reel.addEventListener('pointerenter', (event) => {
-      if (event.pointerType === 'mouse') hovering = true;
-    });
-    reel.addEventListener('pointerleave', () => { hovering = false; });
-    reel.addEventListener('wheel', (event) => {
-      target += (event.deltaX + event.deltaY * 0.35) / Math.max(spacing, 1);
-      pauseUntil = performance.now() + 2500;
-    }, { passive: true });
-    reel.addEventListener('keydown', (event) => {
-      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-      event.preventDefault();
-      target = Math.round(target) + (event.key === 'ArrowRight' ? 1 : -1);
-      pauseUntil = performance.now() + 3500;
-    });
-
-    paintingSection.classList.add('has-reel');
-    resize();
-    if ('ResizeObserver' in window) new ResizeObserver(resize).observe(reel);
-    else window.addEventListener('resize', resize);
-    new IntersectionObserver((entries) => {
-      inView = entries[0].isIntersecting;
-      if (inView) startAnimation();
-    }, { threshold: 0.1 }).observe(reel);
-    document.addEventListener('visibilitychange', startAnimation);
-  }).catch(() => {
-    paintingSection.classList.remove('has-reel');
-    paintingGallery.classList.add('is-landed');
-  });
-
-  const loadObserver = new IntersectionObserver((entries, observer) => {
-    if (!entries[0].isIntersecting) return;
-    observer.disconnect();
-    prepareReel();
-  }, { rootMargin: '500px 0px' });
-  loadObserver.observe(paintingSection);
 })();
