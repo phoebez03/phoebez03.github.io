@@ -38,9 +38,9 @@
     <link rel="shortcut icon" href="./favicon.ico?v=3"/>
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=3"/>
     <script>document.documentElement.classList.add('motion-ready', 'experience-complete');</script>
-    <link rel="stylesheet" href="./apple-home.css?v=40">
+    <link rel="stylesheet" href="./apple-home.css?v=50">
     <script defer src="./vendor/gsap.min.js"></script>
-    <script defer src="./apple-home.js?v=26"></script>
+    <script defer src="./apple-home.js?v=28"></script>
   </head>
   <body class="apple-home">
     <a class="skip-link" href="#projects">Skip to projects</a>
@@ -127,21 +127,26 @@
                 <span class="feature-index">01 / 04</span>
                 <h3>KB Tutor</h3>
                 <p>An adaptive Biology tutor that helps students reason and gives teachers actionable insight.</p>
+                <ul class="feature-keywords" aria-label="Project skills"><li>Web App</li><li>0-&gt;1 Product Design</li><li>UX Research</li></ul>
                 <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
-              <div class="feature-media feature-media-kb">
+              <div class="feature-media feature-media-kb" role="img" aria-label="Student experience on a laptop and teacher dashboard on an iPad">
                 <div class="kb-computer">
                   <div class="kb-computer-display">
                     <div class="kb-computer-screen">
-                      <video data-home-demo muted loop playsinline preload="none" poster="./projects/kb-tutor/media/kb-tutor-product-introduction-poster.jpg" aria-hidden="true">
-                        <source src="./projects/kb-tutor/media/kb-tutor-product-introduction.mp4" type="video/mp4">
+                      <video data-home-demo muted loop playsinline preload="none" poster="./projects/kb-tutor/media/kb-tutor-home-student-pointer-poster.jpg" aria-hidden="true">
+                        <source src="./projects/kb-tutor/media/kb-tutor-home-student-pointer.mp4" type="video/mp4">
                       </video>
                     </div>
                   </div>
                   <div class="kb-computer-base" aria-hidden="true"></div>
                 </div>
+                <div class="kb-ipad">
+                  <div class="kb-ipad-screen">
+                    <img src="./projects/kb-tutor/media/kb-tutor-home-teacher-clean.png" width="1669" height="942" alt="">
+                  </div>
+                </div>
               </div>
-              <ul class="feature-keywords" aria-label="Project skills"><li>Web App</li><li>0-&gt;1 Product Design</li><li>UX Research</li></ul>
             </a>
           </article>
 
@@ -151,13 +156,32 @@
                 <span class="feature-index">02 / 04</span>
                 <h3>Bumble × Skill Snack</h3>
                 <p>A low-pressure conversation feature that turns shared interests into reasons to start talking.</p>
+                <ul class="feature-keywords" aria-label="Project skills"><li>Cross-Platform App</li><li>UI Design</li><li>Micro-interactions</li></ul>
                 <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
-              <div class="feature-media feature-media-bumble">
-                <img class="bumble-screen bumble-screen-primary" src="./projects/bumble-skill-snack/cover/bumble-cover-primary.svg" alt="Bumble Skill Snack mobile interface">
-                <img class="bumble-screen bumble-screen-secondary" src="./projects/bumble-skill-snack/cover/bumble-cover-secondary.svg" alt="" aria-hidden="true">
+              <div class="feature-media feature-media-bumble" role="img" aria-label="A single hand holds an iPhone playing the Skill Snack chat demo beside a static Apple Watch invitation">
+                <svg class="media-clip-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><clipPath id="bumble-watch-clip" clipPathUnits="objectBoundingBox"><path d="M.47,0 C.34,0 .23,.004 .211,.03 C.196,.05 .196,.14 .145,.181 C.04,.222 0,.278 0,.37 L0,.65 C0,.744 .038,.79 .146,.824 C.189,.86 .196,.947 .213,.976 C.234,1 .35,1 .47,1 C.6,1 .714,.994 .738,.972 C.756,.944 .757,.859 .8,.825 C.918,.788 .95,.737 .95,.65 L.95,.44 C.974,.44 .998,.433 .998,.408 L.998,.343 C.998,.318 .977,.31 .95,.312 C.944,.245 .894,.211 .807,.183 C.763,.153 .75,.062 .739,.033 C.725,.007 .602,0 .47,0 Z"/></clipPath></defs></svg>
+                <div class="bumble-demo-stage device-composition">
+                  <svg class="bumble-handheld" viewBox="100 120 900 1000" aria-hidden="true" focusable="false">
+                    <defs>
+                      <clipPath id="bumble-held-screen"><rect x="456" y="178" width="349" height="726" rx="43"/></clipPath>
+                      <linearGradient id="bumble-wrist-gradient" x1="0" y1="940" x2="0" y2="1080" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset="1" stop-color="black"/></linearGradient>
+                      <mask id="bumble-wrist-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="1254" height="1254"><rect width="1254" height="1254" fill="url(#bumble-wrist-gradient)"/></mask>
+                    </defs>
+                    <g mask="url(#bumble-wrist-fade)">
+                      <foreignObject x="456" y="178" width="349" height="726" clip-path="url(#bumble-held-screen)">
+                        <div xmlns="http://www.w3.org/1999/xhtml" class="bumble-held-display">
+                          <video data-home-demo muted loop playsinline preload="none" poster="./projects/bumble-skill-snack/media/bumble-home-handheld-screen-poster.jpg" aria-hidden="true"><source src="./projects/bumble-skill-snack/media/bumble-home-handheld-screen.mp4" type="video/mp4"/></video>
+                        </div>
+                      </foreignObject>
+                      <image href="./projects/bumble-skill-snack/cover/bumble-handheld-iphone-overlay.png" width="1254" height="1254"/>
+                    </g>
+                  </svg>
+                  <div class="bumble-preview bumble-preview-watch">
+                    <img src="./projects/bumble-skill-snack/media/bumble-home-watch-preview-poster.jpg" width="450" height="770" alt="">
+                  </div>
+                </div>
               </div>
-              <ul class="feature-keywords" aria-label="Project skills"><li>Cross-Platform App</li><li>UI Design</li><li>Micro-interactions</li></ul>
             </a>
           </article>
 
@@ -167,17 +191,39 @@
                 <span class="feature-index">03 / 04</span>
                 <h3>ImpressChat</h3>
                 <p>A conversational art-learning experience that turns close looking into active reasoning.</p>
+                <ul class="feature-keywords" aria-label="Project skills"><li>Mobile App</li><li>Interaction Design</li><li>Instructional Design</li></ul>
                 <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
-              <div class="feature-media feature-media-impress">
-                <img class="impress-art" src="./projects/impresschat/cover/impresschat-cover-painting.png" alt="Impression, Sunrise by Claude Monet">
-                <div class="impress-phone">
-                  <video data-home-demo muted loop playsinline preload="none" poster="./projects/impresschat/media/impresschat-homepage-demo-poster.jpg" aria-hidden="true">
-                    <source src="./projects/impresschat/media/impresschat-homepage-demo.mp4" type="video/mp4">
-                  </video>
+              <div class="feature-media feature-media-impress" role="img" aria-label="A hand-held iPhone shows the ImpressChat course catalog beside a front-facing iPhone learning demo">
+                <div class="impress-demo-stage device-composition">
+                  <svg class="handheld-phone" viewBox="200 60 950 900" aria-hidden="true" focusable="false">
+                    <defs>
+                      <clipPath id="impress-held-screen"><path d="M839 122L1104 97L928 738L666 745Z"/></clipPath>
+                      <linearGradient id="impress-wrist-gradient" x1="0" y1="790" x2="0" y2="840" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset="1" stop-color="black"/></linearGradient>
+                      <linearGradient id="impress-edge-gradient" x1="490" y1="0" x2="590" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="black"/><stop offset="1" stop-color="white"/></linearGradient>
+                      <mask id="impress-wrist-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024"><rect width="1536" height="1024" fill="url(#impress-wrist-gradient)"/></mask>
+                      <mask id="impress-edge-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="1536" height="1024"><rect width="1536" height="1024" fill="url(#impress-edge-gradient)"/></mask>
+                    </defs>
+                    <g mask="url(#impress-wrist-fade)"><g mask="url(#impress-edge-fade)">
+                    <foreignObject width="1536" height="1024" clip-path="url(#impress-held-screen)">
+                      <div xmlns="http://www.w3.org/1999/xhtml" class="mockup-coordinate-space" style="width:1536px;height:1024px">
+                        <div class="mockup-screen-plane" style="width:393px;height:852px;transform:matrix3d(0.5951867782,-0.07056432503,0,-7.166075752e-05,-0.2088893507,0.7246904889,0,-8.765326649e-06,0,0,1,0,839,122,0,1)">
+                          <img src="./projects/impresschat/showcase/impresschat-showcase-catalog.jpg" width="393" height="852" loading="lazy" alt=""/>
+                        </div>
+                      </div>
+                    </foreignObject>
+                    <image href="./projects/shared/handheld-iphone-overlay.png" width="1536" height="1024"/>
+                    </g></g>
+                  </svg>
+                  <div class="phone-mockup impress-phone-motion">
+                    <div class="phone-display">
+                      <video data-home-demo muted loop playsinline preload="none" poster="./projects/impresschat/media/impresschat-homepage-demo-poster.jpg" aria-hidden="true">
+                        <source src="./projects/impresschat/media/impresschat-homepage-demo.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <ul class="feature-keywords" aria-label="Project skills"><li>Mobile App</li><li>Interaction Design</li><li>Instructional Design</li></ul>
             </a>
           </article>
 
@@ -187,12 +233,31 @@
                 <span class="feature-index">04 / 04</span>
                 <h3>PageLens</h3>
                 <p>An AI-powered AR companion that helps physical books adapt to every reader.</p>
+                <ul class="feature-keywords" aria-label="Project skills"><li>Physical + Digital</li><li>Accessibility Design</li><li>UX Research</li></ul>
                 <span class="feature-cta">Explore project <span aria-hidden="true">↗</span></span>
               </div>
-              <div class="feature-media feature-media-pagelens">
-                <img src="./projects/pagelens/cover/pagelens-cover.png" alt="PageLens tablet reading companion mounted above a physical book">
+              <div class="feature-media feature-media-pagelens" role="img" aria-label="PageLens reading companion above a physical book, paired with a hand-held iPad showing adjustable reading settings">
+                <div class="pagelens-preview device-composition">
+                  <img class="pagelens-cutout" src="./projects/pagelens/cover/pagelens-home-cutout.png" width="1457" height="1080" loading="lazy" alt="">
+                  <svg class="handheld-ipad" viewBox="170 190 1500 816" aria-hidden="true" focusable="false">
+                    <defs>
+                      <clipPath id="pagelens-held-screen"><path d="M331 229L1182 229L1194 868L335 868Z"/></clipPath>
+                      <linearGradient id="pagelens-wrist-gradient" x1="0" y1="936" x2="0" y2="1006" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset="1" stop-color="black"/></linearGradient>
+                      <mask id="pagelens-wrist-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="1564" height="1006"><rect width="1564" height="1006" fill="url(#pagelens-wrist-gradient)"/></mask>
+                    </defs>
+                    <g mask="url(#pagelens-wrist-fade)">
+                    <foreignObject width="1564" height="1006" clip-path="url(#pagelens-held-screen)">
+                      <div xmlns="http://www.w3.org/1999/xhtml" class="mockup-coordinate-space" style="width:1564px;height:1006px">
+                        <div class="mockup-screen-plane" style="width:816px;height:570px;transform:matrix3d(1.042892157,0,0,0,0.001544023038,1.106870494,0,-1.633886812e-05,0,0,1,0,331,229,0,1)">
+                          <img src="./projects/pagelens/design/pagelens-accessibility-settings.png" width="816" height="570" loading="lazy" alt=""/>
+                        </div>
+                      </div>
+                    </foreignObject>
+                    <image href="./projects/pagelens/cover/pagelens-handheld-ipad-overlay.png" width="1564" height="1006"/>
+                    </g>
+                  </svg>
+                </div>
               </div>
-              <ul class="feature-keywords" aria-label="Project skills"><li>Physical + Digital</li><li>Accessibility Design</li><li>UX Research</li></ul>
             </a>
           </article>
         </div>
