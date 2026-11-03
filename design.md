@@ -28,7 +28,7 @@ Project accents such as Bumble yellow remain project-specific. Text on light sur
 
 - Interface family: SF Pro / system sans-serif fallback.
 - Display family: use the established portfolio display face consistently within a page family.
-- Homepage hero: `clamp(44px, 5.2vw, 72px)`, weight 600, line-height 1.0, two lines on desktop.
+- Homepage intro: 54px desktop display type, weight 500, line-height 1.13; 25–43px on phones. Three deliberate lines, centered on desktop and left aligned on phones. No window frame.
 - Project hero: `clamp(50px, 6.4vw, 98px)`.
 - Case-study section heading: semantic `h3`, `clamp(19px, 1.8vw, 25px)`, weight 600, one line on desktop.
 - Card heading: `clamp(20px, 1.8vw, 24px)`, always smaller than the section heading in perceived hierarchy.
@@ -36,7 +36,7 @@ Project accents such as Bumble yellow remain project-specific. Text on light sur
 - Body: `clamp(15px, 1.08vw, 17px)`.
 - Labels and keyword badges: 11–13px, weight 600.
 
-Headings use the primary ink and a compact line-height. Prefer one concise line; two lines is the absolute maximum on desktop. Edit the copy before reducing the type size, and never enlarge a heading merely to fill space. Card headings must remain at least one clear type step below their section heading.
+Headings use the primary ink and a compact line-height. User preference confirmed 2026-10-21: keep headings to one concise line, including mobile. Shorten the wording before reducing type size. Use the section name alone when it is sufficient, such as My Path, Skill, Offscreen, or Paintings; omit redundant eyebrows, subtitles and decorative explanatory copy. Never enlarge a heading merely to fill space. Card headings must remain at least one clear type step below their section heading. Apply this preference to future work; it does not authorize unrelated page rewrites.
 
 Avoid decorative em dashes and repeated hyphen constructions in headings. Use punctuation only when it improves meaning. When a chapter label or table-of-contents item already names the section, do not repeat the same meaning in a second heading; keep the label and let the content begin.
 
@@ -59,6 +59,22 @@ Avoid decorative em dashes and repeated hyphen constructions in headings. Use pu
 - Case-study metadata: three consistent fields—Role, Timeline, Tools.
 - Project taxonomy order: Platform → Design Expertise → Specialization.
 
+### Homepage typography and interactions
+
+- User-confirmed direction (2026-10-20): an Apple/iOS-inspired image collage with polished native-window details and loose scrapbook/hand-drawn accents. Keep the original black navigation. Use minimal text; express skills through images. The preceding white-navigation/unboxed-type proposal is superseded.
+- Current implementation, awaiting visual acceptance: a Notes-style introduction overlapping the real studio photograph, a portrait contact widget linking directly to LinkedIn, separate school stickers, a Starry Night painting print, a user-provided Screen Time snapshot and a compact Projects window. Composition and placements are AI proposals based on the four user-supplied collage references, not a replica.
+- Reuse the user's existing `about/studio/design-desk.jpg`, profile and watercolor photos. The studio stays on its full photograph. Tool logos identify creative tools; they do not imply that the physical painting was made in Adobe.
+- Keep the approved main introduction. Remove extra group headings, biographical subtitles and tool descriptions. Small functional window labels, school disciplines and link labels remain.
+- Tool dock icons are noninteractive, with the exact names Figma, Adobe, Claude and Codex revealed on hover or keyboard focus. Clicking does not switch images, labels or state. GSAP provides staggered window entrances, a drawn underline and restrained movement. Pause stops idle motion and videos; reduced motion skips GSAP and autoplay. No Liquid Glass.
+- Desktop and narrow-phone collage layouts fit a normal viewport; exceptionally short viewports may scroll. Keep links keyboard-accessible, photographs visible without animation and no horizontal overflow.
+- Homepage Will and OLI links both open About at My Path. Preserve the project demos inside devices on transparent project stages below the hero. Project links navigate directly; remove the blue card outline on click, with a restrained charcoal outline reserved for keyboard focus.
+- Selected work keywords sit directly below each description and above Explore project, aligned to the copy column. Keep device stages free of badges and use the recovered lower space to shorten cards.
+- Selected work KB Tutor places an upright landscape iPad at the left, slightly overlapping the upright student laptop at the right, with both devices aligned along the bottom. The teacher dashboard is a static image covering the iPad screen with its recorded cursor removed. The student demo retains its original pointer (user clarification, November 2); use the fixed crop and smooth retained wide views without cursor repairs. Bumble uses the user’s single-hand straight-on iPhone photograph with the existing chat video inside its display, plus a small static Apple Watch invitation; no second phone. Its group is slightly smaller (490px maximum), and the watch sits a little higher and farther right. ImpressChat retains an angled hand-held static catalog beside a straight-on phone playing the existing demo. Match both phones’ visible heights and leave a small gap between them (about 20px at the desktop maximum); do not overlap. Its wrist fades softly close to the second phone’s baseline. PageLens pairs the transparent physical-product cutout with a two-hand-held landscape iPad displaying its reading settings, shifted farther toward the upper right at a slightly smaller scale so the real product screen, support and book remain legible, with restrained overlap. Center the pair’s visible artwork as a group opposite the copy, using a closely fitted stage instead of a tall empty image area. Keep soft wrist endings and a softly fading lower edge on the original product photo and no homepage video. Crop recording surroundings, preserve the original UI, and avoid empty black rectangles around devices. Videos play only in view, obey the shared pause setting and reduced motion, and show their posters without JavaScript. These homepage changes do not authorize edits to case-study layouts.
+- User refinement (2026-11-01): remove recorded mouse pointers and click circles from homepage demo assets. Later clarification: only KB Tutor’s teacher dashboard requires cursor removal; preserve the student demo’s original pointer. All four project cards and stages have transparent backgrounds, with no blurred color halos or broad device shadows. Keep actual interfaces, device bezels and the framed painting opaque. PageLens uses an alpha cutout retaining the tablet, mount and open book. Keep the original media and use separate homepage derivatives; localized video repairs can be softer where a pointer covered content. Asset provenance and prompts are in `projects/homepage-media-cleanup.md`.
+- Playback refinement (2026-11-02): keep the KB Tutor application's crop constant through page changes, using 30 fps wide-view footage with short fades between retained views. Avoid following page colors or recorded zooms to determine crop bounds. The existing project link, global pause, offscreen pause and reduced-motion/static fallbacks remain available. The later November 2 device-composition request supersedes PageLens’s cover-to-video playback: its homepage presentation is now entirely static.
+
+- Device composition refinement (2026-11-02): the user clarified that the actual hand-held treatment is required. Use a distinct hand-held treatment for each project: Bumble now has only a straight-on single-hand phone and static watch; ImpressChat pairs its angled hand-held phone with a straight-on display. Preserve the supplied hand pose and device perspective; use alpha cutouts and project real UI screenshots into the screen apertures without regenerating text. Preserve transparent stages and avoid decorative captions, scene backgrounds or heavy shadows. Scale compositions together at narrow widths while keeping complete device frames visible. Use the user’s real project screens; source mapping is in `projects/homepage-device-compositions.md`; hand-held outputs and exact built-in imagegen prompts are in `projects/handheld-mockup-sources.md`.
+
 ## Motion
 
 - Micro-interaction: 180–220ms.
@@ -73,7 +89,8 @@ Hero → Problem → Product Overview → Process (Research, Design, Test, Itera
 
 Use KB Tutor as the reference implementation for shared hierarchy, components, and animation behavior.
 
-- Pair the chapter label with a concise one-line `h3`; allow wrapping only on narrow screens.
+- KB Tutor retains the original introduction layout: title and description beside metadata, followed by the full-width walkthrough inside a laptop. Do not move its walkthrough beside the title.
+- Use one concise line for each chapter heading; remove repeated meaning between the chapter label and its heading.
 - Use 15px muted body copy inside case-study cards and supporting section notes.
 - Use 18px-radius white cards with a subtle grey hairline on the secondary surface.
 - Default case-study cards to a two-column composition: concise text on the left and the primary image, chart, interface, or diagram on the right. Stack the columns only on narrow screens.
@@ -101,3 +118,24 @@ Use KB Tutor as the reference implementation for shared hierarchy, components, a
 - Order: Hero → Problem → Process → Concept (both videos) → Design decisions → Impact → Reflection.
 - Use the same H3 hierarchy, 15px supporting copy, horizontal stage/decision tracks, and neutral cards as KB Tutor.
 - Keep reading simulations explicitly labeled as illustrative, not universal depictions of dyslexia.
+
+### Homepage collage refinement — 2026-10-20
+
+- User-confirmed labels beside the matching photographed devices: “I vibe code”, “I use Figma”, “I design by hands”. The dock name is “Codex”.
+- User confirmed replacing the separate sketch print with their uploaded Screen Time snapshot. The actual sketchbook stays in the studio photo. Keep the paint palette.
+- Updated 2026-10-26: remove the tennis, soccer, table-tennis and Jay Chou album stickers shown in the user's screenshots. These supersede the previous request to include those keepsakes; source assets remain available.
+- Superseded on 2026-10-21: decorative stickers entering together. Current proposal uses overlapping introduction/studio/navigation beats and uneven, short offsets for individual keepsakes. Idle movement begins only after the entrance completes; first keyboard or pointer interaction completes the entrance immediately. Remove the floating decorative arrow; keep the blue hand-drawn underline. Current timing and layout await user acceptance.
+
+
+## About collage revision — 2026-10-22
+
+Status: implemented locally, awaiting visual acceptance; not published. Source: latest user correction, seven real photos and scrapbook references. Supersedes the earlier map, maple photo and generated sport placeholders.
+
+- Keep the shared black navigation. One Cambridge portrait with a paperclip, and the exact note “Croyez en vos rêves, ils sont gratuits”. Cambridge is user-confirmed; the previous Oxford label was incorrect.
+- Use only single-line section headings: My Path, Skill, Offscreen and Paintings. Remove explanatory subtitles and decorative filler throughout About.
+- My Path uses four personal place/graduation prints, restrained red thread and pins, and unboxed factual education/work notes. Preserve Will Education and OLI anchors. Each photo settles first, its pin presses down, and the thread leads to the next photo. Keep the total desktop sequence brief, with no replay button; narrow layouts reveal individual stops on entry.
+- Skill uses the user’s real work: restored Prototyping and Collaboration photos plus the supplied wireframes, design system, interview, service blueprint, user flow, journey map and WCAG audit. The earlier SVG placeholders and their label are superseded. Keep varied paper proportions, clear handwritten captions and scattered transparent app-icon stickers. Skill is a compact overview: shrink all images, remove full-image links, and fit all nine skills in one normal viewport. Scale images separately from labels so skill names stay readable. Use the sticker-covered interview photo, never the exposed face version.
+- Offscreen uses the user's football, tennis, golf and pickleball photos. Vary proportions, torn edges, an arched crop, overlap, tape and handwritten labels. Keep Mbappé and Kaká as small, irregular paper-outline photographic cutouts beside the football photo; Phoebe remains the visual focus. Fit the complete Offscreen collage into one normal desktop or phone viewport using viewport-relative image sizes. Remove table tennis from About. The six real paintings remain in the gallery.
+- Short, overlapping entrances and scroll reveals use opacity and transforms; no continuous loops. Reduced motion stays static, all visual skill samples remain available without JavaScript, and painting links work before dialog enhancement.
+- Desktop uses loose collage arrangements; mobile reflows the path into photo/note pairs and hobbies into staggered photo pairs. Keep all captions readable and headings on one line.
+- Current sources and verification scope are recorded in `about/about-assets.md`. Older generated assets are unused, retained only for provenance.

@@ -173,6 +173,62 @@
     });
   }
 
+  function prepareKbIntroLaptop(page) {
+    const device = page.querySelector('.kb-intro-device');
+    const lid = device?.querySelector('.kb-intro-lid');
+    const video = device?.querySelector('video');
+    if (!device || !lid || !video || device.dataset.introPrepared === 'true') return;
+    device.dataset.introPrepared = 'true';
+
+    let opening = null;
+    const showStatic = () => {
+      opening?.kill();
+      opening = null;
+      lid.style.transform = '';
+      device.classList.remove('is-opening');
+      device.classList.add('is-open');
+      video.pause();
+    };
+
+    if (motionPreference.matches || !window.gsap || !('IntersectionObserver' in window)) {
+      showStatic();
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      if (motionPreference.matches) {
+        showStatic();
+        return;
+      }
+
+      video.pause();
+      device.classList.add('is-opening');
+      opening = window.gsap.timeline({
+        defaults: { ease: 'power3.inOut' },
+        onComplete: () => {
+          device.classList.remove('is-opening');
+          device.classList.add('is-open');
+          lid.style.transform = '';
+          if (!motionPreference.matches && video.paused && document.visibilityState === 'visible') {
+            const playback = video.play();
+            if (playback?.catch) playback.catch(() => {});
+          }
+        },
+      });
+      opening.fromTo(lid, { rotateX: -78 }, { rotateX: 0, duration: 2.1 }, 0);
+    }, { threshold: 0.35 });
+    observer.observe(device);
+
+    motionPreference.addEventListener('change', () => {
+      if (motionPreference.matches) {
+        observer.disconnect();
+        showStatic();
+      }
+    });
+  }
+
   function addHorizontalControls(track, options = {}) {
     if (!track || track.dataset.manualTrack === 'true') return;
     track.dataset.manualTrack = 'true';
@@ -1591,23 +1647,29 @@
         </div>
         <div class="kb-test-findings">
           <article class="kb-test-story kb-test-review kb-story-reveal" aria-labelledby="kb-test-review-heading">
-            <header class="kb-test-story-heading"><span>Finding 01 · Review</span><h4 id="kb-test-review-heading">Review was used less, and revisits were rushed.</h4><p>In Review, students sometimes repeated the same mistake they had made in Practice. Their short first-attempt times suggest they were skimming the question instead of reading it carefully.</p></header>
-            <figure class="kb-participation-chart" aria-labelledby="kb-participation-title" aria-describedby="kb-participation-caption">
-              <div class="kb-test-chart-heading"><h5 id="kb-participation-title">Who used each mode?</h5><span>Active students · n = 103</span></div>
-              <div class="kb-participation-rows" role="img" aria-label="Practice: 103 students, 100 percent. Exam: 60 students, 58 percent. Review: 49 students, 48 percent.">
-                <div class="kb-participation-row"><span>Practice</span><div class="kb-participation-track"><i class="kb-participation-fill" style="--bar-width:100%"></i></div><strong>103 <small>100%</small></strong></div>
-                <div class="kb-participation-row"><span>Exam</span><div class="kb-participation-track"><i class="kb-participation-fill" style="--bar-width:58%"></i></div><strong>60 <small>58%</small></strong></div>
-                <div class="kb-participation-row is-review"><span>Review</span><div class="kb-participation-track"><i class="kb-participation-fill" style="--bar-width:48%"></i></div><strong>49 <small>48%</small></strong></div>
+            <div class="kb-test-review-grid">
+              <div class="kb-test-review-column kb-test-review-participation">
+                <header class="kb-test-story-heading"><span>Finding 01 · Review</span><h4 id="kb-test-review-heading">Review was used less, and revisits were rushed.</h4><p>In Review, students sometimes repeated the same mistake they had made in Practice. Their short first-attempt times suggest they were skimming the question instead of reading it carefully.</p></header>
+                <figure class="kb-participation-chart" aria-labelledby="kb-participation-title" aria-describedby="kb-participation-caption">
+                  <div class="kb-test-chart-heading"><h5 id="kb-participation-title">Who used each mode?</h5><span>Active students · n = 103</span></div>
+                  <div class="kb-participation-rows" role="img" aria-label="Practice: 103 students, 100 percent. Exam: 60 students, 58 percent. Review: 49 students, 48 percent.">
+                    <div class="kb-participation-row"><span>Practice</span><div class="kb-participation-track"><i class="kb-participation-fill" style="--bar-width:100%"></i></div><strong>103 <small>100%</small></strong></div>
+                    <div class="kb-participation-row"><span>Exam</span><div class="kb-participation-track"><i class="kb-participation-fill" style="--bar-width:58%"></i></div><strong>60 <small>58%</small></strong></div>
+                    <div class="kb-participation-row is-review"><span>Review</span><div class="kb-participation-track"><i class="kb-participation-fill" style="--bar-width:48%"></i></div><strong>49 <small>48%</small></strong></div>
+                  </div>
+                  <figcaption id="kb-participation-caption"><b>Fewer than half</b> of active students used Review.</figcaption>
+                </figure>
               </div>
-              <figcaption id="kb-participation-caption"><b>Fewer than half</b> of active students used Review.</figcaption>
-            </figure>
-            <div class="kb-test-time" aria-labelledby="kb-test-time-heading">
-              <div class="kb-test-time-intro"><span>Time on task</span><h5 id="kb-test-time-heading">The first pass in Review was almost as quick as a retry.</h5></div>
-              <div class="kb-test-time-rows">
-                <div class="kb-test-time-row"><strong>Practice</strong><div><span><b>25s</b><small>first attempt · median</small></span><i aria-hidden="true">→</i><span><b>5–7s</b><small>retries</small></span></div></div>
-                <div class="kb-test-time-row is-review"><strong>Review</strong><div><span><b>6s</b><small>first attempt · median</small></span><i aria-hidden="true">→</i><span><b>~5s</b><small>later attempts</small></span></div></div>
+              <div class="kb-test-review-column kb-test-review-timing">
+                <div class="kb-test-time" aria-labelledby="kb-test-time-heading">
+                  <div class="kb-test-time-intro"><span>Time on task · median</span><h5 id="kb-test-time-heading">The first pass in Review was almost as quick as a retry.</h5></div>
+                  <div class="kb-test-time-rows">
+                    <div class="kb-test-time-row"><strong>Practice</strong><div><span><b>25s</b><small>first attempt</small></span><i aria-hidden="true">→</i><span><b>5–7s</b><small>retries</small></span></div></div>
+                    <div class="kb-test-time-row is-review"><strong>Review</strong><div><span><b>6s</b><small>first attempt</small></span><i aria-hidden="true">→</i><span><b>~5s</b><small>later attempts</small></span></div></div>
+                  </div>
+                  <p>Students spent time on a new Practice question, then sped through retries. In Review, they moved quickly from the very first attempt.</p>
+                </div>
               </div>
-              <p>Students spent time on a new Practice question, then sped through retries. In Review, they moved quickly from the very first attempt.</p>
             </div>
           </article>
           <article class="kb-test-story kb-test-teacher kb-story-reveal" aria-labelledby="kb-test-teacher-heading">
@@ -1625,9 +1687,9 @@
                 <figcaption>Early teacher dashboard · select to enlarge</figcaption>
               </figure>
               <ol class="kb-teacher-observations">
-                <li><span>01</span><div><h5>What does “correct” measure?</h5><p>The dashboard does not explain whether accuracy reflects the first attempt or the final attempt.</p></div></li>
-                <li><span>02</span><div><h5>What makes a standard “on track”?</h5><p>The thresholds behind status labels such as “On track,” “Watch,” and “Struggling” are not visible.</p></div></li>
-                <li><span>03</span><div><h5>Who needs support next?</h5><p>The overview identifies weak standards, but does not give the teacher enough student-level history or question-level detail to investigate them.</p></div></li>
+                <li><span>01</span><h5>What does “correct” measure?</h5></li>
+                <li><span>02</span><h5>What makes a standard “on track”?</h5></li>
+                <li><span>03</span><h5>Who needs support next?</h5></li>
               </ol>
             </div>
             <p class="kb-teacher-opportunity"><span>Design opportunity</span>Make performance data easier to interpret and give teachers a path from class-level signals to the students and questions behind them.</p>
@@ -1961,13 +2023,40 @@
         { scaleX: 0 },
         { scaleX: 1, duration: 1.05, stagger: 0.14, ease: 'power2.out', clearProps: 'transform' });
     });
+    const teacherEvidence = page.querySelector('.kb-teacher-evidence');
+    if (teacherEvidence && window.gsap && !motionPreference.matches && 'IntersectionObserver' in window) {
+      teacherEvidence.classList.add('is-reveal-ready');
+      animateWhenVisible(teacherEvidence, () => {
+        const markers = [...teacherEvidence.querySelectorAll('.kb-teacher-marker')];
+        const observations = [...teacherEvidence.querySelectorAll('.kb-teacher-observations li')];
+        const timeline = window.gsap.timeline({
+          onComplete: () => teacherEvidence.classList.add('is-revealed'),
+        });
+        markers.forEach((marker, index) => {
+          const position = index * 1.28;
+          timeline.fromTo(marker, { autoAlpha: 0 }, {
+            autoAlpha: 1,
+            duration: .9,
+            ease: 'power2.out',
+            clearProps: 'opacity,visibility',
+          }, position);
+          if (observations[index]) timeline.fromTo(observations[index], { autoAlpha: 0, y: 12 }, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 1.05,
+            ease: 'power2.out',
+            clearProps: 'opacity,visibility,transform',
+          }, position + .16);
+        });
+      });
+    }
     const saqExample = page.querySelector('.kb-saq-example');
     animateWhenVisible(saqExample, () => {
       window.gsap.from(saqExample.querySelectorAll('.kb-saq-panel'), {
         autoAlpha: 0,
         y: 16,
-        duration: .42,
-        stagger: .19,
+        duration: .72,
+        stagger: .62,
         ease: 'power2.out',
         clearProps: 'opacity,visibility,transform',
       });
@@ -2078,6 +2167,7 @@
       browserChrome.remove();
     }
     page.querySelectorAll('.case-hero-media .media-status').forEach((label) => label.remove());
+    prepareKbIntroLaptop(page);
 
     const productSection = page.querySelector('.product-story');
     if (productSection) {
@@ -2135,139 +2225,60 @@
       problemGrid.className = 'kb-problem-board';
       problemGrid.innerHTML = `
         <article class="kb-problem-card kb-problem-evidence" id="kb-problem-01">
-          <div class="kb-problem-copy">
-            <span class="kb-problem-number">Problem 01</span>
-            <h3>No <span class="kb-keep-together">Keystone-specific</span> preparation</h3>
-            <p>Students lacked practice designed around the exam’s real format and standards, in a context where more than half were already below proficiency.</p>
+          <div class="kb-problem-stat" role="img" aria-label="50.6 percent below proficiency on the Keystone Biology benchmark">
+            <div class="kb-problem-donut" aria-hidden="true"><svg viewBox="0 0 100 100" focusable="false"><circle class="kb-problem-donut-track" cx="50" cy="50" r="42" pathLength="100"></circle><circle class="kb-problem-donut-value" cx="50" cy="50" r="42" pathLength="100" stroke-dasharray="50.6 100"></circle></svg><strong>50.6%</strong></div><span>below proficiency</span><small>Keystone Biology benchmark</small>
           </div>
-          <figure class="kb-proficiency-visual" aria-label="50.6 percent of students scored below proficiency on the Keystone Biology benchmark">
-            <div class="kb-donut" aria-hidden="true"><div><strong>50.6%</strong><span>below proficiency</span></div></div>
-            <figcaption>Keystone Biology benchmark</figcaption>
-          </figure>
-          <a class="kb-problem-solution" href="#kb-student-solution"><span class="kb-solution-text">See solution</span><span class="kb-solution-arrow" aria-hidden="true">›</span></a>
+          <div class="kb-problem-copy">
+            <span class="kb-problem-number">Problem 01 · preparation</span>
+            <h3>No <span class="kb-keep-together">Keystone-specific</span> preparation</h3>
+            <p>Students lacked practice aligned to the Keystone exam’s format and standards that could build conceptual understanding.</p>
+            <a class="kb-problem-solution" href="#kb-student-solution"><span class="kb-solution-text">See solution</span><span class="kb-solution-arrow" aria-hidden="true">›</span></a>
+          </div>
         </article>
         <article class="kb-problem-card kb-problem-reasoning" id="kb-problem-02">
           <div class="kb-problem-copy">
-            <span class="kb-problem-number">Problem 02</span>
-            <h3>Answers rewarded recognition, not reasoning</h3>
+            <span class="kb-problem-number">Problem 02 · students</span>
+            <h3>Recognizing ≠ Understanding</h3>
             <p>Students could map familiar words to an answer choice without understanding the biological relationship behind it.</p>
           </div>
-          <div class="kb-state-comparison" aria-label="Comparison between keyword matching and conceptual reasoning">
-            <section class="kb-state-card is-current">
-              <span>Current state</span>
-              <strong>Keyword matching</strong>
-              <div class="kb-keyword-map" aria-hidden="true">
-                <i>sunlight</i><i>chloroplast</i><i>glucose</i>
-                <b>looks familiar → choose B</b>
-              </div>
-            </section>
-            <span class="kb-state-arrow" aria-hidden="true">→</span>
-            <section class="kb-state-card is-needed">
-              <span>Desired state</span>
-              <strong>Explain the relationship</strong>
-              <div class="kb-reasoning-flow" aria-hidden="true">
-                <i>Light energy</i><b>is converted into</b><i>Chemical energy</i>
-                <em>“Glucose stores the energy produced during photosynthesis.”</em>
-              </div>
-            </section>
+          <div class="kb-problem-demo" aria-label="Familiar terms can lead to a correct answer while the reasoning remains unclear">
+            <span class="kb-problem-demo-label">Current experience</span>
+            <div class="kb-problem-choice-flow">
+              <div class="kb-problem-term-row" aria-hidden="true"><span>sunlight</span><span>chloroplast</span><span>glucose</span></div>
+              <span class="kb-problem-flow-arrow" aria-hidden="true">→</span>
+              <div class="kb-problem-answer"><strong>Choose B</strong><span><i aria-hidden="true">✓</i> Correct</span></div>
+            </div>
+            <div class="kb-problem-question"><strong>But why is it correct?</strong><span>The relationship remains unexplained.</span></div>
           </div>
           <a class="kb-problem-solution" href="#kb-saq-solution"><span class="kb-solution-text">See solution</span><span class="kb-solution-arrow" aria-hidden="true">›</span></a>
         </article>
         <article class="kb-problem-card kb-problem-visibility" id="kb-problem-03">
           <div class="kb-problem-copy">
-            <span class="kb-problem-number">Problem 03</span>
-            <h3>Scores missed the reasoning.</h3>
-            <p>Teachers could see how many students answered correctly, but not the misconception behind an error or who needed intervention next.</p>
+            <span class="kb-problem-number">Problem 03 · teachers</span>
+            <h3>Scores ≠ Insights</h3>
+            <p>Teachers could see correct answers, but not the misconception behind errors or which students needed support.</p>
           </div>
-          <div class="kb-dashboard-comparison" aria-label="Comparison between a score-only teacher dashboard and an insight-led dashboard concept">
-            <section class="kb-dashboard-mini is-current">
-              <div class="kb-dashboard-bar"><i></i><i></i><i></i><span>Assignment results</span></div>
-              <small>Current dashboard</small>
-              <strong>68%</strong>
-              <p>22 of 32 students correct</p>
-              <div class="kb-score-bar" aria-hidden="true"><i></i></div>
-            </section>
-            <span class="kb-state-arrow" aria-hidden="true">→</span>
-            <section class="kb-dashboard-mini is-needed">
-              <div class="kb-dashboard-bar"><i></i><i></i><i></i><span>Class insights</span></div>
-              <small>Needed dashboard</small>
-              <div class="kb-insight-stack">
-                <p><b>8 students</b><span>need support now</span></p>
-                <p><b>Key misconception</b><span>Energy is created, not transformed</span></p>
-                <p><b>Suggested next step</b><span>Review energy transfer in photosynthesis</span></p>
-              </div>
-            </section>
+          <div class="kb-problem-demo" aria-label="Simplified teacher dashboard interface example showing overall accuracy">
+            <span class="kb-problem-demo-label">Dashboard UI example</span>
+            <div class="kb-problem-dashboard" aria-hidden="true">
+              <div class="kb-problem-dashboard-head"><span>Teacher dashboard</span><span>Practice</span></div>
+              <div class="kb-problem-dashboard-metric"><span>Overall accuracy</span><strong>62%</strong><i></i></div>
+            </div>
+            <div class="kb-problem-question"><strong>What’s missing?</strong><span>Which concepts caused errors?</span><span>Who needs targeted support?</span></div>
           </div>
           <a class="kb-problem-solution" href="#kb-teacher-solution"><span class="kb-solution-text">See solution</span><span class="kb-solution-arrow" aria-hidden="true">›</span></a>
         </article>`;
 
-      const visualCards = Array.from(problemGrid.querySelectorAll('.kb-problem-card'));
-      visualCards.forEach((card) => {
-        const solutionLink = card.querySelector('.kb-problem-solution');
-        if (solutionLink) card.querySelector('.kb-problem-copy')?.append(solutionLink);
-      });
-      const problemStage = document.createElement('div');
-      problemStage.className = 'kb-problem-stage';
-      const problemLayout = document.createElement('div');
-      problemLayout.className = 'kb-problem-layout';
-      const problemSteps = document.createElement('nav');
-      problemSteps.className = 'kb-problem-steps';
-      problemSteps.setAttribute('aria-label', 'Problems');
-      problemSteps.innerHTML = visualCards.map((card, index) => `
-        <a href="#${card.id}" aria-label="Go to problem ${index + 1}: ${card.querySelector('h3')?.textContent}"${index === 0 ? ' aria-current="step"' : ''}><span class="kb-problem-dot" aria-hidden="true"></span><span class="kb-problem-step-number" aria-hidden="true">0${index + 1}</span></a>`).join('');
-      problemSection.insertBefore(problemStage, problemSection.firstChild);
-      const problemIntro = problemSection.querySelector('.case-section-intro');
-      if (problemIntro) problemStage.append(problemIntro);
-      problemStage.append(problemLayout);
-      problemLayout.append(problemSteps, problemGrid);
-      const stepLinks = Array.from(problemSteps.querySelectorAll('a'));
-      let activeProblem = -1;
-      const activateProblem = (index) => {
-        if (index === activeProblem) return;
-        activeProblem = index;
-        visualCards.forEach((card, cardIndex) => {
-          const isCurrent = cardIndex === index;
-          card.classList.toggle('is-current', isCurrent);
-          card.setAttribute('aria-hidden', String(!isCurrent));
-          card.toggleAttribute('inert', !isCurrent);
-          if (isCurrent) card.querySelector('.kb-proficiency-visual')?.classList.add('is-visible');
-        });
-        stepLinks.forEach((link, linkIndex) => {
-          if (linkIndex === index) link.setAttribute('aria-current', 'step');
-          else link.removeAttribute('aria-current');
-        });
-      };
-      const updateActiveProblem = () => {
-        const pinTop = 100;
-        const travel = Math.max(1, problemSection.offsetHeight - problemStage.offsetHeight);
-        const traveled = Math.max(0, Math.min(travel, pinTop - problemSection.getBoundingClientRect().top));
-        const activeIndex = Math.min(visualCards.length - 1, Math.floor((traveled / travel) * visualCards.length));
-        activateProblem(activeIndex);
-      };
-      let problemFrame = 0;
-      const scheduleProblemUpdate = () => {
-        if (problemFrame) return;
-        problemFrame = requestAnimationFrame(() => {
-          problemFrame = 0;
-          updateActiveProblem();
-        });
-      };
-      window.addEventListener('scroll', scheduleProblemUpdate, { passive: true });
-      window.addEventListener('resize', scheduleProblemUpdate, { passive: true });
-      problemSteps.addEventListener('click', (event) => {
-        const link = event.target.closest('a[href^="#kb-problem-"]');
-        if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        const index = stepLinks.indexOf(link);
-        if (index < 0) return;
-        event.preventDefault();
-        activateProblem(index);
-        history.replaceState(null, '', link.getAttribute('href'));
-        const travel = Math.max(1, problemSection.offsetHeight - problemStage.offsetHeight);
-        const sectionTop = problemSection.getBoundingClientRect().top + window.scrollY;
-        const destination = sectionTop - 100 + ((index + 0.5) / visualCards.length) * travel;
-        window.scrollTo({ top: destination, behavior: motionPreference.matches ? 'auto' : 'smooth' });
-      });
-      updateActiveProblem();
+      if (!motionPreference.matches && 'IntersectionObserver' in window) {
+        problemGrid.classList.add('is-donut-reveal-ready');
+        const donutObserver = new IntersectionObserver((entries) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          donutObserver.disconnect();
+          problemGrid.classList.add('is-donut-revealed');
+        }, { threshold: .35 });
+        donutObserver.observe(problemGrid.querySelector('.kb-problem-donut'));
+      }
+
     }
 
     const mvpOneDefaultDescription =
@@ -3012,7 +3023,7 @@
       });
 
       const heroVisual = document.querySelector(
-        '.case-hero-media video, .bumble-hero-media .mobile-demo-phone, .impress-hero-media .mobile-demo-phone, .pagelens-hero-cover figure'
+        '.case-hero-media:not(.kb-intro-device) video, .bumble-hero-media .mobile-demo-phone, .impress-hero-media .mobile-demo-phone, .pagelens-hero-cover figure'
       );
       const caseHero = document.querySelector('.case-hero');
       if (heroVisual && caseHero) {
@@ -3109,16 +3120,11 @@
     const initialKbHash = window.location.hash;
     if (window.location.pathname.startsWith('/projects/kb-tutor') && /^#(?:problem|kb-problem-0[1-3])$/.test(initialKbHash)) {
       const alignInitialProblem = () => {
-        const section = document.getElementById('problem');
-        const stage = section?.querySelector('.kb-problem-stage');
-        if (!section || !stage) return;
-        const index = initialKbHash === '#problem' ? -1 : Number(initialKbHash.slice(-1)) - 1;
-        const travel = Math.max(1, section.offsetHeight - stage.offsetHeight);
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-        const offset = index < 0 ? 0 : ((index + 0.5) / 3) * travel;
+        const target = document.querySelector(initialKbHash);
+        if (!target) return;
         const previousBehavior = document.documentElement.style.scrollBehavior;
         document.documentElement.style.scrollBehavior = 'auto';
-        window.scrollTo({ top: sectionTop - 100 + offset, behavior: 'auto' });
+        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 100, behavior: 'auto' });
         document.documentElement.style.scrollBehavior = previousBehavior;
       };
       const scheduleAlignment = () => window.setTimeout(alignInitialProblem, 0);
