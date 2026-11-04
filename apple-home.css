@@ -591,14 +591,11 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
   background: #fafafa;
 }
 .phone-display :is(img, video) { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* The original UI stays separate from the photographed hands and hardware. */
-.mockup-coordinate-space { position: relative; }
-.mockup-screen-plane { position: absolute; top: 0; left: 0; transform-origin: 0 0; background: #fff; }
-.mockup-screen-plane img { display: block; width: 100%; height: 100%; object-fit: fill; }
+/* Keep the screen in regular HTML so iPhone Safari can paint and play it. */
 .handheld-phone { position: absolute; z-index: 1; height: auto; overflow: hidden; }
 .bumble-demo-stage { width: min(calc(100% - 64px), 490px); aspect-ratio: 1.05; overflow: hidden; }
 .bumble-handheld { position: absolute; z-index: 1; left: -6%; top: 0; width: 88%; height: auto; overflow: hidden; }
-.bumble-held-display { width: 349px; height: 726px; overflow: hidden; background: #f6fbf5; }
+.bumble-held-display { position: absolute; left: 28.81%; top: 5.96%; width: 34.12%; height: 74.55%; overflow: hidden; border-radius: 12.3% / 5.9%; background: #f6fbf5; }
 .bumble-held-display video { display: block; width: 100%; height: 100%; object-fit: fill; }
 .bumble-preview { position: absolute; }
 .bumble-preview :is(img, video) { display: block; width: 100%; height: 100%; }
