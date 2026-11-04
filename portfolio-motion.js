@@ -308,6 +308,36 @@
     blocks.forEach((block) => observer.observe(block));
   }
 
+  function prepareBumbleHero(page) {
+    const hero = page.querySelector('.case-hero');
+    const titleGrid = hero?.querySelector('.case-title-grid');
+    if (!hero || !titleGrid || hero.classList.contains('bumble-hero-composed')) return;
+
+    hero.classList.add('bumble-hero-composed');
+    titleGrid.querySelector('.case-lead > span:first-child')?.classList.add('bumble-hero-message');
+
+    const layout = document.createElement('div');
+    layout.className = 'bumble-hero-layout';
+    const visual = document.createElement('figure');
+    visual.className = 'bumble-hero-handheld';
+    visual.innerHTML = `
+      <video muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/bumble-hero-handheld-poster.png" aria-label="Bumble Skill Snack demo playing inside a handheld iPhone mockup">
+        <source src="/projects/bumble-skill-snack/media/bumble-hero-handheld-transparent.webm" type="video/webm">
+        <source src="/projects/bumble-skill-snack/media/bumble-hero-handheld-white.mp4" type="video/mp4">
+      </video>
+      <figcaption class="bumble-hero-visual-caption">Skill Snack concept demo shown on a handheld iPhone.</figcaption>`;
+
+    titleGrid.before(layout);
+    layout.append(visual, titleGrid);
+
+    const video = visual.querySelector('video');
+    if (!motionPreference.matches) video.play().catch(() => {});
+    motionPreference.addEventListener('change', () => {
+      if (motionPreference.matches) video.pause();
+      else video.play().catch(() => {});
+    });
+  }
+
   function buildBumbleIteration(page) {
     if (!page || page.dataset.bumbleIterationV2 === 'true') return;
     page.dataset.bumbleIterationV2 = 'true';
@@ -331,64 +361,208 @@
     storyNav.setAttribute('aria-label', 'Bumble Skill Snack case study chapters');
     storyNav.innerHTML = `
       <a class="is-current" href="#problem" aria-current="location">Problem</a>
+      <a href="#bumble-business">Business</a>
       <a href="#bumble-research">Process</a>
       <a href="#bumble-impact">Impact</a>
       <a href="#reflection">Reflection</a>`;
 
     const story = document.createElement('div');
     story.className = 'bumble-v2-story';
+    const designScreens = (source, x, width, count, label, highlights = []) => {
+      const assets = {
+        flows: ['/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=4', 7782, 2103],
+        matched: ['/projects/bumble-skill-snack/process/bumble-design-once-matched-flow.svg?v=4', 1600, 872],
+        safety: ['/projects/bumble-skill-snack/process/bumble-iteration-safety-flow.svg', 2286, 872]
+      };
+      const [path, sourceWidth, sourceHeight] = assets[source];
+      const cropTop = source === 'safety' ? 0 : 75;
+      const cropHeight = source === 'safety' ? 872 : 720;
+      const image = `<image href="${path}" width="${sourceWidth}" height="${sourceHeight}"/>`;
+      const mobileScreens = Array.from({ length: count }, (_, index) => {
+        const screenHighlights = highlights.filter(([screen]) => screen === index + 1);
+        return `<div class="bumble-design-mobile-screen">
+          <svg viewBox="${x + 67 + index * 359} ${cropTop} 359 ${cropHeight}" aria-hidden="true">${image}</svg>
+          ${screenHighlights.map(([, number, text]) => `<div class="bumble-design-mobile-highlight"><span>${number}</span><strong>${text}</strong></div>`).join('')}
+        </div>`;
+      }).join('');
+      const desktopCallouts = (position) => highlights.filter(([, , , placement]) => placement === position).map(
+        ([screen, number, text]) => {
+          const phoneCenter = (246.747 + (screen - 1) * 359) / width * 100;
+          const reverse = screen === count;
+          return `<div class="bumble-design-callout bumble-design-callout--${position}${reverse ? ' bumble-design-callout--reverse' : ''}" style="--callout-x:${phoneCenter}%"><span>${number}</span><strong>${text}</strong></div>`;
+        }
+      ).join('');
+      const topCallouts = desktopCallouts('top');
+      const bottomCallouts = desktopCallouts('bottom');
+      return `<div class="bumble-design-screen-group${topCallouts ? ' has-top-callouts' : ''}" style="--screen-count:${count}">
+        ${topCallouts ? `<div class="bumble-design-callouts bumble-design-callouts--top" aria-label="Highlighted design details">${topCallouts}</div>` : ''}
+        <figure class="bumble-design-screens" role="group" aria-label="${label}">
+        <svg class="bumble-design-screens-desktop" viewBox="${x} ${cropTop} ${width} ${cropHeight}" aria-hidden="true">${image}</svg>
+        <div class="bumble-design-screens-mobile">${mobileScreens}</div>
+      </figure>${bottomCallouts ? `<div class="bumble-design-callouts bumble-design-callouts--bottom" aria-label="Highlighted design details">${bottomCallouts}</div>` : ''}</div>`;
+    };
+    const systemCrop = (asset, viewBox, width, height, label) =>
+      `<svg viewBox="${viewBox}" role="img" aria-label="${label}"><image href="/projects/bumble-skill-snack/design/bumble-design-system-${asset}.svg?v=3" width="${width}" height="${height}"/></svg>`;
     story.innerHTML = `
       <section class="case-section bumble-v2-section bumble-v2-problem" id="problem" aria-labelledby="bumble-problem-heading">
         <header class="bumble-v2-section-heading">
           <p class="case-section-label">Problem</p>
           <h3 class="bumble-v2-section-title" id="bumble-problem-heading">Matches happened, but conversations stalled.</h3>
         </header>
-        <div class="bumble-v2-problem-grid">
-          <article class="bumble-v2-problem-card">
-            <div class="bumble-v2-card-copy"><span>Problem 01</span><h3>Matches stalled</h3><p>People were matching, but many never turned that match into a conversation.</p></div>
-            <figure class="bumble-v2-donut-visual" aria-label="40 percent of matches did not become conversations">
-              <div class="bumble-v2-donut"><strong>40%</strong></div>
-              <figcaption>matched but did not talk</figcaption>
-            </figure>
-          </article>
-          <article class="bumble-v2-problem-card">
-            <div class="bumble-v2-card-copy"><span>Problem 02</span><h3>The blank-box burden</h3><p>A blank message field gave people no shared starting point or low-pressure way to begin.</p></div>
-            <div class="bumble-v2-chat-visual" aria-label="A new match with an empty message field">
-              <div class="bumble-v2-chat-window">
-                <span>New match</span>
-                <div><i>Type a message...</i><b aria-hidden="true">↗</b></div>
+        <ol class="bumble-problem-storyboard" aria-label="The conversation-starting problem, from match to design opportunity">
+          <li class="bumble-story-panel">
+            <div class="bumble-story-copy"><span class="bumble-story-step"><b>01</b> The moment</span><h4>It’s a match!</h4><p>Two people share mutual interest and match.</p></div>
+            <div class="bumble-story-art bumble-story-match-art"><img src="/projects/bumble-skill-snack/problem/bumble-problem-match-illustration.png" alt="Two smiling profiles paired as a match" loading="lazy"></div>
+          </li>
+          <li class="bumble-story-panel">
+            <div class="bumble-story-copy"><span class="bumble-story-step"><b>02</b> The pause</span><h4>… then silence.</h4><p>The match is exciting, but neither person knows how to start.</p></div>
+            <div class="bumble-story-art bumble-story-silence-art" aria-hidden="true"><div class="bumble-story-phone"><span class="bumble-story-phone-island"></span><div class="bumble-story-phone-header"><span>‹</span><i>Alex</i><span>···</span></div><div class="bumble-story-typing"><i></i><i></i><i></i></div></div></div>
+          </li>
+          <li class="bumble-story-panel">
+            <div class="bumble-story-copy"><span class="bumble-story-step"><b>03</b> The gap</span><h4>Matches stalled.</h4><p>Many matches never became conversations.</p></div>
+            <figure class="bumble-story-art bumble-story-stat-art" aria-label="40 percent of matches did not become conversations"><div class="bumble-v2-donut"><strong>40%</strong></div><figcaption>matched but did not talk</figcaption></figure>
+          </li>
+          <li class="bumble-story-panel">
+            <div class="bumble-story-copy"><span class="bumble-story-step"><b>04</b> The friction</span><h4>The blank-box burden.</h4><p>No shared starting point made the first message feel harder.</p></div>
+            <div class="bumble-story-art bumble-story-input-art" aria-hidden="true"><div class="bumble-story-empty-input"><span>Type a message...</span><b>➤</b></div><span class="bumble-story-question">Where do I start?</span></div>
+          </li>
+          <li class="bumble-story-panel bumble-story-panel--takeaway">
+            <div class="bumble-story-copy"><span class="bumble-story-step">Design opportunity</span><h4>Give matches a shared reason to say hello.</h4></div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="case-section bumble-v2-section bumble-business" id="bumble-business" aria-labelledby="bumble-business-heading">
+        <header class="bumble-v2-section-heading">
+          <p class="case-section-label">Business</p>
+          <h3 class="bumble-v2-section-title" id="bumble-business-heading">Monetizing discovery and personalization.</h3>
+        </header>
+        <div class="bumble-business-body">
+          <div class="bumble-business-overview">
+            <p>Keep core connections free. Give people a reason to upgrade when they want to explore more skills, express themselves, and find more relevant matches.</p>
+            <aside class="bumble-business-context" aria-label="Bumble paying user context">
+              <span>Business context · FY2025</span>
+              <strong>−13.3%</strong>
+              <p>Bumble App paying users year over year</p>
+              <a href="https://www.sec.gov/Archives/edgar/data/1830043/000183004326000027/bmbl-20251231.htm" target="_blank" rel="noopener noreferrer">Source: 2025 Form 10-K ↗</a>
+            </aside>
+          </div>
+
+          <div class="bumble-business-tiers-heading"><span>Monetization strategy</span><p>Connection stays open. Premium adds depth and control.</p></div>
+          <div class="bumble-business-tiers">
+            <article class="bumble-business-tier bumble-business-tier--free">
+              <div class="bumble-business-tier-copy">
+                <span class="bumble-business-tier-label">Free</span>
+                <h4>A daily taste of Skill Snack.</h4>
+                <ul>
+                  <li>One featured Skill Snack each day</li>
+                  <li>Teach or learn with a match</li>
+                  <li>Browse basic skills</li>
+                  <li>Message and connect as usual</li>
+                </ul>
               </div>
-              <p>Where do I start?</p>
+              <figure class="bumble-business-phone" aria-label="Free Skill Snack preview with some skills blurred">
+                <svg viewBox="790 78 356 710" role="img" aria-label="Original free-flow screen showing a limited Skill Snack preview" focusable="false"><image href="/projects/bumble-skill-snack/archive/bumble-free-user-flow.png" width="1942" height="872"/></svg>
+              </figure>
+            </article>
+            <article class="bumble-business-tier bumble-business-tier--premium">
+              <div class="bumble-business-tier-copy">
+                <span class="bumble-business-tier-label">Premium</span>
+                <h4>More ways to discover and express.</h4>
+                <ul>
+                  <li>Explore more people’s Skill Snacks</li>
+                  <li>Watch full skill showcases</li>
+                  <li>Create custom skills</li>
+                  <li>Use advanced skill filters</li>
+                </ul>
+              </div>
+              <figure class="bumble-business-phone" aria-label="Premium screen offering advanced filters and customized skills">
+                <svg viewBox="1535 78 356 710" role="img" aria-label="Original Premium screen with advanced filters and customized skill benefits" focusable="false"><image href="/projects/bumble-skill-snack/archive/bumble-free-user-flow.png" width="1942" height="872"/></svg>
+              </figure>
+            </article>
+          </div>
+
+          <div class="bumble-business-journey">
+            <div class="bumble-business-subhead"><span>Conversion journey</span><h4>From a taste of value to a reason to upgrade.</h4></div>
+            <ol>
+              <li><span>01</span><h5>Discover</h5><p>See a featured Skill Snack.</p></li>
+              <li><span>02</span><h5>Engage</h5><p>Try a skill or start a chat.</p></li>
+              <li><span>03</span><h5>Want more</h5><p>Look for more skills and people.</p></li>
+              <li><span>04</span><h5>Upgrade</h5><p>Unlock discovery and customization.</p></li>
+            </ol>
+          </div>
+
+          <div class="bumble-business-measure">
+            <div class="bumble-business-subhead"><span>Measuring success</span><h4>Track the behavior, not just the upgrade.</h4></div>
+            <div class="bumble-business-measure-grid">
+              <div class="bumble-business-kpi"><span>Primary KPI</span><strong>Free → Premium conversion rate</strong><p>Share of eligible free users who upgrade within 14 days.</p></div>
+              <div class="bumble-business-signals"><span>Supporting signals</span><ul><li>Daily Skill Snack open rate</li><li>Skill interaction rate</li><li>Premium unlock click-through</li><li>Custom skill and filter use</li></ul></div>
             </div>
-          </article>
+            <p class="bumble-business-note">This is a proposed strategy and measurement plan, not a report of product results.</p>
+          </div>
         </div>
       </section>
 
       <section class="case-section bumble-v2-section bumble-v2-process" id="bumble-research" aria-labelledby="bumble-research-heading">
         <header class="bumble-v2-section-heading">
-          <p class="case-section-label">Research</p>
-          <h3 class="bumble-v2-section-title" id="bumble-research-heading">I mapped where the experience should begin.</h3>
+          <p class="case-section-label">User Flow</p>
+          <h3 class="bumble-v2-section-title" id="bumble-research-heading">From skill setup to the first message.</h3>
         </header>
-        <div class="bumble-v2-carousel">
-          <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 01</span><h3>User Flow</h3><p>Bumble serves different user types, including free and premium users, as well as different gender-based interaction flows. I mapped these experiences first to understand where Skill Snack could fit naturally into the existing product.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-research-user-flow.png" alt="Bumble Skill Snack user flow from onboarding through matching and chat" loading="lazy"></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide" role="listitem"><div class="bumble-v2-card-copy"><span>Research 02</span><h3>Low-Fidelity Prototyping</h3><p>Once the flow was clear, I used Figma Make for rapid interactive prototyping. It helped me test the experience and micro-interactions quickly, while the final fidelity still required careful manual refinement and design judgment.</p></div><div class="bumble-v2-image-stack" aria-label="Two overlapping low-fidelity Skill Snack explorations"><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the early flow exploration to the front"><img src="/projects/bumble-skill-snack/process/bumble-research-concept-overview.png" alt="Early Skill Snack flow and concept exploration" loading="lazy"></figure><figure tabindex="0" role="button" aria-pressed="false" aria-label="Bring the detailed flow exploration to the front"><img src="/projects/bumble-skill-snack/process/bumble-research-low-fidelity-flow.png" alt="Detailed low-fidelity Skill Snack flow" loading="lazy"></figure></div></article>
+        <div class="bumble-user-flow">
+          <p class="bumble-user-flow-intro">After one shared setup, the experience branches by plan access and conversation role.</p>
+          <div class="bumble-user-flow-map" aria-label="Skill Snack user flow by plan and conversation role">
+            <section class="bumble-user-flow-row bumble-user-flow-row--setup">
+              <h4><span>01</span> Shared setup</h4>
+              <div class="bumble-user-flow-steps">
+                <div><strong>Set up Skill Snack</strong><small>Choose skills to teach and learn; verify if desired</small></div>
+                <span class="bumble-user-flow-arrow" aria-hidden="true">→</span>
+                <div><strong>Match</strong><small>Find a shared interest</small></div>
+              </div>
+            </section>
+            <section class="bumble-user-flow-row">
+              <h4><span>02</span> Access by plan</h4>
+              <div class="bumble-user-flow-options">
+                <article><span class="bumble-user-flow-tag">Free</span><strong>Daily preview</strong><p>See one featured Skill Snack and browse basic skills.</p></article>
+                <article><span class="bumble-user-flow-tag bumble-user-flow-tag--premium">Premium</span><strong>Deeper discovery</strong><p>Explore full showcases, custom skills, and advanced filters.</p></article>
+              </div>
+            </section>
+            <section class="bumble-user-flow-row">
+              <h4><span>03</span> First message</h4>
+              <div class="bumble-user-flow-options">
+                <article><span class="bumble-user-flow-tag">Woman</span><strong>Initiates</strong><p>Can send the first message using a shared skill as an opener.</p></article>
+                <article><span class="bumble-user-flow-tag">Man</span><strong>Receives</strong><p>After setup and matching, can only receive her opening message.</p></article>
+              </div>
+            </section>
           </div>
+          <p class="bumble-user-flow-rule">The first-message rule stays the same for Free and Premium: women initiate; men receive the opening message.</p>
         </div>
       </section>
 
       <section class="case-section bumble-v2-section bumble-v2-process" id="bumble-design" aria-labelledby="bumble-design-heading">
         <header class="bumble-v2-section-heading">
-          <p class="case-section-label">Design</p>
-          <h3 class="bumble-v2-section-title" id="bumble-design-heading">I designed experience flows</h3>
+          <h3 class="case-section-label" id="bumble-design-heading">Design</h3>
         </header>
-        <div class="bumble-v2-carousel bumble-v2-vertical">
-          <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-free-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Free user flow</span><h3>Let free users experience the value before asking them to upgrade.</h3><p>Free users can discover Skill Snack matches and start conversations, but customization and deeper skill content remain limited.</p></div><figure class="bumble-v2-natural-visual bumble-v2-free-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--blur"><span>02</span><strong>Some skill information is blurred on profiles</strong></div><div class="bumble-v2-free-flow-art"><svg class="bumble-v2-art-crop" viewBox="1649 0 1959 872" role="img" aria-label="Bumble Skill Snack free-user flow across five mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callouts-bottom"><div class="bumble-v2-flow-callout bumble-v2-flow-callout--customize"><span>01</span><strong>Cannot customize the skills they want to teach or learn</strong></div><div class="bumble-v2-flow-callout bumble-v2-flow-callout--video"><span>03</span><strong>Cannot access the full skill video</strong></div></div></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card bumble-v2-premium-flow-card" role="listitem"><div class="bumble-v2-card-copy"><span>Premium user flow</span><h3>Premium gives users more control over the experience.</h3><p>This makes Skill Snack feel more intentional: users can shape the kinds of conversations they want instead of relying only on default recommendations.</p></div><figure class="bumble-v2-natural-visual bumble-v2-premium-flow-visual"><div class="bumble-v2-flow-callout bumble-v2-premium-callout--content"><span>02</span><strong>View the full Skill Snack content on a match’s profile</strong></div><div class="bumble-v2-premium-flow-art"><svg class="bumble-v2-art-crop" viewBox="3752 0 1600 872" role="img" aria-label="Bumble Skill Snack premium-user flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></div><div class="bumble-v2-flow-callout bumble-v2-premium-callout--personalize"><span>01</span><strong>Personalize both sides of the exchange</strong></div></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Onboarding</span><h3>Start with what you can teach and what you want to learn.</h3><p>Users set up their Skill Snack profile by choosing interests, learning goals, and the skills they can share. This gives the feature enough context to create relevant conversation starters from the beginning.</p></div><figure class="bumble-v2-natural-visual"><svg class="bumble-v2-art-crop" viewBox="0 0 1600 872" role="img" aria-label="Bumble Skill Snack onboarding flow across four mobile screens" overflow="hidden"><image href="/projects/bumble-skill-snack/process/bumble-design-user-flows.svg?v=1" width="7782" height="2103"/></svg></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-design-card" role="listitem"><div class="bumble-v2-card-copy"><span>Once matched</span><h3>Turn a blank chat into a shared starting point.</h3><p>After matching, users can start normally or choose to teach/learn a skill, giving both people something meaningful to talk about right away.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-design-once-matched-flow.svg" alt="Bumble Skill Snack matched-chat flow across four mobile screens" loading="lazy"></figure></article>
+        <div class="bumble-design-journey">
+          <section class="bumble-design-stage bumble-design-stage--start" aria-labelledby="bumble-design-start">
+            <div class="bumble-design-stage-copy"><span class="bumble-design-stage-label">Shared start · Onboarding</span><h4 id="bumble-design-start">Start with what you can teach and learn.</h4><p>Everyone sets up their Skill Snack profile before exploring matches.</p></div>
+            ${designScreens('flows', 0, 1600, 4, 'Four Skill Snack onboarding screens', [[4, '01', 'Choose the skills you can share', 'bottom', 3, 2, '75%']])}
+          </section>
+          <div class="bumble-design-fork" aria-hidden="true"><span>Two access paths</span></div>
+          <div class="bumble-design-lanes">
+            <section class="bumble-design-stage bumble-design-stage--lane" aria-labelledby="bumble-design-free">
+              <div class="bumble-design-stage-copy"><span class="bumble-design-stage-label">Free path</span><h4 id="bumble-design-free">A daily taste of Skill Snack.</h4><p>Free members can browse and connect, with limited customization and previews of deeper content.</p></div>
+              ${designScreens('flows', 1649, 1959, 5, 'Five Free Skill Snack discovery screens', [[1, '01', 'Cannot customize the skills they want to teach or learn', 'bottom', 1, 2, '25%'], [3, '02', 'Some skill information is blurred on profiles', 'top', 3, 2, '25%'], [3, '03', 'Cannot access the full skill video', 'bottom', 3, 3, '16%']])}
+            </section>
+            <section class="bumble-design-stage bumble-design-stage--lane" aria-labelledby="bumble-design-premium">
+              <div class="bumble-design-stage-copy"><span class="bumble-design-stage-label bumble-design-stage-label--premium">Premium path</span><h4 id="bumble-design-premium">More room to discover and express.</h4><p>Premium members can personalize their skills and see fuller Skill Snack content on a match’s profile.</p></div>
+              ${designScreens('flows', 3752, 1600, 4, 'Four Premium Skill Snack discovery screens', [[1, '01', 'Personalize both sides of the exchange', 'bottom', 1, 2, '25%'], [3, '02', 'View the full Skill Snack content on a match’s profile', 'top', 3, 2, '25%']])}
+            </section>
           </div>
+          <div class="bumble-design-join" aria-hidden="true"><span>Both paths meet here</span></div>
+          <section class="bumble-design-stage bumble-design-stage--end" aria-labelledby="bumble-design-match">
+            <div class="bumble-design-stage-copy"><span class="bumble-design-stage-label">Shared finish · Match</span><h4 id="bumble-design-match">Give the first message a starting point.</h4><p>After matching, a shared skill gives women a specific opener to send and men a message to receive.</p></div>
+            ${designScreens('matched', 0, 1600, 4, 'Four shared Skill Snack match and chat screens', [[3, '01', 'Use a shared skill to start the conversation', 'bottom', 2, 2, '75%']])}
+          </section>
         </div>
       </section>
 
@@ -397,11 +571,58 @@
           <p class="case-section-label">Test + iterate</p>
           <h3 class="bumble-v2-section-title" id="bumble-test-heading">I refined trust and expanded the system.</h3>
         </header>
-        <div class="bumble-v2-carousel bumble-v2-vertical">
-          <div class="bumble-v2-track" role="list">
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact" role="listitem"><div class="bumble-v2-card-copy"><span>Safety</span><h3>Add guardrails before sharing skills</h3><p>Testing made me realize users could enter joke, inappropriate, or low-quality skills (e.g. “I’m good at farting”).</p><p>I added a safety check before publishing to catch content that could make the experience feel unsafe or unserious.</p></div><figure class="bumble-v2-natural-visual"><img src="/projects/bumble-skill-snack/process/bumble-iteration-safety-flow.svg" alt="Bumble Skill Snack verification and safety-check flow across six mobile screens" loading="lazy"></figure></article>
-            <article class="bumble-v2-card bumble-v2-card--wide bumble-v2-card--iteration-compact bumble-v2-platform-card" role="listitem"><div class="bumble-v2-card-copy"><span>System expansion</span><h3>Keep one feature consistent across platforms</h3><p>After validating the core flow, I expanded Skill Snack across iOS, Android, and Apple Watch.</p><p>The challenge was keeping the same interaction logic while adapting the experience to each platform’s conventions.</p></div><div class="bumble-v2-platform-comparison" aria-label="Android, iOS, and Apple Watch Skill Snack comparison"><figure class="is-mobile-platforms"><div class="bumble-v2-platform-labels"><span>Android</span><span>iOS</span></div><img src="/projects/bumble-skill-snack/process/bumble-system-platform-comparison.svg" alt="Native Android and iOS Skill Snack verification flows shown side by side" loading="lazy"></figure><figure class="is-watch"><figcaption>Apple Watch</figcaption><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/bumble-decision-apple-watch-poster.jpg"><source src="/projects/bumble-skill-snack/media/bumble-decision-apple-watch.mp4" type="video/mp4"></video></figure></div></article>
-          </div>
+        <div class="bumble-iteration-journey">
+          <section class="bumble-iteration-decision" aria-labelledby="bumble-iteration-safety">
+            <div class="bumble-iteration-decision-head"><span>01 · Safety</span><h4 id="bumble-iteration-safety">Add guardrails before sharing skills.</h4></div>
+            <div class="bumble-iteration-reasoning">
+              <div><span>What testing revealed</span><p>Users could enter joke, inappropriate, or low-quality skills (e.g. “I’m good at farting”), making the experience feel less safe and credible.</p></div>
+              <div><span>Design decision</span><p>I added a safety check before publishing a Skill Snack, so people can share skills with clearer expectations and boundaries.</p></div>
+            </div>
+            ${designScreens('safety', 0, 2286, 6, 'Six mobile screens showing Skill Snack verification and safety checks')}
+          </section>
+          <section class="bumble-iteration-decision" aria-labelledby="bumble-iteration-platforms">
+            <div class="bumble-iteration-decision-head"><span>02 · System expansion</span><h4 id="bumble-iteration-platforms">Keep one experience consistent across platforms.</h4></div>
+            <div class="bumble-iteration-reasoning">
+              <div><span>What changed</span><p>After validating the core flow, I expanded Skill Snack beyond its first mobile experience to iOS, Android, and Apple Watch.</p></div>
+              <div><span>Design decision</span><p>I kept the same interaction logic while adapting controls and presentation to each platform’s native conventions.</p></div>
+            </div>
+            <div class="bumble-iteration-platforms" aria-label="Android, iOS, and Apple Watch Skill Snack comparison">
+              <figure><figcaption>Android</figcaption><div class="bumble-iteration-platform-media"><svg viewBox="0 0 900 872" role="img" aria-label="Two Android Skill Snack screens"><image href="/projects/bumble-skill-snack/process/bumble-system-platform-comparison.svg" width="1804" height="872"/></svg></div></figure>
+              <figure><figcaption>iOS</figcaption><div class="bumble-iteration-platform-media"><svg viewBox="904 0 900 872" role="img" aria-label="Two iOS Skill Snack screens"><image href="/projects/bumble-skill-snack/process/bumble-system-platform-comparison.svg" width="1804" height="872"/></svg></div></figure>
+              <figure class="bumble-iteration-watch"><figcaption>Apple Watch</figcaption><div class="bumble-iteration-platform-media"><video controls muted loop playsinline preload="metadata" poster="/projects/bumble-skill-snack/media/bumble-decision-apple-watch-poster.jpg" aria-label="Skill Snack Apple Watch concept demo"><source src="/projects/bumble-skill-snack/media/bumble-decision-apple-watch.mp4" type="video/mp4"></video></div></figure>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="case-section bumble-v2-section bumble-v2-process bumble-v2-system" id="bumble-design-system" aria-labelledby="bumble-system-heading">
+        <header class="bumble-v2-section-heading">
+          <h3 class="bumble-v2-section-title" id="bumble-system-heading">Design system</h3>
+        </header>
+        <div class="bumble-system-gallery" aria-label="Skill Snack design system components">
+          <figure class="bumble-system-card bumble-system-card--buttons" aria-label="Button states">
+            <img src="/projects/bumble-skill-snack/design/bumble-system-button-states.svg" alt="Two dark button states" loading="lazy">
+          </figure>
+          <figure class="bumble-system-card bumble-system-card--composer" aria-label="Message composer">
+            <img src="/projects/bumble-skill-snack/design/bumble-system-message-composer.svg" alt="Message composer component" loading="lazy">
+          </figure>
+          <figure class="bumble-system-card bumble-system-card--checkbox" aria-label="Checkbox states">
+            <img src="/projects/bumble-skill-snack/design/bumble-system-checkbox.svg" alt="Unchecked and checked skill boxes" loading="lazy">
+          </figure>
+          <figure class="bumble-system-card bumble-system-card--progress" aria-label="Circular progress states">
+            <div class="bumble-system-progress-states">
+              ${systemCrop('feedback', '420 42 262 254', 1015, 1523, 'First circular progress state')}
+              ${systemCrop('feedback', '420 328 262 254', 1015, 1523, 'Second circular progress state')}
+              ${systemCrop('feedback', '420 614 262 254', 1015, 1523, 'Third circular progress state')}
+              ${systemCrop('feedback', '420 900 262 254', 1015, 1523, 'Fourth circular progress state')}
+            </div>
+          </figure>
+          <figure class="bumble-system-card bumble-system-card--navigation" aria-label="Navigation bar">
+            <img src="/projects/bumble-skill-snack/design/bumble-system-navigation-bar.svg" alt="Bumble navigation bar with an active tab" loading="lazy">
+          </figure>
+          <figure class="bumble-system-card bumble-system-card--icon" aria-label="Skill Snack icon">
+            <img src="/projects/bumble-skill-snack/design/bumble-system-skill-icon.png" alt="Yellow Skill Snack icon" loading="lazy">
+          </figure>
         </div>
       </section>
 
@@ -490,7 +711,6 @@
       window.scrollTo({ top, behavior: motionPreference.matches ? 'auto' : 'smooth' });
     });
 
-
   }
 
   function prepareBumbleCaseStudy(page) {
@@ -500,7 +720,7 @@
 
     prepareHeroKeywords(page, 'Cross-Platform App · UI Design · Micro-interactions');
     prepareCaseMeta(page, [
-      { label: 'Role', value: 'UI/UX Designer' },
+      { label: 'Role', value: 'Solo UI/UX Designer' },
       { label: 'Timeline', value: 'Feb - Mar 2026' },
       { label: 'Tools', value: 'Figma · Figma Make' }
     ]);
@@ -512,6 +732,7 @@
       ]
     );
     buildBumbleIteration(page);
+    prepareBumbleHero(page);
     return;
     page.querySelector('.bumble-hero-media .mobile-demo-copy > p')?.remove();
     const impact = page.querySelector('.bumble-impact');
@@ -2833,7 +3054,7 @@
       // instead of waiting for the heading animation to finish.
       const caseRevealPlans = [
         ['.bumble-v2-problem', '.bumble-v2-section-heading', '.bumble-v2-problem-grid'],
-        ['#bumble-research', '.bumble-v2-section-heading', '.bumble-v2-carousel'],
+        ['#bumble-research', '.bumble-v2-section-heading', '.bumble-user-flow'],
         ['.bumble-v2-impact', '.bumble-v2-impact-summary > .case-section-label', '.bumble-v2-impact-metrics, .mobile-walkthrough-panel'],
         ['.impress-problem', '.case-section-intro', '.impress-learning-loops'],
         ['.impress-process', '.case-section-intro', '.mvp-timeline, .mvp-process-controls'],

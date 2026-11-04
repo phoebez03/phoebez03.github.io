@@ -13645,3 +13645,1640 @@ html.kb-intro-js .case-page .kb-intro-opening .kb-intro-device:not(.is-open, .is
   .case-page.kb-case-redesign .kb-problem-donut-value { animation: none !important; stroke-dashoffset: 0 !important; }
   .case-page.kb-case-redesign .kb-problem-stat:hover .kb-problem-donut svg { transform: none; filter: none; }
 }
+
+/* Bumble hero: handheld demo beside the case introduction. */
+.case-page.bumble-case .case-hero.bumble-hero-composed {
+  padding-bottom: clamp(60px, 7vw, 96px);
+}
+
+.case-page.bumble-case .bumble-hero-layout {
+  display: grid;
+  width: min(100%, 1200px);
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  align-items: center;
+  gap: clamp(24px, 2.8vw, 40px);
+}
+
+.case-page.bumble-case .bumble-hero-handheld {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  background: transparent;
+}
+
+.case-page.bumble-case .bumble-hero-handheld video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.08);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 92%, transparent 100%);
+}
+
+.case-page.bumble-case .bumble-hero-visual-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-title-grid {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(22px, 2.6vw, 34px);
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-title-grid h1 {
+  font-size: clamp(46px, 4.5vw, 66px) !important;
+  white-space: nowrap;
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-title-grid h1 br {
+  display: none !important;
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-lead.case-lead-split {
+  display: flex;
+  max-width: 100%;
+  margin-top: clamp(24px, 3vw, 38px);
+  flex-direction: column;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-lead.case-lead-split > span {
+  display: block;
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-lead .bumble-hero-message {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin-left: 0;
+  padding: 17px 22px;
+  border-radius: 20px 20px 5px 20px;
+  background: #ffdb43;
+  color: #242424;
+  font-size: clamp(16px, 1.4vw, 18px);
+  font-weight: 500;
+  line-height: 1.42;
+  box-shadow: 0 7px 18px rgba(98, 75, 0, 0.08);
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-lead .bumble-hero-message::after {
+  position: absolute;
+  right: 0;
+  bottom: -9px;
+  width: 14px;
+  height: 14px;
+  background: #ffdb43;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  content: "";
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-meta {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.case-page.bumble-case .bumble-hero-layout .case-meta > div {
+  display: flex;
+  min-width: 0;
+  padding: 12px 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  border-top: 1px solid var(--case-hairline);
+  border-bottom: 0;
+}
+
+@media (max-width: 960px) {
+  .case-page.bumble-case .bumble-hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .case-page.bumble-case .bumble-hero-handheld {
+    width: min(100%, 680px);
+    justify-self: center;
+  }
+
+  .case-page.bumble-case .bumble-hero-layout .case-title-grid {
+    display: contents;
+  }
+
+  .case-page.bumble-case .bumble-hero-layout .case-title-grid > div:first-child { order: 1; }
+  .case-page.bumble-case .bumble-hero-handheld { order: 2; }
+  .case-page.bumble-case .bumble-hero-layout .case-meta { order: 3; }
+}
+
+@media (max-width: 620px) {
+  .case-page.bumble-case .bumble-hero-layout { gap: 28px; }
+  .case-page.bumble-case .bumble-hero-layout .case-meta {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .case-page.bumble-case .bumble-hero-layout .case-meta > div {
+    padding: 10px 0;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 12px;
+    border-top: 0;
+    border-bottom: 1px solid var(--case-hairline);
+  }
+}
+
+@media (max-width: 480px) {
+  .case-page.bumble-case .bumble-hero-layout .case-title-grid h1 {
+    font-size: 44px !important;
+    white-space: normal;
+  }
+  .case-page.bumble-case .bumble-hero-layout .case-title-grid h1 br { display: initial !important; }
+}
+
+/* Bumble problem storyboard: one connected sequence, then a clear opportunity. */
+.case-page.bumble-case.bumble-iteration-v2 .bumble-problem-storyboard {
+  display: grid;
+  width: min(100%, 1126px);
+  margin: 0 auto;
+  padding: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px 14px;
+  list-style: none;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 355px;
+  padding: 19px 17px 0;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e3e3e6;
+  border-radius: 17px;
+  box-shadow: 0 7px 20px rgba(34, 34, 35, 0.025);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel:nth-child(-n+3)::after {
+  position: absolute;
+  top: 55%;
+  right: -19px;
+  z-index: 2;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: #77777d;
+  background: #f5f5f7;
+  border-radius: 50%;
+  content: "→";
+  font-size: 19px;
+  line-height: 1;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel:nth-child(4)::after {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: #77777d;
+  background: #f5f5f7;
+  border-radius: 50%;
+  content: "↓";
+  font-size: 19px;
+  line-height: 1;
+  transform: translateX(-50%);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-step {
+  display: inline-flex;
+  min-height: 25px;
+  align-items: center;
+  gap: 6px;
+  color: #68686d;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-step b {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: none;
+  place-items: center;
+  color: #29292c;
+  background: #ffda4d;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-copy h4 {
+  margin: 13px 0 0;
+  color: #29292c;
+  font-family: "SF Pro Display", system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(16px, 1.4vw, 19px) !important;
+  font-weight: 650 !important;
+  line-height: 1.13 !important;
+  letter-spacing: -0.025em !important;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-copy p {
+  margin: 8px 0 0;
+  color: #626268;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-art {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 150px;
+  min-width: 0;
+  margin: auto 0 0;
+  place-items: center;
+  overflow: hidden;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-match-art {
+  height: 180px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-match-art img {
+  display: block;
+  width: min(100%, 235px);
+  height: 175px;
+  object-fit: contain;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-silence-art {
+  align-items: end;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-phone {
+  position: relative;
+  width: 129px;
+  height: 167px;
+  margin-bottom: -26px;
+  padding: 24px 9px 12px;
+  background: #fff;
+  border: 3px solid #343437;
+  border-radius: 24px;
+  box-shadow: 0 3px 0 #c9c9cc, 0 10px 18px rgba(0, 0, 0, 0.08);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-phone-island {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 46px;
+  height: 12px;
+  background: #111;
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-phone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #29292c;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-phone-header i {
+  font-style: normal;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-typing {
+  position: absolute;
+  top: 90px;
+  right: 10px;
+  display: flex;
+  padding: 10px;
+  gap: 4px;
+  background: #f5f5f7;
+  border-radius: 16px 16px 4px 16px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-typing i {
+  width: 5px;
+  height: 5px;
+  background: #b7b7bd;
+  border-radius: 50%;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-stat-art {
+  align-content: center;
+  gap: 8px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-stat-art .bumble-v2-donut {
+  width: 105px;
+  background: conic-gradient(#ffcb36 0 var(--donut-sweep, 40%), #e9e9eb var(--donut-sweep, 40%) 100%);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-stat-art .bumble-v2-donut::before {
+  background: #fff;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-stat-art .bumble-v2-donut strong {
+  font-size: 29px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-stat-art figcaption {
+  color: #626268;
+  font-size: 11px;
+  text-align: center;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-input-art {
+  align-content: center;
+  gap: 12px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-empty-input {
+  display: flex;
+  width: 100%;
+  min-height: 41px;
+  padding: 0 11px;
+  align-items: center;
+  justify-content: space-between;
+  color: #99999e;
+  background: #fff;
+  border: 1px solid #dedee2;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-empty-input b {
+  font-size: 15px;
+  font-weight: 400;
+  transform: rotate(-24deg);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-question {
+  color: #96969b;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway {
+  min-height: 102px;
+  padding: 18px 28px;
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  background: #ffdb43;
+  border-color: #ffdb43;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway .bumble-story-copy {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway .bumble-story-step {
+  color: #29292c;
+  font-size: 12px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway .bumble-story-copy h4 {
+  margin: 0;
+  font-size: clamp(21px, 2vw, 26px) !important;
+}
+
+@media (max-width: 1080px) and (min-width: 961px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-problem-storyboard { gap: 10px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel { padding-inline: 13px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel:nth-child(-n+3)::after { right: -16px; }
+}
+
+@media (max-width: 960px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-problem-storyboard {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel {
+    display: grid;
+    min-height: 190px;
+    padding: 18px 24px;
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 0.38fr);
+    align-items: center;
+    gap: 18px;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: -24px;
+    left: 50%;
+    content: "↓";
+    transform: translateX(-50%);
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-art { height: 150px; margin: 0; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-match-art { height: 175px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-match-art img { height: 170px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-copy h4 { font-size: 20px !important; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-copy p { max-width: 44ch; font-size: 14px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway {
+    min-height: 0;
+    padding: 20px 24px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway .bumble-story-copy { display: block; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway .bumble-story-copy h4 { margin-top: 12px; font-size: 22px !important; }
+}
+
+@media (max-width: 620px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel {
+    min-height: 0;
+    padding: 20px 20px 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-art { height: 145px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-match-art { height: 175px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-copy h4 { font-size: 19px !important; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway { padding: 20px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-story-panel--takeaway .bumble-story-copy h4 { font-size: 21px !important; }
+}
+
+/* Bumble business strategy: proposed freemium model and validation plan. */
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business {
+  background: #fff;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business .bumble-v2-section-heading {
+  margin-bottom: 28px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-body {
+  width: min(100%, 1126px);
+  margin: 0 auto;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.45fr);
+  align-items: center;
+  gap: 36px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-overview > p {
+  max-width: 45ch;
+  margin: 0;
+  color: #626268;
+  font-size: clamp(16px, 1.35vw, 18px);
+  font-weight: 400;
+  line-height: 1.48;
+  letter-spacing: -0.01em;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-context {
+  display: grid;
+  padding: 22px 24px;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 20px;
+  background: #f5f5f7;
+  border: 1px solid #e6e6e8;
+  border-radius: 18px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-context > span {
+  grid-column: 1 / -1;
+  color: #626268;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-context strong {
+  grid-row: 2 / 4;
+  align-self: center;
+  color: #29292c;
+  font-size: clamp(38px, 3.7vw, 50px);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.065em;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-context p {
+  margin: 16px 0 0;
+  color: #4a4a4f;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-context a {
+  margin-top: 14px;
+  grid-column: 1 / -1;
+  color: #626268;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tiers-heading {
+  display: flex;
+  margin: 50px 0 18px;
+  padding-top: 22px;
+  align-items: baseline;
+  gap: 22px;
+  border-top: 1px solid #dedee2;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tiers-heading span,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-subhead > span {
+  color: #626268;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tiers-heading p {
+  margin: 0;
+  color: #29292c;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tiers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 484px;
+  padding: 20px 22px 20px 28px;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 8px;
+  overflow: hidden;
+  background: #f8f8f9;
+  border: 1px solid #e4e4e7;
+  border-radius: 20px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier--premium {
+  background: #fff8df;
+  border-color: #f4e2a4;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier-copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding-top: 4px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier-label {
+  display: inline-block;
+  padding: 6px 10px;
+  color: #29292c;
+  background: #fff;
+  border: 1px solid #d6d6da;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.25;
+  text-transform: none;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier--premium .bumble-business-tier-label {
+  background: #ffdb43;
+  border-color: #ecc334;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier h4 {
+  max-width: 15ch;
+  margin: 20px 0 24px;
+  color: #29292c;
+  font-family: "SF Pro Display", system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(20px, 1.8vw, 24px) !important;
+  font-weight: 650 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.03em !important;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 16px;
+  list-style: none;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier li {
+  position: relative;
+  padding-left: 24px;
+  color: #3f3f43;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #29292c;
+  content: "✓";
+  font-weight: 700;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-phone {
+  width: 220px;
+  height: 438px;
+  margin: 0;
+  align-self: center;
+  overflow: hidden;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-phone svg {
+  display: block;
+  width: 220px;
+  max-width: none;
+  height: 438px;
+  clip-path: inset(8px 4px 5px 8px round 32px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-measure {
+  margin-top: 58px;
+  padding-top: 22px;
+  border-top: 1px solid #dedee2;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-subhead {
+  display: grid;
+  margin-bottom: 20px;
+  grid-template-columns: minmax(160px, 0.34fr) minmax(0, 1.7fr);
+  align-items: baseline;
+  gap: 24px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-subhead h4 {
+  margin: 0;
+  color: #29292c;
+  font-family: "SF Pro Display", system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(18px, 1.7vw, 22px) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.2 !important;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  list-style: none;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li {
+  position: relative;
+  min-width: 0;
+  min-height: 142px;
+  padding: 20px;
+  background: #f5f5f7;
+  border: 1px solid #e8e8eb;
+  border-radius: 16px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li:last-child {
+  background: #ffdb43;
+  border-color: #ffdb43;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li:not(:last-child)::after {
+  position: absolute;
+  top: 50%;
+  right: -19px;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  color: #6e6e73;
+  background: #fff;
+  border-radius: 50%;
+  content: "→";
+  font-size: 19px;
+  line-height: 24px;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li span {
+  color: #6e6e73;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li:last-child span { color: #4a3b00; }
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey h5 {
+  margin: 16px 0 5px;
+  color: #29292c;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li p {
+  margin: 0;
+  color: #55555b;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-measure-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: 16px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-kpi,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-signals {
+  min-width: 0;
+  padding: 24px;
+  background: #f5f5f7;
+  border: 1px solid #e8e8eb;
+  border-radius: 16px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-kpi {
+  border-left: 5px solid #ffdb43;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-kpi > span,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-signals > span {
+  color: #6e6e73;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-kpi strong {
+  display: block;
+  max-width: none;
+  margin-top: 12px;
+  color: #29292c;
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-kpi p {
+  max-width: 38ch;
+  margin: 11px 0 0;
+  color: #626268;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-signals ul {
+  display: grid;
+  margin: 13px 0 0;
+  padding: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  list-style: none;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-signals li {
+  padding: 13px 18px 13px 0;
+  color: #3f3f43;
+  border-top: 1px solid #dedee2;
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-business-note {
+  margin: 14px 0 0;
+  color: #6e6e73;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+@media (max-width: 1100px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-overview {
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 0.55fr);
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tiers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier {
+    min-height: 390px;
+    grid-template-columns: minmax(0, 1fr) 220px;
+  }
+}
+
+@media (max-width: 900px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-measure-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-overview,
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-measure-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-kpi strong { white-space: normal; }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-context { max-width: 100%; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-subhead { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li:nth-child(2)::after { display: none; }
+}
+
+@media (max-width: 520px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-v2-story-nav { gap: 17px; padding-inline: 20px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-overview { gap: 25px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-overview > p { font-size: 16px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-context { grid-template-columns: auto minmax(0, 1fr); }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tiers-heading { display: block; margin-top: 42px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tiers-heading p { margin-top: 8px; font-size: 18px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier {
+    display: block;
+    min-height: 0;
+    padding: 24px;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier-copy { padding-top: 0; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier h4 { max-width: none; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-tier ul { gap: 12px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-phone {
+    width: 195px;
+    height: 388px;
+    margin: 24px auto 0;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-phone svg { width: 195px; height: 388px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey,
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-measure { margin-top: 45px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey ol { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li { min-height: 0; padding: 17px 20px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li:not(:last-child)::after,
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-journey li:nth-child(2)::after {
+    top: auto;
+    right: auto;
+    bottom: -24px;
+    left: 50%;
+    display: block;
+    content: "↓";
+    transform: translateX(-50%);
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-business-signals ul { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Carry KB Tutor's readable chapter labels through the other case studies. */
+.case-page.bumble-case.bumble-iteration-v2 :is(.bumble-v2-section-heading, .bumble-v2-impact-summary) > .case-section-label,
+.case-page.impress-case.impress-refined :is(.case-section-intro, .impress-impact-summary) > .case-section-label,
+.case-page.pagelens-case.pagelens-story-v2 .case-section-intro > .case-section-label {
+  color: #29292c !important;
+  font-size: clamp(18px, 1.6vw, 22px) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Compact Skill Snack flow: plan access and first-message roles branch after one setup. */
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow {
+  width: min(100%, 1126px);
+  margin: 0 auto;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-intro {
+  max-width: 76ch;
+  margin: 0 0 23px;
+  color: #626268;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-map {
+  border-top: 1px solid #d9d9de;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-row {
+  display: grid;
+  padding: 19px 0;
+  grid-template-columns: 185px minmax(0, 1fr);
+  align-items: start;
+  gap: 22px;
+  border-bottom: 1px solid #d9d9de;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-row h4 {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  gap: 10px;
+  color: #29292c;
+  font-family: "SF Pro Display", system-ui, -apple-system, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 650 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-row h4 span {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  flex: 0 0 auto;
+  place-items: center;
+  background: #ffda4d;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-steps > div,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options article {
+  min-width: 0;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #dfe0e4;
+  border-radius: 10px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-steps > div {
+  min-height: 75px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-arrow {
+  color: #9298a2;
+  font-size: 19px;
+  text-align: center;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-steps strong,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options article > strong {
+  display: block;
+  color: #29292c;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.22;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-steps small {
+  display: block;
+  margin-top: 5px;
+  color: #666c75;
+  font-size: 12px;
+  line-height: 1.32;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options article {
+  min-height: 116px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-tag {
+  display: inline-block;
+  width: max-content;
+  margin-bottom: 9px;
+  padding: 4px 8px;
+  color: #29292c;
+  background: #f5f5f7;
+  border: 1px solid #d6d6da;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-tag--premium {
+  background: #ffdb43;
+  border-color: #ecc334;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options p {
+  margin: 5px 0 0;
+  color: #666c75;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-rule {
+  margin: 16px 0 0;
+  color: #626268;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (max-width: 700px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-row { display: block; padding: 19px 0; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-row h4 { margin-bottom: 12px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options article { min-height: 136px; }
+}
+
+@media (max-width: 520px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-intro { font-size: 14px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-steps { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-arrow { font-size: 18px; line-height: 18px; transform: rotate(90deg); }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options { gap: 8px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options article { min-height: 0; padding: 11px 12px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options article > strong { font-size: 14px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options p { font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-user-flow-options { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Bumble design: one shared setup, two access paths, one shared conversation. */
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-journey {
+  width: min(100%, 1126px);
+  margin: 0 auto;
+  color: #29292c;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage {
+  min-width: 0;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy {
+  display: grid;
+  grid-template-columns: minmax(155px, 0.26fr) minmax(0, 1fr);
+  column-gap: clamp(20px, 3vw, 48px);
+  align-items: start;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-label {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  min-height: 28px;
+  padding: 5px 10px;
+  align-items: center;
+  color: #29292c;
+  background: #fff;
+  border: 1px solid #d5d5d9;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-label--premium {
+  background: #ffdb43;
+  border-color: #e7bd27;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy h4 {
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0;
+  color: #29292c;
+  font-family: "SF Pro Display", system-ui, -apple-system, sans-serif !important;
+  font-size: clamp(21px, 2.1vw, 28px) !important;
+  font-weight: 650 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.025em !important;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy p {
+  grid-column: 2;
+  margin: 8px 0 0;
+  color: #626268;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-screens {
+  display: block;
+  width: 100%;
+  margin: 24px 0 0;
+  overflow: hidden;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-screens svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-screens-mobile {
+  display: none;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-fork,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-join {
+  display: flex;
+  min-height: 88px;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: #67676c;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-fork::before,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-fork::after,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-join::before,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-join::after {
+  width: min(15vw, 180px);
+  height: 1px;
+  background: #d5d5d9;
+  content: "";
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-lanes {
+  position: relative;
+  margin-left: 20px;
+  padding-left: 44px;
+  border-left: 2px solid #ffda4d;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage--lane {
+  position: relative;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage--lane::before {
+  position: absolute;
+  top: 14px;
+  left: -44px;
+  width: 35px;
+  height: 2px;
+  background: #ffda4d;
+  content: "";
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage--lane::after {
+  position: absolute;
+  top: 9px;
+  left: -50px;
+  width: 12px;
+  height: 12px;
+  background: #ffda4d;
+  border-radius: 50%;
+  content: "";
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage--lane + .bumble-design-stage--lane {
+  margin-top: clamp(48px, 6vw, 80px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-note {
+  margin: 16px 0 0;
+  color: #626268;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy h4,
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy p {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy p { margin-top: 0; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-lanes {
+    margin-left: 6px;
+    padding-left: 24px;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage--lane::before { left: -24px; width: 19px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage--lane::after { left: -30px; }
+}
+
+@media (max-width: 620px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-screens-desktop { display: none !important; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-screens-mobile {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 6px;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-screens { margin-top: 20px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-fork,
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-join { min-height: 72px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy h4 { font-size: 21px !important; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-stage-copy p { font-size: 14px; }
+}
+
+/* Numbered Bumble-yellow callouts keep the original explanations around the larger screens. */
+.case-page.bumble-case.bumble-iteration-v2 #bumble-design .bumble-v2-section-heading {
+  grid-template-columns: minmax(0, 1fr);
+  margin-bottom: clamp(26px, 3vw, 42px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callouts {
+  position: relative;
+  min-height: 56px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callouts--top {
+  min-height: 42px;
+  margin: 24px 0 14px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callouts--bottom {
+  margin: 20px 0 0;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .has-top-callouts .bumble-design-screens { margin-top: 0; }
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout {
+  position: absolute;
+  top: 0;
+  left: var(--callout-x);
+  display: flex;
+  width: max-content;
+  max-width: min(360px, 31vw);
+  align-items: center;
+  gap: 9px;
+  color: #29292c;
+  transform: translateX(-14px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout--reverse {
+  transform: translateX(-50%);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout span,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  color: #29292c;
+  background: #ffda4d;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout strong {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout::after {
+  position: absolute;
+  left: 13px;
+  width: 2px;
+  height: 32px;
+  background: #ffda4d;
+  content: "";
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout--reverse::after { left: calc(50% - 1px); }
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout--top::after { top: calc(100% + 1px); }
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout--bottom::after { bottom: calc(100% + 2px); }
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight { display: none; }
+
+@media (max-width: 760px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-callout strong { font-size: 13px; }
+}
+
+/* Test + iterate stays explanatory, with the screens given the full page width. */
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-journey {
+  width: min(100%, 1126px);
+  margin: 0 auto;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision {
+  padding-bottom: clamp(56px, 6vw, 80px);
+  border-bottom: 1px solid #d9d9de;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision + .bumble-iteration-decision {
+  padding-top: clamp(56px, 6vw, 80px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision-head {
+  display: grid;
+  grid-template-columns: minmax(155px, 0.26fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 24px clamp(20px, 3vw, 48px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision-head > span {
+  color: #68686d;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision-head h4 {
+  margin: 0;
+  color: #29292c;
+  font-family: "SF Pro Display", system-ui, -apple-system, sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.025em !important;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning {
+  display: grid;
+  margin: 26px 0 30px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 44px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning > div {
+  padding-left: 17px;
+  border-left: 2px solid #d3d3d8;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning > div:last-child {
+  border-left-color: #ffda4d;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning span {
+  display: block;
+  margin-bottom: 8px;
+  color: #29292c;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning p {
+  margin: 0;
+  color: #53535a;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision .bumble-design-screens {
+  margin-top: 0;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms > figure:first-child {
+  transform: translateX(24px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms > figure:nth-child(2) {
+  transform: translateX(-24px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms figcaption {
+  margin: 0 0 14px;
+  color: #68686d;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platform-media {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 900 / 872;
+  place-items: center;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platform-media svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-watch video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 320px;
+  max-height: 100%;
+  object-fit: contain;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: translateY(20px);
+}
+
+@media (max-width: 760px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision-head { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning { gap: 18px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms > figure:first-child,
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-platforms > figure:nth-child(2) { transform: none; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-watch video { width: min(100%, 320px); transform: translateY(10px); }
+}
+
+@media (max-width: 620px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-callouts { display: none; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-screen { min-width: 0; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight {
+    display: flex;
+    position: relative;
+    min-height: 44px;
+    margin: 17px 0 6px;
+    align-items: flex-start;
+    gap: 6px;
+    color: #29292c;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight::before {
+    position: absolute;
+    bottom: calc(100% + 3px);
+    left: 13px;
+    width: 2px;
+    height: 24px;
+    background: #ffda4d;
+    content: "";
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight + .bumble-design-mobile-highlight { margin-top: 6px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight + .bumble-design-mobile-highlight::before { display: none; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight span {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+    font-size: 11px;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-design-mobile-highlight strong {
+    font-size: 10.5px;
+    font-weight: 600;
+    line-height: 1.28;
+  }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-reasoning p { font-size: 14px; }
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-iteration-decision-head h4 { font-size: 18px !important; }
+}
+
+/* Bumble design system: one component family per aligned card. */
+.case-page.bumble-case.bumble-iteration-v2 .bumble-v2-system {
+  border-top: 1px solid #dedee3;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-v2-system .bumble-v2-section-heading {
+  display: block;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-gallery {
+  display: grid;
+  width: min(100%, 1126px);
+  margin: 0 auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card {
+  display: grid;
+  min-width: 0;
+  min-height: 282px;
+  margin: 0;
+  padding: 26px;
+  place-items: center;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #dedee3;
+  border-radius: 18px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card img,
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card--buttons img {
+  width: min(100%, 320px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card--composer img {
+  width: min(100%, 330px);
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card--checkbox img {
+  width: 115px;
+  max-height: 176px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-progress-states {
+  display: grid;
+  width: min(100%, 222px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-progress-states svg {
+  width: 100%;
+  overflow: hidden;
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card--navigation img {
+  width: min(100%, 260px);
+  filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.07));
+}
+
+.case-page.bumble-case.bumble-iteration-v2 .bumble-system-card--icon img {
+  width: min(100%, 145px);
+}
+
+@media (max-width: 900px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-system-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-system-gallery {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-system-card {
+    min-height: 225px;
+    padding: 22px;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-system-progress-states {
+    width: min(100%, 170px);
+    gap: 12px;
+  }
+
+  .case-page.bumble-case.bumble-iteration-v2 .bumble-system-card--navigation img {
+    width: min(100%, 240px);
+  }
+
+}

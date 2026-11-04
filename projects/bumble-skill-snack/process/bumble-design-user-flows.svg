@@ -1,24 +1,24 @@
 <svg width="7782" height="2103" viewBox="0 0 7782 2103" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_0_1)">
-<g filter="url(#filter0_d_0_1)">
+<g>
 <g clip-path="url(#clip1_0_1)">
 <rect x="1170.82" y="105.893" width="303.873" height="657.987" fill="url(#pattern0_0_1)"/>
 </g>
 <rect x="1153.5" y="91.5" width="340.494" height="688" fill="url(#pattern1_0_1)"/>
 </g>
-<g filter="url(#filter1_d_0_1)">
+<g>
 <g clip-path="url(#clip2_0_1)">
 <rect x="811.816" y="105.893" width="303.873" height="657.987" fill="url(#pattern2_0_1)"/>
 </g>
 <rect x="794.5" y="91.5" width="340.494" height="688" fill="url(#pattern3_0_1)"/>
 </g>
-<g filter="url(#filter2_d_0_1)">
+<g>
 <g clip-path="url(#clip3_0_1)">
 <rect x="452.816" y="105.893" width="303.873" height="657.987" fill="url(#pattern4_0_1)"/>
 </g>
 <rect x="435.5" y="91.5" width="340.494" height="688" fill="url(#pattern5_0_1)"/>
 </g>
-<g filter="url(#filter3_d_0_1)">
+<g>
 <g clip-path="url(#clip4_0_1)">
 <rect x="93.8164" y="105.893" width="303.873" height="657.987" fill="url(#pattern6_0_1)"/>
 </g>
@@ -26,31 +26,31 @@
 </g>
 </g>
 <g clip-path="url(#clip5_0_1)">
-<g filter="url(#filter4_d_0_1)">
+<g>
 <g clip-path="url(#clip6_0_1)">
 <rect x="2101.82" y="105.893" width="303.873" height="657.987" fill="url(#pattern8_0_1)"/>
 </g>
 <rect x="2084.5" y="91.5" width="340.494" height="688" fill="url(#pattern9_0_1)"/>
 </g>
-<g filter="url(#filter5_d_0_1)">
+<g>
 <g clip-path="url(#clip7_0_1)">
 <rect x="1742.82" y="105.893" width="303.873" height="657.987" fill="url(#pattern10_0_1)"/>
 </g>
 <rect x="1725.5" y="91.5" width="340.494" height="688" fill="url(#pattern11_0_1)"/>
 </g>
-<g filter="url(#filter6_d_0_1)">
+<g>
 <g clip-path="url(#clip8_0_1)">
 <rect x="2819.82" y="105.893" width="303.873" height="657.987" fill="url(#pattern12_0_1)"/>
 </g>
 <rect x="2802.5" y="91.5" width="340.494" height="688" fill="url(#pattern13_0_1)"/>
 </g>
-<g filter="url(#filter7_d_0_1)">
+<g>
 <g clip-path="url(#clip9_0_1)">
 <rect x="2460.82" y="105.893" width="303.873" height="657.987" fill="url(#pattern14_0_1)"/>
 </g>
 <rect x="2443.5" y="91.5" width="340.494" height="688" fill="url(#pattern15_0_1)"/>
 </g>
-<g filter="url(#filter8_d_0_1)">
+<g>
 <g clip-path="url(#clip10_0_1)">
 <rect x="3178.82" y="105.893" width="303.873" height="657.987" fill="url(#pattern16_0_1)"/>
 </g>
@@ -58,25 +58,25 @@
 </g>
 </g>
 <g clip-path="url(#clip11_0_1)">
-<g filter="url(#filter9_d_0_1)">
+<g>
 <g clip-path="url(#clip12_0_1)">
 <rect x="3845.82" y="106.393" width="303.873" height="657.987" fill="url(#pattern18_0_1)"/>
 </g>
 <rect x="3828.5" y="92" width="340.494" height="688" fill="url(#pattern19_0_1)"/>
 </g>
-<g filter="url(#filter10_d_0_1)">
+<g>
 <g clip-path="url(#clip13_0_1)">
 <rect x="4204.82" y="105.393" width="303.873" height="657.987" fill="url(#pattern20_0_1)"/>
 </g>
 <rect x="4187.5" y="91" width="340.494" height="688" fill="url(#pattern21_0_1)"/>
 </g>
-<g filter="url(#filter11_d_0_1)">
+<g>
 <g clip-path="url(#clip14_0_1)">
 <rect x="4563.82" y="104.393" width="303.873" height="657.987" fill="url(#pattern22_0_1)"/>
 </g>
 <rect x="4546.5" y="90" width="340.494" height="688" fill="url(#pattern23_0_1)"/>
 </g>
-<g filter="url(#filter12_d_0_1)">
+<g>
 <g clip-path="url(#clip15_0_1)">
 <rect x="4922.82" y="107.393" width="303.873" height="657.987" fill="url(#pattern24_0_1)"/>
 </g>
@@ -94,13 +94,13 @@
 <g clip-path="url(#clip18_0_1)">
 <rect x="452.673" y="1337.28" width="303.873" height="657.987" fill="url(#pattern30_0_1)"/>
 </g>
-<g filter="url(#filter13_d_0_1)">
+<g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1262.54 2010.5C1347.74 2010.5 1416.81 2007.96 1416.81 2004.82C1416.81 2001.68 1322.21 2000.25 1262.54 2000.25C1202.87 2000.25 1108.26 2001.68 1108.26 2004.82C1108.26 2007.96 1177.33 2010.5 1262.54 2010.5Z" fill="black" fill-opacity="0.01"/>
 </g>
-<g filter="url(#filter14_d_0_1)">
+<g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1262.64 2008.86C1344.96 2008.86 1411.69 2006.87 1411.69 2004.43C1411.69 2001.98 1320.29 2000.87 1262.64 2000.87C1204.99 2000.87 1113.59 2001.98 1113.59 2004.43C1113.59 2006.87 1180.32 2008.86 1262.64 2008.86Z" fill="black" fill-opacity="0.01"/>
 </g>
-<g filter="url(#filter15_d_0_1)">
+<g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1262.64 2006.61C1339.3 2006.61 1401.45 2005.59 1401.45 2004.33C1401.45 2003.08 1316.33 2002.51 1262.64 2002.51C1208.95 2002.51 1123.83 2003.08 1123.83 2004.33C1123.83 2005.59 1185.98 2006.61 1262.64 2006.61Z" fill="black" fill-opacity="0.01"/>
 </g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1145.48 1322.5C1175.09 1322.5 1349.82 1322.5 1373.45 1322.5C1397.08 1322.5 1420.64 1333.02 1420.64 1369.67C1420.64 1393.25 1420.64 1587.53 1420.64 1959.8C1420.64 1979.52 1410.65 2004.49 1373.45 2004.49C1235.21 2004.49 1157.38 2004.49 1145.48 2004.49C1125.58 2004.49 1101.5 1993.77 1101.5 1958.53C1101.5 1587.55 1101.5 1388.97 1101.5 1369.67C1101.5 1343.26 1115.87 1322.5 1145.48 1322.5Z" fill="#303030"/>
@@ -158,13 +158,13 @@
 <rect x="1113.52" y="1357.2" width="295" height="628" fill="url(#pattern32_0_1)"/>
 </g>
 </g>
-<g filter="url(#filter27_d_0_1)">
+<g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1602.91 2010.5C1688.12 2010.5 1757.19 2007.96 1757.19 2004.82C1757.19 2001.68 1662.58 2000.25 1602.91 2000.25C1543.24 2000.25 1448.64 2001.68 1448.64 2004.82C1448.64 2007.96 1517.71 2010.5 1602.91 2010.5Z" fill="black" fill-opacity="0.01"/>
 </g>
-<g filter="url(#filter28_d_0_1)">
+<g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1603.01 2008.86C1685.33 2008.86 1752.06 2006.87 1752.06 2004.43C1752.06 2001.98 1660.66 2000.87 1603.01 2000.87C1545.37 2000.87 1453.96 2001.98 1453.96 2004.43C1453.96 2006.87 1520.7 2008.86 1603.01 2008.86Z" fill="black" fill-opacity="0.01"/>
 </g>
-<g filter="url(#filter29_d_0_1)">
+<g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1603.01 2006.61C1679.67 2006.61 1741.82 2005.59 1741.82 2004.33C1741.82 2003.08 1656.7 2002.51 1603.01 2002.51C1549.33 2002.51 1464.21 2003.08 1464.21 2004.33C1464.21 2005.59 1526.35 2006.61 1603.01 2006.61Z" fill="black" fill-opacity="0.01"/>
 </g>
 <path fill-rule="evenodd" clip-rule="evenodd" d="M1485.85 1322.5C1515.46 1322.5 1690.19 1322.5 1713.83 1322.5C1737.46 1322.5 1761.01 1333.02 1761.01 1369.67C1761.01 1393.25 1761.01 1587.53 1761.01 1959.8C1761.01 1979.52 1751.02 2004.49 1713.83 2004.49C1575.58 2004.49 1497.76 2004.49 1485.85 2004.49C1465.95 2004.49 1441.88 1993.77 1441.88 1958.53C1441.88 1587.55 1441.88 1388.97 1441.88 1369.67C1441.88 1343.26 1456.24 1322.5 1485.85 1322.5Z" fill="#303030"/>
