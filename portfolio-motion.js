@@ -1365,6 +1365,237 @@
     }
   }
 
+  function preparePageLensHero(page) {
+    const hero = page.querySelector('.case-hero');
+    if (!hero || hero.querySelector('.pagelens-hero-layout')) return;
+    const title = hero.querySelector('.case-title-grid');
+    if (!title) return;
+    const layout = document.createElement('div');
+    layout.className = 'pagelens-hero-layout';
+    layout.innerHTML = '<figure class="pagelens-hero-product"><img src="/projects/pagelens/cover/pagelens-cover.png" alt="PageLens tablet and reading stand above an open library book" width="858" height="636" fetchpriority="high"><figcaption>Prototype in context · Carnegie Library</figcaption></figure>';
+    title.before(layout);
+    layout.append(title);
+    hero.querySelector('.pagelens-hero-cover')?.remove();
+  }
+
+  function preparePageLensProblem(page) {
+    const section = page.querySelector('.pagelens-problem');
+    if (!section) return;
+    section.querySelector('.pagelens-hmw')?.remove();
+    section.querySelector('.pagelens-simulation-note')?.remove();
+    let diagram = section.querySelector('.pagelens-problem-diagram');
+    if (!diagram) {
+      const old = section.querySelector('.problem-grid, .pagelens-reading-visual, .pagelens-problem-cards');
+      if (!old) return;
+      const template = document.createElement('template');
+      template.innerHTML = `<div class="pagelens-problem-diagram" aria-label="Reading challenges illustrated with an overlapping detail view">
+  <svg class="pagelens-problem-connectors" viewBox="0 0 1126 450" preserveAspectRatio="none" aria-hidden="true"><path data-connector="fixed" pathLength="1" d="M 423 170 L 285 170 L 240 170"/><path data-connector="adapting" pathLength="1" d="M 735 288 L 830 288 L 886 288"/></svg>
+  <div class="pagelens-problem-scene">
+    <figure class="pagelens-problem-page"><img src="/projects/pagelens/problem/pagelens-reading-challenge-01.png" alt="Illustrative simulation of dense, crowded text across two printed pages" width="1236" height="838" loading="lazy"><span class="pagelens-image-anchor" data-image-anchor="fixed" aria-hidden="true"></span></figure>
+    <figure class="pagelens-problem-lens"><img src="/projects/pagelens/problem/pagelens-reading-challenge-02.png" alt="Enlarged illustrative view of distorted letterforms, overlapping the printed page" width="1360" height="648" loading="lazy"><span class="pagelens-image-anchor" data-image-anchor="adapting" aria-hidden="true"></span></figure>
+  </div>
+  <article class="pagelens-problem-annotation pagelens-problem-annotation--fixed"><span class="pagelens-annotation-number">01</span><h3>One fixed page,<br>different needs<span class="pagelens-annotation-anchor" data-annotation-anchor="fixed" aria-hidden="true"></span></h3><p>Dense print and tightly packed lines can make it harder to separate letters and keep a place.</p></article>
+  <article class="pagelens-problem-annotation pagelens-problem-annotation--adapting"><span class="pagelens-annotation-anchor" data-annotation-anchor="adapting" aria-hidden="true"></span><span class="pagelens-annotation-number">02</span><h3>The reader does<br>all the adapting</h3><p>A printed page cannot adjust to a reader’s changing needs, leaving them to find support elsewhere.</p></article>
+</div>`;
+      section.querySelector('.pagelens-simulation-note')?.remove();
+      old.replaceWith(template.content);
+      diagram = section.querySelector('.pagelens-problem-diagram');
+    }
+    if (diagram.dataset.connectorsReady === 'true') return;
+    diagram.dataset.connectorsReady = 'true';
+    const svg = diagram.querySelector('svg');
+    const drawConnectors = () => {
+      const box = diagram.getBoundingClientRect();
+      if (!box.width || !box.height) return;
+      svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+      // Layout coordinates keep connectors fixed while the images and labels reveal.
+      const point = (node) => {
+        let x = node.offsetWidth / 2;
+        let y = node.offsetHeight / 2;
+        for (let current = node; current && current !== diagram; current = current.offsetParent) {
+          x += current.offsetLeft + (current.offsetParent?.clientLeft || 0);
+          y += current.offsetTop + (current.offsetParent?.clientTop || 0);
+        }
+        return [x, y];
+      };
+      ['fixed', 'adapting'].forEach((name) => {
+        const [x1, y1] = point(diagram.querySelector(`[data-image-anchor="${name}"]`));
+        const [x2, y2] = point(diagram.querySelector(`[data-annotation-anchor="${name}"]`));
+        const narrow = window.matchMedia('(max-width: 760px)').matches;
+        const bend = narrow ? y2 - 22 : name === 'fixed' ? x2 + 28 : x2 - 28;
+        const d = narrow ? `M ${x1} ${y1} V ${bend} H ${x2} V ${y2}` : `M ${x1} ${y1} H ${bend} V ${y2} H ${x2}`;
+        svg.querySelector(`[data-connector="${name}"]`).setAttribute('d', d);
+      });
+    };
+    drawConnectors();
+    if ('ResizeObserver' in window) new ResizeObserver(drawConnectors).observe(diagram);
+    diagram.querySelectorAll('img').forEach((image) => image.addEventListener('load', drawConnectors, { once: true }));
+  }
+
+  function preparePageLensImageViewer(page) {
+    const triggers = [...page.querySelectorAll('[data-pagelens-zoom]')];
+    if (!triggers.length || page.querySelector('.pagelens-image-dialog')) return;
+    const dialog = document.createElement('dialog');
+    dialog.className = 'pagelens-image-dialog';
+    dialog.setAttribute('aria-labelledby', 'pagelens-image-title');
+    dialog.innerHTML = `<div class="pagelens-image-toolbar"><strong id="pagelens-image-title"></strong><button type="button" data-zoom-out aria-label="Zoom out">−</button><output class="pagelens-image-scale" aria-live="polite">100%</output><button type="button" data-zoom-in aria-label="Zoom in">+</button><button type="button" data-zoom-fit aria-label="Fit the whole image">Fit</button><button type="button" class="pagelens-image-close" aria-label="Close expanded image">×</button></div><div class="pagelens-image-viewport" tabindex="0" role="region" aria-label="Expanded image; scroll to explore"><img alt="" draggable="false"></div>`;
+    page.querySelector('.case-next').before(dialog);
+    const viewport = dialog.querySelector('.pagelens-image-viewport');
+    const image = viewport.querySelector('img');
+    const zoomOut = dialog.querySelector('[data-zoom-out]');
+    const zoomIn = dialog.querySelector('[data-zoom-in]');
+    const scale = dialog.querySelector('.pagelens-image-scale');
+    let zoom = 1;
+    let trigger;
+    let previousOverflow = '';
+    let drag;
+    const fitWidth = () => {
+      const padding = parseFloat(getComputedStyle(viewport).paddingLeft) * 2;
+      return Math.min(image.naturalWidth, viewport.clientWidth - padding, (viewport.clientHeight - padding) * image.naturalWidth / image.naturalHeight);
+    };
+    const applyZoom = (nextZoom, keepCenter = true) => {
+      if (!image.naturalWidth) return;
+      const imageRect = image.getBoundingClientRect();
+      const viewportRect = viewport.getBoundingClientRect();
+      const centerX = (viewportRect.left + viewport.clientWidth / 2 - imageRect.left) / (imageRect.width || 1);
+      const centerY = (viewportRect.top + viewport.clientHeight / 2 - imageRect.top) / (imageRect.width || 1);
+      const fit = fitWidth();
+      zoom = Math.max(1, Math.min(12, image.naturalWidth / fit, nextZoom));
+      const width = Math.min(image.naturalWidth, fit * zoom);
+      image.style.width = `${width}px`;
+      scale.value = `${Math.round(zoom * 100)}%`;
+      zoomOut.disabled = zoom <= 1;
+      zoomIn.disabled = zoom >= 12 || width >= image.naturalWidth;
+      if (keepCenter) {
+        viewport.scrollLeft = centerX * width - viewport.clientWidth / 2;
+        viewport.scrollTop = centerY * width - viewport.clientHeight / 2;
+      } else {
+        viewport.scrollLeft = 0;
+        viewport.scrollTop = 0;
+      }
+    };
+    const applyInitialZoom = () => {
+      const detailZoom = Math.ceil((Number(trigger.dataset.zoomDetailWidth) || 0) / fitWidth());
+      applyZoom(Math.max(Number(trigger.dataset.zoomStart) || 1, detailZoom), false);
+    };
+    image.addEventListener('load', () => {
+      if (dialog.open) applyInitialZoom();
+    });
+    triggers.forEach((button) => button.addEventListener('click', () => {
+      trigger = button;
+      dialog.querySelector('#pagelens-image-title').textContent = button.dataset.zoomLabel;
+      image.alt = button.querySelector('img').alt;
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      dialog.showModal();
+      dialog.querySelector('.pagelens-image-close').focus({ preventScroll: true });
+      image.src = button.dataset.pagelensZoom;
+      if (image.complete && image.naturalWidth) applyInitialZoom();
+    }));
+    zoomOut.addEventListener('click', () => applyZoom(zoom - 1));
+    zoomIn.addEventListener('click', () => applyZoom(zoom + 1));
+    dialog.querySelector('[data-zoom-fit]').addEventListener('click', () => applyZoom(1, false));
+    dialog.querySelector('.pagelens-image-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = previousOverflow;
+      trigger?.focus({ preventScroll: true });
+    });
+    viewport.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      drag = { x: event.clientX, y: event.clientY, left: viewport.scrollLeft, top: viewport.scrollTop };
+      viewport.setPointerCapture(event.pointerId);
+      viewport.classList.add('is-dragging');
+      event.preventDefault();
+    });
+    viewport.addEventListener('pointermove', (event) => {
+      if (!drag) return;
+      viewport.scrollLeft = drag.left + drag.x - event.clientX;
+      viewport.scrollTop = drag.top + drag.y - event.clientY;
+    });
+    viewport.addEventListener('lostpointercapture', () => {
+      drag = null;
+      viewport.classList.remove('is-dragging');
+    });
+    window.addEventListener('resize', () => {
+      if (dialog.open) applyZoom(zoom);
+    });
+  }
+
+  function preparePageLensSimplifySwitcher(page) {
+    const switcher = page.querySelector('.pagelens-simplify-switcher');
+    if (!switcher || switcher.dataset.enhanced === 'true') return;
+    const tabs = [...switcher.querySelectorAll('[data-simplify-view]')];
+    const panels = [...switcher.querySelectorAll('[data-simplify-panel]')];
+    const select = (key, moveFocus = false) => {
+      tabs.forEach((tab) => {
+        const selected = tab.dataset.simplifyView === key;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        if (selected && moveFocus) tab.focus({ preventScroll: true });
+      });
+      panels.forEach((panel) => { panel.hidden = panel.dataset.simplifyPanel !== key; });
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(tab.dataset.simplifyView));
+      tab.addEventListener('keydown', (event) => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        select(tabs[next].dataset.simplifyView, true);
+      });
+    });
+    switcher.dataset.enhanced = 'true';
+    switcher.querySelector('[role="tablist"]').hidden = false;
+    select('words');
+  }
+
+  function preparePageLensLoopDemo(page) {
+    page.querySelectorAll('video[data-pagelens-loop]').forEach((video) => {
+      if (video.dataset.loopPrepared === 'true') return;
+      video.dataset.loopPrepared = 'true';
+      video.defaultMuted = true;
+      video.muted = true;
+      let inView = false;
+      let resumeAfterVisibility = false;
+      const play = () => {
+        if (!inView || motionPreference.matches || document.hidden) return;
+        video.play().catch(() => {});
+      };
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            inView = entry.isIntersecting && entry.intersectionRatio >= .15;
+            if (inView) play();
+            else video.pause();
+          }
+        }, { threshold: [0, .15] });
+        observer.observe(video);
+      } else {
+        inView = true;
+        play();
+      }
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          resumeAfterVisibility = !video.paused;
+          video.pause();
+        } else if (resumeAfterVisibility) {
+          play();
+        }
+      });
+      motionPreference.addEventListener('change', () => {
+        if (motionPreference.matches) video.pause();
+        else play();
+      });
+    });
+  }
+
   function preparePageLensCaseStudy(page) {
     if (!page) return;
     syncCaseReflection(page, '.pagelens-reflection', 'pagelens-reflection-heading', pageLensReflectionRows);
@@ -1397,196 +1628,15 @@
       (paragraph) => paragraph.remove()
     );
 
-    const impact = page.querySelector('.pagelens-impact');
-    const impactHeading = impact?.querySelector('#pagelens-impact-heading');
-    setTextIfNeeded(impactHeading, 'The Impact');
-    impact?.querySelector('.case-section-label')?.remove();
-    const impactGrid = impact?.querySelector('.impact-grid');
-    if (impactGrid) {
-      const outcomes = [
-        ['4', 'Reading Features', 'Inclusive interactions'],
-        ['3', 'Technologies', 'AR · OCR · GenAI'],
-        ['1', 'Integrated Concept', 'Research to hardware specs'],
-      ];
-      impactGrid.replaceChildren(
-        ...outcomes.map(([number, title, detail]) => {
-          const article = document.createElement('article');
-          article.innerHTML = `<strong>${number}</strong><h3>${title}</h3><p>${detail}</p>`;
-          return article;
-        })
-      );
-    }
+    page.querySelector('.pagelens-impact')?.remove();
 
-    const problemSection = page.querySelector('.pagelens-problem');
-    problemSection?.querySelector('.pagelens-hmw')?.remove();
-    const problemGrid = problemSection?.querySelector('.problem-grid');
-    if (problemGrid && !problemSection.querySelector('.pagelens-reading-visual')) {
-      const visual = document.createElement('div');
-      visual.className = 'pagelens-reading-visual';
-      visual.setAttribute('aria-label', 'Illustrated reading difficulties and their impact');
-
-      const book = document.createElement('figure');
-      book.className = 'pagelens-reading-book';
-      book.innerHTML = `
-        <div class="pagelens-reading-samples">
-          <div class="pagelens-reading-sample" data-sample="dense">
-            <img src="/projects/pagelens/problem/pagelens-reading-challenge-01.png" alt="Illustrative simulation of dense, crowded printed text" loading="lazy">
-          </div>
-          <div class="pagelens-reading-sample" data-sample="unstable">
-            <img src="/projects/pagelens/problem/pagelens-reading-challenge-02.png" alt="Illustrative simulation of distorted and unstable letterforms" loading="lazy">
-          </div>
-        </div>
-        <figcaption>Illustrative simulations only — dyslexia varies from person to person.</figcaption>
-      `;
-
-      const callouts = [
-        ['01', 'Crowded letterforms', 'Dense print can make characters difficult to separate.', 'dense', 'top-left'],
-        ['02', 'Unstable word shapes', 'Some readers describe letters or words as shifting or distorted.', 'unstable', 'top-right'],
-        ['03', 'Harder line tracking', 'Closely packed lines make it easier to lose a place.', 'dense', 'bottom-left'],
-        ['04', 'High reading effort', 'Fixed text forces the reader to adapt instead of the page.', 'unstable', 'bottom-right'],
-      ];
-
-      visual.appendChild(book);
-      callouts.forEach(([number, title, description, sample, position], index) => {
-        const callout = document.createElement('article');
-        callout.className = `pagelens-reading-callout is-${position}`;
-        callout.tabIndex = 0;
-        callout.dataset.sampleTarget = sample;
-        callout.style.setProperty('--callout-delay', `${180 + index * 130}ms`);
-        callout.innerHTML = `<span>${number}</span><strong>${title}</strong><p>${description}</p>`;
-        visual.appendChild(callout);
-
-        const samplePanel = book.querySelector(`[data-sample="${sample}"]`);
-        const emphasize = () => samplePanel?.classList.add('is-emphasized');
-        const reset = () => samplePanel?.classList.remove('is-emphasized');
-        callout.addEventListener('mouseenter', emphasize);
-        callout.addEventListener('mouseleave', reset);
-        callout.addEventListener('focus', emphasize);
-        callout.addEventListener('blur', reset);
-      });
-
-      problemGrid.replaceWith(visual);
-
-      const reveal = () => visual.classList.add('is-visible');
-      if ('IntersectionObserver' in window && !motionPreference.matches) {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            if (!entries.some((entry) => entry.isIntersecting)) return;
-            reveal();
-            observer.disconnect();
-          },
-          { threshold: 0.22, rootMargin: '0px 0px -8% 0px' }
-        );
-        observer.observe(visual);
-      } else {
-        reveal();
-      }
-    }
-
-    const processSection = page.querySelector('.pagelens-process');
-    const processTrack = processSection?.querySelector('.pagelens-timeline');
-    const processCards = Array.from(processTrack?.querySelectorAll('.mvp-card') || []);
-    const stageAssets = [
-      [[
-        '/projects/pagelens/process/pagelens-process-01-opportunity-research.png',
-        'Library field research and reading-context exploration for PageLens',
-      ]],
-      [
-        [
-          '/projects/pagelens/process/pagelens-process-02-technology-library.png',
-          'Annotated PageLens technology exploration with motorized tablet arm, IR sensor, book cradle, iPad, and headphones',
-        ],
-        [
-          '/projects/pagelens/process/pagelens-process-02-technology-portable.png',
-          'Annotated compact PageLens technology exploration with folding tablet arm, camera, book cradle, iPad, and headphones',
-        ],
-      ],
-      [[
-        '/projects/pagelens/process/pagelens-process-03-experience-map.png',
-        'PageLens user flow from approaching the reading station through session reset',
-      ]],
-      [[
-        '/projects/pagelens/process/pagelens-process-04-system-feasibility.png',
-        'PageLens system diagram connecting sensing, hardware, interaction, actuation, and intelligence layers',
-      ]],
-      [[
-        '/projects/pagelens/process/pagelens-process-05-responsible-design.png',
-        'Illustration of people bringing different perspectives together through connected puzzle pieces',
-      ]],
-    ];
-
-    processCards.forEach((card, index) => {
-      if (card.dataset.pagelensStageEnhanced === 'true') return;
-      card.dataset.pagelensStageEnhanced = 'true';
-      if ((stageAssets[index] || []).length > 1) card.classList.add('has-image-stack');
-
-      const copy = document.createElement('div');
-      copy.className = 'pagelens-stage-copy';
-      Array.from(card.childNodes).forEach((node) => copy.appendChild(node));
-
-      const visual = document.createElement('figure');
-      const images = stageAssets[index] || [];
-      const usesStack = images.length > 1;
-      visual.className = `pagelens-stage-visual${usesStack ? ' is-image-stack' : ''}`;
-      images.forEach(([src, alt], imageIndex) => {
-        const image = document.createElement('img');
-        image.src = src;
-        image.alt = alt;
-        image.loading = index === 0 ? 'eager' : 'lazy';
-        if (!usesStack) {
-          visual.appendChild(image);
-          return;
-        }
-
-        const layer = document.createElement('button');
-        layer.type = 'button';
-        layer.className = 'pagelens-stack-shot';
-        layer.style.setProperty('--stack-i', imageIndex);
-        layer.setAttribute('aria-label', `Bring ${alt} to the front`);
-        layer.setAttribute('aria-pressed', 'false');
-        layer.appendChild(image);
-        visual.appendChild(layer);
-      });
-
-      if (usesStack) {
-        const layers = Array.from(visual.querySelectorAll('.pagelens-stack-shot'));
-        const toggleLayer = (layer) => {
-          const willActivate = !layer.classList.contains('is-active');
-          layers.forEach((item) => {
-            const isActive = item === layer && willActivate;
-            item.classList.toggle('is-active', isActive);
-            item.setAttribute('aria-pressed', String(isActive));
-          });
-        };
-
-        layers.forEach((layer) => {
-          layer.addEventListener('pointerdown', () => {
-            toggleLayer(layer);
-            layer.dataset.pointerToggled = 'true';
-          });
-          layer.addEventListener('click', () => {
-            if (layer.dataset.pointerToggled === 'true') {
-              delete layer.dataset.pointerToggled;
-              return;
-            }
-            toggleLayer(layer);
-          });
-        });
-      }
-      card.append(copy, visual);
-    });
-
-    if (processTrack) {
-      addHorizontalControls(processTrack, {
-        label: 'PageLens design process stages',
-        previousLabel: 'Show previous PageLens stage',
-        nextLabel: 'Show next PageLens stage',
-      });
-    }
-
-    processSection?.querySelector('.pagelens-process-figures')?.remove();
+    preparePageLensHero(page);
+    preparePageLensProblem(page);
 
     preparePageLensStory(page);
+    preparePageLensSimplifySwitcher(page);
+    preparePageLensImageViewer(page);
+    preparePageLensLoopDemo(page);
   }
 
   function preparePageLensStory(page) {
@@ -1596,15 +1646,15 @@
     const problem = page.querySelector('.pagelens-problem');
     const process = page.querySelector('.pagelens-process');
     const concept = page.querySelector('.pagelens-product');
+    const prototypes = page.querySelector('.pagelens-prototypes');
     const decisions = page.querySelector('.pagelens-decisions');
-    const impact = page.querySelector('.pagelens-impact');
     const reflection = page.querySelector('.pagelens-reflection');
 
     decisions?.remove();
 
     const headings = [
       [problem, 'Problem', 'Physical books are fixed. Readers are not.'],
-      [process, 'Process', 'From library context to a feasible system.'],
+      [process, 'Process', 'From flow to system.'],
       [concept, 'The concept', 'Reading support that meets people at the page.'],
     ];
     headings.forEach(([section, label, title]) => {
@@ -1619,27 +1669,10 @@
       }
     });
     concept.id = 'concept';
-    impact.id = 'impact';
-    impact.innerHTML = '<div class="case-section-intro pagelens-impact-heading"><p class="case-section-label">Impact</p><h3 id="pagelens-impact-heading">Research translated into one feasible system.</h3></div><div class="pagelens-impact-metrics"><article><strong>4</strong><span>reading features</span></article><article><strong>3</strong><span>technologies</span></article><article><strong>1</strong><span>integrated concept</span></article></div>';
-    impact.setAttribute('aria-labelledby', 'pagelens-impact-heading');
     page.querySelectorAll('.pagelens-stage-copy .mvp-keywords').forEach((node) => node.remove());
 
-    const readingVisual = page.querySelector('.pagelens-reading-visual');
-    if (readingVisual) {
-      const samples = [...readingVisual.querySelectorAll('.pagelens-reading-sample img')];
-      const cards = document.createElement('div');
-      cards.className = 'pagelens-problem-cards';
-      cards.innerHTML = `
-        <article><div><span>Problem 01</span><h3>One fixed page, different needs</h3><p>Dense print and tightly packed lines can make it harder to separate letters and keep a place.</p></div><figure>${samples[0]?.outerHTML || ''}</figure></article>
-        <article><div><span>Problem 02</span><h3>The reader does all the adapting</h3><p>A printed page cannot adjust to a reader’s changing needs, leaving them to find support elsewhere.</p></div><figure>${samples[1]?.outerHTML || ''}</figure></article>`;
-      const note = document.createElement('p');
-      note.className = 'pagelens-simulation-note';
-      note.textContent = 'Illustrative simulations only — dyslexia varies from person to person.';
-      readingVisual.replaceWith(cards, note);
-    }
-
-    nav.innerHTML = '<a href="#problem">Problem</a><a href="#process">Process</a><a href="#concept">Concept</a><a href="#impact">Impact</a><a href="#reflection">Reflection</a>';
-    hero.after(nav, problem, process, concept, impact, reflection);
+    nav.innerHTML = '<a href="#problem">Problem</a><a href="#process">Process</a><a href="#prototypes">Prototypes</a><a href="#concept">Demo</a><a href="#reflection">Reflection</a>';
+    hero.after(nav, problem, process, ...(prototypes ? [prototypes] : []), concept, reflection);
   }
 
   // One navigation and mobile-demo pattern for every case study. This runs
@@ -3060,8 +3093,8 @@
         ['.impress-process', '.case-section-intro', '.mvp-timeline, .mvp-process-controls'],
         ['.impress-highlights', '.case-section-intro', '.impress-highlight-carousel'],
         ['.impress-impact', '.impress-impact-summary > .case-section-label', '.impress-impact-metrics, .mobile-walkthrough-panel'],
-        ['.pagelens-problem', '.case-section-intro', '.pagelens-problem-cards, .pagelens-simulation-note'],
-        ['.pagelens-process', '.case-section-intro', '.pagelens-timeline, .mvp-process-controls'],
+        ['.pagelens-problem', '.case-section-intro', ''],
+        ['.pagelens-process', '.case-section-intro', ''],
         ['.pagelens-product', '.case-section-intro', '.pagelens-demo-grid, .pagelens-concept-film'],
         ['.pagelens-impact', '.pagelens-impact-heading', '.pagelens-impact-metrics'],
         ['.kb-research', '.kb-chapter-heading', '.kb-research-carousel'],
@@ -3077,7 +3110,7 @@
           if (section.closest('.kb-case-redesign') && section.getBoundingClientRect().bottom < 0) return;
           const heading = section.querySelector(headingSelector);
           const headingItems = heading ? [heading] : [];
-          const contentItems = gsap.utils.toArray(section.querySelectorAll(contentSelector));
+          const contentItems = contentSelector ? gsap.utils.toArray(section.querySelectorAll(contentSelector)) : [];
           if (!headingItems.length && !contentItems.length) return;
 
           const revealTimeline = gsap.timeline({
@@ -3107,6 +3140,32 @@
               clearProps: clearMotionStyles,
             }, headingItems.length ? 0.08 : 0);
           }
+        });
+      });
+
+      gsap.utils.toArray('.pagelens-process-step, .pagelens-prototype-section').forEach((section, index) => {
+        if (isVisibleCaseContent(section) || section.getBoundingClientRect().bottom < 0) return;
+        gsap.from(section, {
+          opacity: 0, y: 18, duration: .7, clearProps: clearMotionStyles,
+          scrollTrigger: { id: `portfolio-pagelens-step-${index}`, trigger: section, start: 'top 88%', once: true },
+        });
+      });
+
+      document.querySelectorAll('.pagelens-problem-diagram').forEach((diagram) => {
+        if (diagram.dataset.problemRevealed === 'true' || diagram.getBoundingClientRect().bottom < 0) return;
+        const timeline = gsap.timeline({
+          defaults: { ease: 'power2.out' },
+          scrollTrigger: {
+            id: 'portfolio-pagelens-problem', trigger: diagram, start: 'top 72%', once: true,
+            onEnter: () => { diagram.dataset.problemRevealed = 'true'; },
+          },
+        });
+        timeline.from(diagram.querySelector('.pagelens-problem-page'), { opacity: 0, y: 16, duration: .6, clearProps: clearMotionStyles }, 0)
+          .from(diagram.querySelector('.pagelens-problem-lens'), { opacity: 0, scale: .94, y: 14, duration: .6, clearProps: clearMotionStyles }, .2);
+        ['fixed', 'adapting'].forEach((name, index) => {
+          const start = .45 + index * .35;
+          timeline.fromTo(diagram.querySelector(`[data-connector="${name}"]`), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: .55 }, start)
+            .from(diagram.querySelector(`.pagelens-problem-annotation--${name}`), { opacity: 0, y: 8, duration: .5, clearProps: clearMotionStyles }, start + .25);
         });
       });
 
