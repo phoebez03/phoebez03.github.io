@@ -349,8 +349,6 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
 .dock-divider { width: 1px; height: 37px; background: #d8d8de; }
 .folder-icon { position: relative; width: 43px; height: 31px; background: linear-gradient(#66d1fa,#33a9ea); border-radius: 4px; box-shadow: 0 2px 2px #1673bb33,inset 0 1px #a5e6ff; }
 .folder-icon::before { content: ''; position: absolute; z-index: -1; width: 23px; height: 9px; top: -5px; left: 0; border-radius: 4px 4px 0 0; background: #39abe9; }
-.motion-toggle { position: absolute; right: 0; bottom: 10px; width: 30px; height: 30px; padding: 0; border: 1px solid #dedee3; background: transparent; color: #8b8b93; border-radius: 50%; font-size: 11px; cursor: pointer; }
-.motion-toggle[hidden] { display: none; }
 @media (max-width: 680px) {
   .homepage-hero.hero-atlas { padding: 70px 10px 14px; height: 100svh; min-height: 580px; }
   .hero-atlas-grid { width: 350px; height: 602px; transform: scale(var(--atlas-scale,1)); transform-origin: center center; }
@@ -380,7 +378,6 @@ html.direct-entry .hero-search { visibility: hidden; opacity: 0; }
   .collage-doodle { width: 43px; left: 80px; top: -3px; }
   .tool-dock { left: 33px; bottom: -17px; height: 49px; gap: 10px; padding: 5px 11px; border-radius: 14px; }
   .tool-dock > .dock-tool,.tool-dock > a,.tool-dock img { width: 35px; height: 35px; }.dock-divider { height: 28px; }.folder-icon { width: 33px; height: 25px; }
-  .motion-toggle { right: -1px; bottom: -13px; width: 26px; height: 26px; }
 }
 
 .project-section {
@@ -722,7 +719,6 @@ body * { text-transform: none !important; }
 .feature-cta > span { display: grid; place-items: center; width: 29px; height: 29px; border: 1px solid #d5dbe4; border-radius: 50%; transition: color .25s, background .25s, border-color .25s, transform .25s; }
 .project-feature:is(:hover,:focus-within) .feature-cta { background: none; }
 .project-feature:is(:hover,:focus-within) .feature-cta > span { color: #fff; background: var(--blue); border-color: var(--blue); transform: rotate(45deg); }
-.motion-paused *, .motion-paused *::before, .motion-paused *::after { animation-play-state: paused !important; }
 
 @media (max-width: 370px) { .hero-atlas-grid { --atlas-scale: .84; } }
 

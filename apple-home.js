@@ -3,8 +3,6 @@
   const hero = document.querySelector('.hero-atlas');
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
   const demoVideos = [...document.querySelectorAll('video[data-home-demo]')];
-  const motionToggle = document.querySelector('.motion-toggle');
-  let userPaused = false;
   let heroVisible = true;
   let idleMotion = [];
   let playSticker = null;
@@ -23,31 +21,22 @@
 
   document.querySelectorAll('.hobby-play').forEach(button => {
     button.addEventListener('click', () => {
-      if (!userPaused && !motionPreference.matches) playSticker?.(button);
+      if (!motionPreference.matches) playSticker?.(button);
     });
   });
 
   const playDemo = (video) => {
-    if (userPaused || motionPreference.matches || document.hidden || video.dataset.inView !== 'true') {
+    if (motionPreference.matches || document.hidden || video.dataset.inView !== 'true') {
       video.pause();
       return;
     }
     video.play().catch(() => {});
   };
   const syncMotion = () => {
-    const pause = !entranceFinished || userPaused || document.hidden || !heroVisible || motionPreference.matches;
+    const pause = !entranceFinished || document.hidden || !heroVisible || motionPreference.matches;
     idleMotion.forEach(animation => animation.paused(pause));
     demoVideos.forEach(playDemo);
   };
-  motionToggle?.addEventListener('click', () => {
-    userPaused = !userPaused;
-    motionToggle.setAttribute('aria-pressed', String(userPaused));
-    motionToggle.setAttribute('aria-label', userPaused ? 'Resume motion' : 'Pause motion');
-    motionToggle.title = userPaused ? 'Resume motion' : 'Pause motion';
-    motionToggle.querySelector('.motion-toggle-icon').textContent = userPaused ? '▷' : 'Ⅱ';
-    document.documentElement.classList.toggle('motion-paused', userPaused);
-    syncMotion();
-  });
   document.addEventListener('visibilitychange', syncMotion);
   motionPreference.addEventListener('change', syncMotion);
 
@@ -71,7 +60,6 @@
   const media = gsap.matchMedia();
   media.add('(prefers-reduced-motion: no-preference)', context => {
     if (!atlas) return;
-    motionToggle.hidden = false;
     entranceFinished = false;
     let disposed = false;
     let readinessTimer;
@@ -173,7 +161,6 @@
       entranceFinished = true;
       idleMotion = [];
       playSticker = null;
-      motionToggle.hidden = true;
 
       projectObserver?.disconnect();
       focusHandlers.forEach(([feature, focus]) => feature.removeEventListener('focusin', focus));

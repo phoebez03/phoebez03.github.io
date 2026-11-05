@@ -23,14 +23,14 @@
 .about-jump-links a { font-size: 12px; color: #737378; transition: color .2s; }
 .about-jump-links a span { margin-left: 5px; color: #a4a4aa; }
 .about-jump-links a:hover, .about-jump-links a:hover span { color: var(--blue); }
-.intro-collage { position: relative; height: 580px; }
-.intro-portrait-print { width: 350px; margin: 0 auto; transform: rotate(-3deg); }
-.intro-portrait-print img { height: 400px; object-fit: cover; object-position: 65% center; }
+.intro-collage { position: relative; height: 534px; }
+.intro-portrait-print { width: 322px; margin: 0 auto; transform: rotate(-3deg); }
+.intro-portrait-print img { height: 368px; object-fit: cover; object-position: 65% center; }
 .intro-portrait-print .paperclip { left: auto; right: 42px; height: 76px; width: 25px; transform: rotate(10deg); }
 .intro-portrait-print figcaption { font-size: 24px; }
 .paper-note { background: #f3eddd; box-shadow: 1px 5px 9px #3331; }
-.intro-note { position: absolute; bottom: 0; right: 0; width: 300px; padding: 25px 28px; transform: rotate(3deg); clip-path: polygon(1% 0,100% 1%,99% 94%,91% 97%,78% 95%,62% 99%,49% 96%,31% 100%,14% 96%,0 99%); }
-.intro-note p { color: #595744; font-size: 26px; line-height: 1.35; margin: 0; }
+.intro-note { position: absolute; bottom: 0; right: 12px; width: 276px; padding: 23px 26px; transform: rotate(3deg); clip-path: polygon(1% 0,100% 1%,99% 94%,91% 97%,78% 95%,62% 99%,49% 96%,31% 100%,14% 96%,0 99%); }
+.intro-note p { color: #595744; font-size: 24px; line-height: 1.35; margin: 0; }
 /* A photographic path held together by a single red thread. */
 .path-board { position: relative; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); align-items: start; gap: 27px; padding: 55px 25px 35px; isolation: isolate; }
 .path-board::before { content: ""; position: absolute; z-index: -2; inset: 7px -12px 0; background-color: #f7f5ef; background-image: radial-gradient(#aa987c1c .55px,transparent .7px); background-size: 5px 5px; transform: rotate(-.7deg); }
@@ -116,8 +116,8 @@ body.painting-view-open { overflow: hidden; }
 @media (max-width: 1230px) {
   .scrapbook-section, .about-intro-section { margin-inline: 6vw; }
   .about-intro-section { gap: 30px; }
-  .intro-portrait-print { width: 320px; }
-  .intro-note { width: 280px; }
+  .intro-portrait-print { width: 294px; }
+  .intro-note { width: 258px; }
   .path-board { padding-inline: 18px; gap: 22px; }
   .path-affiliation p, .path-affiliation strong { font-size: 11px; }
   .path-photo img { height: 230px; }
@@ -135,11 +135,11 @@ body.painting-view-open { overflow: hidden; }
   .intro-story { padding: 0; }
   .intro-story h1 { font-size: 38px; }
   .intro-description { font-size: 17px; }
-  .intro-collage { height: 490px; }
-  .intro-portrait-print { width: 270px; }
-  .intro-portrait-print img { height: 320px; }
-  .intro-note { width: 230px; padding: 20px; }
-  .intro-note p { font-size: 23px; }
+  .intro-collage { height: 450px; }
+  .intro-portrait-print { width: 248px; }
+  .intro-portrait-print img { height: 294px; }
+  .intro-note { width: 212px; padding: 19px; }
+  .intro-note p { font-size: 21px; }
   .path-board { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 44px 45px; padding: 25px 30px; }
   .path-thread { display: none; }
   .path-stop { padding-top: 0; margin-top: 0; }
@@ -172,12 +172,12 @@ body.painting-view-open { overflow: hidden; }
   .intro-description { max-width: 380px; font-size: 17px; }
   .about-jump-links { gap: 12px 21px; margin-top: 28px; }
   .about-jump-links a { font-size: 11px; }
-  .intro-collage { max-width: 390px; width: 100%; height: 500px; margin: 12px auto 0; }
-  .intro-portrait-print { width: 80%; }
-  .intro-portrait-print img { height: 315px; }
+  .intro-collage { max-width: 390px; width: 100%; height: 460px; margin: 12px auto 0; }
+  .intro-portrait-print { width: 74%; }
+  .intro-portrait-print img { height: 290px; }
   .intro-portrait-print .paperclip { height: 63px; width: 21px; right: 27px; }
-  .intro-note { right: 0; width: 250px; }
-  .intro-note p { font-size: 24px; }
+  .intro-note { right: 8px; width: 230px; }
+  .intro-note p { font-size: 22px; }
   .path-board { gap: 30px; padding: 25px 15px 20px; }
   .path-photo img, .path-melbourne .path-photo img, .path-la .path-photo img { height: 250px; }
   .path-pittsburgh .path-photo img { height: 180px; }
@@ -227,10 +227,10 @@ body.painting-view-open { overflow: hidden; }
 @media (max-width: 360px) {
   .scrapbook-section, .about-intro-section { margin-inline: 20px; }
   .intro-story h1 { font-size: 33px; }
-  .intro-collage { height: 450px; }
-  .intro-portrait-print { width: 85%; }
-  .intro-portrait-print img { height: 265px; }
-  .intro-note { width: 230px; }
+  .intro-collage { height: 414px; }
+  .intro-portrait-print { width: 78%; }
+  .intro-portrait-print img { height: 244px; }
+  .intro-note { width: 212px; }
   .intro-note p { font-size: 22px; }
   .path-stop { gap: 12px; grid-template-columns: 41% 1fr; }
   .path-photo img, .path-melbourne .path-photo img, .path-la .path-photo img, .path-pittsburgh .path-photo img { height: 150px; }
